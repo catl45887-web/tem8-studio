@@ -1,0 +1,4 @@
+*.bak*
+_preview-winter/
+dictionary.test.js
+site_missing_words.txt

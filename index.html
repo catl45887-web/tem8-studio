@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#2b1e17">
+  <meta name="description" content="专八真题阅读与题组练习。">
+  <title>拾页 · 专八练习</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="reader.css">
+  <link rel="stylesheet" href="workflow.css">
+  <link rel="stylesheet" href="annotate.css">
+  <link rel="stylesheet" href="intensive.css">
+  <!-- 冬日主题（原版备份：index.html.bak_winter） -->
+  <link rel="stylesheet" href="winter-base.css">
+  <link rel="stylesheet" href="winter.css">
+  <link rel="stylesheet" href="wordpop.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="w-edge" aria-hidden="true"><span>Menu</span></div>
+    <aside class="sidebar" aria-label="主导航">
+      <a class="brand" href="#home"><span class="brand-mark">拾</span><span><span class="brand-name">拾页</span><span class="brand-en">Tem-8 Studio</span></span></a>
+      <div class="side-label">学习空间</div>
+      <nav class="side-nav">
+        <button class="nav-item active" data-view="home"><span>◫</span> 学习首页</button>
+        <button class="nav-item" data-view="library"><span>▧</span> 阅读真题</button>
+        <button class="nav-item" data-view="mock"><span>▦</span> 整卷模考</button>
+        <button class="nav-item" data-view="papers"><span>▤</span> 按题型练习</button>
+        <button class="nav-item" data-view="intensive"><span>♫</span> 精听学习</button>
+        <button class="nav-item" data-view="mistakes"><span>◇</span> 错题本 <b id="mistake-nav-count"></b></button>
+        <button class="nav-item" data-view="words"><span>✎</span> 生词本</button>
+        <button class="nav-item" data-anno-all><span>✍</span> 标记与笔记</button>
+        <button class="nav-item" data-view="bookmarks"><span>☆</span> 我的收藏</button>
+      </nav>
+      <div class="side-bottom"><div><strong>Slow and steady.</strong></div></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="breadcrumb">专八练习 <span>/</span> <span id="crumb">学习首页</span></div><div class="top-date" id="today"></div></header>
+      <section id="home-view" class="view active">
+        <div class="w-stage">
+          <div class="w-world">
+            <div class="w-view" aria-hidden="true"><picture><source media="(max-width: 860px)" srcset="winter/scene/snowy-village-night.png"><img src="winter/scene/snowy-village-night.png" alt=""></picture></div>
+            <canvas class="w-snow" aria-hidden="true"></canvas>
+            <div class="w-glassfx" aria-hidden="true"></div>
+            <div class="w-room" aria-hidden="true"><picture><source media="(max-width: 860px)" srcset="winter/scene/room-m.webp"><img class="w-room-on" src="winter/scene/room.webp" alt=""></picture><picture><source media="(max-width: 860px)" srcset="winter/scene/room-m-off.webp"><img class="w-room-off" src="winter/scene/room-off.webp" alt=""></picture></div>
+            <div class="w-dark" aria-hidden="true"></div>
+            <div class="w-pool" aria-hidden="true"></div>
+
+            <div class="w-glass">
+              <div class="w-date" id="w-date"></div>
+              <h1 class="w-hello">Welcome back</h1>
+              <p class="w-scribble">small steps, big changes.</p>
+            </div>
+            <button class="w-lamp w-on" type="button" aria-pressed="true" aria-label="台灯：点一下开关"><span class="w-lamp-halo"></span></button>
+          </div>
+          <button class="w-sound" type="button" aria-pressed="false" title="窗外风雪声"><span>♪</span><em>风雪声</em></button>
+          <div id="home-categories" class="category-grid" hidden></div>
+          <div hidden><b id="stat-sessions">0</b><b id="stat-mistakes">0</b><b id="stat-accuracy">—</b><b id="stat-accuracy-suffix"></b></div>
+        </div>
+      </section>
+
+      <section id="library-view" class="view">
+        <div class="page-head"><span class="eyebrow">READING LIBRARY / 02</span><h1>只读文章，慢慢读懂。</h1><p>不计时、不答题。按年份打开阅读文章，记录进度，按需查看讲解。</p></div>
+        <div class="section-heading"><div><span class="section-index">YR</span><h2 id="library-year-heading">2025 年真题阅读</h2></div><span class="muted" id="library-year-count">三篇文章</span></div>
+        <div id="library-year-nav" class="library-year-nav" aria-label="选择真题年份"></div>
+        <div id="real-article-list" class="real-article-list"></div>
+        <div class="section-heading"><div><span class="section-index">DE</span><h2>功能示例</h2></div></div>
+        <div class="library-card"><div class="library-cover"><span>READING DEMO</span><strong>读得懂，<br>才记得住。</strong><small>TEM-8 READING</small></div><div class="library-copy"><span class="pill">原创示例 · 阅读演示</span><h2>A Library That Stayed Open</h2><p>这篇原创短文配有完整的逐段译文、词义和句法讲解，可用来体验阅读工具。</p><div class="library-meta"><span>4 个段落</span><span>完整查词</span><span>人工译文与讲解</span></div><div class="library-progress"><div><span id="reading-progress-label">尚未开始</span><span id="reading-progress-number">0 / 4 段</span></div><div class="progress-track"><i id="reading-progress-bar"></i></div></div><button class="primary-btn" data-open-reader data-mode="free" data-article="sample">开始阅读 <span>↗</span></button></div></div>
+        <div class="notice"><span>✳</span><p><strong>阅读资料说明</strong><br>已导入 2026—2009 年（除 2020）的阅读真题。点词可查本地词典摘录。2026、2025、2024、2023、2022、2021 与 2019—2015 年阅读已配参考答案与逐题解析（含定位、干扰排除）；2014—2009 年仍待补充。逐段译文与长难句注释目前仅覆盖部分年份。</p></div>
+      </section>
+      <section id="papers-view" class="view"><div class="w-head w-papers-head"><h2>Practice</h2><span>按题型练习</span></div><div id="paper-categories" class="category-grid"></div><p class="archive-paper-note">在题型配置页选择真题年份。2026、2025、2024、2023、2022、2021 与 2019—2015 年阅读已配答案和解析，2014 及更早年份仍待补充；2026、2025 年听力带音频，Section A 可边听边填；其余年份暂无音频，Section B 可先按纸面选答案、交卷后看解析。整卷模考仍在编排中。</p></section>
+
+      <section id="mock-view" class="view">
+        <div class="page-head"><span class="eyebrow">FULL PAPER / MOCK TEST</span><h1>整卷模考</h1><p>按考试顺序连续完成 Part I—V，计时作答。2026、2025 年听力音频已就绪，可分项先练；整卷连续编排仍在完善。</p></div>
+        <div class="section-heading"><div><span class="section-index">YR</span><h2>选择模考年份</h2></div><span class="muted">整卷 · 按 Part 顺序</span></div>
+        <div id="mock-list" class="mock-grid"></div>
+        <div class="notice"><span>✳</span><p><strong>关于整卷模考</strong><br>整卷模考把听力、阅读、改错、翻译、写作按考试顺序串成一套。模考会把各 Part 的作答汇总成一份报告；目前分项练习已可用，整卷连续编排待接续。</p></div>
+      </section>
+      <section id="intensive-view" class="view">
+        <div class="page-head"><span class="eyebrow">LISTENING STUDIO / CLOSE LISTENING</span><h1>精听学习</h1><p>听完整录音，或点击原文中的句子，从那句话开始听。</p></div>
+        <div id="intensive-content"></div>
+      </section>
+      <section id="workflow-config-view" class="view"><div id="workflow-config-content"></div></section>
+      <section id="workflow-session-view" class="view"><div id="workflow-session-content"></div></section>
+      <section id="workflow-report-view" class="view"><div id="workflow-report-content"></div></section>
+      <section id="paper-archive-view" class="view"><button class="back-link" data-paper-back>← 返回练习目录</button><div class="page-head"><span class="eyebrow">REAL PAPER / WRITTEN SECTIONS</span><h1 id="archive-paper-title">历年真题</h1><p>原题文字来自你提供的合集。作答自动保存在本机；2026、2025、2024、2023 与 2019—2015 年已配参考答案与解析。</p></div><div class="archive-paper-tabs"><button data-paper-tab="language">语言运用</button><button data-paper-tab="translation">翻译</button><button data-paper-tab="writing">写作</button></div><div id="archive-paper-content"></div></section>
+
+      <section id="mistakes-view" class="view"><div class="page-head"><span class="eyebrow">REVIEW / 03</span><h1>错题本</h1><p>错过的题，值得再看一遍。</p></div><div id="mistakes-content"></div></section>
+      <section id="words-view" class="view"><div class="page-head"><span class="eyebrow">VOCABULARY / 05</span><h1>生词本</h1><p>阅读或做题时点开单词即可加入；攒够一批可导出成 txt 或 Word 打印背诵。</p></div><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
+      <section id="bookmarks-view" class="view"><div class="page-head"><span class="eyebrow">SAVED / 04</span><h1>我的收藏</h1><p>把值得反复琢磨的题放在这里。</p></div><div id="bookmarks-content"></div></section>
+
+      <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳ 作答会自动保存在当前浏览器</p></aside></div></section>
+      <section id="result-view" class="view"><div class="page-head"><span class="eyebrow">YOUR RESULTS</span><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
+      <section id="reader-view" class="view"><div class="reader-header"><button class="back-link" id="reader-back">← 返回阅读目录</button><span class="reader-badge" id="reader-mode-badge">自由阅读 · 原创示例</span></div><h1 class="reader-title">A Library That Stayed Open</h1><p class="reader-subtitle" id="reader-subtitle">点击单词查义；按需展开译文、长难句和句法结构。</p><div id="article-mode-switch" class="article-mode-switch" role="group" aria-label="文章模式"><button data-article-mode="free">精读</button><button data-article-mode="practice">做题</button></div><div class="reader-controls"><span>正文字号</span><button data-font="-1" aria-label="缩小字号">A−</button><button data-font="1" aria-label="放大字号">A＋</button><button data-reading-background aria-label="切换阅读背景">背景</button><button data-workflow-return hidden>返回题组</button><button id="reading-done" data-action="reading-done">标记读完</button></div><div class="reader-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文 / 译文</button><button data-reader-tab="quiz" class="practice-only">读后题</button><button data-reader-tab="parse">长难句分析</button><button data-reader-tab="syntax">句法结构</button><button data-reader-tab="knowledge">知识精讲</button><button data-reader-tab="words">单词本</button></div><div id="reader-content"></div></section>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="移动端导航"><button data-view="home">⌂<span>首页</span></button><button data-view="library">▧<span>阅读</span></button><button data-view="papers">▤<span>练习</span></button><button data-view="intensive">♫<span>精听</span></button><button data-view="bookmarks">☆<span>收藏</span></button></nav>
+  <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
+  <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
+  <dialog id="workflow-word-dialog"></dialog>
+  <script src="data.js"></script>
+  <script src="articles2026.js"></script>
+  <script src="questions2026.js"></script>
+  <script src="paperExtras2026.js"></script>
+  <script src="listening2026.js"></script>
+  <script src="paperExtras2025.js"></script>
+  <script src="papers2021_2024.js"></script>
+  <script src="listeningArchive.js"></script>
+  <script src="articles2025.js"></script>
+  <script src="articles2025-extras.js"></script>
+  <script src="questions2025.js"></script>
+  <script src="articlesArchive.js"></script>
+  <script src="questionsArchive.js"></script>
+  <script src="articlesArchive2.js"></script>
+  <script src="questionsArchive2.js"></script>
+  <script src="paperExtras.js"></script>
+  <script src="paperExtras2.js"></script>
+  <script src="dictionary.js"></script>
+  <script src="annotations.js"></script>
+  <script src="player.js"></script>
+  <script src="transcripts.js"></script>
+  <script src="intensive.js"></script>
+  <script src="workflow.js"></script>
+  <script src="app.js"></script>
+  <script src="winter.js"></script>
+  <script src="wordpop.js"></script>
+</body>
+</html>

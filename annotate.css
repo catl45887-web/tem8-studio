@@ -1,0 +1,97 @@
+/* 标注：词句标记 + 右侧笔记抽屉 */
+:root{
+  --anno-y:#fdf0ad; --anno-y-line:#e4c96a;
+  --anno-g:#dcefd8; --anno-g-line:#a6cf9f;
+  --anno-b:#dbe9f8; --anno-b-line:#a6c3e2;
+}
+
+/* 标记本身 */
+mark.anno-hl{background:var(--anno-y);color:inherit;padding:1px 0;border-radius:2px;box-shadow:inset 0 -2px 0 var(--anno-y-line);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+mark.anno-hl.g{background:var(--anno-g);box-shadow:inset 0 -2px 0 var(--anno-g-line)}
+mark.anno-hl.b{background:var(--anno-b);box-shadow:inset 0 -2px 0 var(--anno-b-line)}
+.continuous-paragraph .reader-english button mark,.workflow-article button mark{pointer-events:none}
+
+/* 段落右侧的小工具：本条笔记数 */
+.anno-tools{display:inline-flex;gap:5px;vertical-align:middle;margin-left:6px}
+.anno-tools button{border:0;padding:0;background:none;color:#9fb29f;font-size:11px;line-height:1;vertical-align:2px;opacity:0;transition:opacity .15s}
+.continuous-paragraph:hover .anno-pbtn,.workflow-article p:hover .anno-pbtn,.anno-tools:focus-within .anno-pbtn{opacity:.8}
+.anno-tools button:hover{color:#5f7f66;opacity:1}
+.anno-pbtn.has{background:#f4edcf!important;color:#8d7220!important;border-radius:99px;padding:3px 6px!important;font-size:10px!important;font-weight:700;opacity:1}
+.anno-flash{animation:annoFlash 1.2s ease}
+@keyframes annoFlash{0%{background:#fdf3c4}60%{background:#fdf3c4}100%{background:transparent}}
+
+/* 选中文字后的浮条 */
+.anno-chip{position:fixed;z-index:80;display:flex;align-items:center;gap:3px;background:#2e4a3a;border-radius:10px;padding:4px 5px;box-shadow:0 10px 26px #1c3425a6;animation:annoPop .12s ease}
+.anno-chip[hidden]{display:none}
+@keyframes annoPop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.anno-chip button{border:0;background:none;color:#eaf1e7;font-size:12px;line-height:1;padding:7px 9px;border-radius:7px;white-space:nowrap}
+.anno-chip button:hover{background:#40614b}
+.anno-chip .anno-chip-main{font-weight:700}
+.anno-colors{display:flex;gap:2px;padding:0 3px;border-left:1px solid #4c6b55;border-right:1px solid #4c6b55;margin:0 2px}
+.anno-colors button{width:15px;height:15px;padding:0;border-radius:50%;background:var(--anno-y);box-shadow:inset 0 0 0 1px #0000001f}
+.anno-colors button.g{background:var(--anno-g)}
+.anno-colors button.b{background:var(--anno-b)}
+.anno-colors button:hover{transform:scale(1.12)}
+.anno-chip .anno-chip-note{color:#ffe9b8}
+
+/* 右侧抽屉 */
+.anno-panel{position:fixed;top:0;right:0;bottom:0;width:336px;max-width:92vw;background:#fffefa;border-left:1px solid var(--line);box-shadow:-18px 0 46px #243e2c1f;z-index:70;display:flex;flex-direction:column;animation:annoSlide .18s ease}
+.anno-panel[hidden]{display:none}
+@keyframes annoSlide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}
+.anno-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:17px 17px 13px;border-bottom:1px solid var(--line)}
+.anno-head strong{display:block;font-size:14px;color:#2b4a39}
+.anno-head small{display:block;font-size:10.5px;color:#a2ae9f;margin-top:4px;line-height:1.5}
+.anno-x{border:0;background:none;color:#a9b6a8;font-size:20px;line-height:1;padding:0 2px}
+.anno-x:hover{color:#6f8f73}
+.anno-tabs{display:flex;gap:6px;padding:11px 17px 0}
+.anno-tabs button{border:1px solid #e3eadd;background:#f7f9f4;color:#7b8d7c;border-radius:99px;font-size:11.5px;padding:6px 13px}
+.anno-tabs button.active{background:#e9f0e5;border-color:#c9dcc6;color:#2f5c42;font-weight:700}
+.anno-compose{padding:12px 17px 14px;border-bottom:1px solid var(--line);background:#fafbf6}
+.anno-where{font-size:10.5px;color:#93a292;margin-bottom:7px;line-height:1.5}
+.anno-where b{color:#54705b;font-weight:700}
+.anno-compose textarea{width:100%;border:1px solid #dce5d8;border-radius:9px;padding:10px 11px;font:13px/1.65 inherit;color:#33463a;background:#fffefa;resize:vertical;min-height:66px}
+.anno-compose textarea:focus{outline:2px solid #bfd3ba;outline-offset:0}
+.anno-save{margin-top:8px;width:100%;border:1px solid #2f5c42;background:#2f5c42;color:#fff;border-radius:8px;padding:9px;font-size:12px;font-weight:700}
+.anno-save:hover{background:#3c7353}
+.anno-list{flex:1;overflow:auto;padding:12px 15px 26px}
+.anno-sec{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.6px;color:#93a292;margin:16px 2px 8px}
+.anno-sec:first-child{margin-top:2px}
+.anno-sec b{color:#5b7a5f;font-size:10.5px;background:#eef4ea;border-radius:99px;padding:1px 7px}
+.anno-empty{margin:6px 2px 14px;font-size:12px;color:#a5b0a3;line-height:1.7}
+.anno-item{background:#fffdf7;border:1px solid #eceade;border-left:3px solid #e6cf8f;border-radius:8px;padding:11px 12px 9px;margin-bottom:9px}
+.anno-src{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;font-size:10.5px;color:#a3ae9f}
+.anno-tag{color:#5d7c62;font-weight:700}
+.anno-src i{font-style:normal;color:#8d9b8d;background:#f2f5ee;border-radius:4px;padding:1px 5px}
+.anno-src time{margin-left:auto;color:#b4bdb0}
+.anno-del{border:0;background:none;color:#c9d2c5;font-size:14px;line-height:1;padding:0 1px}
+.anno-del:hover{color:#b4735c}
+.anno-item blockquote{margin:8px 0 0;padding:6px 9px;background:#fbf7e4;border-radius:6px;font-size:11.5px;line-height:1.6;color:#8a7a45;font-style:italic}
+.anno-item p{margin:7px 0 0;font-size:12.5px;line-height:1.75;color:#3c5143;word-break:break-word}
+.anno-foot{display:flex;gap:12px;margin-top:8px}
+.anno-foot button{border:0;background:none;padding:0;color:#7e9a80;font-size:10.5px}
+.anno-foot button:hover{color:#2f5c42;text-decoration:underline}
+.anno-marks{margin-bottom:4px}
+.anno-marks summary{font-size:10.5px;color:#9aa79a;cursor:pointer;padding:3px 2px}
+.anno-mark{display:flex;align-items:center;gap:7px;padding:5px 2px;border-bottom:1px dashed #f0eee2}
+.anno-mark:last-child{border-bottom:0}
+.anno-swatch{width:9px;height:9px;border-radius:2px;flex:none;background:var(--anno-y);box-shadow:inset 0 0 0 1px #00000014}
+.anno-swatch.g{background:var(--anno-g)}
+.anno-swatch.b{background:var(--anno-b)}
+.anno-mark-text{flex:1;min-width:0;text-align:left;border:0;background:none;padding:0;font-size:11.5px;line-height:1.55;color:#4b5f50;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.anno-mark-text:hover{color:#2f5c42;text-decoration:underline}
+.anno-mark i{font-style:normal;font-size:10px;color:#a8b3a5;flex:none}
+.anno-group{margin-bottom:16px}
+.anno-group h4{margin:0 0 8px;font-size:11.5px;color:#5f7a62;font-weight:700;line-height:1.5}
+.anno-toggle{position:fixed;top:126px;right:0;z-index:69;display:flex;align-items:center;gap:5px;border:1px solid #dfe6d9;border-right:0;background:#fffefa;color:#4f6f57;border-radius:10px 0 0 10px;padding:9px 7px 9px 10px;font-size:11px;box-shadow:-4px 4px 16px #243e2c14;transition:right .18s ease}
+.anno-toggle span{font-size:11px}
+.anno-toggle b{background:#e9d9a3;color:#6f5716;font-size:9.5px;border-radius:99px;padding:1px 5px;line-height:1.5}
+.anno-toggle:hover{color:#2f5c42;border-color:#c9dcc6}
+body.anno-dock .anno-toggle{right:336px;border-radius:10px 0 0 10px;border-right:0}
+.anno-toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%);background:#2e4a3a;color:#f3f7ef;font-size:12px;padding:9px 16px;border-radius:99px;z-index:90;box-shadow:0 10px 26px #1c342562}
+.anno-toast[hidden]{display:none}
+@media(min-width:1220px){body.anno-dock .app-shell{padding-right:336px}}
+@media(max-width:760px){
+  .anno-panel{width:100%;max-width:100%}
+  body.anno-dock .anno-toggle{right:0}
+  .anno-toggle{top:auto;bottom:78px}
+}
