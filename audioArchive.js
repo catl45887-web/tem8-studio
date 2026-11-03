@@ -1,14 +1,21 @@
-// Recordings supplied for the 2015–2019 and 2021–2022 papers.
+// Recordings supplied for the 2009–2019 and 2021–2023 papers.
 // Section boundaries follow the long pause after the lecture in each recording.
 (() => {
   const tracks = {
+    2009: ['mp3', 1347.36, 586.44, 767.15],
+    2010: ['mp3', 1474.61, 597.99, 778.08],
+    2011: ['mp3', 1408.24, 547.58, 727.66],
+    2012: ['mp3', 1413.12, 553.68, 734.39],
+    2013: ['mp3', 1382.58, 506.27, 686.36],
+    2014: ['mp3', 1356.98, 524.27, 704.98],
     2015: ['mp3', 1371.51, 497.47, 679.30],
     2016: ['m4a', 1448.39, 530.80, 712.23],
     2017: ['m4a', 1464.06, 539.76, 720.83],
     2018: ['m4a', 1393.40, 545.32, 738.13],
     2019: ['m4a', 1532.47, 580.21, 760.89],
     2021: ['mp3', 1518.40, 639.13, 818.42],
-    2022: ['mp3', 1527.22, 573.60, 754.61]
+    2022: ['mp3', 1527.22, 573.60, 754.61],
+    2023: ['mp3', 1597.64, 643.59, 823.09]
   }
   for (const [year, [extension, duration, sectionAEnd, sectionBStart]] of Object.entries(tracks)) {
     const collection = Number(year) < 2020 ? window.TEM8_LISTENING_ARCHIVE : window.TEM8_MID_LISTENING
