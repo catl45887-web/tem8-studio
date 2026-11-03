@@ -1,7 +1,6 @@
 (() => {
   'use strict'
   const { questions, categories } = window.TEM8_DATA
-  const reading = window.TEM8_READING
   const articles2026 = window.TEM8_2026_ARTICLES || []
   const questions2026 = window.TEM8_2026_QUESTIONS || []
   const articles2025 = window.TEM8_2025_ARTICLES || []
@@ -153,32 +152,32 @@
     return c.filter(x => x && x.length > 1)
   }
   const extras = window.TEM8_2025_EXTRAS || { descriptions:{}, glossary:{}, notes:{} }
-  const sampleArticle = { id:'sample', title:'A Library That Stayed Open', segments:reading.segments }
+  function tokenize(text) {
+    return (text.match(/[A-Za-z]+(?:[’'][A-Za-z]+)?|[^A-Za-z\s]+|\s+/g) || []).map((part, i) => ({
+      text:part, index:i, key:part.toLowerCase().replace(/[’']/g, "'"), isWord:/^[A-Za-z]/.test(part)
+    }))
+  }
   const KEY = 'tem8_studio_web_v1'
   const letters = ['A','B','C','D']
   const labels = { home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', my:'我的', exam:'正在练习', result:'练习结果', reader:'阅读文章', settings:'外观设置' }
-  const defaultStore = { sessions:0, correct:0, attempted:0, mistakes:[], bookmarks:[], wordbook:[], readingProgress:0, readingCompleted:false, readingStates:{}, readingTools:{}, readingBackground:'paper', practiceAnswers:{}, practiceIndex:{}, paperWork:{}, readingFont:17, draft:null, lastResult:null }
+  const defaultStore = { sessions:0, correct:0, attempted:0, mistakes:[], bookmarks:[], wordbook:[], readingStates:{}, readingTools:{}, readingBackground:'paper', practiceAnswers:{}, practiceIndex:{}, paperWork:{}, readingFont:17, draft:null, lastResult:null }
   let store = load()
   let session = null
   let view = 'home'
   let readerFrom = 'papers'
   let readerMode = 'practice'
   let readerTab = 'translate'
-  let translations = [false,false,false,false]
-  let readerAnswers = {}
   let activeWord = null
-  let activeArticle = sampleArticle
+  let activeArticle = null
   let selectedLibraryYear = 2026
   let paperYear = 2026
   let paperTab = 'language'
 
   function articleState(id) {
-    if (id === 'sample') return { progress:Number(store.readingProgress)||0, completed:!!store.readingCompleted }
     return store.readingStates?.[id] || { progress:0, completed:false }
   }
   function setArticleState(id,state) {
-    if (id === 'sample') { store.readingProgress=state.progress; store.readingCompleted=state.completed }
-    else { store.readingStates ||= {}; store.readingStates[id]=state }
+    store.readingStates ||= {}; store.readingStates[id]=state
     save()
   }
 
@@ -340,10 +339,6 @@
     $('mistake-nav-count').textContent = store.mistakes.length+review.size || ''
   }
   function renderLibrary() {
-    const n = Math.min(4, Math.max(0, Number(store.readingProgress) || 0))
-    $('reading-progress-label').textContent = store.readingCompleted ? '已读完，可随时重读' : (n ? `已读到第 ${n} 段` : '尚未开始')
-    $('reading-progress-number').textContent = `${n} / 4 段`
-    $('reading-progress-bar').style.width = (n*25)+'%'
     const yearArticles=allArticles.filter(a => a.year === selectedLibraryYear)
     $('library-year-heading').textContent=`${selectedLibraryYear} 年真题阅读`
     $('library-year-count').textContent=`${yearArticles.length} 篇文章 · ${allRealQuestions.filter(q => q.articleId.startsWith(selectedLibraryYear+'-')).length} 道题`
@@ -352,8 +347,6 @@
       const s=articleState(a.id), total=a.segments.length, n=Math.min(total,s.progress)
       return `<article class="real-article-card"><div class="real-article-top"><span class="pill">${a.year} 真题 · ${esc(a.label)}</span><span>${s.completed ? '✓ 已读完' : `${n} / ${total} 段`}</span></div><h3>${esc(a.title)}</h3><p>${esc(extras.descriptions[a.id] || '阅读原文与配套真题，记录保存在当前浏览器。')}</p><div class="real-article-meta"><span>${total} 个段落</span><span>${allRealQuestions.filter(q=>q.articleId===a.id).length} 道题</span><span>点词查义</span></div><div class="progress-track"><i style="width:${Math.round(n/total*100)}%"></i></div><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n ? '继续精读' : '开始精读'} <span>↗︎</span></button><button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题 →</button></div></article>`
     }).join('')
-    const button = document.querySelector('#library-view [data-article="sample"]')
-    button.innerHTML = n ? '继续阅读 <span>↗︎</span>' : '开始阅读 <span>↗︎</span>'
   }
   function renderReview(kind) {
     const ids = kind === 'mistakes' ? store.mistakes : store.bookmarks
@@ -383,7 +376,7 @@
     $('next-question').innerHTML = session.current === session.ids.length-1 ? '完成并提交 <span>→</span>' : '下一题 <span>→</span>'
     const selected = session.answers[q.id]
     const options = q.options ? `<div class="option-list">${q.options.map((o,i) => `<button class="option ${selected === i ? 'selected' : ''}" data-option="${i}"><span class="option-letter">${letters[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>` : `<textarea class="answer-textarea" id="open-answer" placeholder="在这里输入你的答案。提交后可查看复盘提示。"></textarea><div class="word-count" id="word-count"></div>`
-    $('question-area').innerHTML = `<span class="q-type">${esc(q.typeName)}</span>${q.type === 'reading' ? '<button class="exam-reader-link" data-open-reader>Aa　打开阅读辅助：译文 / 查词 / 精讲 →</button>' : ''}${q.passage ? `<div class="passage">${esc(q.passage)}</div>` : ''}<h2 class="question-prompt">${esc(q.prompt)}</h2>${options}<button class="bookmark-btn ${store.bookmarks.includes(q.id) ? 'saved' : ''}" data-bookmark="${esc(q.id)}" aria-label="${store.bookmarks.includes(q.id) ? '取消收藏' : '收藏题目'}">${store.bookmarks.includes(q.id) ? '★' : '☆'}</button>`
+    $('question-area').innerHTML = `<span class="q-type">${esc(q.typeName)}</span>${q.passage ? `<div class="passage">${esc(q.passage)}</div>` : ''}<h2 class="question-prompt">${esc(q.prompt)}</h2>${options}<button class="bookmark-btn ${store.bookmarks.includes(q.id) ? 'saved' : ''}" data-bookmark="${esc(q.id)}" aria-label="${store.bookmarks.includes(q.id) ? '取消收藏' : '收藏题目'}">${store.bookmarks.includes(q.id) ? '★' : '☆'}</button>`
     if (!q.options) { $('open-answer').value = typeof selected === 'string' ? selected : ''; updateCount() }
     $('answer-grid').innerHTML = session.ids.map((id,i) => `<button class="${answered(id) ? 'answered' : ''} ${i === session.current ? 'current' : ''}" data-jump="${i}">${i+1}</button>`).join('')
     persist()
@@ -416,9 +409,11 @@
   }
   function openReader(mode,articleId) {
     readerFrom = view
-    activeArticle = allArticles.find(a => a.id === articleId) || sampleArticle
+    const article = allArticles.find(a => a.id === articleId)
+    if (!article) return
+    activeArticle = article
     readerMode = mode === 'free' ? 'free' : 'practice'
-    readerTab='translate'; translations=activeArticle.segments.map(()=>false); readerAnswers={}
+    readerTab='translate'
     updateReaderChrome()
     $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px')
     renderReader(); page('reader')
@@ -426,16 +421,15 @@
     if (readerMode === 'free' && state.progress > 0 && state.progress < activeArticle.segments.length) setTimeout(() => document.getElementById('reading-segment-'+(state.progress-1))?.scrollIntoView({behavior:'smooth',block:'start'}),200)
   }
   function updateReaderChrome() {
-    const isSample = activeArticle.id === 'sample', state=articleState(activeArticle.id)
+    const state=articleState(activeArticle.id)
     document.body.classList.toggle('free-reader', readerMode === 'free')
-    document.body.classList.toggle('real-practice', !isSample && readerMode === 'practice')
-    $('reader-back').textContent = isSample && readerMode === 'practice' ? '← 返回练习' : '← 返回阅读目录'
-    $('reader-mode-badge').textContent = isSample ? (readerMode === 'free' ? '自由阅读 · 原创示例' : '练习辅助 · 原创示例') : `${activeArticle.year} 专八真题 · ${readerMode === 'free' ? '精读' : '做题'}`
+    document.body.classList.toggle('real-practice', readerMode === 'practice')
+    $('reader-back').textContent = '← 返回阅读目录'
+    $('reader-mode-badge').textContent = `${activeArticle.year} 专八真题 · ${readerMode === 'free' ? '精读' : '做题'}`
     $('reader-view').classList.toggle('reader-sepia',store.readingBackground==='sepia')
     document.querySelector('.reader-title').textContent=activeArticle.title
-    document.querySelector('[data-reader-tab="translate"]').textContent=isSample ? '原文 / 译文' : '原文阅读'
-    $('reader-subtitle').textContent = isSample ? (readerMode === 'free' ? '专注阅读，不做题。点击单词查义，选中文字可标记，笔记收在右侧。' : '点击单词查看语境释义；选中文字可标记。译文和讲解均为人工整理。') : (readerMode === 'free' ? `选中想记的词句点“标记”，笔记收在右侧抽屉里。点击单词查词。${activeArticle.year===2025?'精选句有人工句法讲解。':'本年尚无人工句法讲解。'}` : '左侧原文、右侧真题。选中原文即可标记，笔记在右侧抽屉。记录保存在当前浏览器；换设备前请在「我的」导出备份。')
-    $('article-mode-switch').hidden=isSample
+    $('reader-subtitle').textContent = (readerMode === 'free' ? `选中想记的词句点“标记”，笔记收在右侧抽屉里。点击单词查词。${activeArticle.year===2025?'精选句有人工句法讲解。':'本年尚无人工句法讲解。'}` : '左侧原文、右侧真题。选中原文即可标记，笔记在右侧抽屉。记录保存在当前浏览器；换设备前请在「我的」导出备份。')
+    $('article-mode-switch').hidden=false
     document.querySelectorAll('[data-article-mode]').forEach(b => b.classList.toggle('active',b.dataset.articleMode === readerMode))
     $('reading-done').hidden = readerMode !== 'free'
     $('reading-done').textContent = state.completed ? '✓ 已读完' : '标记读完'
@@ -443,11 +437,11 @@
   }
   function readerIntro(title, desc) { return `<div class="reader-intro"><strong>${esc(title)}</strong><span>${esc(desc)}</span></div>` }
   function articleText() {
-    const isSample=activeArticle.id === 'sample', state=articleState(activeArticle.id), A=window.TEM8_ANNO
+    const state=articleState(activeArticle.id), A=window.TEM8_ANNO
     return `<div class="continuous-article" data-anno-scope data-anno-article="${activeArticle.id}" data-anno-word="1" data-anno-word-attr="data-word" data-anno-seg="1">${activeArticle.segments.map((s,i) => {
       const n=A?A.noteCount(activeArticle.id,i):0
       const body=A?A.textHTML(activeArticle.id,i,s.en,{word:true,attr:'data-word',segAttr:'data-segment'}):esc(s.en)
-      return `<p class="continuous-paragraph" id="reading-segment-${i}" data-anno-p="${i}"><button class="paragraph-number ${state.progress > i ? 'done' : ''}" data-mark-read="${i+1}" title="标记读到第 ${i+1} 段" aria-label="标记读到第 ${i+1} 段">${String(i+1).padStart(2,'0')}</button><span class="reader-english anno-text">${body}</span>${isSample ? `<button class="inline-translation" data-translate="${i}">${translations[i] ? '收起译文' : '译文'}</button>${translations[i] ? `<span class="reader-chinese">${esc(s.zh)}</span>` : ''}` : ''}<span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span></p>`
+      return `<p class="continuous-paragraph" id="reading-segment-${i}" data-anno-p="${i}"><button class="paragraph-number ${state.progress > i ? 'done' : ''}" data-mark-read="${i+1}" title="标记读到第 ${i+1} 段" aria-label="标记读到第 ${i+1} 段">${String(i+1).padStart(2,'0')}</button><span class="reader-english anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span></p>`
     }).join('')}</div>`
   }
   function practiceQuestions() { return allRealQuestions.filter(q => q.articleId === activeArticle.id) }
@@ -465,25 +459,20 @@
     if (readerTab === 'words') syncWordbook()
     document.querySelectorAll('[data-reader-tab]').forEach(b => b.classList.toggle('active',b.dataset.readerTab === readerTab))
     window.TEM8_ANNO?.refresh(activeArticle.id)
-    if (activeArticle.id !== 'sample' && readerMode === 'practice') { $('reader-content').innerHTML=renderPractice(); return }
-    const isSample=activeArticle.id === 'sample', segments=activeArticle.segments, state=articleState(activeArticle.id)
+    if (readerMode === 'practice') { $('reader-content').innerHTML=renderPractice(); return }
+    const segments=activeArticle.segments
     const notes=extras.notes[activeArticle.id] || []
     let html = ''
     if (readerTab === 'translate') {
-      html = `<div class="reader-toolbar"><span>${isSample ? '点击段号记进度，点击单词查义，按需展开译文' : '点击段号记进度，点击单词查义；真题暂未提供全文译文'}</span>${isSample ? `<button data-action="translate-all">${translations.every(Boolean) ? '收起全部' : '展开全部译文'}</button>` : ''}</div>` + articleText() + (!isSample && readerMode === 'free' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
-    } else if (readerTab === 'quiz') {
-      html = readerIntro('读完练一遍','3 道题，定位原因、推断与词义。选择后显示解析。') + questions.filter(q => q.type === 'reading').map((q,i) => {
-        const selected = readerAnswers[q.id]
-        return `<article class="reader-quiz"><span class="quiz-type">${esc(reading.quizTypes[q.id])}</span><h3>${i+1}. ${esc(q.prompt)}</h3>${q.options.map((o,j) => `<button class="reader-choice ${selected !== undefined && j === q.answer ? 'correct' : ''} ${selected === j && j !== q.answer ? 'wrong' : ''}" data-reader-answer="${esc(q.id)}" data-index="${j}"><b>${letters[j]}</b>${esc(o)}</button>`).join('')}${selected !== undefined ? `<div class="reader-answer">${selected === q.answer ? '答对了。' : '再看一眼原文。'}${esc(q.analysis)}</div>` : ''}</article>`
-      }).join('')
+      html = `<div class="reader-toolbar"><span>点击段号记进度，点击单词查义；真题暂未提供全文译文</span></div>` + articleText() + (readerMode === 'free' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
     } else if (readerTab === 'parse') {
-      html = readerIntro('长难句解析',isSample ? '按句拆出主干、修饰和逻辑关系。' : notes.length ? '精选句子，人工整理主干与修饰关系。' : '本篇暂无人工长难句解析。') + (isSample ? segments.map((s,i) => `<article class="reader-note"><span class="reader-number">句子 0${i+1}</span><p>${esc(s.en)}</p><div class="note-label">句子结构</div><p>${esc(s.note)}</p><div class="note-label">参考译文</div><p>${esc(s.zh)}</p></article>`).join('') : notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p><div class="note-label">拆解</div><p>${esc(n.note)}</p></article>`).join(''))
+      html = readerIntro('长难句解析',notes.length ? '精选句子，人工整理主干与修饰关系。' : '本篇暂无人工长难句解析。') + notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p><div class="note-label">拆解</div><p>${esc(n.note)}</p></article>`).join('')
     } else if (readerTab === 'syntax') {
-      html = readerIntro('句法结构',isSample || notes.length ? '看清主语、谓语、宾语以及修饰成分，再回到原文重读。' : '本篇暂无人工句法结构标注。') + (isSample ? segments.map((s,i) => `<article class="reader-note"><span class="reader-number">句子 0${i+1}</span><p>${esc(s.en)}</p>${s.syntax.map(([label,value]) => `<div class="syntax-row"><span class="syntax-label">${esc(label)}</span><span class="syntax-value">${esc(value)}</span></div>`).join('')}</article>`).join('') : notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p>${n.syntax.map(([label,value]) => `<div class="syntax-row"><span class="syntax-label">${esc(label)}</span><span class="syntax-value">${esc(value)}</span></div>`).join('')}</article>`).join(''))
+      html = readerIntro('句法结构',notes.length ? '看清主语、谓语、宾语以及修饰成分，再回到原文重读。' : '本篇暂无人工句法结构标注。') + notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p>${n.syntax.map(([label,value]) => `<div class="syntax-row"><span class="syntax-label">${esc(label)}</span><span class="syntax-value">${esc(value)}</span></div>`).join('')}</article>`).join('')
     } else if (readerTab === 'knowledge') {
-      html = readerIntro('知识精讲',isSample ? '把这篇文章值得记住的表达整理成卡片。' : activeArticle.year===2025 ? '本篇精选词语与表达；点击原文中的词可查看更多已收录词义。' : '本篇暂无人工知识卡片；点击原文中的单词查词。') + (isSample ? segments.map((s,i) => `<article class="reader-note"><span class="reader-number">要点 0${i+1}</span><p class="note-focus">${esc(s.focus)}</p><p>原句：${esc(s.en)}</p></article>`).join('') : activeArticle.year===2025 ? `<div class="glossary-grid">${Object.entries(extras.glossary).filter(([word]) => segments.some(s => new RegExp(`\\b${word}\\b`,'i').test(s.en))).map(([word,meaning]) => `<div><strong>${esc(word)}</strong><span>${esc(meaning)}</span></div>`).join('')}</div>` : '')
+      html = readerIntro('知识精讲',activeArticle.year===2025 ? '本篇精选词语与表达；点击原文中的词可查看更多已收录词义。' : '本篇暂无人工知识卡片；点击原文中的单词查词。') + (activeArticle.year===2025 ? `<div class="glossary-grid">${Object.entries(extras.glossary).filter(([word]) => segments.some(s => new RegExp(`\\b${word}\\b`,'i').test(s.en))).map(([word,meaning]) => `<div><strong>${esc(word)}</strong><span>${esc(meaning)}</span></div>`).join('')}</div>` : '')
     } else {
-      html = readerIntro('我的单词本','点击文章中的单词，再点击“加入单词本”。') + ((store.wordbook || []).length ? store.wordbook.map(w => `<button class="word-list-row" data-word="${esc(w)}" data-segment="${Math.max(0,segments.findIndex(s => reading.tokenize(s.en).some(t => t.key === w)))}"><strong>${esc(w)}</strong><span>查看释义 →</span></button>`).join('') : '<div class="review-empty"><strong>还没有生词</strong>回到文章点击想记住的词。</div>')
+      html = readerIntro('我的单词本','点击文章中的单词，再点击“加入单词本”。') + ((store.wordbook || []).length ? store.wordbook.map(w => `<button class="word-list-row" data-word="${esc(w)}" data-segment="${Math.max(0,segments.findIndex(s => tokenize(s.en).some(t => t.key === w)))}"><strong>${esc(w)}</strong><span>查看释义 →</span></button>`).join('') : '<div class="review-empty"><strong>还没有生词</strong>回到文章点击想记住的词。</div>')
     }
     $('reader-content').innerHTML = html
   }
@@ -512,7 +501,7 @@
     const ox = entry.oxford, co = entry.collins, coll = entry.collocations, ld = entry.ldoce, vb = entry.vocab
     const senses = [ox?.senses?.[0], co?.senses?.[0], ld?.senses?.[0], vb?.senses?.[0]].filter(Boolean)
     const primary = senses.map(s => s.cn).filter(Boolean)[0] || senses.map(s => s.en).filter(Boolean)[0]
-      || (activeArticle.id === 'sample' ? reading.meanings[activeWord] : extras.glossary[lemma])
+      || extras.glossary[lemma]
       || ({ freightyard:'铁路货运场', neighborhoods:'街区；社区' })[activeWord]
 
     // ---- 词头：单词 + 词性 + 音标 ----
@@ -632,7 +621,7 @@
     if (target.dataset.paperBack !== undefined) { page('papers');return }
     if (target.dataset.paperTab) { paperTab=target.dataset.paperTab;renderArchivePaper();return }
     if (target.dataset.libraryYear) { selectedLibraryYear=Number(target.dataset.libraryYear); renderLibrary(); return }
-    if (target.dataset.articleMode && activeArticle.id !== 'sample') { readerMode=target.dataset.articleMode; readerTab='translate'; updateReaderChrome(); renderReader(); window.scrollTo(0,0); return }
+    if (target.dataset.articleMode && activeArticle) { readerMode=target.dataset.articleMode; readerTab='translate'; updateReaderChrome(); renderReader(); window.scrollTo(0,0); return }
     if (target.dataset.practiceJump !== undefined) { store.practiceIndex ||= {}; store.practiceIndex[activeArticle.id]=Number(target.dataset.practiceJump); save(); renderReader(); return }
     if (target.dataset.practiceStep) { const qs=practiceQuestions(); store.practiceIndex ||= {}; store.practiceIndex[activeArticle.id]=Math.max(0,Math.min(qs.length-1,(Number(store.practiceIndex[activeArticle.id])||0)+Number(target.dataset.practiceStep))); save(); renderReader(); return }
     if (target.dataset.practiceAnswer) { store.practiceAnswers ||= {}; store.practiceAnswers[`${activeArticle.id}-${target.dataset.practiceAnswer}`]=Number(target.dataset.choice); save(); renderReader(); return }
@@ -644,11 +633,8 @@
     if (target.dataset.readerTab) { readerTab=target.dataset.readerTab; renderReader(); return }
     if (target.dataset.font) { store.readingFont=Math.max(14,Math.min(24,store.readingFont+Number(target.dataset.font))); save(); $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px'); return }
     if (target.dataset.readingBackground !== undefined) { store.readingBackground=store.readingBackground==='sepia'?'paper':'sepia'; save(); updateReaderChrome(); return }
-    if (target.dataset.translate !== undefined) { const i=Number(target.dataset.translate); translations[i]=!translations[i]; renderReader(); return }
     if (target.dataset.markRead) { const state=articleState(activeArticle.id); state.progress=Math.max(state.progress,Number(target.dataset.markRead)); setArticleState(activeArticle.id,state); renderReader(); return }
     if (target.dataset.word) { const sel=window.getSelection(); if (sel && !sel.isCollapsed && String(sel).trim()) return; showWord(target.dataset.word,Number(target.dataset.segment),target); return }
-    if (target.dataset.readerAnswer) { readerAnswers[target.dataset.readerAnswer]=Number(target.dataset.index); renderReader(); return }
-    if (target.dataset.action === 'translate-all') { translations=translations.map(()=>!translations.every(Boolean)); renderReader(); return }
     if (target.dataset.action === 'reading-done') { setArticleState(activeArticle.id,{ progress:activeArticle.segments.length, completed:true }); $('reading-done').textContent='✓ 已读完'; $('reading-done').classList.add('done'); renderReader(); return }
     if (target.dataset.action === 'resume' && store.draft) { start(store.draft.ids,store.draft.title,store.draft); return }
     if (target.dataset.action === 'retry-all') { start(store.mistakes.slice(),'错题回练'); return }
@@ -682,8 +668,6 @@
   window.TEM8_SHOW_WORD = (word) => {
     const w = String(word || '').toLowerCase().replace(/[’]/g,"'")
     if (!w) return
-    // 独立来源（模考/精听）没有 activeArticle 语境，临时挂一个空上下文避免报错
-    if (!activeArticle || !activeArticle.segments) activeArticle = sampleArticle
     showWord(w, 0)
   }
   renderCategories(); renderDashboard(); page('home')

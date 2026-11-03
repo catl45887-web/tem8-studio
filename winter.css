@@ -106,17 +106,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;op
 .option.selected .option-letter{background:var(--gold);color:#2a1a10;border-color:var(--gold)}
 
 /* ---------- 通用卡片：深色 + 烛光边缘 ---------- */
-.stat-card,.reader-shortcut,.mock-card,.real-article-card,.library-card,.review-item,.exam-main,.side-card,.result-item,.wordbook-row,.archive-paper-card,.empty-state,.reader-segment,.reader-quiz,.reader-note,.continuous-article{
+.stat-card,.reader-shortcut,.mock-card,.real-article-card,.review-item,.exam-main,.side-card,.result-item,.wordbook-row,.archive-paper-card,.empty-state,.reader-segment,.reader-note,.continuous-article{
   background:var(--card);border:1px solid rgba(230,199,154,.1);border-radius:16px;
   box-shadow:0 0 0 1px rgba(0,0,0,.12),var(--glow),0 18px 34px -24px rgba(0,0,0,.7)}
 .reader-shortcut:hover,.mock-card:hover,.real-article-card:hover{border-color:rgba(230,199,154,.28);box-shadow:0 0 0 1px rgba(0,0,0,.12),0 0 36px -6px rgba(255,180,100,.3),0 22px 40px -22px rgba(0,0,0,.75)}
 .notice{background:rgba(244,232,214,.03);border:0;border-radius:14px;color:var(--dim)}
 .notice>span{color:var(--gold)}
 .notice strong{color:var(--cream-2)}
-.real-article-card h3,.library-copy h2{font-family:var(--en);font-weight:500;color:var(--cream)}
-.library-cover{background:linear-gradient(160deg,#3a2a20,#2a1d16)}
-.library-cover strong{font-family:var(--song);font-weight:300;color:var(--cream)}
-.library-cover span,.library-cover small{font-family:var(--en);font-style:italic;letter-spacing:.5px;color:var(--gold)}
+.real-article-card h3{font-family:var(--en);font-weight:500;color:var(--cream)}
 .library-year-nav button{color:var(--dim);font-family:var(--en);font-size:17px;font-weight:500}
 .library-year-nav button.active{color:var(--gold);border-bottom-color:var(--gold-line)}
 .progress-track i{background:linear-gradient(90deg,var(--wine),var(--gold-line))}
@@ -301,8 +298,6 @@ dialog::backdrop{background:rgba(12,6,4,.65);backdrop-filter:blur(2px)}
 .w-sock:hover{filter:drop-shadow(0 10px 8px rgba(0,0,0,.45)) drop-shadow(0 0 20px rgba(255,170,120,.35))}
 .w-sock.w-held{cursor:grabbing;filter:drop-shadow(0 16px 12px rgba(0,0,0,.45)) drop-shadow(0 0 20px rgba(255,170,120,.3))}
 .library-year-nav button.w-aim{color:var(--cream);transform:translateY(-3px);text-shadow:0 0 12px rgba(255,205,150,.4)}
-/* 不需要的“功能示例”整块隐藏（不删 HTML，避免影响原有脚本） */
-#library-view .library-card,#library-view .section-heading:has(+ .library-card){display:none!important}
 
 /* 卡片本体：用纸张底图，不要深色底框 */
 .real-article-list{gap:28px;margin:10px 0 56px}
@@ -400,7 +395,6 @@ dialog::backdrop{background:rgba(12,6,4,.65);backdrop-filter:blur(2px)}
 }
 .w-wallhint{display:none}
 
-
 /* 全站飘雪（winter.js 画在一块固定的画布上，位于内容后面） */
 .w-flakes{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:-1}
 .w-hero .w-snow{display:none}
@@ -413,7 +407,6 @@ dialog::backdrop{background:rgba(12,6,4,.65);backdrop-filter:blur(2px)}
 .w-bulb.s{width:3.5px;height:3.5px;margin:-1.75px 0 0 -1.75px}
 @keyframes w-bulb{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:.8;transform:scale(1.1)}}
 @media(prefers-reduced-motion:reduce){.w-bulb{animation:none}.w-flakes{display:none}}
-
 
 /* =====================================================================
    按题型练习：六个圣诞文件夹（静态图，悬停时播放动画）

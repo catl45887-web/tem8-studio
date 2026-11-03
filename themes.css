@@ -150,7 +150,6 @@ html.t-no-snow .w-flakes,html.t-no-snow .w-snow{display:none!important}
 /* 文章页自带的 A− / A+ 仍然有效：全站字号 × 文章页微调 */
 html[data-theme] .reader-english,
 html[data-theme] .continuous-paragraph{font-size:calc(var(--reader-font-size,17px)*var(--fs,1));line-height:1.85}
-html[data-theme] .reader-chinese{font-size:calc(15px*var(--fs,1));line-height:1.8}
 html[data-theme] .passage{font-size:calc(16px*var(--fs,1));line-height:1.85}
 html[data-theme] .question-prompt{font-size:calc(20px*var(--fs,1))}
 html[data-theme] .option,
@@ -227,7 +226,6 @@ html:not([data-theme=xmas]) .review-item,
 html:not([data-theme=xmas]) .real-article-card,
 html:not([data-theme=xmas]) .archive-paper-card,
 html:not([data-theme=xmas]) .mock-card,
-html:not([data-theme=xmas]) .library-card,
 html:not([data-theme=xmas]) .backup-card,
 html:not([data-theme=xmas]) .wordbook-row{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none}
 html:not([data-theme=xmas]) .category-card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:18px 2px}
@@ -236,8 +234,7 @@ html:not([data-theme=xmas]) .real-article-card:hover{transform:none;box-shadow:n
 html:not([data-theme=xmas]) .category-card h3{font-size:18px;font-weight:700}
 html:not([data-theme=xmas]) .real-article-card,
 html:not([data-theme=xmas]) .backup-card{padding-left:2px;padding-right:2px}
-html:not([data-theme=xmas]) .real-article-card h3,
-html:not([data-theme=xmas]) .library-copy h2{font-family:Georgia,'Times New Roman',serif;font-weight:400}
+html:not([data-theme=xmas]) .real-article-card h3{font-family:Georgia,'Times New Roman',serif;font-weight:400}
 html:not([data-theme=xmas]) .page-head h1{font-weight:700;letter-spacing:0}
 html:not([data-theme=xmas]) .eyebrow{letter-spacing:2px}
 html:not([data-theme=xmas]) .pill{background:transparent;padding:0;border-radius:0;letter-spacing:1px}

@@ -23,7 +23,7 @@
   }
   function hasStudyRecords() {
     const main = readJSON(DATA_KEYS[0])
-    if (main.sessions || main.attempted || main.readingProgress || main.draft || main.lastResult) return true
+    if (main.sessions || main.attempted || main.draft || main.lastResult) return true
     if (['mistakes', 'bookmarks', 'wordbook'].some(key => main[key]?.length)) return true
     if (['readingStates', 'readingTools', 'practiceAnswers', 'practiceIndex', 'paperWork'].some(key => Object.keys(main[key] || {}).length)) return true
     const workflow = readJSON(DATA_KEYS[1])

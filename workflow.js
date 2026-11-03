@@ -369,7 +369,7 @@
     if(t.dataset.view==='mistakes')setTimeout(renderReviewGroups,0)
     if(t.dataset.workflowType){e.stopPropagation();openConfig(t.dataset.workflowType);return}
     if(t.dataset.startPassage){e.stopPropagation();openConfig(t.dataset.passageType,t.dataset.startPassage);start();return}
-    if(t.dataset.openReader!==undefined&&t.dataset.mode==='practice'&&t.dataset.article&&t.dataset.article!=='sample'){
+    if(t.dataset.openReader!==undefined&&t.dataset.mode==='practice'&&t.dataset.article){
       e.stopPropagation();openConfig('reading-group',t.dataset.article);start();return
     }
     if(t.dataset.articleMode==='practice'&&document.querySelector('#reader-view').classList.contains('active')){
