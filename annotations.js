@@ -95,15 +95,30 @@
     if (o.word === false) return paint(text, marks, 0, text.length)
     const attr = o.attr || 'data-word'
     const segAttr = o.segAttr ? ` ${o.segAttr}="${seg}"` : ''
-    let html = '', pos = 0, m
+    // 单词和紧挨着的标点包在一个不换行的 span 里，避免标点被挤到下一行
+    let html = '', pos = 0, m, open = false
+    const on = () => { if (!open) { html += '<span class="anno-nb">'; open = true } }
+    const off = () => { if (open) { html += '</span>'; open = false } }
+    const gap = (a, b, last) => {
+      if (b <= a) return
+      const g = text.slice(a, b), i = g.search(/\s/)
+      if (i < 0) { on(); html += paint(text, marks, a, b); return }
+      const j = g.length - (g.match(/\S*$/)[0].length)
+      if (i > 0) html += paint(text, marks, a, a + i)
+      off()
+      html += paint(text, marks, a + i, a + j)
+      if (a + j < b) { if (!last) on(); html += paint(text, marks, a + j, b) }
+    }
     WORD_RE.lastIndex = 0
     while ((m = WORD_RE.exec(text))) {
       const s = m.index, e = s + m[0].length
-      if (s > pos) html += paint(text, marks, pos, s)
+      gap(pos, s, false)
+      on()
       html += `<button ${attr}="${esc(m[0].toLowerCase().replace(/[’']/g, "'"))}"${segAttr}>${paint(text, marks, s, e)}</button>`
       pos = e
     }
-    if (pos < text.length) html += paint(text, marks, pos, text.length)
+    gap(pos, text.length, true)
+    off()
     return html
   }
 

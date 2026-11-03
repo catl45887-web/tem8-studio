@@ -342,13 +342,14 @@
   }
   function renderLibrary() {
     const yearArticles=allArticles.filter(a => a.year === selectedLibraryYear)
-    $('library-year-heading').textContent=`${selectedLibraryYear} 年`
-    $('library-year-count').textContent=` · ${yearArticles.length} 篇 · ${allRealQuestions.filter(q => q.articleId.startsWith(selectedLibraryYear+'-')).length} 道题`
     $('library-year-nav').innerHTML=[...new Set(allArticles.map(a=>a.year))].sort((a,b)=>b-a).map(year=>`<button data-library-year="${year}" class="${year===selectedLibraryYear?'active':''}">${year}</button>`).join('')
     $('real-article-list').innerHTML = yearArticles.map(a => {
       const s=articleState(a.id), total=a.segments.length, n=Math.min(total,s.progress)
       const qn=allRealQuestions.filter(q=>q.articleId===a.id).length
-      return `<article class="real-article-card"><div class="real-article-top"><span class="pill">${esc(a.label)}</span><span>${s.completed ? '已读完' : n ? `读到 ${n} / ${total} 段` : `${total} 段${qn ? ` · ${qn} 题` : ''}`}</span></div><h3 class="real-article-label">${esc(a.label)}</h3><p class="real-article-open">${esc(openingLine(a))}</p>${n && !s.completed ? `<div class="progress-track"><i style="width:${Math.round(n/total*100)}%"></i></div>` : ''}<div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n && !s.completed ? '继续精读' : '精读'}</button>${qn ? `<button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题</button>` : ''}</div></article>`
+      if (document.documentElement.dataset.theme === 'xmas') return `<article class="real-article-card"><h3>${esc(a.label)}</h3><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n && !s.completed ? '继续精读' : '精读'}</button>${qn ? `<button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题</button>` : ''}</div></article>`
+      let last=''; try { last=localStorage.getItem('tem8_last_article')||'' } catch {}
+      const state = s.completed ? '<span class="rac-done">✓ 已读完</span>' : n ? `读到 ${n} / ${total} 段` : `${total} 段${qn ? ` · ${qn} 题` : ''}`
+      return `<article class="real-article-card rac${a.id===last?' rac-last':''}"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}"><span class="rac-top"><span class="rac-label">${esc(a.label)}</span>${a.id===last?'<span class="rac-tag">上次学习</span>':''}<span class="rac-state">${state}</span></span><span class="rac-open">${esc(openingLine(a))}</span>${n && !s.completed ? `<span class="rac-bar"><i style="width:${Math.round(n/total*100)}%"></i></span>` : ''}</button>${qn ? `<button class="rac-do" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题 →</button>` : ''}</article>`
     }).join('')
   }
   function renderReview(kind) {
@@ -466,7 +467,7 @@
     const notes=extras.notes[activeArticle.id] || []
     let html = ''
     if (readerTab === 'translate') {
-      html = `<div class="reader-toolbar"><span>点击段号记进度，点击单词查义；真题暂未提供全文译文</span></div>` + articleText() + (readerMode === 'free' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
+      html = articleText() + (readerMode === 'free' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
     } else if (readerTab === 'parse') {
       html = readerIntro('长难句解析',notes.length ? '精选句子，人工整理主干与修饰关系。' : '本篇暂无人工长难句解析。') + notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p><div class="note-label">拆解</div><p>${esc(n.note)}</p></article>`).join('')
     } else if (readerTab === 'syntax') {
@@ -672,5 +673,6 @@
     if (!w) return
     showWord(w, 0)
   }
+  document.addEventListener('tem8:theme',()=>{ if (view==='library') renderLibrary() })
   renderCategories(); renderDashboard(); page('home')
 })()
