@@ -14,11 +14,10 @@
     ...(window.TEM8_ARCHIVE_ARTICLES2 || [])
   ]
   const articleOf = id => ARTICLES.find(a => a.id === id) || null
-  const SPECIAL = { sample: 'A Library That Stayed Open' }
-  const srcText = id => { const a = articleOf(id); return a ? `${a.year} · ${a.label || 'Passage'}` : (SPECIAL[id] || String(id || '')) }
+  const srcText = id => { const a = articleOf(id); return a ? `${a.year} · ${a.label || 'Passage'}` : String(id || '') }
   const srcFull = id => {
     const a = articleOf(id)
-    if (!a) return SPECIAL[id] || String(id || '')
+    if (!a) return String(id || '')
     const t = String(a.title || '').trim()
     return t && t !== `${a.year} · ${a.label}` ? `${a.year} · ${a.label} · ${t}` : `${a.year} · ${a.label || 'Passage'}`
   }

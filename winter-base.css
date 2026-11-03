@@ -98,13 +98,8 @@ dialog::backdrop{background:#8B3A3A}
 .reader-english button{border-bottom:1px dotted rgba(244,232,214,0.12)}
 .reader-english button:hover{color:#f1e5d2;background:rgba(244,232,214,0.060)}
 .reader-expand{color:#a8937b}
-.reader-chinese{border-top:1px solid rgba(244,232,214,0.12);color:#d8c6ac}
 .reader-intro{background:rgba(244,232,214,0.060);color:#d8c6ac}
 .reader-intro strong{color:#f1e5d2}
-.reader-quiz .quiz-type{background:rgba(244,232,214,0.060);color:#c9ad85}
-.reader-choice{background:#30231b;border:1px solid rgba(244,232,214,0.12);color:#f1e5d2}
-.reader-choice b{color:#a8937b}
-.reader-answer{color:#d8c6ac}
 .reader-note p{color:#d8c6ac}
 .reader-note .note-label{color:#a8937b}
 .reader-note .note-focus{color:#f1e5d2}
@@ -114,17 +109,8 @@ dialog::backdrop{background:#8B3A3A}
 .word-context{background:rgba(244,232,214,0.060);color:#d8c6ac}
 .review-resume{background:rgba(244,232,214,0.060);border:1px solid rgba(244,232,214,0.12)}
 .review-resume small{color:#a8937b}
-.exam-reader-link{background:rgba(244,232,214,0.060);color:#e6c79a}
 #word-detail{color:#d8c6ac}
 .review-empty{border:1px dashed rgba(244,232,214,0.12);color:#a8937b}
-.library-cover{background:rgba(244,232,214,0.060)}
-.library-cover:after{border:1px solid rgba(244,232,214,0.12)}
-.library-cover span,.library-cover small{color:#a8937b}
-.library-cover strong{color:#f1e5d2}
-.library-copy>p{color:#a8937b}
-.library-meta{color:#a8937b}
-.library-meta span:before{color:#a8937b}
-.library-progress>div:first-child{color:#a8937b}
 .progress-track{background:rgba(244,232,214,0.060)}
 .progress-track i{background:rgba(217,180,124,0.16)}
 .reader-controls{color:#a8937b}
@@ -150,7 +136,6 @@ dialog::backdrop{background:#8B3A3A}
 .continuous-paragraph{color:#f1e5d2}
 .paragraph-number{background:rgba(244,232,214,0.060);color:#d8c6ac}
 .paragraph-number.done{background:rgba(230,199,154,.13);color:#f1e5d2}
-.inline-translation{color:#a8937b}
 .practice-passage,.practice-panel{background:#30231b}
 .practice-pane-head{background:#30231b}
 .practice-pane-head strong{color:#f1e5d2}

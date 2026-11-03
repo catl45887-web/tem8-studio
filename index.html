@@ -6,20 +6,20 @@
   <meta name="theme-color" content="#2b1e17">
   <meta name="description" content="专八真题阅读与题组练习。">
   <title>拾页 · 专八练习</title>
-  <link rel="stylesheet" href="styles.css?v=202611030527">
-  <link rel="stylesheet" href="reader.css?v=202611030527">
-  <link rel="stylesheet" href="workflow.css?v=202611030527">
-  <link rel="stylesheet" href="annotate.css?v=202611030527">
-  <link rel="stylesheet" href="intensive.css?v=202611030527">
+  <link rel="stylesheet" href="styles.css?v=202611030715">
+  <link rel="stylesheet" href="reader.css?v=202611030715">
+  <link rel="stylesheet" href="workflow.css?v=202611030715">
+  <link rel="stylesheet" href="annotate.css?v=202611030715">
+  <link rel="stylesheet" href="intensive.css?v=202611030715">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css?v=202611030527" id="css-winter-base">
-  <link rel="stylesheet" href="winter.css?v=202611030527" id="css-winter">
-  <link rel="stylesheet" href="wordpop.css?v=202611030527b">
-  <link rel="stylesheet" href="backup.css?v=202611030527">
+  <link rel="stylesheet" href="winter-base.css?v=202611030715" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css?v=202611030715" id="css-winter">
+  <link rel="stylesheet" href="wordpop.css?v=202611030715">
+  <link rel="stylesheet" href="backup.css?v=202611030715">
   <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
-  <link rel="stylesheet" href="theme-light.css?v=202611030527b">
-  <link rel="stylesheet" href="theme-dark.css?v=202611030527">
-  <link rel="stylesheet" href="themes.css?v=202611030527">
+  <link rel="stylesheet" href="theme-light.css?v=202611030715">
+  <link rel="stylesheet" href="theme-dark.css?v=202611030715">
+  <link rel="stylesheet" href="themes.css?v=202611030715">
   <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
   <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}[t]})()</script>
 </head>
@@ -118,8 +118,6 @@
         <div class="section-heading"><div><span class="section-index">YR</span><h2 id="library-year-heading">2025 年真题阅读</h2></div><span class="muted" id="library-year-count">三篇文章</span></div>
         <div id="library-year-nav" class="library-year-nav" aria-label="选择真题年份"></div>
         <div id="real-article-list" class="real-article-list"></div>
-        <div class="section-heading"><div><span class="section-index">DE</span><h2>功能示例</h2></div></div>
-        <div class="library-card"><div class="library-cover"><span>READING DEMO</span><strong>读得懂，<br>才记得住。</strong><small>TEM-8 READING</small></div><div class="library-copy"><span class="pill">原创示例 · 阅读演示</span><h2>A Library That Stayed Open</h2><p>这篇原创短文配有完整的逐段译文、词义和句法讲解，可用来体验阅读工具。</p><div class="library-meta"><span>4 个段落</span><span>完整查词</span><span>人工译文与讲解</span></div><div class="library-progress"><div><span id="reading-progress-label">尚未开始</span><span id="reading-progress-number">0 / 4 段</span></div><div class="progress-track"><i id="reading-progress-bar"></i></div></div><button class="primary-btn" data-open-reader data-mode="free" data-article="sample">开始阅读 <span>↗︎</span></button></div></div>
         <div class="notice"><span>✳︎</span><p><strong>阅读资料说明</strong><br>收录 2009—2026 年（2020 年除外）的阅读真题，点词可查词典。多数年份配有参考答案与逐题解析（含定位、干扰项排除），部分年份另有逐段译文和长难句注释。</p></div>
       </section>
       <section id="papers-view" class="view"><div class="w-head w-papers-head"><h2>Practice</h2><span>按题型练习</span></div><div id="paper-categories" class="category-grid"></div><p class="archive-paper-note">在题型配置页选择真题年份。听力可按 Section A、B 分项练习。</p></section>
@@ -178,45 +176,45 @@
 
       <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳︎ 记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份</p></aside></div></section>
       <section id="result-view" class="view"><div class="page-head"><span class="eyebrow">YOUR RESULTS</span><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
-      <section id="reader-view" class="view"><div class="reader-header"><button class="back-link" id="reader-back">← 返回阅读目录</button><span class="reader-badge" id="reader-mode-badge">自由阅读 · 原创示例</span></div><h1 class="reader-title">A Library That Stayed Open</h1><p class="reader-subtitle" id="reader-subtitle">点击单词查义；按需展开译文、长难句和句法结构。</p><div id="article-mode-switch" class="article-mode-switch" role="group" aria-label="文章模式"><button data-article-mode="free">精读</button><button data-article-mode="practice">做题</button></div><div class="reader-controls"><span>正文字号</span><button data-font="-1" aria-label="缩小字号">A−</button><button data-font="1" aria-label="放大字号">A＋</button><button data-reading-background aria-label="切换阅读背景">背景</button><button data-workflow-return hidden>返回题组</button><button id="reading-done" data-action="reading-done">标记读完</button></div><div class="reader-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文 / 译文</button><button data-reader-tab="quiz" class="practice-only">读后题</button><button data-reader-tab="parse">长难句分析</button><button data-reader-tab="syntax">句法结构</button><button data-reader-tab="knowledge">知识精讲</button><button data-reader-tab="words">单词本</button></div><div id="reader-content"></div></section>
+      <section id="reader-view" class="view"><div class="reader-header"><button class="back-link" id="reader-back">← 返回阅读目录</button><span class="reader-badge" id="reader-mode-badge"></span></div><h1 class="reader-title"></h1><p class="reader-subtitle" id="reader-subtitle">点击单词查义；按需展开译文、长难句和句法结构。</p><div id="article-mode-switch" class="article-mode-switch" role="group" aria-label="文章模式"><button data-article-mode="free">精读</button><button data-article-mode="practice">做题</button></div><div class="reader-controls"><span>正文字号</span><button data-font="-1" aria-label="缩小字号">A−</button><button data-font="1" aria-label="放大字号">A＋</button><button data-reading-background aria-label="切换阅读背景">背景</button><button data-workflow-return hidden>返回题组</button><button id="reading-done" data-action="reading-done">标记读完</button></div><div class="reader-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文阅读</button><button data-reader-tab="parse">长难句分析</button><button data-reader-tab="syntax">句法结构</button><button data-reader-tab="knowledge">知识精讲</button><button data-reader-tab="words">单词本</button></div><div id="reader-content"></div></section>
     </main>
   </div>
   <nav class="mobile-nav" aria-label="移动端导航"><button data-view="home">⌂<span>首页</span></button><button data-view="library">▧<span>阅读</span></button><button data-view="papers">▤<span>练习</span></button><button data-view="intensive">♫<span>精听</span></button><button data-view="bookmarks">☆<span>收藏</span></button><button data-view="my">▣<span>我的</span></button></nav>
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶︎ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
-  <script src="data.js?v=202611030527"></script>
-  <script src="articles2026.js?v=202611030527"></script>
-  <script src="questions2026.js?v=202611030527"></script>
-  <script src="paperExtras2026.js?v=202611030527"></script>
-  <script src="listening2026.js?v=202611030527"></script>
-  <script src="paperExtras2025.js?v=202611030527"></script>
-  <script src="papers2021_2024.js?v=202611030527"></script>
-  <script src="listeningArchive.js?v=202611030527"></script>
-  <script src="audioArchive.js?v=202611030527"></script>
-  <script src="articles2025.js?v=202611030527"></script>
-  <script src="articles2025-extras.js?v=202611030527"></script>
-  <script src="questions2025.js?v=202611030527"></script>
-  <script src="articlesArchive.js?v=202611030527"></script>
-  <script src="questionsArchive.js?v=202611030527"></script>
-  <script src="articlesArchive2.js?v=202611030527"></script>
-  <script src="questionsArchive2.js?v=202611030527"></script>
-  <script src="paperExtras.js?v=202611030527"></script>
-  <script src="paperExtras2.js?v=202611030527"></script>
-  <script src="annotations.js?v=202611030527"></script>
-  <script src="player.js?v=202611030527"></script>
-  <script src="transcripts.js?v=202611030527"></script>
-  <script src="intensive.js?v=202611030527"></script>
-  <script src="workflow.js?v=202611030527"></script>
-  <script src="dictionary/prefixes.js?v=202611030527"></script>
-  <script src="app.js?v=202611030527c"></script>
-  <script src="winter.js?v=202611030527"></script>
-  <script src="wordpop.js?v=202611030527b"></script>
-  <script src="backup.js?v=202611030527"></script>
-  <script src="cloud-sync/config.js?v=202611030527"></script>
-  <script type="module" src="cloud-sync/client.mjs?v=202611030527"></script>
-  <script src="themes.js?v=202611030527"></script>
-  <script src="home.js?v=202611030527"></script>
-  <script src="splash.js?v=202611030527"></script>
+  <script src="data.js?v=202611030715"></script>
+  <script src="articles2026.js?v=202611030715"></script>
+  <script src="questions2026.js?v=202611030715"></script>
+  <script src="paperExtras2026.js?v=202611030715"></script>
+  <script src="listening2026.js?v=202611030715"></script>
+  <script src="paperExtras2025.js?v=202611030715"></script>
+  <script src="papers2021_2024.js?v=202611030715"></script>
+  <script src="listeningArchive.js?v=202611030715"></script>
+  <script src="audioArchive.js?v=202611030715"></script>
+  <script src="articles2025.js?v=202611030715"></script>
+  <script src="articles2025-extras.js?v=202611030715"></script>
+  <script src="questions2025.js?v=202611030715"></script>
+  <script src="articlesArchive.js?v=202611030715"></script>
+  <script src="questionsArchive.js?v=202611030715"></script>
+  <script src="articlesArchive2.js?v=202611030715"></script>
+  <script src="questionsArchive2.js?v=202611030715"></script>
+  <script src="paperExtras.js?v=202611030715"></script>
+  <script src="paperExtras2.js?v=202611030715"></script>
+  <script src="annotations.js?v=202611030715"></script>
+  <script src="player.js?v=202611030715"></script>
+  <script src="transcripts.js?v=202611030715"></script>
+  <script src="intensive.js?v=202611030715"></script>
+  <script src="workflow.js?v=202611030715"></script>
+  <script src="dictionary/prefixes.js?v=202611030715"></script>
+  <script src="app.js?v=202611030715"></script>
+  <script src="winter.js?v=202611030715"></script>
+  <script src="wordpop.js?v=202611030715"></script>
+  <script src="backup.js?v=202611030715"></script>
+  <script src="cloud-sync/config.js?v=202611030715"></script>
+  <script type="module" src="cloud-sync/client.mjs?v=202611030715"></script>
+  <script src="themes.js?v=202611030715"></script>
+  <script src="home.js?v=202611030715"></script>
+  <script src="splash.js?v=202611030715"></script>
 </body>
 </html>
