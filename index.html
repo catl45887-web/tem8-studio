@@ -76,21 +76,40 @@
           <div hidden><b id="stat-sessions">0</b><b id="stat-mistakes">0</b><b id="stat-accuracy">—</b><b id="stat-accuracy-suffix"></b></div>
           <div id="backup-reminder" class="backup-reminder" hidden><span>学习记录还没有近期备份。换设备或清理缓存前，建议先导出。</span><button type="button" data-view="my">前往「我的」</button><button type="button" data-backup-dismiss aria-label="关闭提醒">×</button></div>
         </div>
-        <!-- 浅色 / 深色主题的首页（圣诞主题下隐藏） -->
+        <!-- 浅色 / 深色主题的首页（圣诞主题下隐藏；内容由 home.js 填写） -->
         <div class="t-home">
-          <p class="t-date" id="t-date"></p>
-          <h1 class="t-hello">欢迎回来</h1>
-          <p class="t-sub">慢慢来，每天读懂一点。</p>
-          <div class="t-stats"><div><strong id="t-sessions">0</strong><span>完成练习</span></div><div><strong id="t-mistakes">0</strong><span>待复习错题</span></div><div><strong id="t-acc">—</strong><span>选择题正确率</span></div></div>
-          <h2 class="t-h2">继续学习</h2>
-          <div class="t-entries">
-            <button type="button" data-view="library"><b>阅读真题</b><small>按年份精读文章</small></button>
-            <button type="button" data-view="papers"><b>按题型练习</b><small>听力、阅读、改错、翻译、写作</small></button>
-            <button type="button" data-view="intensive"><b>精听学习</b><small>逐句听，看原文</small></button>
-            <button type="button" data-view="mistakes"><b>错题本</b><small>错过的题再看一遍</small></button>
-            <button type="button" data-view="words"><b>生词本</b><small>攒下的单词集中复习</small></button>
-            <button type="button" data-view="bookmarks"><b>我的收藏</b><small>值得反复琢磨的题</small></button>
-          </div>
+          <section class="h-count" aria-labelledby="h-days">
+            <div class="h-count-row">
+              <span class="h-days" id="h-days">—</span>
+              <span class="h-days-label"><small>DAYS LEFT</small><b id="h-days-cap">距离专八</b></span>
+              <label class="h-date-edit"><span id="h-date-btn">设定考试日期</span><input type="date" id="h-exam-date" aria-label="考试日期"></label>
+            </div>
+            <div class="h-track" aria-hidden="true"><i id="h-track-fill"></i></div>
+            <div class="h-track-cap"><span id="h-track-start"></span><span id="h-track-pct"></span></div>
+          </section>
+
+          <section class="h-pick" id="h-pick" hidden>
+            <div class="h-label" id="h-pick-label">今日推荐</div>
+            <p class="h-quote" id="h-pick-text"></p>
+            <div class="h-meta" id="h-pick-meta"></div>
+            <div class="h-actions">
+              <button class="h-primary" id="h-pick-read" data-open-reader data-mode="free" data-article="">开始精读</button>
+              <button class="h-link" id="h-pick-do" data-open-reader data-mode="practice" data-article="">直接做题 <span aria-hidden="true">→</span></button>
+            </div>
+          </section>
+
+          <section class="h-today">
+            <div class="h-label">今天</div>
+            <button class="h-row" data-view="mistakes" id="h-review"><span id="h-review-text">复习错题和生词</span><span class="h-row-end" id="h-review-end">→</span></button>
+            <button class="h-row h-row-stack" id="h-continue" data-open-reader data-mode="free" data-article="" hidden>
+              <span class="h-row-top"><span id="h-continue-text"></span><span class="h-row-end" id="h-continue-end"></span></span>
+              <span class="h-track" aria-hidden="true"><i id="h-continue-fill"></i></span>
+            </button>
+            <button class="h-row" data-view="library"><span>按年份读真题</span><span class="h-row-end">→</span></button>
+            <button class="h-row" data-view="papers"><span>按题型练习</span><span class="h-row-end">→</span></button>
+          </section>
+
+          <p class="h-streak" id="h-streak"></p>
         </div>
       </section>
 
@@ -137,6 +156,12 @@
             <div class="t-row t-col"><b>正文字号</b>
               <div class="t-seg" role="radiogroup" aria-label="正文字号"><button type="button" role="radio" data-font-scale="0.9">小</button><button type="button" role="radio" data-font-scale="1">标准</button><button type="button" role="radio" data-font-scale="1.12">大</button><button type="button" role="radio" data-font-scale="1.25">特大</button></div>
               <div class="t-preview"><p>Reading slowly is not a weakness. It is how a difficult sentence finally opens up and shows you what it means.</p><small>慢慢读不是缺点，难句正是这样被读懂的。</small></div>
+            </div>
+          </div>
+          <div class="t-noxmas">
+            <h2 class="t-h2">开屏</h2>
+            <div class="t-group">
+              <label class="t-row" for="t-splash-toggle"><span><b>每日开屏</b><small>每天第一次打开时，先看一眼水面</small></span><input type="checkbox" class="t-switch" id="t-splash-toggle" role="switch"></label>
             </div>
           </div>
           <div class="t-xmas-only">
@@ -190,5 +215,7 @@
   <script src="cloud-sync/config.js"></script>
   <script type="module" src="cloud-sync/client.mjs"></script>
   <script src="themes.js"></script>
+  <script src="home.js"></script>
+  <script src="splash.js"></script>
 </body>
 </html>
