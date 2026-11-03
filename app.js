@@ -169,6 +169,9 @@
   let readerTab = 'translate'
   let activeWord = null
   let activeArticle = null
+  let zhOpen = new Set(), lnOpen = new Set()
+  function zhOf(id,i) { const z=(window.TEM8_ZH||{})[id]; return (z && z[i]) || activeArticle?.segments?.[i]?.zh || '' }
+  function hasZh(a) { return !!a && a.segments.some((_,i)=>zhOf(a.id,i)) }
   let selectedLibraryYear = 2026
   let paperYear = 2026
   let paperTab = 'language'
@@ -417,7 +420,7 @@
     if (!article) return
     activeArticle = article
     readerMode = mode === 'free' ? 'free' : 'practice'
-    readerTab='translate'
+    readerTab='translate'; zhOpen=new Set(); lnOpen=new Set()
     updateReaderChrome()
     $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px')
     renderReader(); page('reader')
@@ -433,10 +436,23 @@
     document.querySelector('.reader-title').textContent=activeArticle.title
     $('reader-subtitle').textContent = (readerMode === 'free' ? `选中想记的词句点“标记”，笔记收在右侧抽屉里。点击单词查词。${activeArticle.year===2025?'精选句有人工句法讲解。':'本年尚无人工句法讲解。'}` : '左侧原文、右侧真题。选中原文即可标记，笔记在右侧抽屉。记录保存在当前浏览器；换设备前请在「我的」导出备份。')
     $('article-mode-switch').hidden=false
+    const zr=$('rd-zh-row'); if (zr) { zr.hidden=!hasZh(activeArticle); const b=zr.querySelector('[data-zh-all]'); if (b) b.textContent = zhOpen.size ? '全部收起' : '全部展开' }
     document.querySelectorAll('[data-article-mode]').forEach(b => b.classList.toggle('active',b.dataset.articleMode === readerMode))
     $('reading-done').hidden = readerMode !== 'free'
     $('reading-done').textContent = state.completed ? '✓ 已读完' : '标记读完'
     $('reading-done').classList.toggle('done',state.completed)
+  }
+  function paragraphExtras(i) {
+    const notes=(extras.notes[activeArticle.id]||[]).map((n,k)=>({n,k})).filter(x=>Number(x.n.paragraph)===i+1)
+    let html=''
+    notes.forEach(({n,k})=>{
+      const open=lnOpen.has(k)
+      html+=`<button type="button" class="rd-ln${open?' open':''}" data-ln="${k}">长难句解析</button>`
+      if (open) html+=`<span class="rd-ln-body"><span class="rd-ln-ex">${esc(n.excerpt)}</span>${(n.syntax||[]).map(([l,v])=>`<span class="rd-ln-row"><b>${esc(l)}</b>${esc(v)}</span>`).join('')}<span class="rd-ln-note">${esc(n.note)}</span></span>`
+    })
+    const zh=zhOf(activeArticle.id,i)
+    if (zh) html+=zhOpen.has(i) ? `<button type="button" class="rd-zh open" data-zh="${i}"><span class="rd-zh-text">${esc(zh)}</span><span class="rd-zh-hint">收起翻译</span></button>` : `<button type="button" class="rd-zh" data-zh="${i}">点击查看翻译</button>`
+    return html
   }
   function readerIntro(title, desc) { return `<div class="reader-intro"><strong>${esc(title)}</strong><span>${esc(desc)}</span></div>` }
   function articleText() {
@@ -444,7 +460,7 @@
     return `<div class="continuous-article" data-anno-scope data-anno-article="${activeArticle.id}" data-anno-word="1" data-anno-word-attr="data-word" data-anno-seg="1">${activeArticle.segments.map((s,i) => {
       const n=A?A.noteCount(activeArticle.id,i):0
       const body=A?A.textHTML(activeArticle.id,i,s.en,{word:true,attr:'data-word',segAttr:'data-segment'}):esc(s.en)
-      return `<p class="continuous-paragraph" id="reading-segment-${i}" data-anno-p="${i}"><button class="paragraph-number ${state.progress > i ? 'done' : ''}" data-mark-read="${i+1}" title="标记读到第 ${i+1} 段" aria-label="标记读到第 ${i+1} 段">${String(i+1).padStart(2,'0')}</button><span class="reader-english anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span></p>`
+      return `<p class="continuous-paragraph" id="reading-segment-${i}" data-anno-p="${i}"><button class="paragraph-number ${state.progress > i ? 'done' : ''}" data-mark-read="${i+1}" title="标记读到第 ${i+1} 段" aria-label="标记读到第 ${i+1} 段">${String(i+1).padStart(2,'0')}</button><span class="reader-english anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span>${paragraphExtras(i)}</p>`
     }).join('')}</div>`
   }
   function practiceQuestions() { return allRealQuestions.filter(q => q.articleId === activeArticle.id) }
@@ -633,6 +649,9 @@
     if (target.dataset.option !== undefined && session) { session.answers[session.ids[session.current]] = Number(target.dataset.option); renderQuestion(); return }
     if (target.dataset.jump !== undefined && session) { session.current=Number(target.dataset.jump); renderQuestion(); window.scrollTo(0,0); return }
     if (target.dataset.bookmark) { const set=new Set(store.bookmarks); set.has(target.dataset.bookmark) ? set.delete(target.dataset.bookmark) : set.add(target.dataset.bookmark); store.bookmarks=[...set]; save(); if (view==='exam') renderQuestion(); if (view==='result') renderResult(); return }
+    if (target.dataset.zh !== undefined) { const i=Number(target.dataset.zh); zhOpen.has(i)?zhOpen.delete(i):zhOpen.add(i); renderReader(); return }
+    if (target.dataset.zhAll !== undefined) { const all=activeArticle.segments.map((_,i)=>i).filter(i=>zhOf(activeArticle.id,i)); zhOpen = zhOpen.size===all.length ? new Set() : new Set(all); renderReader(); updateReaderChrome(); return }
+    if (target.dataset.ln !== undefined) { const k=Number(target.dataset.ln); lnOpen.has(k)?lnOpen.delete(k):lnOpen.add(k); renderReader(); return }
     if (target.dataset.readerTab) { readerTab=target.dataset.readerTab; renderReader(); return }
     if (target.dataset.font) { store.readingFont=Math.max(14,Math.min(24,store.readingFont+Number(target.dataset.font))); save(); $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px'); return }
     if (target.dataset.readingBackground !== undefined) { store.readingBackground=store.readingBackground==='sepia'?'paper':'sepia'; save(); updateReaderChrome(); return }

@@ -213,3 +213,19 @@ html[data-theme=xmas] #reader-view .reader-title{font-weight:400!important}
 #reader-view .reader-toolbar{display:none}
 .rd-tabs{justify-content:center;background:var(--bg)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 .rd-tabs button{max-width:150px}
+
+/* ---------- 逐段译文、原文内长难句 ---------- */
+.rd-zh{display:block;width:100%;margin:12px 0 2px;padding:10px 14px;border:0;border-radius:10px;background:var(--soft);color:var(--muted);font:inherit;font-size:13px;text-align:center;cursor:pointer;white-space:normal}
+.rd-zh.open{text-align:left;padding:12px 14px}
+.rd-zh-text{display:block;font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;font-style:normal;font-size:calc(15px*var(--fs,1));line-height:1.8;color:var(--ink)}
+.rd-zh-hint{display:block;margin-top:6px;font-size:12px;color:var(--muted);text-align:right}
+.rd-ln{display:inline-block;margin:0 0 0 6px;padding:2px 9px;border:0;border-radius:99px;background:rgba(194,96,58,.14);color:#b4532f;font:inherit;font-size:12px;font-style:normal;line-height:1.7;vertical-align:2px;cursor:pointer;white-space:nowrap}
+html[data-theme=dark] .rd-ln{background:rgba(232,146,95,.18);color:#f0a674}
+html[data-theme=xmas] .rd-ln{background:rgba(230,199,154,.16);color:var(--gold)}
+.rd-ln-body{display:block;margin:12px 0 4px;padding:14px 16px;border-left:3px solid rgba(194,96,58,.5);background:var(--soft);border-radius:0 10px 10px 0;font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;font-size:14px;line-height:1.75;color:var(--ink)}
+.rd-ln-ex{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;margin-bottom:8px}
+.rd-ln-row{display:block;font-size:13px;color:var(--muted)}
+.rd-ln-row b{display:inline-block;min-width:72px;color:var(--ink);font-weight:600;margin-right:8px}
+.rd-ln-note{display:block;margin-top:8px}
+/* 做题：宽屏左文右题，原文占满一屏高并固定，题目单独滚动 */
+@media(min-width:901px){.workflow-reading-passage{max-height:calc(100vh - 24px)!important}}
