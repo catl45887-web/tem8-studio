@@ -84,10 +84,6 @@
     })
   }
 
-  function row(view, text, end) {
-    return '<button class="h-row" type="button" data-view="' + view + '"><span>' + text + '</span><span class="h-row-end">' + end + '</span></button>'
-  }
-
   function render() {
     if (!$('h-count-line')) return
     today = new Date()
@@ -102,40 +98,6 @@
     $('h-date-btn').textContent = exam && left >= 0 ? '改日期' : '设定考试日期'
     if (input && exam) input.value = ymd(exam)
 
-    // 主卡片：有没读完的就"继续上次"，否则今日推荐（真题）
-    var lastId = get('tem8_last_article', '')
-    var going = articles.filter(function (x) { var st = stateOf(x.id); return st.progress > 0 && !st.completed })
-    var cont = going.filter(function (x) { return x.id === lastId })[0] || going[0]
-    var a = cont || todaysPick()
-    var card = $('h-card')
-    if (a) {
-      card.hidden = false
-      var st = stateOf(a.id), tot = a.segments.length, n = Math.min(st.progress || 0, tot), q = qCount(a)
-      $('h-card-label').textContent = (cont ? '继续上次 · ' : '今日推荐 · ') + a.year + ' 真题 · ' + (a.label || '')
-      $('h-card-text').textContent = opening(a, 110)
-      $('h-card-progress').hidden = !cont
-      $('h-card-fill').style.width = Math.round(n / tot * 100) + '%'
-      $('h-card-meta').textContent = cont ? '读到第 ' + n + ' / ' + tot + ' 段' : tot + ' 段' + (q ? ' · ' + q + ' 题' : '') + (st.completed ? ' · 已读完' : '')
-      $('h-card-read').dataset.article = a.id
-      $('h-card-read').textContent = cont ? '继续精读' : '开始精读'
-      $('h-card-do').dataset.article = a.id
-      $('h-card-do').hidden = !q
-    } else card.hidden = true
-
-    // 今日待办：只写真实数字
-    var mistakes = parseInt(($('stat-mistakes') || {}).textContent, 10) || 0
-    var wb = (store().wordbook || []).length
-    var rows = []
-    if (mistakes) rows.push(row('mistakes', '错题 <b>' + mistakes + '</b> 道待回练', '→'))
-    if (wb) rows.push(row('words', '生词本 <b>' + wb + '</b> 个', '→'))
-    if (!rows.length) rows.push(row('papers', '还没有错题和生词', '做一组题 →'))
-    $('h-todo-list').innerHTML = rows.join('')
-
-    // 连续天数：用一句话说
-    var n2 = streak(), all = days().length
-    $('h-streak').innerHTML = all
-      ? (n2 ? '已连续学习 <b>' + n2 + '</b> 天' : '昨天没有学习，今天重新开始') + (all > n2 ? '，一共学了 <b>' + all + '</b> 天。' : '。')
-      : '读完一段、做一道题，都会记作今天学过。'
   }
 
   // 让开屏也能用到"今日推荐"

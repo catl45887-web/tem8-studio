@@ -67,16 +67,7 @@ html[data-theme=xmas] .t-home{display:block;max-width:720px;margin:0 auto;paddin
 .h-count-line{margin:0;font-size:14px;color:var(--muted)}
 .h-count-line b{color:var(--ink);font-weight:700;font-size:15px;margin:0 2px}
 .t-home .h-date-edit{margin-left:0;font-size:13px;color:var(--muted);border:0}
-.h-card{margin-top:18px;padding-top:24px;border-top:1px solid var(--line)}
-.h-card .h-quote{font-size:24px;margin-top:12px}
-.h-progress{height:3px;background:var(--line);border-radius:3px;margin:16px 0 0;overflow:hidden}
-.h-progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .6s ease}
-.h-todo{margin-top:40px}
-.h-todo .h-label{margin-bottom:4px}
-.h-row b{font-weight:700;margin:0 2px}
-html[data-theme=xmas] .h-label{letter-spacing:3px}
-html[data-theme=xmas] .t-home .h-primary{background:var(--gold);color:#2b1e17}
-html[data-theme=xmas] .h-count-line b,html[data-theme=xmas] .h-row b{color:var(--gold)}
+html[data-theme=xmas] .h-count-line b{color:var(--gold)}
 
 /* ---------- 阅读目录 ---------- */
 .library-year-nav{margin-top:14px!important}
@@ -194,6 +185,6 @@ html[data-theme=light] select{background:#fffdf8;color:#2a2118}
 .muted{font-size:13px}
 
 
-/* 圣诞首页：书房场景随页面滚动，下面接倒计时、继续上次、今日待办 */
+/* 圣诞首页：书房场景随页面滚动，下面接倒计时 */
 html[data-theme=xmas] #home-view .w-stage{position:relative!important;inset:auto!important;height:82vh!important;min-height:520px}
 html[data-theme=xmas] .real-article-card .real-article-top{display:none!important}
