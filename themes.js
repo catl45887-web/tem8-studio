@@ -55,6 +55,7 @@
     document.querySelectorAll('[data-font-scale]').forEach(function(b){b.setAttribute('aria-checked',String(b.dataset.fontScale===s))})
     var snow=$('t-snow');if(snow)snow.checked=get('tem8_snow','on')!=='off'
     var snd=$('t-sound');if(snd)snd.checked=soundOn()
+    var sp=$('t-splash-toggle');if(sp)sp.checked=get('tem8_splash','on')!=='off'
   }
 
   function pick(t){set('tem8_theme',t);set('tem8_theme_follow','0');apply(true)}
@@ -64,6 +65,7 @@
     if(el.name==='t-theme'&&el.checked)pick(el.value)
     else if(el.id==='t-follow'){set('tem8_theme_follow',el.checked?'1':'0');apply(true)}
     else if(el.id==='t-snow'){set('tem8_snow',el.checked?'on':'off');applySnow()}
+    else if(el.id==='t-splash-toggle'){set('tem8_splash',el.checked?'on':'off')}
     else if(el.id==='t-sound'){var b=soundBtn();if(b&&el.checked!==soundOn())b.click();syncUI()}
   })
 
@@ -92,6 +94,23 @@
   }
   stats()
   ;['stat-sessions','stat-mistakes','stat-accuracy'].forEach(function(id){var el=$(id);if(el&&window.MutationObserver)new MutationObserver(stats).observe(el,{childList:true,characterData:true,subtree:true})})
+
+  // ---------- 手机底栏：给浅色 / 深色主题加线条图标（圣诞主题由 CSS 隐藏） ----------
+  var ICONS = {
+    home: 'M4 10.5 12 4l8 6.5V20H4z',
+    library: 'M4 4.5h6a2 2 0 0 1 2 2V20a1.5 1.5 0 0 0-1.5-1.5H4zM20 4.5h-6a2 2 0 0 0-2 2V20a1.5 1.5 0 0 1 1.5-1.5H20z',
+    papers: 'M14 4l6 6L9 21H3v-6zM12 6l6 6',
+    intensive: 'M4 15v-3a8 8 0 0 1 16 0v3M4 15h3v5H4zM17 15h3v5h-3z',
+    bookmarks: 'M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z',
+    mistakes: 'M4 12a8 8 0 1 0 2.4-5.7L4 8.5M4 4v4.5h4.5',
+    my: 'M12 12.5a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20.5a7.5 7.5 0 0 1 15 0'
+  }
+  document.querySelectorAll('.mobile-nav button[data-view]').forEach(function(b){
+    var d=ICONS[b.dataset.view];if(!d||b.querySelector('.t-ico'))return
+    var ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),p=document.createElementNS(ns,'path')
+    svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('class','t-ico');svg.setAttribute('aria-hidden','true');p.setAttribute('d',d)
+    svg.appendChild(p);b.insertBefore(svg,b.firstChild)
+  })
 
   // 头部脚本已套好主题；这里补上开关的初始状态
   apply(false);syncUI()

@@ -20,9 +20,9 @@ COLOR_PROPS = re.compile(r'color|background|border|outline|shadow|fill|stroke|ca
 
 EXACT = {
     'light': {'#f6f3ec': '#faf6ee', '#273630': '#2a2118', '#fffefa': '#fffdf8', '#f9f7f1': '#f5efe3',
-              '#284c3d': '#7d3b2f', '#e7e7dc': '#e8dfd0'},
+              '#284c3d': '#2a2118', '#e7e7dc': '#e8e0d2', '#e9b678': '#c23b22', '#7b857e': '#6b6156'},
     'dark':  {'#f6f3ec': '#1c1b19', '#273630': '#e6e1d8', '#fffefa': '#252320', '#f9f7f1': '#211f1d',
-              '#284c3d': '#d9b47c', '#e7e7dc': '#3a3632'},
+              '#284c3d': '#e6e1d8', '#e7e7dc': '#34312d', '#e9b678': '#ec6a52'},
 }
 
 
@@ -58,8 +58,8 @@ def map_light(r, g, b, a, semantic):
     if semantic:
         return r, g, b, a
     if is_green(h, s) or s < 0.12:
-        if l < 0.45 and s > 0.2 and is_green(h, s):   # 深绿：原品牌色 → 酒红棕
-            h, s = 10 / 360, min(0.45, s * 1.3 + 0.08)
+        if l < 0.45 and s > 0.2 and is_green(h, s):   # 深绿：原品牌色 → 墨色
+            h, s = 30 / 360, 0.22
         else:                                     # 浅绿、灰绿 → 暖米色
             h, s = 36 / 360, s * 0.75
     r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
@@ -83,9 +83,9 @@ def map_dark(r, g, b, a, semantic, prop):
     l2 = dark_l(l)
     if is_green(h, s) and l >= 0.85:    # 浅绿底：原来的悬停 / 选中底色 → 比卡片略亮的抬起面
         l2 = 0.19 + (0.97 - min(l, 0.97)) * 0.4
-    if is_green(h, s) and l < 0.45 and s > 0.2:   # 深绿：品牌色 → 暖金
-        h, s = 38 / 360, 0.55
-        l2 = max(l2, 0.62)
+    if is_green(h, s) and l < 0.45 and s > 0.2:   # 深绿：品牌色 → 象牙白
+        h, s = 38 / 360, 0.16
+        l2 = max(l2, 0.80)
     elif is_green(h, s) or s < 0.15:    # 其他绿 / 灰 → 中性略暖
         h, s = 36 / 360, min(s, 0.10)
     elif s > 0.35 and 0.45 < l < 0.85:  # 金色、琥珀这类强调色：深色底上原样保留
