@@ -315,6 +315,20 @@
       const done=[it.miniLecture&&it.interview, hasReading, source?.languageLines?.length, source?.translation?.length, source?.writing?.length].filter(Boolean).length
       return `<button class="mock-card" data-mock-year="${y}" ${ready?'':'disabled'}><strong>${y} 年整卷</strong><small>${ready ? `5 个部分 · ${it.timeLimitMinutes ? `约 ${it.timeLimitMinutes} 分钟` : '时长未录入'}` : `资料待补（已有 ${done} / 5 部分）`}</small><b>${ready?'开始 →':''}</b></button>`
     }).join('')
+    // 浅色 / 深色：共用信息只说一次，年份做成带状态的格子
+    let tiles = $('mock-tiles')
+    if (!tiles) { tiles = document.createElement('div'); tiles.id = 'mock-tiles'; el.before(tiles) }
+    const W = window.TEM8_WORKFLOW, live = W?.session?.(), hist = W?.history?.() || []
+    const mins = Math.max(...years.map(y => Number(L[y]?.timeLimitMinutes) || 0)) || 150
+    tiles.innerHTML = `<div class="mt-info"><span>听力 → 阅读 → 改错 → 翻译 → 写作</span><span>约 ${mins} 分钟 · 按考试顺序计时</span></div><div class="mt-grid">${years.map(y => {
+      const it = L[y] || {}, source = paperExtras[y], hasReading = allArticles.some(a=>Number(a.year)===y)
+      const ready = !!(it.audio&&it.miniLecture?.blanks?.length&&it.interview?.questions?.length&&hasReading&&source?.languageLines?.length&&source?.translation?.length&&source?.writing?.length)
+      const going = live?.type === 'mock' && Number(live.year) === y
+      const runs = hist.filter(r => r.type === 'mock' && Number(r.year) === y), sc = runs.length ? W.runScore(runs.at(-1)) : null
+      const st = !ready ? (it.audio ? '资料待补' : '无录音') : going ? `做到第 ${(live.current||0)+1} 部分` : runs.length ? (sc != null ? `得分 ${sc}%` : '已完成') : '未做'
+      const cls = !ready ? 'off' : going ? 'going' : runs.length ? 'done' : ''
+      return `<button type="button" class="mt-tile ${cls}" data-mock-year="${y}" ${ready?'':'disabled'}><b>${y}</b><small>${st}</small></button>`
+    }).join('')}</div>`
   }
   function paperState() { store.paperWork ||= {};store.paperWork[paperYear] ||= {language:{},translation:'',writing:''};return store.paperWork[paperYear] }
   function renderArchivePaper() {

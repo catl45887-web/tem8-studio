@@ -255,3 +255,31 @@ html[data-theme=dark] .anno-chip.docked button:not(.g):not(.b):not(.r){color:#1c
 .rac-label{white-space:nowrap}
 .rac-main{gap:12px}
 @media(max-width:420px){.rac-ring{width:42px;height:42px}.rac-ring b{font-size:11px}.rac-tag{padding:2px 7px;font-size:11px}.rac-do{padding:8px 10px;font-size:13px}.rac-go{width:22px}.rac-main{padding-left:14px;gap:10px}html:not([data-theme=xmas]) .real-article-card.rac{gap:6px!important;padding-right:6px!important}}
+
+/* 练习页：按题型卡片 + 整卷模考年份格（圣诞主题保持原样） */
+#paper-cards,#mock-tiles{display:none}
+html:not([data-theme=xmas]) #paper-cards,html:not([data-theme=xmas]) #mock-tiles{display:block}
+html:not([data-theme=xmas]) #paper-categories,html:not([data-theme=xmas]) #mock-list,html:not([data-theme=xmas]) #papers-view .app-note{display:none}
+#paper-cards{margin-top:18px}
+.pc-resume{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--ink);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.pc-resume>div{flex:1;min-width:0;display:grid;gap:2px}.pc-resume b{font-size:14px}.pc-resume small{font-size:12px;color:var(--muted)}
+.pc-btn{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 16px;font-size:13px}
+.pc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.pc-card{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;color:var(--ink);font:inherit;min-height:118px}
+button.pc-card{cursor:pointer}button.pc-card:hover{border-color:var(--muted)}
+.pc-top{display:flex;justify-content:space-between;align-items:center}.pc-top b{font-size:16px}
+.pc-ico{color:var(--muted);font-size:16px}
+.pc-sub{font-size:12.5px;color:var(--muted)}
+.pc-chips{display:flex;gap:8px;flex-wrap:wrap}
+.pc-chips button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:12.5px}
+.pc-chips button:hover{border-color:var(--ink)}
+.pc-stat{margin-top:auto;font-size:12px;color:var(--ink);opacity:.8}.pc-stat.none{color:var(--muted);opacity:1}
+.mt-info{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:var(--muted);padding:12px 0 16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.mt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.mt-tile{display:grid;gap:4px;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font:inherit;cursor:pointer}
+.mt-tile:hover{border-color:var(--muted)}
+.mt-tile b{font-size:18px;font-variant-numeric:tabular-nums}.mt-tile small{font-size:12px;color:var(--muted)}
+.mt-tile.going{border:2px solid var(--accent)}.mt-tile.going small{color:var(--accent)}
+.mt-tile.done small{color:#2f7d4f}html[data-theme=dark] .mt-tile.done small{color:#78c495}
+.mt-tile.off{border-style:dashed;background:transparent;cursor:not-allowed}.mt-tile.off b{color:var(--muted)}
+html:not([data-theme=xmas]) #mock-view .app-sub{display:none}
