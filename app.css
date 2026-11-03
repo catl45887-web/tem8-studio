@@ -229,3 +229,12 @@ html[data-theme=xmas] .rd-ln{background:rgba(230,199,154,.16);color:var(--gold)}
 .rd-ln-note{display:block;margin-top:8px}
 /* 做题：宽屏左文右题，原文占满一屏高并固定，题目单独滚动 */
 @media(min-width:901px){.workflow-reading-passage{max-height:calc(100vh - 24px)!important}}
+
+/* ---------- 选中文字后的标记条：固定在底部，避开浏览器 / 插件的划词菜单 ---------- */
+.anno-chip.docked{left:12px!important;right:12px!important;top:auto!important;bottom:calc(76px + env(safe-area-inset-bottom))!important;width:max-content;max-width:calc(100% - 24px);margin:0 auto;padding:6px 8px!important;border-radius:14px!important;gap:6px!important;z-index:90!important}
+.anno-chip.docked button{font-size:15px!important;padding:11px 14px!important}
+.anno-chip.docked .anno-colors button{width:26px!important;height:26px!important;padding:0!important}
+body.app-v-workflow-session .anno-chip.docked{bottom:calc(76px + env(safe-area-inset-bottom))!important}
+html[data-theme=light] .anno-chip.docked{background:#2a2118!important;box-shadow:0 10px 30px rgba(42,33,24,.35)!important}
+html[data-theme=dark] .anno-chip.docked{background:#ece6dc!important}
+html[data-theme=dark] .anno-chip.docked button:not(.g):not(.b):not(.r){color:#1c1b19!important}

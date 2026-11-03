@@ -203,15 +203,12 @@
     chip.innerHTML = `<button class="anno-chip-main" data-anno-mark="y" title="标记选中的文字">✎ 标记</button><span class="anno-colors"><button data-anno-mark="g" class="g" title="绿色标记"></button><button data-anno-mark="b" class="b" title="蓝色标记"></button><button data-anno-mark="r" class="r" title="红色标记"></button></span><button class="anno-chip-erase" data-anno-erase hidden title="去掉选中部分的标记">✕ 取消标记</button><button class="anno-chip-note" data-anno-note>笔记</button>`
     document.body.appendChild(chip)
   }
-  function showChipAt(rect) {
+  // 标记条固定在屏幕底部：浏览器和划词插件的菜单都贴着选中的文字弹出，放在底部就不会被它们挡住
+  function showChipAt() {
     chip.hidden = false
-    const w = chip.offsetWidth || 168, h = chip.offsetHeight || 34
-    let top = rect.top - h - 10
-    let left = rect.left + rect.width / 2 - w / 2
-    if (top < 66) top = rect.bottom + 10
-    left = Math.max(10, Math.min((window.innerWidth || 1024) - w - 10, left))
-    chip.style.top = top + 'px'
-    chip.style.left = left + 'px'
+    chip.classList.add('docked')
+    chip.style.top = ''
+    chip.style.left = ''
   }
   function hideChip() { if (chip) chip.hidden = true }
 
