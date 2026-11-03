@@ -111,6 +111,7 @@
         throw error
       }
       saveMeta({ ...meta(), lastBackupAt: Date.parse(data.createdAt) || Date.now() })
+      localStorage.removeItem('tem8_sync_v1')
       message('导入成功，正在刷新页面以显示恢复的记录。')
       window.TEM8_IMPORTING_BACKUP = true
       location.reload()

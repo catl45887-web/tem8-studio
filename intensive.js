@@ -43,7 +43,7 @@
     const src=rows()[i]?.tSource
     return corrected(i) ? '你已手动校准' : ['word-anchor','anchor'].includes(src) ? (year===2025?'来源文件标注为音频验证锚点':'依据你提供的 Word 时间点校准') : ['asr','asr2'].includes(src) ? '来源文件标注为 ASR 词级匹配' : src==='interp' ? '来源文件标注为插值估算' : ['anchor-interpolated','transcript-interpolated'].includes(src) ? '依据相邻来源时间点插值估算，可继续手动校准' : '初始定位，可能与录音有偏差'
   }
-  function save() { saved.year=year; saved.section=section; localStorage.setItem(KEY,JSON.stringify(saved)) }
+  function save() { saved.year=year; saved.section=section; localStorage.setItem(KEY,JSON.stringify(saved)); document.dispatchEvent(new Event('tem8:study-changed')) }
   function audioSlot() {
     const data=track()
     window.TEM8_AUDIO?.mount(host().querySelector('#intensive-audio'),{

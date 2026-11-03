@@ -1,0 +1,15 @@
+{
+  "name": "tem8-study-sync",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-03",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGIN": "https://mytemtime.com"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tem8-study-sync"
+    }
+  ]
+}
