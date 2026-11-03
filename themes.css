@@ -1,0 +1,202 @@
+/* =====================================================================
+   拾页 · 主题（手写部分）
+   - 三套主题：xmas（圣诞，原冬日风格）、dark（深色）、light（浅色）
+   - 配色由 theme-light.css / theme-dark.css 提供（tools/gen-themes.py 生成）
+   - 这里放：主题切换时的显示 / 隐藏、浅色深色首页、外观设置页、阅读字号
+   ===================================================================== */
+
+/* ---------- 只属于圣诞主题的装饰：其他主题一律隐藏 ---------- */
+html:not([data-theme=xmas]) .w-edge,
+html:not([data-theme=xmas]) .w-flakes,
+html:not([data-theme=xmas]) .w-sock,
+html:not([data-theme=xmas]) .w-line,
+html:not([data-theme=xmas]) .w-bulb,
+html:not([data-theme=xmas]) .w-folder,
+html:not([data-theme=xmas]) .w-flabel,
+html:not([data-theme=xmas]) .w-book,
+html:not([data-theme=xmas]) .w-string,
+html:not([data-theme=xmas]) .w-wallhint,
+html:not([data-theme=xmas]) .t-xmas-only{display:none!important}
+html:not([data-theme=xmas]) .w-wallscroll,
+html:not([data-theme=xmas]) .w-wall,
+html:not([data-theme=xmas]) .w-yearwrap{display:contents}
+html:not([data-theme=xmas]) .nav-item>span{display:none}
+html:not([data-theme=xmas]) .mock-card{position:static}
+html[data-theme=xmas] .t-home{display:none}
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=light]{color-scheme:light}
+
+/* 切换主题时的短暂淡入（只在切换的那一刻加这个类） */
+html.t-switching body{animation:t-fade .32s ease}
+@keyframes t-fade{from{opacity:.55}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){html.t-switching body{animation:none}}
+
+/* 关闭飘雪 */
+html.t-no-snow .w-flakes,html.t-no-snow .w-snow{display:none!important}
+
+/* ---------- 浅色 / 深色主题的首页 ---------- */
+.t-home{max-width:880px;padding:56px 0 24px}
+.t-date{margin:0;font-size:13px;letter-spacing:1px;color:var(--muted)}
+.t-hello{font-family:Georgia,'Noto Serif SC','Songti SC',serif;font-weight:500;font-size:clamp(32px,4.4vw,48px);line-height:1.25;letter-spacing:-.5px;margin:12px 0 10px;color:var(--ink)}
+.t-sub{margin:0;color:var(--muted);font-size:15px}
+.t-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0 8px}
+.t-stats>div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.t-stats strong{display:block;font-size:30px;font-weight:600;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.t-stats span{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.t-h2{font-size:17px;font-weight:600;margin:38px 0 14px;color:var(--ink)}
+.t-entries{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.t-entries button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;color:var(--ink);transition:border-color .15s,transform .15s}
+.t-entries button:hover{border-color:var(--green);transform:translateY(-2px)}
+.t-entries b{font-size:16px;font-weight:600}
+.t-entries small{font-size:13px;color:var(--muted)}
+.t-entries button.active{background:var(--paper)}
+@media(max-width:760px){
+  .t-home{padding:32px 0 8px}
+  .t-stats{gap:8px;margin-top:26px}
+  .t-stats>div{padding:14px 12px}
+  .t-stats strong{font-size:24px}
+  .t-stats span{font-size:12px}
+  .t-entries{grid-template-columns:repeat(2,1fr);gap:10px}
+  .t-entries button{padding:16px}
+}
+
+/* ---------- 顶栏：主题快捷切换 ---------- */
+.topbar{position:relative}
+.t-top-right{display:flex;align-items:center;gap:14px}
+.t-quick{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:0}
+.t-quick svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.t-quick:hover{border-color:var(--green)}
+.t-pop{position:absolute;right:0;top:calc(100% - 8px);z-index:40;width:230px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.22);padding:8px}
+.t-pop[hidden]{display:none}
+.t-pop button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;border-radius:9px;padding:10px 10px;color:var(--ink);font-size:14px;text-align:left}
+.t-pop button:hover{background:var(--soft)}
+.t-pop button[aria-checked=true]{font-weight:600}
+.t-pop button[aria-checked=true]::after{content:'✓';margin-left:auto;color:var(--green)}
+.t-pop hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+.t-pop .t-more{color:var(--muted);font-size:13px}
+.t-pop-note{margin:4px 10px 6px;font-size:12px;color:var(--muted)}
+
+/* 主题色块 */
+.t-swatch{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);position:relative;overflow:hidden}
+.t-swatch::before,.t-swatch::after{content:'';position:absolute}
+.t-sw-xmas{background:#2b1e17}
+.t-sw-xmas::before{inset:auto 0 0 0;height:45%;background:#8B3A3A}
+.t-sw-xmas::after{width:8px;height:8px;border-radius:50%;background:#e6c79a;top:6px;right:7px}
+.t-sw-dark{background:#1c1b19}
+.t-sw-dark::before{inset:auto 0 0 0;height:45%;background:#2c2a26}
+.t-sw-dark::after{width:8px;height:8px;border-radius:50%;background:#d9b47c;top:6px;right:7px}
+.t-sw-light{background:#faf6ee}
+.t-sw-light::before{inset:auto 0 0 0;height:45%;background:#efe6d6}
+.t-sw-light::after{width:8px;height:8px;border-radius:50%;background:#7d3b2f;top:6px;right:7px}
+.t-pop .t-swatch{width:22px;height:22px}
+.t-pop .t-swatch::after{width:6px;height:6px;top:4px;right:5px}
+
+/* ---------- 外观设置页（参考系统设置的分组列表） ---------- */
+#settings-view .page-head{margin-bottom:22px}
+.t-settings{max-width:680px}
+.t-group{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.t-group+.t-group{margin-top:14px}
+.t-row{display:flex;align-items:center;gap:14px;min-height:62px;padding:12px 20px;cursor:pointer;color:var(--ink)}
+.t-row+.t-row{border-top:1px solid var(--line)}
+.t-row>span:not(.t-swatch){flex:1;min-width:0}
+.t-row b{display:block;font-size:16px;font-weight:500}
+.t-row small{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.t-hint{font-size:13px;color:var(--muted);margin:10px 20px 26px;line-height:1.6}
+.t-group.t-locked .t-row{opacity:.45;cursor:default}
+.t-settings .t-h2{margin:34px 0 12px}
+
+/* 开关 */
+.t-switch{appearance:none;-webkit-appearance:none;flex:none;width:50px;height:30px;border-radius:15px;background:var(--line);position:relative;cursor:pointer;margin:0;transition:background .2s}
+.t-switch::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.t-switch:checked{background:var(--green)}
+.t-switch:checked::after{transform:translateX(20px)}
+.t-switch:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+/* 单选 */
+.t-radio{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--muted);margin:0;cursor:pointer;display:grid;place-items:center}
+.t-radio::after{content:'';width:12px;height:12px;border-radius:50%;background:var(--green);transform:scale(0);transition:transform .15s}
+.t-radio:checked{border-color:var(--green)}
+.t-radio:checked::after{transform:scale(1)}
+.t-radio:disabled{cursor:default}
+.t-radio:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+/* 字号分段按钮 */
+.t-row.t-col{flex-direction:column;align-items:stretch;cursor:default}
+.t-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--soft);border-radius:10px;padding:4px;margin-top:4px}
+.t-seg button{border:0;background:none;border-radius:7px;padding:9px 4px;color:var(--muted);font-size:14px}
+.t-seg button[aria-checked=true]{background:var(--paper);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.t-preview{margin:12px 0 4px;padding:16px 18px;border-radius:10px;border:1px dashed var(--line);font-family:Georgia,'Times New Roman',serif;font-size:calc(18px*var(--fs,1));line-height:1.85;color:var(--ink)}
+.t-preview p{margin:0}
+.t-preview small{display:block;margin-top:8px;font-family:inherit;font-size:calc(15px*var(--fs,1));color:var(--muted)}
+
+/* ---------- 阅读字号：三套主题通用，随"正文字号"缩放 ---------- */
+/* 文章页自带的 A− / A+ 仍然有效：全站字号 × 文章页微调 */
+html[data-theme] .reader-english,
+html[data-theme] .continuous-paragraph{font-size:calc(var(--reader-font-size,17px)*var(--fs,1));line-height:1.85}
+html[data-theme] .reader-chinese{font-size:calc(15px*var(--fs,1));line-height:1.8}
+html[data-theme] .passage{font-size:calc(16px*var(--fs,1));line-height:1.85}
+html[data-theme] .question-prompt{font-size:calc(20px*var(--fs,1))}
+html[data-theme] .option,
+html[data-theme] .practice-option,
+html[data-theme] .workflow-options label,
+html[data-theme] .wf-intv-options li{font-size:calc(15px*var(--fs,1));line-height:1.65}
+html[data-theme] .practice-question h2,
+html[data-theme] .workflow-question h4{font-size:calc(19px*var(--fs,1))}
+html[data-theme] .paper-source,
+html[data-theme] .workflow-prompt,
+html[data-theme] .workflow-prompt.wf-outline p,
+html[data-theme] .wf-answer-row .wf-prompt{font-size:calc(16px*var(--fs,1));line-height:1.8}
+html[data-theme] .wf-lang-line{font-size:calc(15px*var(--fs,1))}
+html[data-theme] .wf-tr-line{font-size:calc(15px*var(--fs,1))}
+html[data-theme] .intensive-line-copy{font-size:calc(18px*var(--fs,1))}
+html[data-theme] .practice-question textarea,
+html[data-theme] .answer-textarea,
+html[data-theme] .paper-write{font-size:calc(15px*var(--fs,1))}
+html[data-theme] .workflow-question-head,
+html[data-theme] .workflow-question-foot,
+html[data-theme] .notice p{font-size:13px}
+@media(max-width:760px){
+  html[data-theme] .intensive-line-copy{font-size:calc(17px*var(--fs,1))}
+}
+
+/* 浅色、深色主题：英文正文用衬线体，更像纸质试卷 */
+html:not([data-theme=xmas]) .passage,
+html:not([data-theme=xmas]) .paper-source,
+html:not([data-theme=xmas]) .workflow-prompt{font-family:Georgia,'Times New Roman','Noto Serif SC',serif}
+
+/* 深色主题：强调色上的文字保持深色，确保看得清 */
+html[data-theme=dark] .nav-item b,
+html[data-theme=dark] .primary-btn,
+html[data-theme=dark] .submit-btn,
+html[data-theme=dark] .option.selected .option-letter{color:#1c1b19}
+html[data-theme=dark] .primary-btn:hover{background:#e7c690;border-color:#e7c690}
+html[data-theme=dark] ::selection{background:rgba(217,180,124,.35)}
+html[data-theme=light] ::selection{background:rgba(125,59,47,.18)}
+
+/* 手机底栏：按钮数量由 main 分支决定（现为 6 个），这里不再强行改列数 */
+
+/* ---------- 浅色、深色主题：补齐冬日结构里没有原样式的部分 ---------- */
+html:not([data-theme=xmas]) .w-papers-head{margin:52px 0 26px}
+html:not([data-theme=xmas]) .w-papers-head h2{font-size:clamp(31px,4vw,46px);line-height:1.3;margin:0 0 6px;font-weight:600;letter-spacing:-.5px;color:var(--ink)}
+html:not([data-theme=xmas]) .w-papers-head span{font-size:15px;color:var(--muted)}
+html:not([data-theme=xmas]) #paper-categories .category-icon{display:none}
+html:not([data-theme=xmas]) #paper-categories .category-card h3{margin-top:2px}
+html:not([data-theme=xmas]) .archive-paper-note{margin-top:18px;font-size:13px;line-height:1.7;color:var(--muted)}
+html[data-theme] .nav-item b:empty{display:none}
+html[data-theme=dark] .brand-mark{color:#1c1b19}
+
+/* 圣诞主题首页没有顶栏：在"风雪声"旁边放一个"外观"入口 */
+.w-theme{position:absolute;right:140px;top:24px;z-index:6;display:flex;align-items:center;padding:8px 14px;border-radius:999px;cursor:pointer;border:1px solid rgba(244,232,214,.25);background:rgba(20,13,9,.38);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:rgba(244,232,214,.75);font-size:13px;letter-spacing:1px;transition:all .3s}
+.w-theme em{font-style:normal}
+.w-theme:hover{color:#fff3e0;border-color:rgba(230,199,154,.5)}
+html:not([data-theme=xmas]) .w-theme{display:none}
+@media(max-width:760px){.w-theme{top:14px;right:112px;padding:6px 11px}}
+
+/* ---------- 备份页（backup.css）在浅色 / 深色主题下的配色 ----------
+   backup.css 用的是圣诞主题的变量名，这里给浅色、深色补上对应的值 */
+html[data-theme=light]{--card:#fffdf8;--cream:#2a2118;--cream-2:#5b4e40;--dim:#6f6354;--gold:#7d3b2f;--hair-2:#e0d5c3;--room-2:#f5efe3}
+html[data-theme=dark]{--card:#262421;--cream:#ece6dc;--cream-2:#cfc6b8;--dim:#a39a8d;--gold:#d9b47c;--hair-2:#3a3632;--room-2:#1f1d1b}
+html:not([data-theme=xmas]) .backup-card h2{font-family:inherit;font-weight:600}
+/* 备份提醒放在圣诞首页的场景里；其他主题隐藏场景时，提醒照常显示 */
+html:not([data-theme=xmas]) .w-stage{display:contents}
+html:not([data-theme=xmas]) .w-stage>*:not(#backup-reminder){display:none!important}
+html:not([data-theme=xmas]) #backup-reminder:not([hidden]){position:fixed;background:var(--card);box-shadow:0 10px 30px rgba(0,0,0,.18)}

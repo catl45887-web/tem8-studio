@@ -12,10 +12,16 @@
   <link rel="stylesheet" href="annotate.css">
   <link rel="stylesheet" href="intensive.css">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css">
-  <link rel="stylesheet" href="winter.css">
+  <link rel="stylesheet" href="winter-base.css" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css" id="css-winter">
   <link rel="stylesheet" href="wordpop.css">
   <link rel="stylesheet" href="backup.css">
+  <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
+  <link rel="stylesheet" href="theme-light.css">
+  <link rel="stylesheet" href="theme-dark.css">
+  <link rel="stylesheet" href="themes.css">
+  <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
+  <script>(function(){var d=document.documentElement,t='xmas',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'xmas';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='xmas';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}[t]})()</script>
 </head>
 <body>
   <div class="app-shell">
@@ -34,19 +40,27 @@
         <button class="nav-item" data-anno-all><span>✍</span> 标记与笔记</button>
         <button class="nav-item" data-view="bookmarks"><span>☆</span> 我的收藏</button>
         <button class="nav-item" data-view="my"><span>▣</span> 我的</button>
+        <button class="nav-item" data-view="settings"><span>◐</span> 外观设置</button>
       </nav>
       <div class="side-bottom"><div><strong>Slow and steady.</strong></div></div>
     </aside>
 
     <main class="main">
-      <header class="topbar"><div class="breadcrumb">专八练习 <span>/</span> <span id="crumb">学习首页</span></div><div class="top-date" id="today"></div></header>
+      <header class="topbar"><div class="breadcrumb">专八练习 <span>/</span> <span id="crumb">学习首页</span></div><div class="t-top-right"><div class="top-date" id="today"></div><button class="t-quick" id="t-quick" type="button" aria-label="切换主题" aria-haspopup="true" aria-expanded="false" aria-controls="t-pop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button></div>
+        <div class="t-pop" id="t-pop" role="menu" aria-label="选择主题" hidden>
+          <button type="button" role="menuitemradio" data-theme-pick="xmas"><span class="t-swatch t-sw-xmas"></span>圣诞主题</button>
+          <button type="button" role="menuitemradio" data-theme-pick="dark"><span class="t-swatch t-sw-dark"></span>深色主题</button>
+          <button type="button" role="menuitemradio" data-theme-pick="light"><span class="t-swatch t-sw-light"></span>浅色主题</button>
+          <p class="t-pop-note" id="t-pop-note" hidden>当前跟随系统；选一个主题会关闭跟随。</p>
+          <hr><button type="button" class="t-more" data-view="settings">更多外观设置 →</button>
+        </div></header>
       <section id="home-view" class="view active">
         <div class="w-stage">
           <div class="w-world">
-            <div class="w-view" aria-hidden="true"><picture><source media="(max-width: 860px)" srcset="winter/scene/snowy-village-night.png"><img src="winter/scene/snowy-village-night.png" alt=""></picture></div>
+            <div class="w-view" aria-hidden="true"><picture><source type="image/webp" srcset="winter/scene/snowy-village-night.webp"><img src="winter/scene/snowy-village-night.jpg" alt="" width="1672" height="941" loading="lazy" decoding="async"></picture></div>
             <canvas class="w-snow" aria-hidden="true"></canvas>
             <div class="w-glassfx" aria-hidden="true"></div>
-            <div class="w-room" aria-hidden="true"><picture><source media="(max-width: 860px)" srcset="winter/scene/room-m.webp"><img class="w-room-on" src="winter/scene/room.webp" alt=""></picture><picture><source media="(max-width: 860px)" srcset="winter/scene/room-m-off.webp"><img class="w-room-off" src="winter/scene/room-off.webp" alt=""></picture></div>
+            <div class="w-room" aria-hidden="true"><picture><source media="(max-width: 860px)" srcset="winter/scene/room-m.webp"><img class="w-room-on" src="winter/scene/room.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="winter/scene/room-m-off.webp"><img class="w-room-off" src="winter/scene/room-off.webp" alt="" loading="lazy" decoding="async"></picture></div>
             <div class="w-dark" aria-hidden="true"></div>
             <div class="w-pool" aria-hidden="true"></div>
 
@@ -57,10 +71,26 @@
             </div>
             <button class="w-lamp w-on" type="button" aria-pressed="true" aria-label="台灯：点一下开关"><span class="w-lamp-halo"></span></button>
           </div>
-          <button class="w-sound" type="button" aria-pressed="false" title="窗外风雪声"><span>♪</span><em>风雪声</em></button>
+          <button class="w-sound" type="button" aria-pressed="false" title="窗外风雪声"><span>♪</span><em>风雪声</em></button><button class="w-theme" type="button" data-view="settings" title="外观设置：切换主题、调字号"><em>外观</em></button>
           <div id="home-categories" class="category-grid" hidden></div>
           <div hidden><b id="stat-sessions">0</b><b id="stat-mistakes">0</b><b id="stat-accuracy">—</b><b id="stat-accuracy-suffix"></b></div>
           <div id="backup-reminder" class="backup-reminder" hidden><span>学习记录还没有近期备份。换设备或清理缓存前，建议先导出。</span><button type="button" data-view="my">前往「我的」</button><button type="button" data-backup-dismiss aria-label="关闭提醒">×</button></div>
+        </div>
+        <!-- 浅色 / 深色主题的首页（圣诞主题下隐藏） -->
+        <div class="t-home">
+          <p class="t-date" id="t-date"></p>
+          <h1 class="t-hello">欢迎回来</h1>
+          <p class="t-sub">慢慢来，每天读懂一点。</p>
+          <div class="t-stats"><div><strong id="t-sessions">0</strong><span>完成练习</span></div><div><strong id="t-mistakes">0</strong><span>待复习错题</span></div><div><strong id="t-acc">—</strong><span>选择题正确率</span></div></div>
+          <h2 class="t-h2">继续学习</h2>
+          <div class="t-entries">
+            <button type="button" data-view="library"><b>阅读真题</b><small>按年份精读文章</small></button>
+            <button type="button" data-view="papers"><b>按题型练习</b><small>听力、阅读、改错、翻译、写作</small></button>
+            <button type="button" data-view="intensive"><b>精听学习</b><small>逐句听，看原文</small></button>
+            <button type="button" data-view="mistakes"><b>错题本</b><small>错过的题再看一遍</small></button>
+            <button type="button" data-view="words"><b>生词本</b><small>攒下的单词集中复习</small></button>
+            <button type="button" data-view="bookmarks"><b>我的收藏</b><small>值得反复琢磨的题</small></button>
+          </div>
         </div>
       </section>
 
@@ -92,6 +122,32 @@
 
       <section id="mistakes-view" class="view"><div class="page-head"><span class="eyebrow">REVIEW / 03</span><h1>错题本</h1><p>错过的题，值得再看一遍。</p></div><div id="mistakes-content"></div></section>
       <section id="words-view" class="view"><div class="page-head"><span class="eyebrow">VOCABULARY / 05</span><h1>生词本</h1><p>阅读或做题时点开单词即可加入；攒够一批可导出成 txt 或 Word 打印背诵。</p></div><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
+      <section id="settings-view" class="view">
+        <div class="page-head"><span class="eyebrow">APPEARANCE</span><h1>外观设置</h1><p>选一个你看着最舒服的样子。设置保存在当前浏览器。</p></div>
+        <div class="t-settings">
+          <div class="t-group"><label class="t-row" for="t-follow"><span><b>跟随系统</b></span><input type="checkbox" class="t-switch" id="t-follow" role="switch"></label></div>
+          <p class="t-hint">开启后，将根据系统设置自动切换深色或浅色主题。</p>
+          <div class="t-group" id="t-theme-group" role="radiogroup" aria-label="主题">
+            <label class="t-row"><span class="t-swatch t-sw-xmas"></span><span><b>圣诞主题</b><small>冬夜书房、窗外飘雪</small></span><input type="radio" class="t-radio" name="t-theme" value="xmas"></label>
+            <label class="t-row"><span class="t-swatch t-sw-dark"></span><span><b>深色主题</b><small>适合夜间刷题，没有装饰</small></span><input type="radio" class="t-radio" name="t-theme" value="dark"></label>
+            <label class="t-row"><span class="t-swatch t-sw-light"></span><span><b>浅色主题</b><small>纸色背景，适合长时间阅读</small></span><input type="radio" class="t-radio" name="t-theme" value="light"></label>
+          </div>
+          <h2 class="t-h2">阅读</h2>
+          <div class="t-group">
+            <div class="t-row t-col"><b>正文字号</b>
+              <div class="t-seg" role="radiogroup" aria-label="正文字号"><button type="button" role="radio" data-font-scale="0.9">小</button><button type="button" role="radio" data-font-scale="1">标准</button><button type="button" role="radio" data-font-scale="1.12">大</button><button type="button" role="radio" data-font-scale="1.25">特大</button></div>
+              <div class="t-preview"><p>Reading slowly is not a weakness. It is how a difficult sentence finally opens up and shows you what it means.</p><small>慢慢读不是缺点，难句正是这样被读懂的。</small></div>
+            </div>
+          </div>
+          <div class="t-xmas-only">
+            <h2 class="t-h2">圣诞主题</h2>
+            <div class="t-group">
+              <label class="t-row" for="t-snow"><span><b>飘雪动画</b><small>关闭后更省电</small></span><input type="checkbox" class="t-switch" id="t-snow" role="switch"></label>
+              <label class="t-row" for="t-sound"><span><b>风雪声</b><small>默认关闭；离开首页或切到后台时自动停止</small></span><input type="checkbox" class="t-switch" id="t-sound" role="switch"></label>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="bookmarks-view" class="view"><div class="page-head"><span class="eyebrow">SAVED / 04</span><h1>我的收藏</h1><p>把值得反复琢磨的题放在这里。</p></div><div id="bookmarks-content"></div></section>
       <section id="my-view" class="view"><div class="page-head"><span class="eyebrow">MY STUDY DATA</span><h1>我的</h1><p>记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份。</p></div><div class="backup-grid"><div class="backup-card"><span class="backup-kicker">01 / 学习记录</span><h2>备份与恢复</h2><p>一个备份文件包含做题记录、错题、生词、收藏、标记笔记和精听进度。</p><p id="backup-summary" class="backup-detail"></p><div class="backup-actions"><button type="button" class="primary-btn" data-backup-export>导出学习记录 <span>↓</span></button><button type="button" class="secondary-btn" data-backup-import>导入备份</button><input id="backup-file" type="file" accept=".json,application/json" hidden></div><p id="backup-last" class="backup-detail"></p></div><div class="backup-card"><span class="backup-kicker">02 / 浏览器存储</span><h2>本机保护</h2><p id="backup-persistence">正在检查浏览器存储状态…</p><button type="button" class="secondary-btn" data-backup-persist>申请持久存储</button><p class="backup-detail">无痕模式下，关闭无痕窗口后记录通常会丢失。请使用普通窗口，并定期导出备份。</p></div><div class="backup-card"><span class="backup-kicker">03 / 跨设备同步</span><h2>同步码</h2><p id="sync-status" role="status" aria-live="polite">正在检查云同步…</p><div id="sync-disconnected"><div class="backup-actions"><button type="button" class="primary-btn" data-sync-create>开启同步</button></div><label class="sync-label">已有同步码<input id="sync-code-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="输入另一台设备上的同步码"></label><button type="button" class="secondary-btn" data-sync-join>连接已有记录</button></div><div id="sync-connected" hidden><p class="backup-detail">在另一台设备输入下方同步码，学习记录即可合并。</p><code id="sync-code-display" class="sync-code"></code><div class="backup-actions"><button type="button" class="secondary-btn" data-sync-copy>复制同步码</button><button type="button" class="secondary-btn" data-sync-now>立即同步</button><button type="button" class="secondary-btn" data-sync-stop>停止本设备同步</button></div></div><p class="backup-detail">同步码相当于钥匙，请勿发给他人。离线时仍可在本机做题；导出备份也请继续保留。</p></div></div><p id="backup-message" class="backup-message" role="status" aria-live="polite"></p></section>
 
@@ -133,5 +189,6 @@
   <script src="backup.js"></script>
   <script src="cloud-sync/config.js"></script>
   <script type="module" src="cloud-sync/client.mjs"></script>
+  <script src="themes.js"></script>
 </body>
 </html>

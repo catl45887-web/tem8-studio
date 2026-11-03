@@ -1,3 +1,6 @@
+/* 只有圣诞主题才跑这些动效（主题见 themes.js） */
+function tem8Xmas(){return document.documentElement.dataset.theme==='xmas'&&!document.documentElement.classList.contains('t-no-snow')}
+
 /* 拾页 · 冬日主题的小动效：日期、状态行、窗外小雪、卡片跟随鼠标的微光。不改动任何练习功能。 */
 (function(){
   var $=function(id){return document.getElementById(id)}
@@ -29,7 +32,7 @@
   size();addEventListener('resize',size)
   for(var i=0;i<55;i++)f.push({x:Math.random()*1400,y:Math.random()*700,r:Math.random()*1.6+.5,s:Math.random()*.3+.12,w:Math.random()*6.3,a:Math.random()*.45+.15})
   ;(function tick(){
-    if(home&&home.classList.contains('active')&&!document.hidden){
+    if(home&&home.classList.contains('active')&&!document.hidden&&tem8Xmas()){
       if(!W)size()
       x.clearRect(0,0,W,H)
       for(var i=0;i<f.length;i++){var p=f[i];p.y+=p.s;p.w+=.009;p.x+=Math.sin(p.w)*.22
@@ -59,6 +62,7 @@
   var sel='.primary-btn,.secondary-btn,.w-btn,.submit-btn,.category-card,.mock-card,.real-article-card button,.library-year-nav button,.nav-item,.mobile-nav button'
   var glyph=['✦','✧','❄','✦','·','❅']
   document.addEventListener('click',function(e){
+    if(document.documentElement.dataset.theme!=='xmas')return
     var t=e.target.closest&&e.target.closest(sel);if(!t)return
     var x=e.clientX,y=e.clientY;if(!x&&!y){var r=t.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
     for(var i=0;i<9;i++){
@@ -257,7 +261,7 @@
   var N=W<700?22:42
   for(var i=0;i<N;i++)f.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.6,s:Math.random()*.28+.12,w:Math.random()*6.3,ws:Math.random()*.008+.004,a:Math.random()*.32+.12})
   ;(function t(){
-    if(!document.hidden){
+    if(!document.hidden&&tem8Xmas()){
       x.clearRect(0,0,W,H)
       for(var i=0;i<f.length;i++){var p=f[i];p.y+=p.s;p.w+=p.ws;p.x+=Math.sin(p.w)*.25
         if(p.y>H+4){p.y=-4;p.x=Math.random()*W}
