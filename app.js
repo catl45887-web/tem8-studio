@@ -191,6 +191,7 @@
   function find(id) { return questions.find(q => q.id === id) }
   function page(name) {
     if (view === 'intensive' && name !== 'intensive') window.TEM8_INTENSIVE?.close()
+    window.TEM8_WORDPOP?.close?.()
     view = name
     document.querySelectorAll('.view').forEach(el => el.classList.toggle('active', el.id === name+'-view'))
     document.querySelectorAll('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view === name))
@@ -229,6 +230,7 @@
   }
   function renderWordbook() {
     syncWordbook()
+    if (window.TEM8_REVIEW) { window.TEM8_REVIEW.renderWords(); return }
     const list = $('wordbook-list'), bar = $('wordbook-toolbar')
     const words = store.wordbook || []
     if (bar) bar.innerHTML = words.length
@@ -335,8 +337,9 @@
     const review=new Set((real.history||[]).flatMap(run=>Object.keys(run.marks||{}).filter(id=>run.marks[id])))
     $('stat-sessions').textContent = store.sessions+(real.history||[]).length
     $('stat-accuracy').textContent = store.attempted ? Math.round(store.correct/store.attempted*100)+'%' : '—'
-    $('stat-mistakes').textContent = store.mistakes.length+review.size
-    $('mistake-nav-count').textContent = store.mistakes.length+review.size || ''
+    const open = window.TEM8_REVIEW ? window.TEM8_REVIEW.count() : review.size
+    $('stat-mistakes').textContent = store.mistakes.length+open
+    $('mistake-nav-count').textContent = store.mistakes.length+open || ''
   }
   function renderLibrary() {
     const yearArticles=allArticles.filter(a => a.year === selectedLibraryYear)
@@ -349,6 +352,7 @@
     }).join('')
   }
   function renderReview(kind) {
+    if (kind === 'mistakes' && window.TEM8_REVIEW) { window.TEM8_REVIEW.renderMistakes(store.mistakes.map(find).filter(Boolean)); return }
     const ids = kind === 'mistakes' ? store.mistakes : store.bookmarks
     const target = $(kind+'-content')
     if (!ids.length) { target.innerHTML = `<div class="review-empty"><strong>${kind === 'mistakes' ? '错题本还是空的' : '还没有收藏题目'}</strong>${kind === 'mistakes' ? '完成选择题练习后，答错的题会保存在这里。' : '做题或看解析时，点击星标即可收藏。'}</div>`; return }
@@ -477,6 +481,7 @@
     $('reader-content').innerHTML = html
   }
   function showWord(key,index,anchor) {
+    if (Number.isFinite(index)) wordSeg = index
     const request = ++wordLookupRequest
     if (needsDictionary(key)) {
       window.TEM8_WORDPOP?.close()
@@ -567,9 +572,9 @@
         meaning: primary || '词典暂未收录这个词。',
         freq: examFreq(w, lemma),
         fullHTML: top + body,
-        saved: (store.wordbook || []).includes(w),
+        saved: (store.wordbook || []).includes(w) || (store.wordbook || []).includes(lemma),
         onSpeak: speak,
-        onSave: () => { const set=new Set(store.wordbook || []); set.has(w) ? set.delete(w) : set.add(w); store.wordbook=[...set]; save(); if (readerTab==='words' && view==='reader') renderReader(); return set.has(w) }
+        onSave: () => toggleWord(w, lemma) 
       })
       return
     }
@@ -578,6 +583,24 @@
     const dlg = $('word-dialog')
     if (!dlg.open) dlg.showModal()
     dlg.querySelector('.word-scroll')?.scrollTo(0,0)
+  }
+  // 加入/移出生词本：按原形去重，并记下出处（哪年哪篇第几段）
+  let wordCtx = null, wordSeg = -1
+  function toggleWord(w, lemma) {
+    syncWordbook()
+    const set = new Set(store.wordbook || [])
+    const base = lemma && hasDef(lemma) ? lemma : w
+    let added
+    if (set.has(w) || set.has(base)) { set.delete(w); set.delete(base); added = false }
+    else {
+      set.add(base); added = true
+      const ctx = wordCtx || (activeArticle && view === 'reader' ? { articleId: activeArticle.id, seg: wordSeg } : null)
+      window.TEM8_REVIEW?.noteWord(base, ctx)
+    }
+    store.wordbook = [...set]; save()
+    if (readerTab==='words' && view==='reader') renderReader()
+    if (view==='words') renderWordbook()
+    return added
   }
   // 统计单词在全部真题阅读原文里出现的次数（含常见变形），首次查词时建表
   let freqMap = null
@@ -648,7 +671,7 @@
   $('reader-back').addEventListener('click',()=>{ page(readerFrom); if (readerFrom==='exam') renderQuestion() })
   $('word-close').addEventListener('click',()=>$('word-dialog').close())
   $('word-speak').addEventListener('click',speak)
-  $('word-save').addEventListener('click',()=>{ if (!activeWord) return; const set=new Set(store.wordbook || []); set.has(activeWord) ? set.delete(activeWord) : set.add(activeWord); store.wordbook=[...set]; save(); $('word-save').textContent=set.has(activeWord) ? '★ 已加入单词本' : '☆ 加入单词本'; if (readerTab==='words') renderReader() })
+  $('word-save').addEventListener('click',()=>{ if (!activeWord) return; const on=toggleWord(activeWord, dictionaryForm(activeWord)); $('word-save').textContent=on ? '★ 已加入单词本' : '☆ 加入单词本' })
   document.addEventListener('input',e=>{ if (e.target.id==='open-answer' && session) { session.answers[session.ids[session.current]]=e.target.value; updateCount(); $('answer-status').textContent=`已答 ${session.ids.filter(answered).length} 题`; $('answer-grid').children[session.current].classList.toggle('answered',answered(session.ids[session.current])); persist() } })
   document.addEventListener('input',e=>{ if (e.target.dataset.practiceShort) { store.practiceAnswers ||= {}; store.practiceAnswers[`${activeArticle.id}-${e.target.dataset.practiceShort}`]=e.target.value; save(); const count=e.target.value.trim().split(/\s+/).filter(Boolean).length; e.target.nextElementSibling.textContent=`${count} / 10 词`; const q=practiceQuestions(); document.querySelector('.practice-panel .practice-pane-head span').textContent=`已答 ${q.filter(item => practiceAnswer(item) !== undefined && practiceAnswer(item) !== '').length} / ${q.length} · 自动保存` } })
   document.addEventListener('input',e=>{ if (e.target.dataset.paperError) { const state=paperState();state.language ||= {};state.language[e.target.dataset.paperError]=e.target.value;save() } else if (e.target.dataset.paperField) { const state=paperState();state[e.target.dataset.paperField]=e.target.value;save();e.target.nextElementSibling.textContent=`${e.target.value.trim().split(/\s+/).filter(Boolean).length} 词` } })
@@ -665,10 +688,44 @@
   })
   $('today').textContent = new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'long',day:'numeric'}).format(new Date())
   // 暴露给其他模块（workflow.js / intensive.js 等）复用同一个查词弹窗
-  window.TEM8_SHOW_WORD = (word) => {
+  window.TEM8_SHOW_WORD = (word, ctx, anchor) => {
     const w = String(word || '').toLowerCase().replace(/[’]/g,"'")
     if (!w) return
-    showWord(w, 0)
+    wordCtx = ctx && ctx.articleId ? ctx : null
+    showWord(w, ctx && Number.isFinite(ctx.seg) ? ctx.seg : 0, anchor)
   }
+  // 阅读页点词时清空做题页的出处
+  document.addEventListener('click', e => { if (e.target.closest && e.target.closest('[data-word]')) wordCtx = null }, true)
+  // 共享：词典与导出
+  window.TEM8_DICT = { ensure: ensureDictionary, needs: needsDictionary, entry: wordEntry, form: dictionaryForm, raw: w => dictionary[w] || dictionary[dictionaryForm(w)] || null }
+  function docxParas(paras) {
+    return paras.map(p => {
+      if (p.xml) return p.xml
+      const rpr = `<w:rPr>${p.bold ? '<w:b/>' : ''}${p.size ? `<w:sz w:val="${p.size}"/>` : '<w:sz w:val="22"/>'}${p.color ? `<w:color w:val="${p.color}"/>` : ''}</w:rPr>`
+      return `<w:p><w:pPr><w:spacing w:before="${p.before || 60}" w:after="60"/></w:pPr><w:r>${rpr}<w:t xml:space="preserve">${xmlEsc(p.text)}</w:t></w:r></w:p>`
+    }).join('')
+  }
+  function docxFile(bodyXml, name) {
+    const doc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${bodyXml}<w:p/><w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1200" w:right="1100" w:bottom="1200" w:left="1100"/></w:sectPr></w:body></w:document>`
+    const ct = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>`
+    const rels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`
+    downloadBlob(zipBlob([{ name: '[Content_Types].xml', data: ct }, { name: '_rels/.rels', data: rels }, { name: 'word/document.xml', data: doc }]), name)
+  }
+  window.TEM8_EXPORT = {
+    txt: (text, name) => downloadBlob(new Blob([text], { type: 'text/plain;charset=utf-8' }), name),
+    docx: (paras, name) => docxFile(docxParas(paras), name),
+    docxXml: docxFile, paras: docxParas, xmlEsc,
+    stamp: () => new Date().toLocaleDateString('zh-CN').replace(/\//g, '-')
+  }
+  window.TEM8_OPEN_ARTICLE = (id, seg) => {
+    if (!allArticles.some(a => a.id === id)) return
+    openReader('free', id)
+    if (seg >= 0) setTimeout(() => {
+      const p=document.querySelector(`[data-anno-scope][data-anno-article="${id}"] [data-anno-p="${seg}"]`)
+      if (p) { p.scrollIntoView({behavior:'smooth',block:'center'}); p.classList.add('anno-flash'); setTimeout(() => p.classList.remove('anno-flash'),1400) }
+    },320)
+  }
+  window.TEM8_SPEAK = w => { activeWord = w; speak() }
+  window.TEM8_RENDER_DASH = () => renderDashboard()
   renderCategories(); renderDashboard(); page('home')
 })()

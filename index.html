@@ -6,20 +6,21 @@
   <meta name="theme-color" content="#2b1e17">
   <meta name="description" content="专八真题阅读与题组练习。">
   <title>拾页 · 专八练习</title>
-  <link rel="stylesheet" href="styles.css?v=202611030715">
-  <link rel="stylesheet" href="reader.css?v=202611030715">
-  <link rel="stylesheet" href="workflow.css?v=202611030715">
-  <link rel="stylesheet" href="annotate.css?v=202611030715">
-  <link rel="stylesheet" href="intensive.css?v=202611030715">
+  <link rel="stylesheet" href="styles.css?v=202611030742">
+  <link rel="stylesheet" href="reader.css?v=202611030742">
+  <link rel="stylesheet" href="workflow.css?v=202611030742">
+  <link rel="stylesheet" href="annotate.css?v=202611030742">
+  <link rel="stylesheet" href="intensive.css?v=202611030742">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css?v=202611030715" id="css-winter-base">
-  <link rel="stylesheet" href="winter.css?v=202611030715" id="css-winter">
-  <link rel="stylesheet" href="wordpop.css?v=202611030715">
-  <link rel="stylesheet" href="backup.css?v=202611030715">
+  <link rel="stylesheet" href="winter-base.css?v=202611030742" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css?v=202611030742" id="css-winter">
+  <link rel="stylesheet" href="wordpop.css?v=202611030742">
+  <link rel="stylesheet" href="backup.css?v=202611030742">
   <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
-  <link rel="stylesheet" href="theme-light.css?v=202611030715">
-  <link rel="stylesheet" href="theme-dark.css?v=202611030715">
-  <link rel="stylesheet" href="themes.css?v=202611030715">
+  <link rel="stylesheet" href="theme-light.css?v=202611030742">
+  <link rel="stylesheet" href="theme-dark.css?v=202611030742">
+  <link rel="stylesheet" href="themes.css?v=202611030742">
+  <link rel="stylesheet" href="practice.css?v=202611030742">
   <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
   <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}[t]})()</script>
 </head>
@@ -32,7 +33,6 @@
       <nav class="side-nav">
         <button class="nav-item active" data-view="home"><span>◫</span> 学习首页</button>
         <button class="nav-item" data-view="library"><span>▧</span> 阅读真题</button>
-        <button class="nav-item" data-view="mock"><span>▦</span> 整卷模考</button>
         <button class="nav-item" data-view="papers"><span>▤</span> 按题型练习</button>
         <button class="nav-item" data-view="intensive"><span>♫</span> 精听学习</button>
         <button class="nav-item" data-view="mistakes"><span>◇</span> 错题本 <b id="mistake-nav-count"></b></button>
@@ -120,13 +120,13 @@
         <div id="real-article-list" class="real-article-list"></div>
         <div class="notice"><span>✳︎</span><p><strong>阅读资料说明</strong><br>收录 2009—2026 年（2020 年除外）的阅读真题，点词可查词典。多数年份配有参考答案与逐题解析（含定位、干扰项排除），部分年份另有逐段译文和长难句注释。</p></div>
       </section>
-      <section id="papers-view" class="view"><div class="w-head w-papers-head"><h2>Practice</h2><span>按题型练习</span></div><div id="paper-categories" class="category-grid"></div><p class="archive-paper-note">在题型配置页选择真题年份。听力可按 Section A、B 分项练习。</p></section>
+      <section id="papers-view" class="view"><div class="w-head w-papers-head"><h2>Practice</h2><span>按题型练习</span></div><div id="paper-resume"></div><div id="paper-categories" class="category-grid"></div></section>
 
       <section id="mock-view" class="view">
-        <div class="page-head"><span class="eyebrow">FULL PAPER / MOCK TEST</span><h1>整卷模考</h1><p>按考试顺序连续完成 Part I—V，计时作答。</p></div>
+        <div class="page-head"><span class="eyebrow">FULL PAPER / MOCK TEST</span><h1>整卷模考</h1><p>即将推出。</p></div>
         <div class="section-heading"><div><span class="section-index">YR</span><h2>选择模考年份</h2></div><span class="muted">整卷 · 按 Part 顺序</span></div>
         <div id="mock-list" class="mock-grid"></div>
-        <div class="notice"><span>✳︎</span><p><strong>关于整卷模考</strong><br>整卷模考把听力、阅读、改错、翻译、写作按考试顺序串成一套，作答汇总成一份报告。目前可以按年份完成各部分，整卷连续作答即将上线。</p></div>
+        
       </section>
       <section id="intensive-view" class="view">
         <div class="page-head"><span class="eyebrow">LISTENING STUDIO / CLOSE LISTENING</span><h1>精听学习</h1><p>听完整录音，或点击原文中的句子，从那句话开始听。</p></div>
@@ -137,8 +137,8 @@
       <section id="workflow-report-view" class="view"><div id="workflow-report-content"></div></section>
       <section id="paper-archive-view" class="view"><button class="back-link" data-paper-back>← 返回练习目录</button><div class="page-head"><span class="eyebrow">REAL PAPER / WRITTEN SECTIONS</span><h1 id="archive-paper-title">历年真题</h1><p>记录保存在当前浏览器。换设备或清理缓存前，请先在「我的」中导出备份。</p></div><div class="archive-paper-tabs"><button data-paper-tab="language">语言运用</button><button data-paper-tab="translation">翻译</button><button data-paper-tab="writing">写作</button></div><div id="archive-paper-content"></div></section>
 
-      <section id="mistakes-view" class="view"><div class="page-head"><span class="eyebrow">REVIEW / 03</span><h1>错题本</h1><p>错过的题，值得再看一遍。</p></div><div id="mistakes-content"></div></section>
-      <section id="words-view" class="view"><div class="page-head"><span class="eyebrow">VOCABULARY / 05</span><h1>生词本</h1><p>阅读或做题时点开单词即可加入；攒够一批可导出成 txt 或 Word 打印背诵。</p></div><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
+      <section id="mistakes-view" class="view"><div class="page-head"><span class="eyebrow">REVIEW / 03</span><h1>错题本</h1><p>答错的题自动收进来，按间隔提醒你复习。</p></div><div id="mistakes-content"></div></section>
+      <section id="words-view" class="view"><div class="page-head"><span class="eyebrow">VOCABULARY / 05</span><h1>生词本</h1><p>点词加入，翻卡片复习；可导出 Word 表格和默写版。</p></div><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
       <section id="settings-view" class="view">
         <div class="page-head"><span class="eyebrow">APPEARANCE</span><h1>外观设置</h1><p>选一个你看着最舒服的样子。设置保存在当前浏览器。</p></div>
         <div class="t-settings">
@@ -183,38 +183,39 @@
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶︎ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
-  <script src="data.js?v=202611030715"></script>
-  <script src="articles2026.js?v=202611030715"></script>
-  <script src="questions2026.js?v=202611030715"></script>
-  <script src="paperExtras2026.js?v=202611030715"></script>
-  <script src="listening2026.js?v=202611030715"></script>
-  <script src="paperExtras2025.js?v=202611030715"></script>
-  <script src="papers2021_2024.js?v=202611030715"></script>
-  <script src="listeningArchive.js?v=202611030715"></script>
-  <script src="audioArchive.js?v=202611030715"></script>
-  <script src="articles2025.js?v=202611030715"></script>
-  <script src="articles2025-extras.js?v=202611030715"></script>
-  <script src="questions2025.js?v=202611030715"></script>
-  <script src="articlesArchive.js?v=202611030715"></script>
-  <script src="questionsArchive.js?v=202611030715"></script>
-  <script src="articlesArchive2.js?v=202611030715"></script>
-  <script src="questionsArchive2.js?v=202611030715"></script>
-  <script src="paperExtras.js?v=202611030715"></script>
-  <script src="paperExtras2.js?v=202611030715"></script>
-  <script src="annotations.js?v=202611030715"></script>
-  <script src="player.js?v=202611030715"></script>
-  <script src="transcripts.js?v=202611030715"></script>
-  <script src="intensive.js?v=202611030715"></script>
-  <script src="workflow.js?v=202611030715"></script>
-  <script src="dictionary/prefixes.js?v=202611030715"></script>
-  <script src="app.js?v=202611030715"></script>
-  <script src="winter.js?v=202611030715"></script>
-  <script src="wordpop.js?v=202611030715"></script>
-  <script src="backup.js?v=202611030715"></script>
-  <script src="cloud-sync/config.js?v=202611030715"></script>
-  <script type="module" src="cloud-sync/client.mjs?v=202611030715"></script>
-  <script src="themes.js?v=202611030715"></script>
-  <script src="home.js?v=202611030715"></script>
-  <script src="splash.js?v=202611030715"></script>
+  <script src="data.js?v=202611030742"></script>
+  <script src="articles2026.js?v=202611030742"></script>
+  <script src="questions2026.js?v=202611030742"></script>
+  <script src="paperExtras2026.js?v=202611030742"></script>
+  <script src="listening2026.js?v=202611030742"></script>
+  <script src="paperExtras2025.js?v=202611030742"></script>
+  <script src="papers2021_2024.js?v=202611030742"></script>
+  <script src="listeningArchive.js?v=202611030742"></script>
+  <script src="audioArchive.js?v=202611030742"></script>
+  <script src="articles2025.js?v=202611030742"></script>
+  <script src="articles2025-extras.js?v=202611030742"></script>
+  <script src="questions2025.js?v=202611030742"></script>
+  <script src="articlesArchive.js?v=202611030742"></script>
+  <script src="questionsArchive.js?v=202611030742"></script>
+  <script src="articlesArchive2.js?v=202611030742"></script>
+  <script src="questionsArchive2.js?v=202611030742"></script>
+  <script src="paperExtras.js?v=202611030742"></script>
+  <script src="paperExtras2.js?v=202611030742"></script>
+  <script src="annotations.js?v=202611030742"></script>
+  <script src="player.js?v=202611030742"></script>
+  <script src="transcripts.js?v=202611030742"></script>
+  <script src="intensive.js?v=202611030742"></script>
+  <script src="workflow.js?v=202611030742"></script>
+  <script src="dictionary/prefixes.js?v=202611030742"></script>
+  <script src="app.js?v=202611030742"></script>
+  <script src="review.js?v=202611030742"></script>
+  <script src="winter.js?v=202611030742"></script>
+  <script src="wordpop.js?v=202611030742"></script>
+  <script src="backup.js?v=202611030742"></script>
+  <script src="cloud-sync/config.js?v=202611030742"></script>
+  <script type="module" src="cloud-sync/client.mjs?v=202611030742"></script>
+  <script src="themes.js?v=202611030742"></script>
+  <script src="home.js?v=202611030742"></script>
+  <script src="splash.js?v=202611030742"></script>
 </body>
 </html>
