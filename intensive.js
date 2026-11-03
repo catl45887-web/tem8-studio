@@ -1,8 +1,9 @@
 (() => {
   'use strict'
   const scripts = window.TEM8_TRANSCRIPTS || {}
-  const listening = { ...(window.TEM8_LISTENING_ARCHIVE || {}), ...(window.TEM8_LISTENING_2026 || {}) }
-  const years = Object.keys(scripts).map(Number).filter(y => listening[y]?.audio).sort((a,b) => b-a)
+  const listening = { ...(window.TEM8_LISTENING_ARCHIVE || {}), ...(window.TEM8_LISTENING_2026 || {}), ...(window.TEM8_MID_LISTENING || {}) }
+  const mid = window.TEM8_MID_LISTENING || {}
+  const years = [...new Set([...Object.keys(scripts).map(Number), ...Object.keys(mid).map(Number)])].filter(y => listening[y]?.audio).sort((a,b) => b-a)
   const KEY = 'tem8_intensive_v1'
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
   const fmt = n => { n = Number(n)||0; return `${Math.floor(n/60)}:${String(Math.floor(n%60)).padStart(2,'0')}` }
