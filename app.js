@@ -133,7 +133,7 @@
   const sampleArticle = { id:'sample', title:'A Library That Stayed Open', segments:reading.segments }
   const KEY = 'tem8_studio_web_v1'
   const letters = ['A','B','C','D']
-  const labels = { home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', my:'我的', exam:'正在练习', result:'练习结果', reader:'阅读文章' }
+  const labels = { home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', my:'我的', exam:'正在练习', result:'练习结果', reader:'阅读文章', settings:'外观设置' }
   const defaultStore = { sessions:0, correct:0, attempted:0, mistakes:[], bookmarks:[], wordbook:[], readingProgress:0, readingCompleted:false, readingStates:{}, readingTools:{}, readingBackground:'paper', practiceAnswers:{}, practiceIndex:{}, paperWork:{}, readingFont:17, draft:null, lastResult:null }
   let store = load()
   let session = null
@@ -177,6 +177,7 @@
     renderDashboard()
     if (name === 'papers') renderCategories()
     if (name === 'mock') renderMock()
+    document.dispatchEvent(new CustomEvent('tem8:view', { detail: name }))
     if (name === 'intensive') window.TEM8_INTENSIVE?.open()
     if (name === 'words') renderWordbook()
     if (name === 'paper-archive') renderArchivePaper()
