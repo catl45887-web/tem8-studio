@@ -35,6 +35,7 @@ html.t-switching body{animation:t-fade .32s ease}
 html.t-no-snow .w-flakes,html.t-no-snow .w-snow{display:none!important}
 
 /* ---------- 浅色 / 深色主题的首页（home.js 填内容） ---------- */
+@font-face{font-family:'TS Title';src:url('winter/fonts/shiye-title.woff') format('woff');font-weight:300;font-display:block}
 @font-face{font-family:'TS Italic';src:url('winter/fonts/Cormorant-Italic.woff') format('woff');font-style:italic;font-weight:300 700;font-display:swap}
 .t-home{max-width:640px;padding:30px 0 40px;color:var(--ink)}
 .t-home [hidden]{display:none!important}
