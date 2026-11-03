@@ -2,3 +2,5 @@
 _preview-winter/
 dictionary.test.js
 site_missing_words.txt
+cloud-sync/node_modules/
+cloud-sync/.wrangler/

@@ -47,7 +47,7 @@
   let state={type:'reading-group',year:2026,range:'one',articleId:'2026-1',customIds:[],mode:'practice',durationMinutes:0,allowWord:true,showTranscript:false,replay:false,showReference:false,showShortAnswer:false,showLocator:false,combineReading:true}
   let session=null
   let wordKey=''
-  function persist(){if(session)localStorage.setItem(KEY,JSON.stringify({...saved(),session}))}
+  function persist(){if(session){localStorage.setItem(KEY,JSON.stringify({...saved(),session}));if(!window.TEM8_SYNC_FLUSHING)document.dispatchEvent(new Event('tem8:study-changed'))}}
   document.addEventListener('tem8:flush-records', persist)
   const anno=()=>window.TEM8_ANNO
   function show(id,label){if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('[data-view]').forEach(el=>el.classList.remove('active'));document.querySelector('#crumb').textContent=label;window.scrollTo(0,0)}
@@ -336,7 +336,7 @@
       return `<div class="workflow-report-card"><h3>${g.kind==='translation'?'翻译':'写作'}</h3><p>已写 ${count} 词${g.kind==='writing'&&min&&count<min?` · 未达到最低 ${min} 词`:''}</p>${ref?`<details class="wf-answer-row" open><summary><span class="wf-qno">参考${g.kind==='translation'?'译文':'范文'}</span><span class="wf-mark">对照自查</span></summary><p class="wf-analysis">${escape(ref).replace(/\n/g,'<br>')}</p></details>`:'<small>参考译文 / 范文待补充。</small>'}${guide?`<details class="wf-answer-row"><summary>${g.kind==='translation'?'翻译解析':'写作指南'}</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}</div>`
     }).join('')
     document.querySelector('#workflow-report-content').innerHTML=`<div class="page-head"><span class="eyebrow">PRACTICE REPORT</span><h1>${session.type==='mock'?`${session.year} 年整卷模考已交卷`:'题组已提交'}</h1><p>用时 ${Math.floor((Date.now()-session.started)/60000)} 分钟。选择题已自动判分；简答题、翻译和写作可对照参考资料自查。此报告仅汇总 ${session.year} 年试卷数据。</p></div>${cards}<button class="primary-btn" data-workflow-back="${session.type==='mock'?'mock':'papers'}">${session.type==='mock'?'返回模考列表':'返回题库'} →</button>`
-    const old=saved();localStorage.setItem(KEY,JSON.stringify({...old,session:null,history:[...(old.history||[]),{type:session.type,year:session.year,finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks}].slice(-50)}))
+    const old=saved();localStorage.setItem(KEY,JSON.stringify({...old,session:null,history:[...(old.history||[]),{type:session.type,year:session.year,finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks}].slice(-50)}));document.dispatchEvent(new Event('tem8:study-changed'))
     show('workflow-report-view','题组报告')
   }
   function wordPopup(key){
@@ -391,7 +391,7 @@
     if(t.dataset.workflowLocate){e.stopPropagation();const q=questions.find(x=>qid(x)===t.dataset.workflowLocate),m=q?.prompt.match(/Para\.\s*(\d+)/i),n=q?.locatorParagraph||Number(m?.[1]);if(n)document.getElementById(`wf-p-${n}`)?.scrollIntoView({behavior:'smooth',block:'center'});return}
     if(t.dataset.workflowWord){e.stopPropagation();const sel=window.getSelection();if(sel&&!sel.isCollapsed&&String(sel).trim())return;wordPopup(t.dataset.workflowWord);return}
     if(t.dataset.workflowWordClose!==undefined){e.stopPropagation();document.querySelector('#workflow-word-dialog').close();return}
-    if(t.dataset.workflowWordSave!==undefined){e.stopPropagation();const key='tem8_studio_web_v1',old=JSON.parse(localStorage.getItem(key)||'{}');old.wordbook=[...new Set([...(old.wordbook||[]),wordKey])];localStorage.setItem(key,JSON.stringify(old));t.textContent='已加入单词本';return}
+    if(t.dataset.workflowWordSave!==undefined){e.stopPropagation();const key='tem8_studio_web_v1',old=JSON.parse(localStorage.getItem(key)||'{}');old.wordbook=[...new Set([...(old.wordbook||[]),wordKey])];localStorage.setItem(key,JSON.stringify(old));document.dispatchEvent(new Event('tem8:study-changed'));t.textContent='已加入单词本';return}
   },true)
   document.addEventListener('change',e=>{
     const t=e.target

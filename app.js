@@ -162,7 +162,7 @@
   function $(id) { return document.getElementById(id) }
   function esc(v) { return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
   function load() { try { return { ...defaultStore, ...(JSON.parse(localStorage.getItem(KEY)) || {}) } } catch { return { ...defaultStore } } }
-  function save() { localStorage.setItem(KEY, JSON.stringify(store)) }
+  function save() { localStorage.setItem(KEY, JSON.stringify(store)); if(!window.TEM8_SYNC_FLUSHING)document.dispatchEvent(new Event('tem8:study-changed')) }
   function time(n) { return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0') }
   function elapsed() { return session ? session.elapsed + Math.floor((Date.now()-session.startedAt)/1000) : 0 }
   function persist() { if (session) { store.draft = { ids:session.ids, title:session.title, answers:session.answers, current:session.current, elapsed:elapsed() }; save() } }

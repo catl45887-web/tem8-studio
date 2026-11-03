@@ -59,7 +59,7 @@
     try { localStorage.setItem(KEY, JSON.stringify(out)) } catch (e) { }
     return out
   }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(db)) } catch (e) { } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(db)); document.dispatchEvent(new Event('tem8:study-changed')) } catch (e) { } }
   const uid = p => p + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-3)
   function ensure(id) {
     const rec = db.articles[id] || (db.articles[id] = { marks: [], notes: [] })
