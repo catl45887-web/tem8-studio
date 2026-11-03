@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"ct":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(used in written addresses) Court （","cn":"用于书面地址）公寓楼，宅第"}]},"examples":[{"en":"30 Willow Ct","cn":"威洛公寓楼 30 号"},{"en":"a 24 ct gold necklace","cn":"一条24开的金项链"}]}});

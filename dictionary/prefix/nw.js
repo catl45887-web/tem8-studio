@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"nw":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"north-west; north-western","cn":"西北方（的）；西北部（的）"}]},"examples":[{"en":"NW Australia","cn":"澳大利亚西北部"}]}});

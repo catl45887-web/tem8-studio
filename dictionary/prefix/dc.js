@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"dc":{"oxford":{"phon":"ˌdiː ˈsiː","pos":"abbr.","senses":[{"en":"District of Columbia in the US","cn":"美国哥伦比亚特区"}]},"collins":{"senses":[{"pos":"[N-UNCOUNT 不可数名词]","cn":"直流电；"}]},"media":{"uk":"media/uk/dc__gb_1.mp3","us":"media/us/dc__us_1.mp3"},"examples":[{"en":"Washington, DC","cn":"华盛顿（哥伦比亚特区）"}]}});

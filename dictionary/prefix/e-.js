@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"e-mail":{"collins":{"senses":[{"pos":"[N-VAR 可变名词]","cn":"电子邮件；"},{"pos":"[VERB 动词]","cn":"给…发电子邮件；"}]}},"e-mails":{"collins":{"senses":[{"pos":"[N-VAR 可变名词]","cn":"电子邮件；"},{"pos":"[VERB 动词]","cn":"给…发电子邮件；"}]}}});

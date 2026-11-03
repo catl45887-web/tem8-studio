@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"gb":{"oxford":{"phon":"ˌdʒiː ˈbiː","pos":"abbr.","senses":[{"en":"Great Britain","cn":"大不列颠"}]},"media":{"uk":"media/uk/gb__gb_1.mp3","us":"media/us/gb__us_1.mp3"},"examples":[{"en":"a 750GB hard drive * 750","cn":"千兆字节的硬盘"},{"en":"a 750GB hard drive","cn":""}]}});

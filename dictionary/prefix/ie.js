@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"ied":{"oxford":{"phon":"ˌaɪ iː ˈdiː","pos":"abbr.","senses":[{"en":"improvised explosive device (a bomb made and used by people who are not members of the military forces of a country)","cn":"临时爆炸装置"}]},"media":{"uk":"media/uk/ied_1_gb_1.mp3","us":"media/us/ied_1_us_1.mp3"}}});

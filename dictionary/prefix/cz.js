@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"czech":{"collins":{"senses":[{"pos":"[ADJ 形容词]","cn":"捷克的; 捷克人的;捷克文化的；"},{"pos":"[N-COUNT 可数名词]","cn":"捷克人;捷克裔人；"}]},"media":{"uk":"media/ldoce/hwd/bre/1/p028-000003833.mp3","us":"media/ldoce/hwd/ame/c/laadczech_republic__the.mp3"}}});

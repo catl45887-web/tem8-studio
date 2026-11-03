@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"lb":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"a pound in weight, equal to about 454 grams (from Latin ‘ libra ’ )","cn":"磅（源自拉丁语 libra，约等于 454 克）"}]},"collins":{"senses":[{"pos":"","cn":"磅；"}]},"media":{"uk":"media/ldoce/hwd/bre/e/lpd_lb.mp3","us":"media/ldoce/hwd/ame/e/lpd_lb.mp3"}}});

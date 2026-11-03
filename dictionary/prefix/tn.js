@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"tnt":{"oxford":{"phon":"ˌtiː en ˈtiː","pos":"noun","senses":[{"en":"a powerful explosive","cn":"三硝基甲苯；梯恩梯；黄色炸药"}]},"collins":{"senses":[{"pos":"[N-UNCOUNT 不可数名词]","cn":"梯恩梯;三硝基甲苯;茶色炸药；"}]},"media":{"uk":"media/uk/tnt__gb_1.mp3","us":"media/us/tnt__us_1.mp3"}}});

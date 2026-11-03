@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"vying":{"collins":{"senses":[{"pos":"","cn":"","en":"Vying is the present participle of vie ."}]},"media":{"uk":"media/uk/vying__gb_1.mp3","us":"media/us/vying__us_1.mp3"}}});

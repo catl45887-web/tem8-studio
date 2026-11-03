@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"kyrgyzstan":{"ldoce":{"phon":"hwd","pos":"","senses":[{"en":"a country in central Asia between China and Uzbekistan, which used to be part of the former Soviet Union. Population: 5,548,042 (2014). Capital: Bishkek.","cn":""}]},"media":{"uk":"media/ldoce/hwd/bre/b/p028-000007103.mp3","us":"media/ldoce/hwd/ame/b/p028-000007103.mp3"}}});

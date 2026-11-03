@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"mt":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"mount","cn":"山"}]},"media":{"us":"media/ldoce/hwd/ame/e/montana.mp3"},"examples":[{"en":"Mt Kenya","cn":"肯尼亚山"}]}});
