@@ -81,22 +81,36 @@ html:not([data-theme=xmas]) .w-yearwrap.w-left .library-year-nav{-webkit-mask-im
 html:not([data-theme=xmas]) .w-yearwrap.w-right .library-year-nav{-webkit-mask-image:linear-gradient(270deg,transparent,#000 48px);mask-image:linear-gradient(270deg,transparent,#000 48px)}
 html:not([data-theme=xmas]) .w-yearwrap.w-left.w-right .library-year-nav{-webkit-mask-image:linear-gradient(90deg,transparent,#000 48px,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(90deg,transparent,#000 48px,#000 calc(100% - 48px),transparent)}
 
-/* 文章：整行点进去精读，做题是行尾小链接 */
-.real-article-list{grid-template-columns:1fr!important;gap:0!important;margin:4px 0 0!important}
-html:not([data-theme=xmas]) .real-article-card.rac{display:block!important;padding:0!important;min-height:0!important;border:0!important;border-bottom:1px solid var(--line)!important;background:none!important}
-.rac-main{display:block;width:100%;border:0;background:none;text-align:left;padding:20px 0 6px;color:var(--ink);font:inherit;cursor:pointer}
-.rac-main:active{opacity:.7}
-.rac-top{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
-.rac-label{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.3px}
-.rac-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--accent)}
-.rac-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
-.rac-state{margin-left:auto;font-variant-numeric:tabular-nums}
-.rac-done{color:var(--ink)}
-.rac-open{display:block;margin-top:8px;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:18px;line-height:1.55;color:var(--ink)}
-.rac-bar{display:block;height:3px;margin-top:12px;background:var(--line);border-radius:3px;overflow:hidden}
-.rac-bar i{display:block;height:100%;background:var(--ink)}
-.rac-do{display:block;margin:0 0 14px auto;border:0;background:none;padding:8px 0;font:inherit;font-size:14px;color:var(--muted)}
-.rac-do:hover{color:var(--ink)}
+/* 文章：一行一篇的卡片——状态圈 + 篇名 + 做题 + 箭头，整行点进去精读 */
+.app-head-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.app-head-meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.real-article-list{grid-template-columns:1fr!important;gap:12px!important;margin:16px 0 0!important}
+html:not([data-theme=xmas]) .real-article-card.rac{display:flex!important;flex-direction:row!important;justify-content:flex-start!important;text-align:left!important;align-items:center;gap:10px!important;min-height:0!important;padding:0 8px 0 0!important;border:1px solid var(--line)!important;border-radius:16px!important;background:var(--paper)!important;box-shadow:none!important}
+.rac-main{flex:1;min-width:0;display:flex;align-items:center;justify-content:flex-start;gap:14px;border:0;background:none;padding:16px 0 16px 16px;text-align:left;color:var(--ink);font:inherit;cursor:pointer}
+.rac-main:active,.rac-go:active{opacity:.6}
+.rac-ring{--p:0;flex:none;position:relative;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ink) calc(var(--p)*1%),var(--line) 0)}
+.rac-ring::before{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--paper)}
+.rac-ring b{position:relative;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+.rac-ring.empty{background:var(--line)}
+.rac-ring.empty b{color:var(--muted);font-weight:500}
+.rac-ring.done{background:#d9ecd9;color:#2e7a43;font-size:18px;font-weight:700}
+.rac-ring.done::before{display:none}
+html[data-theme=dark] .rac-ring.done{background:#24402c;color:#8fd3a4}
+.rac-label{font-size:17px;font-weight:600;letter-spacing:.2px}
+.rac-tag{flex:none;font-size:12px;padding:2px 9px;border-radius:99px;background:rgba(194,59,34,.12);color:var(--accent);line-height:1.7}
+.rac-tag.ok{background:none;padding:0;color:#2e7a43}
+html[data-theme=dark] .rac-tag.ok{color:#8fd3a4}
+.rac-do{flex:none;border:1px solid var(--line);background:none;border-radius:10px;padding:8px 14px;font:inherit;font-size:14px;color:var(--ink);white-space:nowrap}
+.rac-do:hover{border-color:var(--muted)}
+.rac-go{flex:none;width:32px;height:44px;display:grid;place-items:center;border:0;background:none;color:var(--muted);padding:0}
+.rac-go svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 年份：选中的是实心胶囊，读过的年份带一个小点 */
+html:not([data-theme=xmas]) .library-year-nav{border-bottom:0!important;padding:6px 20px 8px!important;gap:6px!important}
+html:not([data-theme=xmas]) .library-year-nav button{border:0!important;border-radius:99px!important;padding:8px 16px!important;margin:0!important;font-size:16px!important;font-weight:500!important}
+html:not([data-theme=xmas]) .library-year-nav button.active{background:var(--ink)!important;color:var(--bg)!important;font-size:16px!important;font-weight:600!important}
+html:not([data-theme=xmas]) .library-year-nav button.has-read::after{content:'';display:inline-block;width:5px;height:5px;margin-left:4px;border-radius:50%;background:#2e9a52;vertical-align:4px}
+html:not([data-theme=xmas]) .library-year-nav button.active.has-read::after{background:currentColor}
+@media(max-width:400px){.rac-main{gap:12px}.rac-label{font-size:16px}.rac-do{padding:8px 11px}}
 html[data-theme=xmas] .real-article-list{max-width:560px;margin:20px auto 0!important;gap:26px!important}
 
 /* ---------- 练习 ---------- */
@@ -238,3 +252,6 @@ body.app-v-workflow-session .anno-chip.docked{bottom:calc(76px + env(safe-area-i
 html[data-theme=light] .anno-chip.docked{background:#2a2118!important;box-shadow:0 10px 30px rgba(42,33,24,.35)!important}
 html[data-theme=dark] .anno-chip.docked{background:#ece6dc!important}
 html[data-theme=dark] .anno-chip.docked button:not(.g):not(.b):not(.r){color:#1c1b19!important}
+.rac-label{white-space:nowrap}
+.rac-main{gap:12px}
+@media(max-width:420px){.rac-ring{width:42px;height:42px}.rac-ring b{font-size:11px}.rac-tag{padding:2px 7px;font-size:11px}.rac-do{padding:8px 10px;font-size:13px}.rac-go{width:22px}.rac-main{padding-left:14px;gap:10px}html:not([data-theme=xmas]) .real-article-card.rac{gap:6px!important;padding-right:6px!important}}
