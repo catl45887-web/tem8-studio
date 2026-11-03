@@ -32,7 +32,7 @@
     {id:'interview',name:'听力 Section B',sub:'Interview 选择',icon:'♫'},
     {id:'reading-group',name:'阅读专项',sub:'按 Passage 筛选 · 选择题＋简答题',icon:'▧'},
     {id:'language',name:'改错专项',sub:'整套逐行作答',icon:'⌁'},
-    {id:'translation',name:'翻译：中译英',sub:'译文与草稿',icon:'↗'},
+    {id:'translation',name:'翻译：中译英',sub:'译文与草稿',icon:'↗︎'},
     {id:'writing',name:'写作：摘要＋观点',sub:'材料阅读与作文',icon:'✒'}
   ]
   const isReading=id=>id.startsWith('reading-')
@@ -52,7 +52,7 @@
   const anno=()=>window.TEM8_ANNO
   function show(id,label){if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('[data-view]').forEach(el=>el.classList.remove('active'));document.querySelector('#crumb').textContent=label;window.scrollTo(0,0)}
   function renderCards(){
-    const html=types.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">${t.id==='mock'?'查看模考设置':'配置练习'} <b>↗</b></span></button>`).join('')
+    const html=types.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">${t.id==='mock'?'查看模考设置':'配置练习'} <b>↗︎</b></span></button>`).join('')
     document.querySelector('#home-categories').innerHTML=html
     document.querySelector('#paper-categories').innerHTML=html
   }
@@ -89,14 +89,14 @@
         const text=t.replace(/^[-●]\s*/,'')
         return `<p class="wf-ol lv${lv}">${escape(text)}</p>`}).join('')
       const heading=badTitle?'':`<h2>${escape(rawTitle)}${x.answerSheet?' · '+escape(x.answerSheet):''}</h2>`
-      return `<div class="workflow-card">${heading}<p class="workflow-hint">原卷提纲已录入，${x.blanks.length} 个填空。${src.audio?'音频已导入，点“开始作答”即可边听边填；':'音频尚未提供，可先纸面作答；'}${hasAns?'下方可展开答案与详解。':'答案待补充。'}</p><div class="workflow-prompt wf-outline">${outline}</div>${hasAns?`<div class="wf-answer-list">${x.blanks.map(b=>`<details class="wf-answer-row"><summary><span class="wf-qno">${b.number}</span><span class="wf-right">${escape(b.answer)}</span></summary>${b.analysis?`<p class="wf-analysis">${escape(b.analysis)}</p>`:''}</details>`).join('')}</div>`:''}</div>`}
+      return `<div class="workflow-card">${heading}<p class="workflow-hint">${x.blanks.length} 个填空。${src.audio?'音频已导入，点“开始作答”即可边听边填；':'音频尚未提供，可先纸面作答；'}${hasAns?'下方可展开答案与详解。':'暂无参考答案。'}</p><div class="workflow-prompt wf-outline">${outline}</div>${hasAns?`<div class="wf-answer-list">${x.blanks.map(b=>`<details class="wf-answer-row"><summary><span class="wf-qno">${b.number}</span><span class="wf-right">${escape(b.answer)}</span></summary>${b.analysis?`<p class="wf-analysis">${escape(b.analysis)}</p>`:''}</details>`).join('')}</div>`:''}</div>`}
     if(type==='interview'&&src){const qs=src.interview.questions
       const item=q=>`<article class="wf-intv-item"><div class="wf-intv-body"><span class="wf-intv-no">${q.number>15?q.number:q.number+15}</span><ol class="wf-intv-options">${q.options.map((o,i)=>`<li><b>${'ABCD'[i]}.</b><span>${escape(o)}</span></li>`).join('')}</ol></div></article>`
       return `<div class="workflow-card"><p class="workflow-hint">Section B · Interview，共 ${qs.length} 道选择题。原卷只印选项，题干由听力音频给出。${src.audio?'音频已导入，点“开始作答”边听边选，交卷后才给出答案与解析。':'音频尚未提供，可先按纸面选择；交卷后给出答案与解析。'}</p><div class="workflow-interview-preview">${qs.map(item).join('')}</div></div>`}
     if(type==='language'&&papers[state.year]){const x=papers[state.year],rows=x.languageLines||[],ans=x.languageAnswers||[],gaps=rows.filter(r=>/(\d+)/.test(r[1]||'')).length
       const list=rows.map((row,i)=>{const n=(/(\d+)/.exec(row[1]||'')||[])[1]
         return `<div class="wf-lang-line${n?' has-gap':''}"><span class="wf-lang-no${n?'':' empty'}">${n||''}</span><p>${escape(row[0])}</p></div>`}).join('')
-      return `<div class="workflow-card"><h2>Language Usage · 改错</h2><p class="workflow-hint">原题共 ${gaps} 处待改，作答时逐行判断并填写修改。${ans.length?'答案与解析已录入，提交后可对照。':'答案待补充。'}</p><div class="wf-lang-preview">${list}</div></div>`}
+      return `<div class="workflow-card"><h2>Language Usage · 改错</h2><p class="workflow-hint">原题共 ${gaps} 处待改，作答时逐行判断并填写修改。${ans.length?'答案与解析已录入，提交后可对照。':'暂无参考答案。'}</p><div class="wf-lang-preview">${list}</div></div>`}
     if(type==='translation'&&papers[state.year]){const x=papers[state.year],full=(x.translation||[]).join('\n'),target=x.translationTarget
       const src=target&&full.includes(target)?escape(full.slice(0,full.indexOf(target)))+`<mark>${escape(target)}</mark>`+escape(full.slice(full.indexOf(target)+target.length)):escape(full)
       return `<div class="workflow-card"><h2>Translation · 汉译英</h2><p class="workflow-hint">${target?'划线部分为本题要求翻译的内容。':'原卷划线范围尚未录入，请对照原卷确认翻译范围。'}${x.translationReference?'参考译文已录入。':''}</p><div class="workflow-prompt">${src}</div></div>`}
@@ -296,14 +296,14 @@
       const rows=[...c,...s].map(q=>{
         if(q.type==='choice'){
           const mine=session.answers[qid(q)],has=typeof q.answer==='number'
-          const myText=mine===undefined||mine===''?'未作答':'ABCD'[mine],right=has?'ABCD'[q.answer]:'待补充'
+          const myText=mine===undefined||mine===''?'未作答':'ABCD'[mine],right=has?'ABCD'[q.answer]:'暂无'
           const mark=!has?'':(mine===undefined||mine===''?'未作答':(mine===q.answer?'正确':'错误'))
-          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">Q${q.number}</span><span class="wf-mine">你的答案 ${myText}</span><span class="wf-right">正确答案 ${right}</span><span class="wf-mark ${mark==='正确'?'ok':mark==='错误'?'bad':''}">${mark}</span></summary><p class="wf-prompt">${escape(q.prompt)}</p>${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:'<p class="wf-analysis">该题解析待补充。</p>'}</details>`
+          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">Q${q.number}</span><span class="wf-mine">你的答案 ${myText}</span><span class="wf-right">正确答案 ${right}</span><span class="wf-mark ${mark==='正确'?'ok':mark==='错误'?'bad':''}">${mark}</span></summary><p class="wf-prompt">${escape(q.prompt)}</p>${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:'<p class="wf-analysis">该题暂无解析。</p>'}</details>`
         }
         const mine=String(session.answers[qid(q)]||'').trim()
-        return `<details class="wf-answer-row"><summary><span class="wf-qno">Q${q.number}</span><span class="wf-mine">你的作答 ${words(mine)} 词${q.wordLimit?` / 上限 ${q.wordLimit}`:''}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${escape(q.prompt)}</p>${q.referenceAnswer?`<p class="wf-analysis"><strong>参考答案：</strong>${escape(q.referenceAnswer)}</p>`:'<p class="wf-analysis">该题参考答案待补充（解析文档未收录）。</p>'}${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`
+        return `<details class="wf-answer-row"><summary><span class="wf-qno">Q${q.number}</span><span class="wf-mine">你的作答 ${words(mine)} 词${q.wordLimit?` / 上限 ${q.wordLimit}`:''}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${escape(q.prompt)}</p>${q.referenceAnswer?`<p class="wf-analysis"><strong>参考答案：</strong>${escape(q.referenceAnswer)}</p>`:'<p class="wf-analysis">该题参考暂无参考答案。</p>'}${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`
       }).join('')
-      return `<div class="workflow-report-card"><h3>${a.year} · ${a.label}</h3><p>选择题 <strong>${ok} / ${graded.length}</strong> 正确${graded.length<c.length?`（另有 ${c.length-graded.length} 题答案待补充）`:''}；简答题已答 ${s.filter(q=>String(session.answers[qid(q)]||'').trim()).length} / ${s.length}</p><div class="wf-answer-list">${rows}</div></div>`
+      return `<div class="workflow-report-card"><h3>${a.year} · ${a.label}</h3><p>选择题 <strong>${ok} / ${graded.length}</strong> 正确${graded.length<c.length?`（另有 ${c.length-graded.length} 题暂无参考答案）`:''}；简答题已答 ${s.filter(q=>String(session.answers[qid(q)]||'').trim()).length} / ${s.length}</p><div class="wf-answer-list">${rows}</div></div>`
       }
       if(g.kind==='lecture'){const x=listening[g.year]?.miniLecture,blanks=x?.blanks||[]
         const gradeable=blanks.filter(b=>b.answer&&!cjkAns(b.answer))
@@ -314,26 +314,26 @@
           const right=okBlank(b.answer,mine)
           const mark=!mine?'':self?'对照':right?'正确':'错误'
           const shown=String(b.answer||'').replace(/\s*\/\/\s*/g,' 或 ')
-          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">${b.number}</span><span class="wf-mine">你的答案 ${escape(mine||'—')}</span><span class="wf-right">${escape(shown||'待补充')}</span>${mark?`<span class="wf-mark ${mark==='正确'?'right':mark==='错误'?'bad':'self'}">${mark}</span>`:''}</summary>${b.analysis?`<p class="wf-analysis">${escape(b.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`}).join('')
+          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">${b.number}</span><span class="wf-mine">你的答案 ${escape(mine||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${mark==='正确'?'right':mark==='错误'?'bad':'self'}">${mark}</span>`:''}</summary>${b.analysis?`<p class="wf-analysis">${escape(b.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`}).join('')
         return `<div class="workflow-report-card"><h3>${g.year} · Listening Section A</h3><p>已填 ${answered} / ${blanks.length}；可比对 ${gradeable.length} 空，其中 <strong>${ok}</strong> 空正确${gradeable.length<blanks.length?`（另有 ${blanks.length-gradeable.length} 空为多答案或任选，请对照自查）`:''}</p><div class="wf-answer-list">${rows}</div></div>`}
       if(g.kind==='language'){const src=papers[g.year],rows=src.languageLines,ans=src.languageAnswers||[]
         const blanks=rows.map((row,i)=>({row,i,n:(/(\d+)/.exec(row[1]||'')||[])[1]})).filter(x=>x.n)
         const answered=blanks.filter(x=>session.answers[`language-${g.year}-${x.i+1}`]?.text).length
         const list=blanks.map(x=>{const key=`language-${g.year}-${x.i+1}`,mine=(session.answers[key]||{}).text||'',a=ans.find(y=>y.number===Number(x.n))
-          return `<details class="wf-answer-row"><summary><span class="wf-qno">${x.n}</span><span class="wf-mine">你的修改 ${escape(mine.trim()||'未作答')}</span><span class="wf-right">${a?escape(a.fix):'待补充'}</span></summary><p class="wf-prompt">${escape(x.row[0])}</p>${a&&a.analysis?`<p class="wf-analysis">${escape(a.analysis)}</p>`:''}</details>`}).join('')
+          return `<details class="wf-answer-row"><summary><span class="wf-qno">${x.n}</span><span class="wf-mine">你的修改 ${escape(mine.trim()||'未作答')}</span><span class="wf-right">${a?escape(a.fix):'暂无'}</span></summary><p class="wf-prompt">${escape(x.row[0])}</p>${a&&a.analysis?`<p class="wf-analysis">${escape(a.analysis)}</p>`:''}</details>`}).join('')
         return `<div class="workflow-report-card"><h3>Language Usage · 改错</h3><p>已答 ${answered} / ${blanks.length} 行</p><div class="wf-answer-list">${list}</div></div>`}
       if(g.kind==='interview'){const qs=listening[g.year]?.interview?.questions||[]
         const graded=qs.filter(q=>typeof q.answer==='number')
         const ok=qs.filter(q=>typeof q.answer==='number'&&session.answers[`interview-${g.year}-${q.number}`]===q.answer).length
         const rows=qs.map(q=>{const key=`interview-${g.year}-${q.number}`,mine=session.answers[key],has=typeof q.answer==='number'
-          const myText=mine===undefined||mine===''?'未作答':'ABCD'[mine],right=has?'ABCD'[q.answer]:'待补充'
+          const myText=mine===undefined||mine===''?'未作答':'ABCD'[mine],right=has?'ABCD'[q.answer]:'暂无'
           const mark=!has?'':(mine===undefined||mine===''?'未作答':(mine===q.answer?'正确':'错误'))
-          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">${q.number>15?q.number:q.number+15}</span><span class="wf-mine">你的答案 ${myText}</span><span class="wf-right">正确答案 ${right}</span><span class="wf-mark ${mark==='正确'?'ok':mark==='错误'?'bad':''}">${mark}</span></summary><p class="wf-prompt">${q.options.map((o,i)=>`${'ABCD'[i]}. ${escape(o)}`).join('　')}</p>${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:'<p class="wf-analysis">该题解析待补充。</p>'}</details>`}).join('')
-        return `<div class="workflow-report-card"><h3>${g.year} · Listening Section B</h3><p>选择题 <strong>${ok} / ${graded.length}</strong> 正确${graded.length<qs.length?`（另有 ${qs.length-graded.length} 题答案待补充）`:''}</p><div class="wf-answer-list">${rows}</div></div>`}
+          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">${q.number>15?q.number:q.number+15}</span><span class="wf-mine">你的答案 ${myText}</span><span class="wf-right">正确答案 ${right}</span><span class="wf-mark ${mark==='正确'?'ok':mark==='错误'?'bad':''}">${mark}</span></summary><p class="wf-prompt">${q.options.map((o,i)=>`${'ABCD'[i]}. ${escape(o)}`).join('　')}</p>${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:'<p class="wf-analysis">该题暂无解析。</p>'}</details>`}).join('')
+        return `<div class="workflow-report-card"><h3>${g.year} · Listening Section B</h3><p>选择题 <strong>${ok} / ${graded.length}</strong> 正确${graded.length<qs.length?`（另有 ${qs.length-graded.length} 题暂无参考答案）`:''}</p><div class="wf-answer-list">${rows}</div></div>`}
       const count=words(session.answers[`${g.kind}-${g.year}`]),min=papers[g.year]?.writingMinWords
       const ref=g.kind==='translation'?papers[g.year]?.translationReference:papers[g.year]?.writingReference
       const guide=g.kind==='translation'?papers[g.year]?.translationAnalysis:papers[g.year]?.writingAnalysis
-      return `<div class="workflow-report-card"><h3>${g.kind==='translation'?'翻译':'写作'}</h3><p>已写 ${count} 词${g.kind==='writing'&&min&&count<min?` · 未达到最低 ${min} 词`:''}</p>${ref?`<details class="wf-answer-row" open><summary><span class="wf-qno">参考${g.kind==='translation'?'译文':'范文'}</span><span class="wf-mark">对照自查</span></summary><p class="wf-analysis">${escape(ref).replace(/\n/g,'<br>')}</p></details>`:'<small>参考译文 / 范文待补充。</small>'}${guide?`<details class="wf-answer-row"><summary>${g.kind==='translation'?'翻译解析':'写作指南'}</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}</div>`
+      return `<div class="workflow-report-card"><h3>${g.kind==='translation'?'翻译':'写作'}</h3><p>已写 ${count} 词${g.kind==='writing'&&min&&count<min?` · 未达到最低 ${min} 词`:''}</p>${ref?`<details class="wf-answer-row" open><summary><span class="wf-qno">参考${g.kind==='translation'?'译文':'范文'}</span><span class="wf-mark">对照自查</span></summary><p class="wf-analysis">${escape(ref).replace(/\n/g,'<br>')}</p></details>`:'<small>暂无参考译文或范文。</small>'}${guide?`<details class="wf-answer-row"><summary>${g.kind==='translation'?'翻译解析':'写作指南'}</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}</div>`
     }).join('')
     document.querySelector('#workflow-report-content').innerHTML=`<div class="page-head"><span class="eyebrow">PRACTICE REPORT</span><h1>${session.type==='mock'?`${session.year} 年整卷模考已交卷`:'题组已提交'}</h1><p>用时 ${Math.floor((Date.now()-session.started)/60000)} 分钟。选择题已自动判分；简答题、翻译和写作可对照参考资料自查。此报告仅汇总 ${session.year} 年试卷数据。</p></div>${cards}<button class="primary-btn" data-workflow-back="${session.type==='mock'?'mock':'papers'}">${session.type==='mock'?'返回模考列表':'返回题库'} →</button>`
     const old=saved();localStorage.setItem(KEY,JSON.stringify({...old,session:null,history:[...(old.history||[]),{type:session.type,year:session.year,finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks}].slice(-50)}));document.dispatchEvent(new Event('tem8:study-changed'))
