@@ -1,70 +1,206 @@
+/* 按题型练习：配置页 → 做题页 → 结果页
+ * 数据仍存在 localStorage 的 tem8_workflow_v2：
+ *   session  进行中的题组（可续做）
+ *   history  已交卷记录
+ *   prefs    上次的练习配置
+ *   tools    'm:<题目key>' 错题本条目（逐条同步）
+ */
 (() => {
   'use strict'
   const articles=[...(window.TEM8_2026_ARTICLES||[]),...(window.TEM8_2025_ARTICLES||[]),...(window.TEM8_MID_ARTICLES||[]),...(window.TEM8_ARCHIVE_ARTICLES||[]),...(window.TEM8_ARCHIVE_ARTICLES2||[])]
   const questions=[...(window.TEM8_2026_QUESTIONS||[]),...(window.TEM8_2025_QUESTIONS||[]),...(window.TEM8_MID_QUESTIONS||[]),...(window.TEM8_ARCHIVE_QUESTIONS||[]),...(window.TEM8_ARCHIVE_QUESTIONS2||[])]
   const papers={...(window.TEM8_PAPER_EXTRAS||{}),...(window.TEM8_PAPER_EXTRAS2||{}),...(window.TEM8_PAPER_EXTRAS_2025||{}),...(window.TEM8_PAPER_EXTRAS_2026||{}),...(window.TEM8_MID_EXTRAS||{})}
   const listening={...(window.TEM8_LISTENING_ARCHIVE||{}),...(window.TEM8_LISTENING_2026||{}),...(window.TEM8_MID_LISTENING||{})}
-  const audioOf=y=>listening[y]?.audio||''
-  function mockPlan(year){
-    const y=Number(year),track=listening[y],paper=papers[y],passages=articles.filter(a=>Number(a.year)===y)
-    const groups=[]
-    if(track?.miniLecture?.blanks?.length)groups.push({kind:'lecture',year:y})
-    if(track?.interview?.questions?.length)groups.push({kind:'interview',year:y})
-    passages.forEach(a=>groups.push({kind:'reading',year:y,articleId:a.id,questionNumbers:byType(a,'reading-group').map(q=>q.number)}))
-    if(paper?.languageLines?.length)groups.push({kind:'language',year:y})
-    if(paper?.translation?.length)groups.push({kind:'translation',year:y})
-    if(paper?.writing?.length)groups.push({kind:'writing',year:y})
-    const missing=[]
-    if(!track?.audio)missing.push('听力音频')
-    if(!track?.miniLecture?.blanks?.length)missing.push('Section A')
-    if(!track?.interview?.questions?.length)missing.push('Section B')
-    if(!passages.length||passages.some(a=>!byType(a,'reading-group').length))missing.push('阅读')
-    if(!paper?.languageLines?.length)missing.push('改错')
-    if(!paper?.translation?.length)missing.push('翻译')
-    if(!paper?.writing?.length)missing.push('写作')
-    return {year:y,groups,missing,ready:missing.length===0}
-  }
-  const mockYears=()=>Object.keys(listening).map(Number).filter(y=>mockPlan(y).ready).sort((a,b)=>b-a)
-  const isListening=id=>id==='lecture'||id==='interview'
-  let trFollowRaf=0
-  const types=[
-    {id:'lecture',name:'听力 Section A',sub:'Mini-lecture 填空',icon:'◖'},
-    {id:'interview',name:'听力 Section B',sub:'Interview 选择',icon:'♫'},
-    {id:'reading-group',name:'阅读专项',sub:'按 Passage 筛选 · 选择题＋简答题',icon:'▧'},
-    {id:'language',name:'改错专项',sub:'整套逐行作答',icon:'⌁'},
-    {id:'translation',name:'翻译：中译英',sub:'译文与草稿',icon:'↗︎'},
-    {id:'writing',name:'写作：摘要＋观点',sub:'材料阅读与作文',icon:'✒'}
-  ]
-  const isReading=id=>id.startsWith('reading-')
+  const KEY='tem8_workflow_v2'
+  const LETTERS='ABCD'
+  const REASONS=['没读懂','定位错','词汇','干扰项','粗心']
+
+  /* ---------- 小工具 ---------- */
+  const $=s=>document.querySelector(s)
   const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
   const words=s=>String(s||'').trim().split(/\s+/).filter(Boolean).length
-  const yearList=id=>isReading(id)?[...new Set(articles.filter(a=>byType(a,id).length).map(a=>a.year))].sort((a,b)=>b-a):id==='lecture'||id==='interview'?Object.keys(listening).map(Number).filter(y=>!listening[y]?.intensiveOnly).sort((a,b)=>b-a):id==='mock'?mockYears():Object.keys(papers).map(Number).sort((a,b)=>b-a)
-  const articleQuestions=a=>questions.filter(q=>q.articleId===a.id)
-  const byType=(a,type)=>articleQuestions(a)
-  const title=id=>types.find(t=>t.id===id)?.name||(id==='mock'?'整卷模考':id)
-  const KEY='tem8_workflow_v2'
-  const saved=()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}}}
-  let state={type:'reading-group',year:2026,range:'one',articleId:'2026-1',customIds:[],mode:'practice',durationMinutes:0,allowWord:true,showTranscript:false,replay:false,showReference:false,showShortAnswer:false,showLocator:false,combineReading:true}
-  let session=null
-  let wordKey=''
-  function persist(){if(session){localStorage.setItem(KEY,JSON.stringify({...saved(),session}));if(!window.TEM8_SYNC_FLUSHING)document.dispatchEvent(new Event('tem8:study-changed'))}}
-  document.addEventListener('tem8:flush-records', persist)
-  const anno=()=>window.TEM8_ANNO
-  function show(id,label){if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('[data-view]').forEach(el=>el.classList.remove('active'));window.scrollTo(0,0)}
-  // 一次作答的客观题正确率（只算有标准答案、已作答的题）
-  function runScore(run){
-    let ok=0,n=0
-    for(const g of run.groups||[]){
-      if(g.kind==='reading'){const a=articles.find(x=>x.id===g.articleId);if(!a)continue;for(const q of articleQuestions(a))if(typeof q.answer==='number'){const v=run.answers?.[qid(q)];if(v===undefined||v==='')continue;n++;if(v===q.answer)ok++}}
-      else if(g.kind==='interview'){for(const q of listening[g.year]?.interview?.questions||[])if(typeof q.answer==='number'){const v=run.answers?.[`interview-${g.year}-${q.number}`];if(v===undefined||v==='')continue;n++;if(v===q.answer)ok++}}
-      else if(g.kind==='lecture'){for(const b of listening[g.year]?.miniLecture?.blanks||[])if(b.answer&&!cjkAns(b.answer)){const v=String(run.answers?.[`lecture-${g.year}-${b.number}`]||'').trim();if(!v)continue;n++;if(okBlank(b.answer,v))ok++}}
+  const mmss=s=>{s=Math.max(0,Math.floor(s||0));return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
+  const clock=t=>new Date(t).toTimeString().slice(0,5)
+  const day=t=>{const d=new Date(t);return `${d.getMonth()+1}月${d.getDate()}日`}
+  const normAns=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'')
+  const cjkAns=s=>/[一-龥]/.test(String(s||''))
+  const okBlank=(ans,mine)=>{const m=normAns(mine);return !!m&&String(ans||'').split('//').map(normAns).filter(Boolean).some(a=>a===m)}
+  const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}}}
+  function writeStore(fn){const s=load();fn(s);try{localStorage.setItem(KEY,JSON.stringify(s))}catch{}if(!window.TEM8_SYNC_FLUSHING)document.dispatchEvent(new Event('tem8:study-changed'))}
+
+  /* ---------- 题目数据 ---------- */
+  const articleQuestions=a=>a?questions.filter(q=>q.articleId===a.id):[]
+  const art=id=>articles.find(a=>a.id===id)
+  const qid=q=>`${q.articleId}-${q.number}`
+  const qByKey=new Map(questions.map(q=>[qid(q),q]))
+  const isListening=id=>id==='lecture'||id==='interview'
+  const gapNo=row=>(/(\d+)/.exec(row?.[1]||'')||[])[1]
+  const PASSAGE=['One','Two','Three','Four','Five']
+  const passageName=a=>{const same=articles.filter(x=>x.year===a.year&&articleQuestions(x).length);const i=same.indexOf(a);return a.label||`Passage ${PASSAGE[i]||i+1}`}
+
+  const TYPES=[
+    {id:'lecture',group:'listen',name:'听力 Section A',sub:'Mini-lecture 填空',icon:'◖'},
+    {id:'interview',group:'listen',name:'听力 Section B',sub:'Interview 选择',icon:'♫'},
+    {id:'reading-group',group:'read',name:'阅读专项',sub:'按 Passage 筛选 · 选择题＋简答题',icon:'▧'},
+    {id:'language',group:'lang',name:'改错专项',sub:'整套逐行作答',icon:'⌁'},
+    {id:'translation',group:'trans',name:'翻译：中译英',sub:'译文与草稿',icon:'↗︎'},
+    {id:'writing',group:'write',name:'写作：摘要＋观点',sub:'材料阅读与作文',icon:'✒'}
+  ]
+  const GROUPS=[
+    {id:'listen',name:'听力',types:['lecture','interview']},
+    {id:'read',name:'阅读',types:['reading-group']},
+    {id:'lang',name:'语言运用',types:['language']},
+    {id:'trans',name:'翻译',types:['translation']},
+    {id:'write',name:'写作',types:['writing']}
+  ]
+  const title=id=>id==='review'?'错题复习':id==='mock'?'整卷模考':TYPES.find(t=>t.id===id)?.name||id
+
+  function yearList(type){
+    let ys
+    if(type==='reading-group')ys=articles.filter(a=>articleQuestions(a).length).map(a=>a.year)
+    else if(isListening(type))ys=Object.keys(listening).map(Number).filter(y=>!listening[y]?.intensiveOnly&&(type==='lecture'?listening[y]?.miniLecture?.blanks?.length:listening[y]?.interview?.questions?.length))
+    else{const f=type==='language'?'languageLines':type==='translation'?'translation':'writing';ys=Object.keys(papers).map(Number).filter(y=>papers[y]?.[f]?.length)}
+    return [...new Set(ys.map(Number))].sort((a,b)=>b-a)
+  }
+  function hasAnswers(type,y){
+    if(type==='reading-group')return questions.some(q=>q.articleId.startsWith(y+'-')&&(typeof q.answer==='number'||q.referenceAnswer))
+    if(type==='lecture')return !!listening[y]?.miniLecture?.blanks?.some(b=>b.answer)
+    if(type==='interview')return !!listening[y]?.interview?.questions?.some(q=>typeof q.answer==='number')
+    if(type==='language')return !!papers[y]?.languageAnswers?.length
+    if(type==='translation')return !!papers[y]?.translationReference
+    return !!papers[y]?.writingReference
+  }
+  const yearArticles=y=>articles.filter(a=>a.year===y&&articleQuestions(a).length)
+  function countFor(type,y,passages){
+    if(type==='reading-group'){let as=yearArticles(y);if(passages?.length)as=as.filter(a=>passages.includes(a.id));return as.reduce((n,a)=>n+articleQuestions(a).length,0)}
+    if(type==='lecture')return listening[y]?.miniLecture?.blanks?.length||0
+    if(type==='interview')return listening[y]?.interview?.questions?.length||0
+    if(type==='language')return (papers[y]?.languageLines||[]).filter(gapNo).length
+    return 1
+  }
+  function minutesFor(type,y,passages){
+    const L=listening[y]||{}
+    if(type==='reading-group'){let as=yearArticles(y);if(passages?.length)as=as.filter(a=>passages.includes(a.id));return as.length*15}
+    if(type==='lecture')return Math.round((Number(L.sectionAEnd)||540)/60)+3
+    if(type==='interview')return Math.round(Math.max(360,(Number(L.audioDuration)||0)-(Number(L.sectionBStart)||0))/60)+2
+    return type==='language'?15:type==='translation'?30:45
+  }
+
+  /* ---------- 题组里的每道题，统一成 item ---------- */
+  function gItems(g){
+    const y=g.year
+    if(g.kind==='reading'){
+      const a=art(g.articleId);let qs=articleQuestions(a)
+      if(g.only?.length)qs=qs.filter(q=>g.only.includes(q.number))
+      return qs.map(q=>({key:qid(q),no:q.number,kind:q.type==='choice'?'choice':'short',q,a,answer:q.type==='choice'&&typeof q.answer==='number'?q.answer:undefined,prompt:q.prompt,options:q.options,analysis:q.analysis,ref:q.referenceAnswer,limit:q.wordLimit}))
     }
-    return n?Math.round(ok/n*100):null
+    if(g.kind==='interview'){
+      let qs=listening[y]?.interview?.questions||[]
+      if(g.only?.length)qs=qs.filter(q=>g.only.includes(q.number))
+      return qs.map(q=>({key:`interview-${y}-${q.number}`,no:q.number>15?q.number:q.number+15,num:q.number,kind:'choice',answer:typeof q.answer==='number'?q.answer:undefined,prompt:q.prompt,options:q.options,analysis:q.analysis}))
+    }
+    if(g.kind==='lecture'){
+      let bs=listening[y]?.miniLecture?.blanks||[]
+      if(g.only?.length)bs=bs.filter(b=>g.only.includes(b.number))
+      return bs.map(b=>({key:`lecture-${y}-${b.number}`,no:b.number,num:b.number,kind:'blank',answer:b.answer,analysis:b.analysis,limit:b.wordLimit}))
+    }
+    if(g.kind==='language'){
+      const src=papers[y]||{},ans=src.languageAnswers||[]
+      return (src.languageLines||[]).map((row,i)=>({row,i,n:gapNo(row)})).filter(x=>x.n).map(x=>{const a=ans.find(v=>v.number===Number(x.n));return {key:`language-${y}-${x.i+1}`,no:Number(x.n),kind:'line',row:x.row[0],fix:a?.fix,analysis:a?.analysis}})
+    }
+    return [{key:`${g.kind}-${y}`,no:1,kind:'long'}]
+  }
+  const allItems=(groups)=>groups.flatMap((g,gi)=>gItems(g).map(it=>({...it,gi})))
+  function isAnswered(it,answers){
+    const v=answers[it.key]
+    if(it.kind==='choice')return v!==undefined&&v!==''&&v!==null
+    if(it.kind==='line')return !!String(v?.text||'').trim()
+    return !!String(v||'').trim()
+  }
+  // ok / bad / none（未答）/ self（需自查）/ na（无答案）
+  function grade(it,answers){
+    const v=answers[it.key]
+    if(!isAnswered(it,answers))return it.kind==='choice'&&it.answer===undefined?'na':it.kind==='blank'&&(!it.answer||cjkAns(it.answer))?'na':(it.kind==='choice'||it.kind==='blank')?'none':'none'
+    if(it.kind==='choice')return it.answer===undefined?'na':v===it.answer?'ok':'bad'
+    if(it.kind==='blank'){if(!it.answer||cjkAns(it.answer))return 'self';return okBlank(it.answer,v)?'ok':'bad'}
+    return 'self'
+  }
+  const gradable=it=>(it.kind==='choice'&&it.answer!==undefined)||(it.kind==='blank'&&it.answer&&!cjkAns(it.answer))
+
+  function parseKey(k){
+    let m=/^lecture-(\d{4})-(\d+)$/.exec(k);if(m)return {kind:'lecture',year:+m[1],number:+m[2]}
+    m=/^interview-(\d{4})-(\d+)$/.exec(k);if(m)return {kind:'interview',year:+m[1],number:+m[2]}
+    const q=qByKey.get(k);if(q)return {kind:'reading',year:Number(q.articleId.slice(0,4)),articleId:q.articleId,number:q.number}
+    return null
+  }
+  function itemInfo(k){
+    const p=parseKey(k);if(!p)return null
+    const g=p.kind==='reading'?{kind:'reading',year:p.year,articleId:p.articleId,only:[p.number]}:{kind:p.kind,year:p.year,only:[p.number]}
+    const it=gItems(g)[0];if(!it)return null
+    const kindName=p.kind==='reading'?`阅读 · ${passageName(it.a)}`:p.kind==='lecture'?'听力 Section A':'听力 Section B'
+    return {...it,p,typeName:p.kind==='reading'?'阅读':p.kind==='lecture'?'听力 A':'听力 B',label:`${p.year} · ${kindName} · ${p.kind==='lecture'?'第 '+it.no+' 空':'Q'+it.no}`}
+  }
+  function groupsFromKeys(keys){
+    const map=new Map()
+    for(const k of keys){const p=parseKey(k);if(!p)continue
+      const gk=p.kind==='reading'?'r:'+p.articleId:p.kind+':'+p.year
+      if(!map.has(gk))map.set(gk,p.kind==='reading'?{kind:'reading',year:p.year,articleId:p.articleId,only:[]}:{kind:p.kind,year:p.year,only:[]})
+      const g=map.get(gk);if(!g.only.includes(p.number))g.only.push(p.number)}
+    return [...map.values()].map(g=>({...g,only:g.only.sort((a,b)=>a-b)}))
+  }
+
+  /* ---------- 错题本条目（tools['m:key']） ---------- */
+  const INTERVAL=[1,3,7,14]
+  function mistakeUpdate(run){
+    const items=allItems(run.groups),now=run.finishedAt
+    writeStore(s=>{
+      s.tools||={}
+      for(const it of items){
+        if(!['choice','blank'].includes(it.kind)||!parseKey(it.key))continue
+        const r=grade(it,run.answers),id='m:'+it.key,old=s.tools[id]
+        if(r==='bad'){
+          const e={...(old||{}),k:it.key,n:(old?.n||0)+1,f:old?.f||now,l:now,st:0,due:now+864e5,s:old&&old.s&&old.s!=='new'?'learning':'new'}
+          if(old?.rm)delete e.rm
+          s.tools[id]=e
+        }else if(r==='ok'&&old&&!old.rm){
+          const st=(old.st||0)+1,rv=(old.rv||0)+1
+          s.tools[id]={...old,st,rv,s:st>=2?'mastered':'learning',due:now+INTERVAL[Math.min(rv,INTERVAL.length)-1]*864e5,lr:now}
+        }else if(run.marks?.[it.key]&&!old){
+          s.tools[id]={k:it.key,n:0,f:now,l:now,st:0,due:now,s:'new',fl:1,r:'存疑'}
+        }
+      }
+    })
+  }
+
+  /* ---------- 配置页 ---------- */
+  let cfg={type:'reading-group',years:[],passages:[],mode:'practice',minutes:0,minutesTouched:false,instant:false,allowWord:true,replay:false}
+  let session=null,lastRun=null,cur='',reportFilter=false,mobileTab='q',confirmBypass=false
+
+  function prefs(){return load().prefs||{}}
+  function savePrefs(){writeStore(s=>{const p=s.prefs||{};p.type=cfg.type;p.byType||={};p.byType[cfg.type]={years:cfg.years,mode:cfg.mode,minutes:cfg.minutesTouched?cfg.minutes:0};p.instant=cfg.instant;p.allowWord=cfg.allowWord;p.replay=cfg.replay;s.prefs=p})}
+  function estimate(){
+    const ys=cfg.years,single=ys.length===1
+    let count=0,minutes=0
+    for(const y of ys){const ps=single?cfg.passages:[];count+=countFor(cfg.type,y,ps);minutes+=minutesFor(cfg.type,y,ps)}
+    return {count,minutes}
+  }
+  function openConfig(type,articleId){
+    const p=prefs(),bt=p.byType?.[type]||{},valid=yearList(type)
+    cfg={...cfg,type,passages:[],instant:!!p.instant,allowWord:p.allowWord!==false,replay:!!p.replay,mode:bt.mode==='exam'?'exam':'practice'}
+    cfg.years=(bt.years||[]).map(Number).filter(y=>valid.includes(y))
+    if(!cfg.years.length)cfg.years=valid.slice(0,1)
+    if(articleId){cfg.years=[Number(articleId.slice(0,4))];cfg.passages=[articleId]}
+    cfg.minutesTouched=!!bt.minutes;cfg.minutes=bt.minutes||estimate().minutes
+    renderConfig();show('workflow-config-view','练习设置')
+  }
+  function setType(type){
+    const keepMode=cfg.mode
+    openConfig(type);cfg.mode=keepMode;if(!cfg.minutesTouched)cfg.minutes=estimate().minutes;renderConfig()
   }
   function typeStat(type){
-    const runs=(saved().history||[]).filter(r=>r.type===type)
+    const runs=(load().history||[]).filter(r=>r.type===type&&Array.isArray(r.groups))
     if(!runs.length)return ''
-    const scores=runs.map(runScore).filter(x=>x!=null),last=scores.at(-1)
+    const last=stats(runs.at(-1)).pct
     return `练过 ${runs.length} 次${last!=null?` · 上次正确率 ${last}%`:''}`
   }
   const CARD_GROUPS=[
@@ -75,114 +211,154 @@
     {name:'写作',icon:'✒',sub:'摘要＋观点 · 300 词',types:['writing']}
   ]
   function renderCards(){
-    const html=types.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">配置练习 <b>↗︎</b></span></button>`).join('')
-    const home=document.querySelector('#home-categories');if(home)home.innerHTML=html
-    const grid=document.querySelector('#paper-categories');if(grid)grid.innerHTML=html
-    let box=document.querySelector('#paper-cards')
+    const html=TYPES.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">配置练习 <b>↗︎</b></span></button>`).join('')
+    const home=$('#home-categories');if(home)home.innerHTML=html
+    const grid=$('#paper-categories');if(grid)grid.innerHTML=html
+    let box=$('#paper-cards')
     if(!box&&grid){box=document.createElement('div');box.id='paper-cards';grid.before(box)}
     if(!box)return
-    const live=saved().session
-    const resume=live?.groups?.length&&live.type!=='mock'?`<div class="pc-resume"><span class="pc-ico">▶</span><div><b>继续：${escape(title(live.type))}</b><small>${escape([...new Set(live.groups.map(g=>g.year))].join('、'))} 年 · 没交卷</small></div><button type="button" class="pc-btn" data-workflow-resume>继续</button></div>`:''
+    const live=load().session
+    const resume=live?.groups?.length&&live.type!=='mock'?`<div class="pc-resume"><span class="pc-ico">▶</span><div><b>继续：${escape(live.type==='review'?(live.label||'错题复习'):title(live.type))}</b><small>${sessionSummary(live)}</small></div><button type="button" class="pc-btn" data-pq-discard>放弃</button><button type="button" class="pc-btn" data-workflow-resume>继续</button></div>`:''
     box.innerHTML=resume+`<div class="pc-grid">${CARD_GROUPS.map(G=>{
       const stat=G.types.map(typeStat).filter(Boolean).join('；')
       const foot=`<span class="pc-stat ${stat?'':'none'}">${escape(stat||'还没练过')}</span>`
       if(G.chips)return `<div class="pc-card"><div class="pc-top"><b>${G.name}</b><span class="pc-ico">${G.icon}</span></div><div class="pc-chips">${G.chips.map(([t,l])=>`<button type="button" data-workflow-type="${t}">${l}</button>`).join('')}</div>${foot}</div>`
       return `<button type="button" class="pc-card" data-workflow-type="${G.types[0]}"><span class="pc-top"><b>${G.name}</b><span class="pc-ico">${G.icon}</span></span><span class="pc-sub">${G.sub}</span>${foot}</button>`}).join('')}</div>`
   }
-  function readerActions(article){
-    const qs=articleQuestions(article),choice=qs.filter(q=>q.type==='choice'),short=qs.filter(q=>q.type==='short')
-    const btn=(type,label)=>`<button class="${type==='reading-group'?'primary-btn':'secondary-btn'}" data-start-passage="${escape(article.id)}" data-passage-type="${type}">${label}</button>`
-    return `<div class="workflow-reader-actions"><h3>读完后做题</h3><p>${choice.length} 道选择题 · ${short.length} 道简答题，题号以本卷数据为准。</p>${qs.length?btn('reading-group','做本篇阅读题组 →'):''}</div>`
+  function sessionSummary(s){
+    const items=allItems(s.groups),done=items.filter(it=>isAnswered(it,s.answers||{})).length
+    const ys=[...new Set(s.groups.map(g=>g.year))]
+    return `${escape(title(s.type))} · ${ys.length>2?ys.length+' 个年份':ys.join('、')+' 年'} · 已答 ${done} / ${items.length}`
   }
-  function openConfig(type,articleId){
-    const years=yearList(type),year=articleId?Number(articleId.slice(0,4)):(years.includes(state.year)?state.year:years[0]);state={...state,type,year,articleId:articleId||'',customIds:[],range:'one',mode:type==='mock'?'exam':'practice',durationMinutes:type==='mock'?listening[year]?.timeLimitMinutes||0:0}
-    if(!state.articleId)state.articleId=articles.find(a=>a.year===state.year)?.id||''
-    renderConfig();show('workflow-config-view',title(type))
+  function resumeBanner(){
+    const s=load().session;if(!s?.groups?.length)return ''
+    return `<div class="pq-resume"><div><strong>上次的练习还没交卷</strong><span>${sessionSummary(s)}</span></div><button class="secondary-btn" data-pq-discard>放弃</button><button class="primary-btn" data-workflow-resume>继续作答 <span>→</span></button></div>`
   }
-  function rangeOptions(){
-    if(!isReading(state.type))return ''
-    return `<div class="workflow-range"><label><input type="radio" name="workflow-range" value="one" ${state.range==='one'?'checked':''}> 一篇 Passage 题组</label><label><input type="radio" name="workflow-range" value="all" ${state.range==='all'?'checked':''}> 本年全部文章依次</label><label><input type="radio" name="workflow-range" value="custom" ${state.range==='custom'?'checked':''}> 自定义选择文章</label></div>`
-  }
-  function articleCards(){
-    if(!isReading(state.type))return ''
-    const filtered=articles.filter(a=>a.year===state.year&&byType(a,state.type).length)
-    return `<div class="workflow-passage-list">${filtered.map((a,i)=>{
-      const qs=articleQuestions(a),choice=qs.filter(q=>q.type==='choice'),short=qs.filter(q=>q.type==='short')
-      const nums=arr=>arr.length?arr.map(q=>q.number).join('、'):'无'
-      return `<label class="workflow-passage-option ${(state.range==='custom'?state.customIds.includes(a.id):state.articleId===a.id)?'selected':''}"><input type="${state.range==='custom'?'checkbox':'radio'}" name="workflow-article" value="${a.id}" ${(state.range==='custom'?state.customIds.includes(a.id):state.articleId===a.id)?'checked':''} ${state.range==='all'?'disabled':''}><span><strong>Passage ${['One','Two','Three','Four','Five'][i]||i+1}</strong><small>选择题 ${choice.length} 道：${nums(choice)}<br>简答题 ${short.length} 道：${nums(short)}</small></span></label>`
-    }).join('')}</div>`
-  }
-  function configSwitch(key,label,available,checked){return `<label class="workflow-toggle ${available?'':'unavailable'}"><input type="checkbox" data-workflow-switch="${key}" ${checked?'checked':''} ${available?'':'disabled'}><span>${label}${available?'':' · 待资料'}</span></label>`}
-  function unavailablePreview(type){
-    const src=listening[state.year]
-    if(type==='lecture'&&src){const x=src.miniLecture,hasAns=x.blanks.some(b=>b.answer)
-      const rawTitle=String(x.title||'').trim(),badTitle=/…|\.{3,}|_{3,}|^[IVX]+[.、]/i.test(rawTitle)
-      const outline=x.outline.filter((l,i)=>!(i===0&&!badTitle&&l.trim()===rawTitle)).map(l=>{const t=l.trim()
-        const lv=t.startsWith('-')?2:t.startsWith('●')?1:(/_{3,}/.test(t)?1:0)
-        const text=t.replace(/^[-●]\s*/,'')
-        return `<p class="wf-ol lv${lv}">${escape(text)}</p>`}).join('')
-      const heading=badTitle?'':`<h2>${escape(rawTitle)}${x.answerSheet?' · '+escape(x.answerSheet):''}</h2>`
-      return `<div class="workflow-card">${heading}<p class="workflow-hint">${x.blanks.length} 个填空。${src.audio?'音频已导入，点“开始作答”即可边听边填；':'音频尚未提供，可先纸面作答；'}${hasAns?'下方可展开答案与详解。':'暂无参考答案。'}</p><div class="workflow-prompt wf-outline">${outline}</div>${hasAns?`<div class="wf-answer-list">${x.blanks.map(b=>`<details class="wf-answer-row"><summary><span class="wf-qno">${b.number}</span><span class="wf-right">${escape(b.answer)}</span></summary>${b.analysis?`<p class="wf-analysis">${escape(b.analysis)}</p>`:''}</details>`).join('')}</div>`:''}</div>`}
-    if(type==='interview'&&src){const qs=src.interview.questions
-      const item=q=>`<article class="wf-intv-item"><div class="wf-intv-body"><span class="wf-intv-no">${q.number>15?q.number:q.number+15}</span><ol class="wf-intv-options">${q.options.map((o,i)=>`<li><b>${'ABCD'[i]}.</b><span>${escape(o)}</span></li>`).join('')}</ol></div></article>`
-      return `<div class="workflow-card"><p class="workflow-hint">Section B · Interview，共 ${qs.length} 道选择题。原卷只印选项，题干由听力音频给出。${src.audio?'音频已导入，点“开始作答”边听边选，交卷后才给出答案与解析。':'音频尚未提供，可先按纸面选择；交卷后给出答案与解析。'}</p><div class="workflow-interview-preview">${qs.map(item).join('')}</div></div>`}
-    if(type==='language'&&papers[state.year]){const x=papers[state.year],rows=x.languageLines||[],ans=x.languageAnswers||[],gaps=rows.filter(r=>/(\d+)/.test(r[1]||'')).length
-      const list=rows.map((row,i)=>{const n=(/(\d+)/.exec(row[1]||'')||[])[1]
-        return `<div class="wf-lang-line${n?' has-gap':''}"><span class="wf-lang-no${n?'':' empty'}">${n||''}</span><p>${escape(row[0])}</p></div>`}).join('')
-      return `<div class="workflow-card"><h2>Language Usage · 改错</h2><p class="workflow-hint">原题共 ${gaps} 处待改，作答时逐行判断并填写修改。${ans.length?'答案与解析已录入，提交后可对照。':'暂无参考答案。'}</p><div class="wf-lang-preview">${list}</div></div>`}
-    if(type==='translation'&&papers[state.year]){const x=papers[state.year],full=(x.translation||[]).join('\n'),target=x.translationTarget
-      const src=target&&full.includes(target)?escape(full.slice(0,full.indexOf(target)))+`<mark>${escape(target)}</mark>`+escape(full.slice(full.indexOf(target)+target.length)):escape(full)
-      return `<div class="workflow-card"><h2>Translation · 汉译英</h2><p class="workflow-hint">${target?'划线部分为本题要求翻译的内容。':'原卷划线范围尚未录入，请对照原卷确认翻译范围。'}${x.translationReference?'参考译文已录入。':''}</p><div class="workflow-prompt">${src}</div></div>`}
-    if(type==='writing'&&papers[state.year]){const x=papers[state.year]
-      return `<div class="workflow-card"><h2>Writing · 摘要＋观点</h2><p class="workflow-hint">原卷要求与材料已录入${x.writingMinWords?`，最低 ${x.writingMinWords} 词`:''}。${x.writingGuide?'后方附写作指南。':''}</p><div class="workflow-prompt wf-preview-scroll">${(x.writing||[]).map(l=>`<p>${escape(l)}</p>`).join('')}</div></div>`}
-    return ''
-  }
-  const mmss=s=>s?`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`:''
-  const normAns=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'')
-  const cjkAns=s=>/[\u4e00-\u9fa5]/.test(String(s||''))
-  const okBlank=(ans,mine)=>{const m=normAns(mine);return String(ans||'').split('//').map(x=>normAns(x)).filter(Boolean).some(a=>a===m)}
   function renderConfig(){
-    const type=state.type,audio=audioOf(state.year),hasAudio=!!audio,missingAudio=isListening(type)&&!hasAudio,noSelection=isReading(type)&&state.range==='custom'&&!state.customIds.length,noDuration=state.mode==='exam'&&!state.durationMinutes
-    const years=yearList(type)
-    const count=isReading(type)?articles.filter(a=>a.year===state.year).length:papers[state.year]?1:0
-    const audioCard=isListening(type)?(hasAudio
-      ?`<div class="wf-audio-file"><div><strong>听力音频已就绪</strong><span>${escape(listening[state.year].audioNote||`${state.year} 年真题听力`)}</span></div><time>${mmss(listening[state.year].audioDuration)}</time></div>`
-      :`<p class="workflow-hint">本年音频尚未导入：Section ${type==='lecture'?'A':'B'} 仍可按纸面作答，${type==='lecture'?'但填空专项需要音频才能启动。':'交卷后给出答案与解析。'}</p>`):''
-    document.querySelector('#workflow-config-content').innerHTML=`
-      <button class="back-link" data-workflow-back="${type==='mock'?'mock':'papers'}">← ${type==='mock'?'返回模考列表':'返回题库'}</button>
-      <div class="page-head"><span class="eyebrow">PRACTICE SETUP</span><h1>${escape(title(type))}</h1><p>按试卷数据选择范围和作答方式。</p></div>
-      <div class="workflow-config-grid"><section class="workflow-card"><h2>来源与范围</h2><label class="workflow-field">真题年份<select id="workflow-year">${years.map(y=>`<option value="${y}" ${y===state.year?'selected':''}>${y} 年真题</option>`).join('')}</select></label><p class="workflow-hint">模拟题资料尚未录入，当前仅可选择已导入的真题。${count?'':'本年暂无该题型。'}</p>${audioCard}${rangeOptions()}${articleCards()}</section>
-      <section class="workflow-card"><h2>作答模式</h2><div class="workflow-mode-list"><label><input type="radio" name="workflow-mode" value="practice" ${state.mode==='practice'?'checked':''} ${type==='mock'?'disabled':''}> 练习模式</label><label><input type="radio" name="workflow-mode" value="exam" ${state.mode==='exam'?'checked':''}> 考试模式</label><label class="unavailable"><input type="radio" name="workflow-mode" value="instant" disabled> 即时解析 · 待解析资料</label></div>${state.mode==='exam'?`<label class="workflow-field">本次倒计时（分钟）<input type="number" id="workflow-duration" min="1" max="300" value="${state.durationMinutes||''}" placeholder="按这次练习需要填写"></label>`:''}<h2>辅助设置</h2><div class="workflow-switch-list">${configSwitch('allowWord','阅读查词',(isReading(type)||type==='mock')&&state.mode!=='exam',state.allowWord&&state.mode!=='exam')}${configSwitch('showTranscript','显示听力原文',false,false)}${configSwitch('replay','考试模式允许回听',isListening(type)&&hasAudio,state.replay)}${configSwitch('showReference','显示参考译文或范文',false,false)}${configSwitch('showShortAnswer','显示简答参考答案',false,false)}${configSwitch('showLocator','显示定位句',false,false)}</div>${type==='mock'?`<div class="workflow-alert ok">${state.year} 年整卷 · ${mockPlan(state.year).groups.length} 个连续题组，严格按本年度资料加载：Section A → Section B → ${articles.filter(a=>Number(a.year)===state.year).length} 篇阅读 → 改错 → 翻译 → 写作。音频与每个题组均按 ${state.year} 年数据关联。</div>`:''}${isListening(type)&&hasAudio?`<p class="workflow-alert ok">音频时长 ${mmss(listening[state.year].audioDuration)}，含 Section A 与 Section B${listening[state.year].sectionAEnd?`（A 至 ${mmss(listening[state.year].sectionAEnd)}，B 自 ${mmss(listening[state.year].sectionBStart)} 起）`:''}。练习模式可随时暂停、拖动、倍速；考试模式下若未开启回听，开始后只能一直播到本节结尾。</p>`:''}${missingAudio?'<p class="workflow-alert">音频尚未提供：Section B 可先按纸面选好答案，交卷后给出答案与解析；播放与回放暂不可用。</p>':''}${type==='mock'?'<label class="workflow-toggle"><input type="checkbox" data-workflow-switch="combineReading" '+(state.combineReading?'checked':'')+'> 阅读按文章题组合并作答</label>':''}${(saved().session?.type===type&&(type!=='mock'||Number(saved().session?.year)===Number(state.year)))?'<button class="secondary-btn" data-workflow-resume>继续上次题组</button> ':''}${type==='mock'?`<button class="primary-btn" data-workflow-start ${noDuration?'disabled':''}>${noDuration?'填写倒计时':'开始 '+state.year+' 年整卷模考'} <span>→</span></button>`:type==='lecture'&&!hasAudio?'<button class="primary-btn" disabled>音频未提供 · 暂不可启动</button>':`<button class="primary-btn" data-workflow-start ${noSelection||noDuration?'disabled':''}>${noSelection?'请先选择文章':noDuration?'填写倒计时':'开始作答'} <span>→</span></button>`}</section></div>${unavailablePreview(type)}`
+    const type=cfg.type,group=TYPES.find(t=>t.id===type).group,years=yearList(type)
+    const {count,minutes}=estimate()
+    if(!cfg.minutesTouched)cfg.minutes=minutes
+    const single=cfg.years.length===1
+    const objective=['reading-group','lecture','interview'].includes(type)
+    const typeCards=GROUPS.map(G=>`<button type="button" class="pq-type ${G.id===group?'on':''}" data-pq-group="${G.id}" aria-pressed="${G.id===group}"><b>${G.name}</b><small>${G.id==='listen'?'填空 · 访谈':G.id==='read'?'选择 · 简答':G.id==='lang'?'改错':G.id==='trans'?'汉译英':'摘要＋观点'}</small></button>`).join('')
+    const sub=group==='listen'?`<div class="pq-seg" role="group" aria-label="听力部分">${['lecture','interview'].map(t=>`<button type="button" data-pq-type="${t}" class="${t===type?'on':''}" aria-pressed="${t===type}">${t==='lecture'?'Section A · 讲座填空':'Section B · 访谈选择'}</button>`).join('')}</div>`:''
+    const chips=years.map(y=>{const on=cfg.years.includes(y),ans=hasAnswers(type,y)
+      return `<button type="button" class="pq-chip ${on?'on':''} ${ans?'':'dim'}" data-pq-year="${y}" aria-pressed="${on}" title="${ans?'':'这一年暂无参考答案，可以做，但不能自动判分'}">${on?'<i aria-hidden="true">✓</i>':''}${y}${ans?'':'<small>无答案</small>'}</button>`}).join('')
+    const passages=type==='reading-group'&&single?`<div class="pq-sub"><span class="pq-sublabel">篇章</span><div class="pq-chips">${[{id:'',name:'全部'},...yearArticles(cfg.years[0]).map(a=>({id:a.id,name:passageName(a),n:articleQuestions(a).length}))].map(p=>{const on=p.id?cfg.passages.includes(p.id):!cfg.passages.length
+      return `<button type="button" class="pq-chip sm ${on?'on':''}" data-pq-passage="${p.id}" aria-pressed="${on}">${escape(p.name)}${p.n?`<small>${p.n} 题</small>`:''}</button>`}).join('')}</div></div>`:''
+    const sw=(key,label,desc,on,avail=true)=>avail?`<label class="pq-switch"><span><b>${label}</b><small>${desc}</small></span><input type="checkbox" class="t-switch" data-pq-switch="${key}" ${on?'checked':''}></label>`:''
+    const switches=[
+      cfg.mode==='practice'&&objective?sw('instant','即时反馈','选完立刻显示对错和解析',cfg.instant):'',
+      type==='reading-group'&&cfg.mode==='practice'?sw('allowWord','点词查义','阅读原文时点单词查词典',cfg.allowWord):'',
+      isListening(type)&&cfg.mode==='exam'?sw('replay','允许回听','计时模式下也能暂停、拖动音频',cfg.replay):''
+    ].filter(Boolean).join('')
+    const noAudio=isListening(type)&&cfg.years.some(y=>!listening[y]?.audio)
+    $('#workflow-config-content').innerHTML=`
+      <button class="back-link" data-workflow-back="papers">← 返回题库</button>
+      <div class="page-head pq-head"><span class="eyebrow">PRACTICE SETUP</span><h1>练习设置</h1></div>
+      ${resumeBanner()}
+      <div class="pq-config">
+        <section class="pq-step"><h2><span>1</span>题型</h2><div class="pq-types">${typeCards}</div>${sub}</section>
+        <section class="pq-step"><h2><span>2</span>年份<em>可多选</em><span class="pq-step-act"><button type="button" class="pq-link" data-pq-years="all">全选</button><button type="button" class="pq-link" data-pq-years="latest">只选最新</button></span></h2><div class="pq-chips">${chips}</div>${passages}${noAudio?'<p class="pq-note">所选年份中有的没有录音，只能按纸面作答。</p>':''}</section>
+        <section class="pq-step"><h2><span>3</span>模式</h2><div class="pq-modes">
+          <button type="button" class="pq-mode ${cfg.mode==='practice'?'on':''}" data-pq-mode="practice" aria-pressed="${cfg.mode==='practice'}"><b>练习</b><small>不限时，正计时可暂停；做完看答案</small></button>
+          <button type="button" class="pq-mode ${cfg.mode==='exam'?'on':''}" data-pq-mode="exam" aria-pressed="${cfg.mode==='exam'}"><b>计时</b><small>倒计时，时间到自动交卷</small></button></div>
+          ${cfg.mode==='exam'?`<div class="pq-stepper"><span>倒计时</span><button type="button" data-pq-min="-5" aria-label="减少 5 分钟">−</button><output>${cfg.minutes} 分钟</output><button type="button" data-pq-min="5" aria-label="增加 5 分钟">＋</button>${cfg.minutesTouched?'<button type="button" class="pq-link" data-pq-min="reset">按题量重算</button>':''}</div>`:''}
+          ${switches?`<div class="pq-switches">${switches}</div>`:''}
+        </section>
+      </div>
+      <div class="pq-startbar"><div class="pq-startinfo"><b>${cfg.years.length?`已选 ${cfg.years.length} 年 · 共 ${count} 题 · 约 ${cfg.mode==='exam'?cfg.minutes:minutes} 分钟`:'请至少选一个年份'}</b><small>${escape(title(type))} · ${cfg.mode==='exam'?'计时':'练习'}模式${cfg.instant&&cfg.mode==='practice'&&objective?' · 即时反馈':''}</small></div><button class="primary-btn" data-workflow-start ${cfg.years.length&&count?'':'disabled'}>开始 <span>→</span></button></div>`
   }
   function makeGroups(){
-    if(state.type==='mock')return mockPlan(state.year).groups
-    if(isReading(state.type)){
-      const source=articles.filter(a=>a.year===state.year&&byType(a,state.type).length)
-      const selected=state.range==='all'?source:state.range==='custom'?source.filter(a=>state.customIds.includes(a.id)):source.filter(a=>a.id===state.articleId)
-      return selected.map(a=>({kind:'reading',articleId:a.id,questionNumbers:byType(a,state.type).map(q=>q.number)}))
+    const groups=[],single=cfg.years.length===1
+    for(const y of [...cfg.years].sort((a,b)=>b-a)){
+      if(cfg.type==='reading-group'){let as=yearArticles(y);if(single&&cfg.passages.length)as=as.filter(a=>cfg.passages.includes(a.id));as.forEach(a=>groups.push({kind:'reading',year:y,articleId:a.id}))}
+      else groups.push({kind:cfg.type,year:y})
     }
-    return [{kind:state.type,year:state.year}]
+    return groups
   }
-  function openMock(year){const y=Number(year);if(!mockYears().includes(y))return;openConfig('mock');state.year=y;state.durationMinutes=listening[y]?.timeLimitMinutes||papers[y]?.timeLimitMinutes||0;renderConfig()}
+  function newSession(groups,type,opts={}){
+    const exam=opts.mode==='exam'
+    session={v:3,groups,current:0,answers:{},marks:{},strikes:{},started:Date.now(),pausedMs:0,pausedAt:0,hideTimer:false,
+      deadline:exam?Date.now()+opts.minutes*60000:null,durationMinutes:exam?opts.minutes:0,mode:exam?'exam':'practice',
+      instant:!exam&&!!opts.instant,allowWord:!exam&&opts.allowWord!==false,replay:!!opts.replay,type,year:groups[0]?.year,years:[...new Set(groups.map(g=>g.year))]}
+    cur='';mobileTab='p'
+    persist();renderSession();show('workflow-session-view',title(type))
+  }
   function start(){
-    if(state.type==='mock'&&!mockPlan(state.year).ready)return
-    if(state.type==='lecture'&&!audioOf(state.year))return
     const groups=makeGroups();if(!groups.length)return
-    if(state.type==='mock'&&groups.some(g=>Number(g.year)!==Number(state.year)))return
-    session={groups,current:0,answers:{},marks:{},started:Date.now(),deadline:state.mode==='exam'?Date.now()+state.durationMinutes*60000:null,mode:state.mode,allowWord:state.allowWord&&state.mode!=='exam',replay:state.replay,type:state.type,year:state.year}
-    persist();renderSession();show('workflow-session-view',title(state.type))
+    newSession(groups,cfg.type,{mode:cfg.mode,minutes:cfg.minutes||estimate().minutes,instant:cfg.instant,allowWord:cfg.allowWord,replay:cfg.replay})
   }
-  function group(){return session.groups[session.current]}
-  function article(){return articles.find(a=>a.id===group().articleId)}
-  function qid(q){return `${q.articleId}-${q.number}`}
-  function questionRows(qs){
-    const choice=qs.filter(q=>q.type==='choice'),short=qs.filter(q=>q.type==='short')
+  function startKeys(keys,label){
+    const groups=groupsFromKeys(keys);if(!groups.length)return false
+    newSession(groups,'review',{mode:'practice',instant:false,allowWord:true});session.label=label||'错题复习';persist();renderSession();return true
+  }
+
+  function openMock(year){
+    const y=Number(year),L=listening[y]||{},p=papers[y]||{},groups=[]
+    if(L.miniLecture?.blanks?.length)groups.push({kind:'lecture',year:y})
+    if(L.interview?.questions?.length)groups.push({kind:'interview',year:y})
+    yearArticles(y).forEach(a=>groups.push({kind:'reading',year:y,articleId:a.id}))
+    if(p.languageLines?.length)groups.push({kind:'language',year:y})
+    if(p.translation?.length)groups.push({kind:'translation',year:y})
+    if(p.writing?.length)groups.push({kind:'writing',year:y})
+    if(!groups.length)return
+    const live=load().session
+    if(live?.type==='mock'&&Number(live.year)===y){resume();return}
+    if(live?.groups?.length&&!confirm('还有一份练习没交卷，开始模考会替换它。继续吗？'))return
+    newSession(groups,'mock',{mode:'exam',minutes:Number(L.timeLimitMinutes)||Number(p.timeLimitMinutes)||150,replay:false})
+  }
+  /* ---------- 做题页 ---------- */
+  const group=()=>session.groups[session.current]
+  const article=()=>art(group().articleId)
+  function elapsedMs(){if(!session)return 0;const now=Date.now();return Math.max(0,now-session.started-(session.pausedMs||0)-(session.pausedAt?now-session.pausedAt:0))}
+  function persist(){
+    if(!session)return
+    session.elapsedMs=elapsedMs();if(session.deadline)session.remainingMs=Math.max(0,session.deadline-Date.now())
+    session.savedAt=Date.now()
+    writeStore(s=>{s.session=session})
+    const el=$('#pq-saved');if(el)el.textContent=`已保存 ${clock(session.savedAt)}`
+  }
+  document.addEventListener('tem8:flush-records',()=>{if(session)persist()})
+  function resume(){
+    const s=load().session;if(!s?.groups?.length)return false
+    session={...s,answers:s.answers||{},marks:s.marks||{},strikes:s.strikes||{}}
+    const now=Date.now()
+    session.started=now-(s.elapsedMs||Math.max(0,(s.savedAt||now)-s.started-(s.pausedMs||0)));session.pausedMs=0;session.pausedAt=0
+    if(session.deadline)session.deadline=now+(s.remainingMs??Math.max(0,s.deadline-(s.savedAt||now)))
+    cur='';renderSession();show('workflow-session-view',title(session.type));return true
+  }
+  const anno=()=>window.TEM8_ANNO
+  function show(id,label){
+    if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop()
+    document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id))
+    document.querySelectorAll('[data-view]').forEach(el=>el.classList.toggle('active',el.dataset.view==='papers'&&id!=='workflow-session-view'))
+    document.body.classList.toggle('pq-in-session',id==='workflow-session-view')
+    const c=$('#crumb');if(c)c.textContent=label
+    window.scrollTo(0,0)
+  }
+  document.addEventListener('tem8:view',()=>{document.body.classList.remove('pq-in-session');closeDrawer()})
+
+  function flagBtn(key){const on=!!session.marks[key];return `<button type="button" class="pq-flag ${on?'on':''}" data-workflow-mark="${key}" aria-pressed="${on}" title="标记存疑（F）">${on?'⚑ 已存疑':'⚐ 存疑'}</button>`}
+  function feedback(it){
+    if(!session.instant||it.kind!=='choice'||it.answer===undefined)return ''
+    const v=session.answers[it.key];if(v===undefined||v==='')return ''
+    const ok=v===it.answer
+    return `<div class="pq-instant ${ok?'ok':'bad'}" role="status"><b>${ok?'✓ 答对了':'✗ 答错了'}</b> 正确答案 ${LETTERS[it.answer]}${it.analysis?`<details><summary>看解析</summary>${analysisHTML(it)}</details>`:''}</div>`
+  }
+  function optionsHTML(it){
+    const v=session.answers[it.key],strikes=session.strikes[it.key]||[],showFb=session.instant&&it.answer!==undefined&&v!==undefined&&v!==''
+    return `<div class="pq-opts" role="radiogroup" aria-label="选项">${(it.options||[]).map((o,i)=>{
+      const sel=v===i,cls=[sel?'sel':'',strikes.includes(i)?'struck':'',showFb&&i===it.answer?'right':'',showFb&&sel&&i!==it.answer?'wrong':''].filter(Boolean).join(' ')
+      return `<div class="pq-opt ${cls}"><label><input type="radio" name="o-${it.key}" data-workflow-choice="${it.key}" value="${i}" ${sel?'checked':''}><b>${LETTERS[i]}</b><span>${escape(o)}</span><i class="pq-check" aria-hidden="true">✓</i></label><button type="button" class="pq-strike" data-pq-strike="${it.key}" data-i="${i}" aria-pressed="${strikes.includes(i)}" title="${strikes.includes(i)?'恢复':'划掉'}选项 ${LETTERS[i]}">${strikes.includes(i)?'↺':'×'}</button></div>`}).join('')}</div>`
+  }
+  function readingItems(){
+    const items=gItems(group()),choice=items.filter(i=>i.kind==='choice'),short=items.filter(i=>i.kind==='short')
     let html=''
-    if(choice.length)html+=`<h3 class="workflow-section-title">选择题 <small>${choice.length} 道</small></h3>`+choice.map(q=>`<article class="workflow-question" id="wf-q-${qid(q)}"><div class="workflow-question-head"><span>Q${q.number} · 选择题</span><button data-workflow-mark="${qid(q)}" class="${session.marks[qid(q)]?'marked':''}">${session.marks[qid(q)]?'★':'☆'} 标记</button></div><h4>${escape(q.prompt)}</h4><div class="workflow-options">${q.options.map((option,i)=>`<label class="${session.answers[qid(q)]===i?'selected':''}"><input type="radio" name="wf-${qid(q)}" data-workflow-choice="${qid(q)}" value="${i}" ${session.answers[qid(q)]===i?'checked':''}><b>${'ABCD'[i]}</b><span>${escape(option)}</span></label>`).join('')}</div></article>`).join('')
-    if(short.length)html+=`<h3 class="workflow-section-title">简答题 <small>${short.length} 道</small></h3>`+short.map(q=>{
-      const limit=q.wordLimit,value=session.answers[qid(q)]||'',count=words(value)
-      return `<article class="workflow-question" id="wf-q-${qid(q)}"><div class="workflow-question-head"><span>Q${q.number} · 简答题</span><button data-workflow-mark="${qid(q)}" class="${session.marks[qid(q)]?'marked':''}">${session.marks[qid(q)]?'★':'☆'} 标记</button></div><h4>${escape(q.prompt)}</h4><textarea data-workflow-short="${qid(q)}" placeholder="在此作答">${escape(value)}</textarea><div class="workflow-question-foot">${q.locatorParagraph||/Para\.\s*\d+/i.test(q.prompt)?`<button data-workflow-locate="${qid(q)}">查看原文对应段落</button>`:'<span></span>'}<span data-count-for="${qid(q)}" class="${limit&&count>limit?'over':''}">${count}${limit?` / ${limit} 词${count>limit?' · 超出限制':''}`:' 词 · 上限未录入'}</span></div></article>`
-    }).join('')
+    if(choice.length)html+=`<h3 class="workflow-section-title">选择题 <small>${choice.length} 道</small></h3>`+choice.map(it=>`<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no}</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4>${optionsHTML(it)}${feedback(it)}</article>`).join('')
+    if(short.length)html+=`<h3 class="workflow-section-title">简答题 <small>${short.length} 道</small></h3>`+short.map(it=>{
+      const value=session.answers[it.key]||'',n=words(value),limit=it.limit
+      return `<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no} · 简答</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4><textarea data-workflow-short="${it.key}" placeholder="在此作答" rows="3">${escape(value)}</textarea><div class="workflow-question-foot">${it.q.locatorParagraph||/Para\.\s*\d+/i.test(it.prompt)?`<button type="button" data-workflow-locate="${it.key}">看原文对应段落</button>`:'<span></span>'}<span data-count-for="${it.key}" class="${limit&&n>limit?'over':''}">${n}${limit?` / ${limit} 词${n>limit?' · 超出':''}`:' 词'}</span></div></article>`}).join('')
     return html
   }
   function passageText(a){
@@ -193,261 +369,455 @@
       return `<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span></p>`}).join('')}</div>`
   }
   function renderReading(){
-    const a=article(),qs=byType(a,session.type)
-    return `<div class="workflow-reading-layout"><section class="workflow-reading-passage"><div class="workflow-sticky-head"><strong>${a.year} · ${a.label}</strong><span>选中原文即可标记 · 笔记在右侧</span></div>${passageText(a)}</section><section class="workflow-reading-questions"><div class="workflow-sticky-head"><strong>本篇题组</strong><span>${qs.length} 题 · 自动保存</span></div>${questionRows(qs)}</section></div>`
+    const a=article(),n=gItems(group()).length
+    return `<div class="pq-tabs" role="tablist"><button type="button" role="tab" data-pq-tab="p" aria-selected="${mobileTab==='p'}" class="${mobileTab==='p'?'on':''}">文章</button><button type="button" role="tab" data-pq-tab="q" aria-selected="${mobileTab==='q'}" class="${mobileTab==='q'?'on':''}">题目 <small>${n}</small></button></div>
+      <div class="pq-read" data-tab="${mobileTab}"><section class="pq-pass"><div class="pq-pane-head"><strong>${a.year} · ${escape(passageName(a))}</strong><span>${session.allowWord?'点词查义 · ':''}选中文字可标记</span></div>${passageText(a)}</section><section class="pq-qs"><div class="pq-pane-head"><strong>题目</strong><span>${n} 题 · 键盘 A–D 作答</span></div>${readingItems()}</section></div>`
   }
-  const blankW=v=>Math.min(300,Math.max(158,String(v||'').length*7.2+26))
-  function blankInput(year,n){
-    const key=`lecture-${year}-${n}`,val=session.answers[key]||''
-    return `<span class="wf-blank-no">(${n})</span><input class="wf-blank${val?' filled':''}" id="wf-b-${key}" data-workflow-blank="${key}" value="${escape(val)}" style="width:${blankW(val)}px" placeholder="" autocomplete="off" spellcheck="false">`
-  }
+  const blankW=v=>Math.min(300,Math.max(150,String(v||'').length*7.2+26))
   function renderLecture(){
-    const g=group(),src=listening[g.year],x=src?.miniLecture
+    const g=group(),x=listening[g.year]?.miniLecture
     if(!x)return '<div class="workflow-card"><p class="workflow-hint">本年暂无 Section A 数据。</p></div>'
+    const only=g.only?.length?new Set(g.only.map(String)):null
     const raw=String(x.title||'').trim(),bad=/…|\.{3,}|_{3,}|^[IVX]+[.、]/i.test(raw)
     const rows=x.outline.map((line,i)=>{
       if(i===0&&!bad&&line.trim()===raw)return ''
       const t=line.trim(),lv=t.startsWith('-')?2:t.startsWith('●')?1:(/_{3,}/.test(t)?1:0),body=t.replace(/^[-●]\s*/,'')
-      const has=/(\d+)\)\s*_{2,}/.test(body)
-      const html=escape(body).replace(/\((\d+)\)\s*_{2,}/g,(m,num)=>blankInput(g.year,num))
-      return `<p class="wf-ol lv${lv}${has?' has-blank':''}">${html}</p>`
-    }).join('')
-    const filled=x.blanks.filter(b=>String(session.answers[`lecture-${g.year}-${b.number}`]||'').trim()).length
-    return `<div class="workflow-card"><div class="wf-lecture-head"><h2>${escape(raw)}${x.answerSheet?' · '+escape(x.answerSheet):''}</h2><span class="wf-lecture-count" id="wf-lecture-count">已填 ${filled} / ${x.blanks.length}</span></div><p class="workflow-hint">边听边填，共 ${x.blanks.length} 空${x.blanks[0]?.wordLimit?`，每空不超过 ${x.blanks[0].wordLimit} 词`:''}。交卷后逐空对照答案与详解。</p><div class="workflow-prompt wf-outline wf-lecture-outline">${rows}</div></div>`
+      const html=escape(body).replace(/\((\d+)\)\s*_{2,}/g,(m,num)=>{
+        const key=`lecture-${g.year}-${num}`,val=session.answers[key]||''
+        if(only&&!only.has(num))return `<span class="wf-blank-no">(${num})</span><span class="pq-blank-off">······</span>`
+        return `<span class="wf-blank-no">(${num})</span><input class="wf-blank${val?' filled':''}${key===cur?' cur':''}" id="it-${key}" data-item="${key}" data-workflow-blank="${key}" value="${escape(val)}" style="width:${blankW(val)}px" autocomplete="off" spellcheck="false" aria-label="第 ${num} 空">`})
+      return `<p class="wf-ol lv${lv}">${html}</p>`}).join('')
+    const items=gItems(g),filled=items.filter(it=>isAnswered(it,session.answers)).length
+    return `<div class="workflow-card"><div class="wf-lecture-head"><h2>${bad?'Mini-lecture':escape(raw)}</h2><span class="wf-lecture-count" id="wf-lecture-count">已填 ${filled} / ${items.length}</span></div><p class="workflow-hint">边听边填${x.blanks[0]?.wordLimit?`，每空不超过 ${x.blanks[0].wordLimit} 词`:''}。${g.only?'灰色的空本次不用填。':''}</p><div class="workflow-prompt wf-outline wf-lecture-outline">${rows}</div></div>`
   }
   function renderInterview(){
-    const g=group(),src=listening[g.year],qs=src?.interview?.questions||[]
-    return `<div class="workflow-card"><p class="workflow-hint">Section B · Interview，共 ${qs.length} 道选择题。原卷只印选项，题干由听力音频给出。${src?.audio?'音频在页面上方可暂停、回听；交卷后给出答案与解析。':'音频尚未提供，本次为纸面作答；交卷后给出答案与解析。'}</p><div class="workflow-interview-preview">${qs.map(q=>{
-      const key=`interview-${g.year}-${q.number}`,mine=session.answers[key]
-      return `<article class="wf-intv-item" id="wf-q-${key}"><div class="wf-intv-body"><span class="wf-intv-no">${q.number>15?q.number:q.number+15}</span><div class="workflow-options">${q.options.map((o,i)=>`<label class="${mine===i?'selected':''}"><input type="radio" name="wf-${key}" data-workflow-choice="${key}" value="${i}" ${mine===i?'checked':''}><b>${'ABCD'[i]}</b><span>${escape(o)}</span></label>`).join('')}</div></div></article>`}).join('')}</div></div>`
+    const g=group(),src=listening[g.year]
+    return `<div class="workflow-card"><p class="workflow-hint">Section B · Interview。原卷只印选项，题干在录音里。</p><div class="pq-intv">${gItems(g).map(it=>`<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>${it.no}</span>${flagBtn(it.key)}</div>${optionsHTML(it)}${feedback(it)}</article>`).join('')}</div>${src?.audio?'':'<p class="workflow-hint">本年录音暂缺，可按纸面作答。</p>'}</div>`
   }
   function renderLanguage(){
-    const source=papers[group().year],rows=source?.languageLines||[]
-    return `<div class="workflow-card"><h2>Language Usage · 改错</h2><p class="workflow-hint">逐行判断错误类型并填写修改内容；提交后可在报告页对照答案与解析自查。</p><div class="workflow-language">${rows.map((row,i)=>{
-      const key=`language-${group().year}-${i+1}`,ans=session.answers[key]||{}
-      return `<div class="workflow-language-row" id="wf-row-${i+1}"><b>${i+1}</b><p>${escape(row[0])}</p><div class="workflow-language-input"><select data-workflow-error-kind="${key}"><option value="">选择操作</option><option value="replace" ${ans.kind==='replace'?'selected':''}>改词</option><option value="insert" ${ans.kind==='insert'?'selected':''}>缺词 ^</option><option value="delete" ${ans.kind==='delete'?'selected':''}>多余词 /</option></select><input data-workflow-error-text="${key}" value="${escape(ans.text||'')}" placeholder="输入原词与修改词"></div></div>`
-    }).join('')}</div></div>`
+    const y=group().year,rows=papers[y]?.languageLines||[]
+    return `<div class="workflow-card"><h2>Language Usage · 改错</h2><p class="workflow-hint">有题号的行有错。选择操作，再写“原词 → 改后”。</p><div class="workflow-language">${rows.map((row,i)=>{
+      const key=`language-${y}-${i+1}`,n=gapNo(row),ans=session.answers[key]||{}
+      if(!n)return `<div class="workflow-language-row pq-lang-plain"><b></b><p>${escape(row[0])}</p></div>`
+      return `<div class="workflow-language-row pq-lang ${key===cur?'cur':''}" id="it-${key}" data-item="${key}"><b>${n}</b><p>${escape(row[0])}</p><div class="workflow-language-input"><select data-workflow-error-kind="${key}" aria-label="第 ${n} 行操作"><option value="">操作</option><option value="replace" ${ans.kind==='replace'?'selected':''}>改词</option><option value="insert" ${ans.kind==='insert'?'selected':''}>缺词 ∧</option><option value="delete" ${ans.kind==='delete'?'selected':''}>多余 /</option></select><input data-workflow-error-text="${key}" value="${escape(ans.text||'')}" placeholder="原词 → 改后" aria-label="第 ${n} 行修改"></div>${flagBtn(key)}</div>`}).join('')}</div></div>`
   }
-  function renderTranslation(){const src=papers[group().year],full=src.translation.join('\n'),target=src.translationTarget,source=target&&full.includes(target)?escape(full.slice(0,full.indexOf(target)))+`<mark>${escape(target)}</mark>`+escape(full.slice(full.indexOf(target)+target.length)):escape(full);return `<div class="workflow-card"><h2>翻译 · 中译英</h2>${target?'':'<p class="workflow-hint">本年原文划线范围尚未录入，请对照原卷确认翻译范围。</p>'}<div class="workflow-prompt">${source}</div><textarea class="workflow-long-answer" data-workflow-text="translation-${group().year}" placeholder="在这里写英文译文">${escape(session.answers[`translation-${group().year}`]||'')}</textarea><p class="workflow-word-count" id="wf-long-count">${words(session.answers[`translation-${group().year}`])} 词 · 草稿自动保存</p></div>`}
-  function renderWriting(){const src=papers[group().year],value=session.answers[`writing-${group().year}`]||'',limit=src.writingMinWords;return `<div class="workflow-card"><h2>写作 · 摘要＋观点</h2><details open><summary>写作要求与 Excerpts</summary><div class="workflow-prompt">${src.writing.map(x=>`<p>${escape(x)}</p>`).join('')}</div></details><textarea class="workflow-long-answer" data-workflow-text="writing-${group().year}" placeholder="在这里写作文">${escape(value)}</textarea><p class="workflow-word-count ${limit&&words(value)<limit?'under':''}" id="wf-long-count">${words(value)} 词${limit?` · 最低 ${limit} 词`:''} · 草稿自动保存</p></div>`}
-  function answerCard(){
-    if(group().kind==='reading'){
-      const qs=byType(article(),session.type)
-      return `<div class="workflow-answer-card"><strong>答题卡 · ${article().label}</strong><div>${qs.map(q=>`<button data-workflow-jump="${qid(q)}" class="${session.answers[qid(q)]!==undefined&&session.answers[qid(q)]!==''?'answered':''} ${session.marks[qid(q)]?'marked':''}" title="${q.type==='choice'?'选择题':'简答题'}">${q.type==='choice'?'◉':'✎'} ${q.number}</button>`).join('')}</div></div>`
-    }
-    if(group().kind==='lecture'){const x=listening[group().year]?.miniLecture
-      return `<div class="workflow-answer-card"><strong>答题卡 · Section A</strong><div>${(x?.blanks||[]).map(b=>{const key=`lecture-${group().year}-${b.number}`,done=String(session.answers[key]||'').trim()
-        return `<button data-workflow-jump="${key}" class="${done?'answered':''}" title="第 ${b.number} 空">${b.number}</button>`}).join('')}</div></div>`}
-    if(group().kind==='interview'){const qs=listening[group().year]?.interview?.questions||[]
-      return `<div class="workflow-answer-card"><strong>答题卡 · Section B</strong><div>${qs.map(q=>{const key=`interview-${group().year}-${q.number}`,done=session.answers[key]!==undefined
-        return `<button data-workflow-jump="${key}" class="${done?'answered':''}" title="Section B 第 ${q.number>15?q.number:q.number+15} 题">${q.number>15?q.number:q.number+15}</button>`}).join('')}</div></div>`}
-    if(group().kind==='language')return `<div class="workflow-answer-card"><strong>答题卡 · 改错</strong><div>${(papers[group().year]?.languageLines||[]).map((_,i)=>`<button data-workflow-jump="language-${group().year}-${i+1}" class="${session.answers[`language-${group().year}-${i+1}`]?.text?'answered':''}">行 ${i+1}</button>`).join('')}</div></div>`
-    return ''
+  function translationSource(y){
+    const src=papers[y],full=(src.translation||[]).join('\n'),target=src.translationTarget
+    return target&&full.includes(target)?escape(full.slice(0,full.indexOf(target)))+`<mark>${escape(target)}</mark>`+escape(full.slice(full.indexOf(target)+target.length)):escape(full)
   }
-  function groupLabel(g){return g.kind==='lecture'?'Part I · Section A：Mini-lecture':g.kind==='interview'?'Part I · Section B：Interview':g.kind==='reading'?`Part II · ${article().label}`:g.kind==='language'?'Part III · 改错':g.kind==='translation'?'Part IV · 翻译':'Part V · 写作'}
+  function renderTranslation(){
+    const y=group().year,key=`translation-${y}`,v=session.answers[key]||''
+    return `<div class="pq-trans"><section class="workflow-card"><h2>原文${papers[y].translationTarget?'<small>划线部分为翻译范围</small>':''}</h2><div class="workflow-prompt pq-src">${translationSource(y)}</div></section><section class="workflow-card"><h2>我的译文</h2><textarea class="workflow-long-answer" id="it-${key}" data-item="${key}" data-workflow-text="${key}" placeholder="在这里写英文译文">${escape(v)}</textarea><p class="workflow-word-count" id="wf-long-count">${words(v)} 词 · 自动保存</p></section></div>`
+  }
+  function writingTarget(y){const t=session.targets?.[y];return t||papers[y]?.writingMinWords||300}
+  function writingCount(y,v){const n=words(v),t=writingTarget(y),pct=Math.min(100,Math.round(n/t*100));return `<div class="pq-wbar"><i style="width:${pct}%" class="${n>=t?'done':''}"></i></div><p class="workflow-word-count ${n<t?'under':''}" id="wf-long-count">${n} / ${t} 词${n>=t?' · 已达标':` · 还差 ${t-n} 词`} · 自动保存</p>`}
+  function renderWriting(){
+    const y=group().year,src=papers[y],key=`writing-${y}`,v=session.answers[key]||''
+    return `<div class="workflow-card"><h2>写作 · 摘要＋观点</h2><details open><summary>写作要求与材料</summary><div class="workflow-prompt">${(src.writing||[]).map(x=>`<p>${escape(x)}</p>`).join('')}</div></details><div class="pq-target"><label>目标字数 <input type="number" min="50" max="1200" step="10" value="${writingTarget(y)}" data-pq-target="${y}"></label>${src.writingMinWords?`<small>原卷最低 ${src.writingMinWords} 词</small>`:''}</div><textarea class="workflow-long-answer pq-essay" id="it-${key}" data-item="${key}" data-workflow-text="${key}" placeholder="在这里写作文">${escape(v)}</textarea><div id="pq-wcount">${writingCount(y,v)}</div></div>`
+  }
+  function groupLabel(g){
+    if(g.kind==='reading')return `${g.year} · ${passageName(art(g.articleId))}`
+    return `${g.year} · ${g.kind==='lecture'?'Section A':g.kind==='interview'?'Section B':g.kind==='language'?'改错':g.kind==='translation'?'翻译':'写作'}`
+  }
+  function cardHTML(){
+    const blocks=session.groups.map((g,gi)=>{
+      const items=gItems(g)
+      if(items.length===1&&items[0].kind==='long')return `<div class="pq-cgroup"><span>${escape(groupLabel(g))}</span><div class="pq-grid"><button type="button" class="pq-cell wide ${isAnswered(items[0],session.answers)?'answered':''} ${gi===session.current?'cur':''}" data-pq-jump="${items[0].key}" data-g="${gi}">${isAnswered(items[0],session.answers)?words(session.answers[items[0].key])+' 词':'未写'}</button></div></div>`
+      return `<div class="pq-cgroup"><span>${escape(groupLabel(g))}</span><div class="pq-grid">${items.map(it=>{
+        const st=[isAnswered(it,session.answers)?'answered':'',session.marks[it.key]?'flag':'',gi===session.current&&it.key===cur?'cur':''].filter(Boolean).join(' ')
+        return `<button type="button" class="pq-cell ${st}" data-pq-jump="${it.key}" data-g="${gi}" aria-label="第 ${it.no} 题${session.marks[it.key]?'，存疑':''}${isAnswered(it,session.answers)?'，已作答':'，未作答'}">${it.no}</button>`}).join('')}</div></div>`}).join('')
+    const all=allItems(session.groups),done=all.filter(it=>isAnswered(it,session.answers)).length
+    return `<div class="pq-card-head"><strong>答题卡</strong><span>${done} / ${all.length}</span></div>${blocks}<div class="pq-legend"><span><i class="l-none"></i>未作答</span><span><i class="l-ans"></i>已作答</span><span><i class="l-flag"></i>存疑</span><span><i class="l-cur"></i>当前</span></div>`
+  }
+  function timerHTML(){
+    const exam=!!session.deadline
+    const secs=exam?Math.max(0,Math.ceil((session.deadline-Date.now())/1000)):Math.floor(elapsedMs()/1000)
+    const hidden=session.hideTimer,paused=!!session.pausedAt
+    return `<div class="pq-timer ${exam?'down':'up'} ${exam&&secs<=600?'warn':''} ${paused?'paused':''}"><button type="button" data-pq-timer="hide" title="${hidden?'显示':'隐藏'}计时" aria-label="${exam?'剩余时间':'已用时间'}"><time id="workflow-time">${hidden?'··:··':mmss(secs)}</time></button>${exam?'':`<button type="button" data-pq-timer="pause" title="${paused?'继续':'暂停'}计时" aria-label="${paused?'继续':'暂停'}计时">${paused?'▶':'❚❚'}</button>`}</div>`
+  }
   function renderSession(){
-    const g=group(),elapsed=session.deadline?Math.max(0,Math.ceil((session.deadline-Date.now())/1000)):Math.floor((Date.now()-session.started)/1000)
-    const body=g.kind==='reading'?renderReading():g.kind==='lecture'?renderLecture():g.kind==='interview'?renderInterview():g.kind==='language'?renderLanguage():g.kind==='translation'?renderTranslation():renderWriting()
-    const track=isListening(g.kind)?listening[g.year]:null
-    const slot=track?.audio?'<div id="wf-audio-slot"></div>':''
-    const trSec=g.kind==='lecture'?'A':'B'
-    const showTr = isListening(g.kind) && session.mode!=='exam' && !!(window.TEM8_TRANSCRIPTS && window.TEM8_TRANSCRIPTS[g.year] && window.TEM8_TRANSCRIPTS[g.year][trSec] && window.TEM8_TRANSCRIPTS[g.year][trSec].length)
-    document.querySelector('#workflow-session-content').innerHTML=`<div class="workflow-session-top"><button class="back-link" data-workflow-back="config">← 配置</button><div><strong>${session.type==='mock'?`${session.year} 年整卷模考 · ${escape(groupLabel(g))}`:escape(title(session.type))}</strong><span>${session.current+1} / ${session.groups.length} 组 · ${session.mode==='exam'?'考试':'练习'}模式</span></div>${g.kind==='reading'&&session.mode!=='exam'?'<button class="secondary-btn" data-workflow-study>进入精读</button>':''}<time id="workflow-time">${Math.floor(elapsed/60).toString().padStart(2,'0')}:${(elapsed%60).toString().padStart(2,'0')}</time></div>${slot}${showTr?'<div id="wf-transcript"></div>':''}${answerCard()}${body}<div class="workflow-session-actions"><button class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button><button class="primary-btn" data-workflow-next>${session.current<session.groups.length-1?'保存并进入下一组':'交卷'} <span>→</span></button></div><p class="workflow-hint">记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份；本次试卷与答题记录均绑定 ${session.year} 年。</p>`
+    const g=group(),kind=g.kind
+    const body=kind==='reading'?renderReading():kind==='lecture'?renderLecture():kind==='interview'?renderInterview():kind==='language'?renderLanguage():kind==='translation'?renderTranslation():renderWriting()
+    const track=isListening(kind)?listening[g.year]:null
+    const slot=track?.audio?'<div id="wf-audio-slot" class="pq-audio"></div>':''
+    const trSec=kind==='lecture'?'A':'B'
+    const showTr=isListening(kind)&&session.mode!=='exam'&&!!window.TEM8_TRANSCRIPTS?.[g.year]?.[trSec]?.length
+    const last=session.current===session.groups.length-1
+    const name=session.type==='review'?(session.label||'错题复习'):title(session.type)
+    const nav=`<div class="pq-gnav"><button type="button" class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button>${last?'<button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button>':'<button type="button" class="primary-btn" data-workflow-next>下一组 <span>→</span></button>'}</div>`
+    const all=allItems(session.groups),done=all.filter(it=>isAnswered(it,session.answers)).length
+    $('#workflow-session-content').innerHTML=`<div class="pq-top"><button class="pq-back" type="button" data-workflow-back="config" aria-label="返回">←</button><div class="pq-title"><strong>${escape(name)}</strong><span>${escape(groupLabel(g))}${session.groups.length>1?` · 第 ${session.current+1}/${session.groups.length} 组`:''} · ${session.mode==='exam'?'计时':'练习'}</span></div>${kind==='reading'&&session.mode!=='exam'?'<button class="pq-ghost" type="button" data-workflow-study>精读</button>':''}<span class="pq-saved" id="pq-saved">${session.savedAt?'已保存 '+clock(session.savedAt):''}</span>${timerHTML()}</div>
+      <div class="pq-shell ${kind==='reading'?'is-reading':''}"><div class="pq-main">${slot}${showTr?'<div id="wf-transcript"></div>':''}${body}<div class="pq-main-nav">${nav}</div></div><aside class="pq-aside" aria-label="答题卡"><div class="pq-cardwrap">${cardHTML()}</div><button type="button" class="pq-submit" data-pq-submit>交卷</button></aside></div>
+      <div class="pq-bottom"><button type="button" class="pq-cardbtn" data-pq-drawer aria-haspopup="dialog"><b>答题卡</b><span>${done}/${all.length}</span></button>${nav}</div>
+      <div class="pq-drawer" id="pq-drawer" hidden><button type="button" class="pq-drawer-bg" data-pq-drawer-close aria-label="关闭答题卡"></button><div class="pq-sheet" role="dialog" aria-label="答题卡"><div class="pq-grip"></div><div class="pq-cardwrap">${cardHTML()}</div><div class="pq-sheet-actions"><button type="button" class="secondary-btn" data-pq-drawer-close>关闭</button><button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button></div></div></div>`
     if(slot){
-      // 一份录音含 A+B：A 播 0→讲座结束(sectionAEnd)，B 播指令开始(sectionBStart)→结尾。
-      // 中间的"3 分钟检查"静音段两边都不放（真题里是留给考生填空的时间，App 里自己掌控）。
-      const bStart=Number(track.sectionBStart)||0
-      const aEnd=Number(track.sectionAEnd)||0
-      const start=g.kind==='interview'?bStart:0
-      const end=g.kind==='lecture'?(aEnd>0?aEnd:(bStart>0?bStart:(track.audioDuration||0))):0
-      const hint=g.kind==='interview'&&bStart>0?`已从 Section B 起点（第 ${mmss(bStart)}）开始播放`:g.kind==='lecture'&&aEnd>0?`Section A 至第 ${mmss(aEnd)}（讲座结束即停）`:''
-      window.TEM8_AUDIO?.mount(document.querySelector('#wf-audio-slot'),{src:track.audio,mode:session.mode,replay:session.mode==='exam'?!!session.replay:true,title:`${g.year} 真题听力 · Section ${g.kind==='lecture'?'A':'B'}`,duration:track.audioDuration||0,start,end,note:hint})
+      const bStart=Number(track.sectionBStart)||0,aEnd=Number(track.sectionAEnd)||0
+      const start=kind==='interview'?bStart:0
+      const end=kind==='lecture'?(aEnd>0?aEnd:(bStart>0?bStart:(track.audioDuration||0))):0
+      const hint=kind==='interview'&&bStart>0?`从 Section B 起点（${mmss(bStart)}）开始`:kind==='lecture'&&aEnd>0?`Section A 到 ${mmss(aEnd)} 结束`:''
+      window.TEM8_AUDIO?.mount($('#wf-audio-slot'),{src:track.audio,mode:session.mode,replay:session.mode==='exam'?!!session.replay:true,title:`${g.year} 真题听力 · Section ${trSec}`,duration:track.audioDuration||0,start,end,note:hint})
     }
-    if(showTr){ const c=document.querySelector('#wf-transcript'); if(c) renderTranscript(g.year, trSec, c) }
-    anno()?.refresh(g.kind==='reading'?article().id:'')
+    if(showTr){const c=$('#wf-transcript');if(c)renderTranscript(g.year,trSec,c)}
+    anno()?.refresh(kind==='reading'?article().id:'')
   }
-  // 听力原文面板：点句子跳转 + 自动跟读高亮 + 单句循环
-  function renderTranscript(year, sec, container){
-    const data=(window.TEM8_TRANSCRIPTS && window.TEM8_TRANSCRIPTS[year] && window.TEM8_TRANSCRIPTS[year][sec]) || []
-    if(!data.length){ container.style.display='none'; return }
+  function paintCard(){
+    const html=cardHTML()
+    document.querySelectorAll('.pq-cardwrap').forEach(box=>{box.innerHTML=html})
+    const all=allItems(session.groups),done=all.filter(it=>isAnswered(it,session.answers)).length
+    const b=$('.pq-cardbtn span');if(b)b.textContent=`${done}/${all.length}`
+  }
+  function setCur(key,scroll){
+    if(!key)return
+    cur=key
+    document.querySelectorAll('[data-item].cur').forEach(el=>el.classList.remove('cur'))
+    const el=document.getElementById('it-'+key)
+    if(el){el.classList.add('cur');if(scroll){
+      if(group().kind==='reading'&&mobileTab!=='q'&&matchMedia('(max-width:760px)').matches)setTab('q')
+      el.scrollIntoView({behavior:'smooth',block:'center'})}}
+    paintCard()
+  }
+  function setTab(t){mobileTab=t;const r=$('.pq-read');if(r)r.dataset.tab=t;document.querySelectorAll('[data-pq-tab]').forEach(b=>{b.classList.toggle('on',b.dataset.pqTab===t);b.setAttribute('aria-selected',String(b.dataset.pqTab===t))});window.scrollTo({top:0})}
+  function jump(key,gi){
+    closeDrawer()
+    if(gi!==undefined&&gi!==session.current){if(isListening(group().kind))window.TEM8_AUDIO?.stop();session.current=gi;persist();cur=key;renderSession()}
+    setTimeout(()=>{setCur(key,true);const el=document.getElementById('it-'+key);if(el&&el.matches('input,textarea'))el.focus({preventScroll:true})},30)
+  }
+  function moveItem(dir){
+    const items=gItems(group());if(!items.length)return
+    let i=items.findIndex(it=>it.key===cur)
+    i=i<0?(dir>0?0:items.length-1):Math.max(0,Math.min(items.length-1,i+dir))
+    setCur(items[i].key,true)
+  }
+  function openDrawer(){const d=$('#pq-drawer');if(d){d.hidden=false;requestAnimationFrame(()=>d.classList.add('open'))}}
+  function closeDrawer(){const d=$('#pq-drawer');if(d&&!d.hidden){d.classList.remove('open');setTimeout(()=>{d.hidden=true},200)}}
+
+  /* ---------- 对话框（交卷确认 / 离开保护） ---------- */
+  function dialog(html){
+    let d=$('#pq-dialog');if(!d){d=document.createElement('dialog');d.id='pq-dialog';d.className='pq-dialog';document.body.appendChild(d)}
+    d.innerHTML=`<div class="pq-dialog-inner">${html}</div>`;if(!d.open)d.showModal();return d
+  }
+  function confirmSubmit(){
+    persist()
+    const all=allItems(session.groups),missing=all.filter(it=>!isAnswered(it,session.answers))
+    const flagged=all.filter(it=>session.marks[it.key])
+    const byG=new Map();for(const it of missing){if(!byG.has(it.gi))byG.set(it.gi,[]);byG.get(it.gi).push(it)}
+    const list=missing.length?`<p>还有 <b>${missing.length}</b> 题未作答${byG.size===1&&missing.length<=12?'：'+missing.map(it=>it.no).join('、'):''}</p><div class="pq-missing">${[...byG].map(([gi,its])=>`${byG.size>1?`<span class="pq-mg">${escape(groupLabel(session.groups[gi]))}</span>`:''}${its.map(it=>`<button type="button" data-pq-dlg-jump="${it.key}" data-g="${it.gi}" aria-label="跳到第 ${it.no} 题">${it.no}</button>`).join('')}`).join('')}</div>`:'<p>全部题目都已作答。</p>'
+    dialog(`<h3>${missing.length?'还有题没做完':'确认交卷？'}</h3>${list}${flagged.length?`<p class="pq-dlg-note">另有 ${flagged.length} 题标了存疑。</p>`:''}<div class="pq-dlg-actions"><button type="button" class="secondary-btn" data-pq-dlg="close">回去检查</button><button type="button" class="primary-btn" data-pq-dlg="submit">${missing.length?'仍然提交':'交卷'}</button></div>`)
+  }
+  let pendingLeave=null
+  function confirmLeave(target){
+    pendingLeave=target
+    dialog(`<h3>离开这次练习？</h3><p>进度已自动保存，下次在「按题型练习」里可以继续。</p><div class="pq-dlg-actions col"><button type="button" class="primary-btn" data-pq-dlg="keep">保存进度并离开</button><button type="button" class="secondary-btn danger" data-pq-dlg="discard">放弃本次练习</button><button type="button" class="pq-link" data-pq-dlg="close">留下继续做</button></div>`)
+  }
+  function leave(discard){
+    const t=pendingLeave;pendingLeave=null;$('#pq-dialog')?.close()
+    if(discard){writeStore(s=>{s.session=null});session=null}else persist()
+    window.TEM8_AUDIO?.stop()
+    if(t){confirmBypass=true;t.click();confirmBypass=false}
+  }
+  const inSession=()=>!!session&&$('#workflow-session-view')?.classList.contains('active')
+
+  /* ---------- 听力原文面板（练习模式） ---------- */
+  let trFollowRaf=0
+  function renderTranscript(year,sec,container){
+    const data=window.TEM8_TRANSCRIPTS?.[year]?.[sec]||[]
+    if(!data.length){container.style.display='none';return}
     container.classList.add('wf-transcript')
-    container.innerHTML=`<div class="wf-transcript-head"><strong>听力原文</strong><span class="wf-transcript-tip">点击句子跳转 · 自动跟读高亮</span><button type="button" class="wf-tr-loop" data-wf-tr-loop>单句循环</button></div><div class="wf-transcript-body">`+
-      data.map((s,i)=>`<p class="wf-tr-line${s.sp?(' sp-'+s.sp):''}" data-wf-tr="${i}" data-t="${s.t}">${s.sp?`<span class="wf-tr-sp">${escape(s.sp)}</span>`:''}<span class="wf-tr-txt">${escape(s.en)}</span></p>`).join('')+
-      `</div>`
+    container.innerHTML=`<details class="pq-trdetails"><summary><strong>听力原文</strong><span class="wf-transcript-tip">做完再看；点句子跳转</span></summary><div class="wf-transcript-head"><button type="button" class="wf-tr-loop" data-wf-tr-loop>单句循环</button></div><div class="wf-transcript-body">`+
+      data.map((s,i)=>`<p class="wf-tr-line${s.sp?(' sp-'+s.sp):''}" data-wf-tr="${i}" data-t="${s.t}">${s.sp?`<span class="wf-tr-sp">${escape(s.sp)}</span>`:''}<span class="wf-tr-txt">${escape(s.en)}</span></p>`).join('')+`</div></details>`
     const lines=[...container.querySelectorAll('[data-wf-tr]')]
     container._loopOn=false
-    lines.forEach(el=>{
-      el.addEventListener('click',()=>{
-        const t=parseFloat(el.getAttribute('data-t'))
-        window.TEM8_AUDIO?.seekTo(t)
-      })
-    })
+    lines.forEach(el=>el.addEventListener('click',()=>window.TEM8_AUDIO?.seekTo(parseFloat(el.dataset.t))))
     const loopBtn=container.querySelector('[data-wf-tr-loop]')
-    if(loopBtn) loopBtn.addEventListener('click',()=>{
-      container._loopOn=!container._loopOn
-      loopBtn.classList.toggle('on',container._loopOn)
-      loopBtn.textContent=container._loopOn?'单句循环 · 开':'单句循环'
-    })
-    startTranscriptFollow(container, data, lines)
-  }
-  function startTranscriptFollow(container, data, lines){
-    if(trFollowRaf) cancelAnimationFrame(trFollowRaf)
+    loopBtn?.addEventListener('click',()=>{container._loopOn=!container._loopOn;loopBtn.classList.toggle('on',container._loopOn);loopBtn.textContent=container._loopOn?'单句循环 · 开':'单句循环'})
+    if(trFollowRaf)cancelAnimationFrame(trFollowRaf)
     let last=-2
     const body=container.querySelector('.wf-transcript-body')
     const tick=()=>{
       const A=window.TEM8_AUDIO
-      if(!A || !A.mounted){ trFollowRaf=0; return }
-      const ct=A.currentTime||0
-      let cur=-1
-      for(let i=0;i<data.length;i++){ if(ct>=data[i].t-0.15) cur=i; else break }
-      if(cur!==last){
-        lines.forEach((el,i)=>el.classList.toggle('active', i===cur))
-        if(cur>=0 && container._loopOn){
-          const boundary=(cur+1<data.length)?data[cur+1].t:Infinity
-          if(ct>=boundary-0.12) A.seekTo(data[cur].t)
-        }
-        if(cur>=0 && body){
-          const el=lines[cur]
-          if(el){
-            const target=el.offsetTop - body.clientHeight/2 + el.clientHeight/2
-            body.scrollTo({top:Math.max(0,target),behavior:'smooth'})
-          }
-        }
-        last=cur
-      }
+      if(!A||!A.mounted||!container.isConnected){trFollowRaf=0;return}
+      const ct=A.currentTime||0;let c=-1
+      for(let i=0;i<data.length;i++){if(ct>=data[i].t-0.15)c=i;else break}
+      if(c>=0&&container._loopOn){const boundary=c+1<data.length?data[c+1].t:Infinity;if(ct>=boundary-0.12)A.seekTo(data[c].t)}
+      if(c!==last){lines.forEach((el,i)=>el.classList.toggle('active',i===c))
+        if(c>=0&&body&&container.querySelector('details')?.open){const el=lines[c];body.scrollTo({top:Math.max(0,el.offsetTop-body.clientHeight/2+el.clientHeight/2),behavior:'smooth'})}
+        last=c}
       trFollowRaf=requestAnimationFrame(tick)
     }
     trFollowRaf=requestAnimationFrame(tick)
   }
 
-  function report(){
+  /* ---------- 交卷与结果页 ---------- */
+  function submit(){
+    if(!session)return
     persist()
-    const cards=session.groups.map(g=>{
-      if(g.kind==='reading'){
-        const a=articles.find(x=>x.id===g.articleId),qs=byType(a,session.type),c=qs.filter(q=>q.type==='choice'),s=qs.filter(q=>q.type==='short')
-      const graded=c.filter(q=>typeof q.answer==='number'),ok=graded.filter(q=>session.answers[qid(q)]===q.answer).length
-      const rows=[...c,...s].map(q=>{
-        if(q.type==='choice'){
-          const mine=session.answers[qid(q)],has=typeof q.answer==='number'
-          const myText=mine===undefined||mine===''?'未作答':'ABCD'[mine],right=has?'ABCD'[q.answer]:'暂无'
-          const mark=!has?'':(mine===undefined||mine===''?'未作答':(mine===q.answer?'正确':'错误'))
-          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">Q${q.number}</span><span class="wf-mine">你的答案 ${myText}</span><span class="wf-right">正确答案 ${right}</span><span class="wf-mark ${mark==='正确'?'ok':mark==='错误'?'bad':''}">${mark}</span></summary><p class="wf-prompt">${escape(q.prompt)}</p>${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:'<p class="wf-analysis">该题暂无解析。</p>'}</details>`
-        }
-        const mine=String(session.answers[qid(q)]||'').trim()
-        return `<details class="wf-answer-row"><summary><span class="wf-qno">Q${q.number}</span><span class="wf-mine">你的作答 ${words(mine)} 词${q.wordLimit?` / 上限 ${q.wordLimit}`:''}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${escape(q.prompt)}</p>${q.referenceAnswer?`<p class="wf-analysis"><strong>参考答案：</strong>${escape(q.referenceAnswer)}</p>`:'<p class="wf-analysis">该题参考暂无参考答案。</p>'}${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`
-      }).join('')
-      return `<div class="workflow-report-card"><h3>${a.year} · ${a.label}</h3><p>选择题 <strong>${ok} / ${graded.length}</strong> 正确${graded.length<c.length?`（另有 ${c.length-graded.length} 题暂无参考答案）`:''}；简答题已答 ${s.filter(q=>String(session.answers[qid(q)]||'').trim()).length} / ${s.length}</p><div class="wf-answer-list">${rows}</div></div>`
-      }
-      if(g.kind==='lecture'){const x=listening[g.year]?.miniLecture,blanks=x?.blanks||[]
-        const gradeable=blanks.filter(b=>b.answer&&!cjkAns(b.answer))
-        const ok=gradeable.filter(b=>okBlank(b.answer,session.answers[`lecture-${g.year}-${b.number}`])).length
-        const answered=blanks.filter(b=>String(session.answers[`lecture-${g.year}-${b.number}`]||'').trim()).length
-        const rows=blanks.map(b=>{
-          const key=`lecture-${g.year}-${b.number}`,mine=String(session.answers[key]||'').trim(),self=cjkAns(b.answer)||!b.answer
-          const right=okBlank(b.answer,mine)
-          const mark=!mine?'':self?'对照':right?'正确':'错误'
-          const shown=String(b.answer||'').replace(/\s*\/\/\s*/g,' 或 ')
-          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">${b.number}</span><span class="wf-mine">你的答案 ${escape(mine||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${mark==='正确'?'right':mark==='错误'?'bad':'self'}">${mark}</span>`:''}</summary>${b.analysis?`<p class="wf-analysis">${escape(b.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`}).join('')
-        return `<div class="workflow-report-card"><h3>${g.year} · Listening Section A</h3><p>已填 ${answered} / ${blanks.length}；可比对 ${gradeable.length} 空，其中 <strong>${ok}</strong> 空正确${gradeable.length<blanks.length?`（另有 ${blanks.length-gradeable.length} 空为多答案或任选，请对照自查）`:''}</p><div class="wf-answer-list">${rows}</div></div>`}
-      if(g.kind==='language'){const src=papers[g.year],rows=src.languageLines,ans=src.languageAnswers||[]
-        const blanks=rows.map((row,i)=>({row,i,n:(/(\d+)/.exec(row[1]||'')||[])[1]})).filter(x=>x.n)
-        const answered=blanks.filter(x=>session.answers[`language-${g.year}-${x.i+1}`]?.text).length
-        const list=blanks.map(x=>{const key=`language-${g.year}-${x.i+1}`,mine=(session.answers[key]||{}).text||'',a=ans.find(y=>y.number===Number(x.n))
-          return `<details class="wf-answer-row"><summary><span class="wf-qno">${x.n}</span><span class="wf-mine">你的修改 ${escape(mine.trim()||'未作答')}</span><span class="wf-right">${a?escape(a.fix):'暂无'}</span></summary><p class="wf-prompt">${escape(x.row[0])}</p>${a&&a.analysis?`<p class="wf-analysis">${escape(a.analysis)}</p>`:''}</details>`}).join('')
-        return `<div class="workflow-report-card"><h3>Language Usage · 改错</h3><p>已答 ${answered} / ${blanks.length} 行</p><div class="wf-answer-list">${list}</div></div>`}
-      if(g.kind==='interview'){const qs=listening[g.year]?.interview?.questions||[]
-        const graded=qs.filter(q=>typeof q.answer==='number')
-        const ok=qs.filter(q=>typeof q.answer==='number'&&session.answers[`interview-${g.year}-${q.number}`]===q.answer).length
-        const rows=qs.map(q=>{const key=`interview-${g.year}-${q.number}`,mine=session.answers[key],has=typeof q.answer==='number'
-          const myText=mine===undefined||mine===''?'未作答':'ABCD'[mine],right=has?'ABCD'[q.answer]:'暂无'
-          const mark=!has?'':(mine===undefined||mine===''?'未作答':(mine===q.answer?'正确':'错误'))
-          return `<details class="wf-answer-row" ${mark==='错误'?'open':''}><summary><span class="wf-qno">${q.number>15?q.number:q.number+15}</span><span class="wf-mine">你的答案 ${myText}</span><span class="wf-right">正确答案 ${right}</span><span class="wf-mark ${mark==='正确'?'ok':mark==='错误'?'bad':''}">${mark}</span></summary><p class="wf-prompt">${q.options.map((o,i)=>`${'ABCD'[i]}. ${escape(o)}`).join('　')}</p>${q.analysis?`<p class="wf-analysis">${escape(q.analysis).replace(/\n/g,'<br>')}</p>`:'<p class="wf-analysis">该题暂无解析。</p>'}</details>`}).join('')
-        return `<div class="workflow-report-card"><h3>${g.year} · Listening Section B</h3><p>选择题 <strong>${ok} / ${graded.length}</strong> 正确${graded.length<qs.length?`（另有 ${qs.length-graded.length} 题暂无参考答案）`:''}</p><div class="wf-answer-list">${rows}</div></div>`}
-      const count=words(session.answers[`${g.kind}-${g.year}`]),min=papers[g.year]?.writingMinWords
-      const ref=g.kind==='translation'?papers[g.year]?.translationReference:papers[g.year]?.writingReference
-      const guide=g.kind==='translation'?papers[g.year]?.translationAnalysis:papers[g.year]?.writingAnalysis
-      return `<div class="workflow-report-card"><h3>${g.kind==='translation'?'翻译':'写作'}</h3><p>已写 ${count} 词${g.kind==='writing'&&min&&count<min?` · 未达到最低 ${min} 词`:''}</p>${ref?`<details class="wf-answer-row" open><summary><span class="wf-qno">参考${g.kind==='translation'?'译文':'范文'}</span><span class="wf-mark">对照自查</span></summary><p class="wf-analysis">${escape(ref).replace(/\n/g,'<br>')}</p></details>`:'<small>暂无参考译文或范文。</small>'}${guide?`<details class="wf-answer-row"><summary>${g.kind==='translation'?'翻译解析':'写作指南'}</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}</div>`
-    }).join('')
-    document.querySelector('#workflow-report-content').innerHTML=`<div class="page-head"><span class="eyebrow">PRACTICE REPORT</span><h1>${session.type==='mock'?`${session.year} 年整卷模考已交卷`:'题组已提交'}</h1><p>用时 ${Math.floor((Date.now()-session.started)/60000)} 分钟。选择题已自动判分；简答题、翻译和写作可对照参考资料自查。此报告仅汇总 ${session.year} 年试卷数据。</p></div>${cards}<button class="primary-btn" data-workflow-back="${session.type==='mock'?'mock':'papers'}">${session.type==='mock'?'返回模考列表':'返回题库'} →</button>`
-    const old=saved();localStorage.setItem(KEY,JSON.stringify({...old,session:null,history:[...(old.history||[]),{type:session.type,year:session.year,finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks}].slice(-50)}));document.dispatchEvent(new Event('tem8:study-changed'))
-    show('workflow-report-view','题组报告')
+    const run={type:session.type,year:session.year,years:session.years||[session.year],finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks,mode:session.mode,elapsed:Math.round(elapsedMs()/1000),durationMinutes:session.durationMinutes||0,label:session.label||'',eval:{}}
+    writeStore(s=>{s.session=null;s.history=[...(s.history||[]),run].slice(-80)})
+    mistakeUpdate(run)
+    window.TEM8_AUDIO?.stop()
+    session=null;lastRun=run;reportFilter=false
+    renderReport();show('workflow-report-view','练习结果')
+    document.dispatchEvent(new Event('tem8:mistakes-changed'))
   }
-  function wordPopup(key){
-    wordKey=String(key||'').toLowerCase()
-    // 统一复用主查词弹窗（带图片、英美发音、多词典释义、例句）
-    if(typeof window.TEM8_SHOW_WORD === 'function'){ window.TEM8_SHOW_WORD(wordKey, 0); return }
-    const item=window.TEM8_DICTIONARY?.[wordKey]||{},ox=item.oxford,co=item.collins
-    const meaning=ox?.senses?.[0]?.cn||co?.senses?.[0]?.cn||'词典暂未收录'
-    const d=document.querySelector('#workflow-word-dialog')
-    d.innerHTML=`<div class="dialog-inner"><button class="workflow-close" data-workflow-word-close>×</button><h3>${escape(wordKey)}</h3><p>${escape([ox?.phon,ox?.pos].filter(Boolean).join(' · '))}</p><p>${escape(meaning)}</p>${ox?.senses?.[0]?.en?`<p>${escape(ox.senses[0].en)}</p>`:''}<button class="secondary-btn" data-workflow-word-save>加入生词本</button></div>`
-    d.showModal()
+  const sig=r=>JSON.stringify((r.groups||[]).map(g=>[g.kind,g.year,g.articleId||'',g.only||[]]))
+  function stats(run){
+    const items=allItems(run.groups),g=items.filter(gradable)
+    const ok=g.filter(it=>grade(it,run.answers)==='ok').length
+    return {items,gradable:g,ok,wrong:g.filter(it=>grade(it,run.answers)==='bad'),none:g.filter(it=>grade(it,run.answers)==='none'),answered:items.filter(it=>isAnswered(it,run.answers)).length,pct:(()=>{const n=g.filter(it=>isAnswered(it,run.answers)).length;return n?Math.round(ok/n*100):null})()}
   }
-  function renderReviewGroups(){
-    const target=document.querySelector('#mistakes-content');if(!target)return
-    const runs=[...(saved().history||[]),...(saved().session?[saved().session]:[])]
-    const groups=new Map()
-    for(const run of runs)for(const [id,marked] of Object.entries(run.marks||{})){
-      if(!marked)continue
-      const q=questions.find(item=>qid(item)===id);if(!q)continue
-      const key=`${q.articleId}-${q.type}`
-      if(!groups.has(key))groups.set(key,{article:q.articleId,type:q.type,items:new Map()})
-      groups.get(key).items.set(q.number,q)
+  function ring(pct){
+    const r=52,c=2*Math.PI*r,off=pct==null?c:c*(1-pct/100)
+    return `<svg class="pq-ring" viewBox="0 0 120 120" role="img" aria-label="正确率 ${pct==null?'不适用':pct+'%'}"><circle cx="60" cy="60" r="${r}" class="bg"/><circle cx="60" cy="60" r="${r}" class="fg" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/><text x="60" y="58" text-anchor="middle">${pct==null?'—':pct+'%'}</text><text x="60" y="80" text-anchor="middle" class="sub">正确率</text></svg>`
+  }
+  // 解析：拆成【定位】【详解】【干扰排除】等段
+  function analysisParts(text){
+    const s=String(text||'').trim();if(!s)return []
+    const re=/【([^】]{1,10})】/g,parts=[];let m,lastTag=null,lastIdx=0
+    while((m=re.exec(s))){if(lastTag!==null||m.index>0){const body=s.slice(lastIdx,m.index).trim();if(body)parts.push({tag:lastTag,body})}lastTag=m[1];lastIdx=re.lastIndex}
+    const tail=s.slice(lastIdx).trim();if(tail)parts.push({tag:lastTag,body:tail})
+    return parts
+  }
+  function locatorHTML(it){
+    if(!it.a)return ''
+    const n=it.q?.locatorParagraph||Number((/Para\.\s*(\d+)/i.exec(it.prompt||'')||[])[1])
+    if(!n)return ''
+    const seg=it.a.segments[n-1];if(!seg)return ''
+    let html=escape(seg.en)
+    const quoted=(/[“"]([^”"]{6,})[”"]/.exec(it.prompt||'')||[])[1]
+    if(quoted){const i=seg.en.toLowerCase().indexOf(quoted.toLowerCase());if(i>=0)html=escape(seg.en.slice(0,i))+'<mark>'+escape(seg.en.slice(i,i+quoted.length))+'</mark>'+escape(seg.en.slice(i+quoted.length))}
+    return `<div class="pq-an-sec"><h5>原文定位 · 第 ${n} 段</h5><blockquote>${html}</blockquote></div>`
+  }
+  function analysisHTML(it){
+    const parts=analysisParts(it.analysis)
+    const pick=re=>parts.filter(p=>p.tag&&re.test(p.tag))
+    const loc=pick(/定位/),why=pick(/详解|解析|分析|答案/),dis=pick(/干扰|排除|错项/),rest=parts.filter(p=>!loc.includes(p)&&!why.includes(p)&&!dis.includes(p))
+    const sec=(h,ps)=>ps.length?`<div class="pq-an-sec"><h5>${h}</h5>${ps.map(p=>`<p>${escape(p.body).replace(/\n/g,'<br>')}</p>`).join('')}</div>`:''
+    let html=''
+    if(loc.length)html+=sec('原文定位',loc)
+    html+=locatorHTML(it)
+    html+=sec('为什么对',why)+sec('排除干扰项',dis)
+    html+=rest.length?rest.map(p=>sec(p.tag?p.tag:(why.length?'补充':'解析'),[p])).join(''):''
+    return html||'<p class="workflow-hint">该题暂无解析。</p>'
+  }
+  function reasonChips(it){
+    const e=load().tools?.['m:'+it.key];if(!e)return ''
+    return `<div class="pq-reasons"><span>错因</span>${REASONS.map(r=>`<button type="button" class="pq-chip xs ${e.r===r?'on':''}" data-pq-reason="${it.key}" data-r="${r}" aria-pressed="${e.r===r}">${r}</button>`).join('')}</div>`
+  }
+  function reportRow(it,run){
+    const v=run.answers[it.key],r=grade(it,run.answers)
+    const mark={ok:'正确',bad:'错误',none:'未作答',self:'自查',na:''}[r]
+    if(it.kind==='choice'){
+      const mine=v===undefined||v===''?'未作答':LETTERS[v],right=it.answer===undefined?'暂无':LETTERS[it.answer]
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}" ${r==='bad'?'open':''}><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${escape(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${escape(o)}</li>`).join('')}</ol><div class="pq-analysis">${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${r==='bad'?reasonChips(it):''}</details>`
     }
-    const html=[...groups.values()].map(g=>`<div class="workflow-report-card"><h3>${escape(g.article.replace('-',' 年 Passage '))} · ${g.type==='choice'?'选择题':'简答题'} · 待复习</h3>${[...g.items.values()].map(q=>`<p>Q${q.number} ${escape(q.prompt)}</p>`).join('')}</div>`).join('')
-    target.insertAdjacentHTML('beforeend',`<div class="section-heading"><div><span class="section-index">真</span><h2>真题手动标记</h2></div></div>${html||'<p class="workflow-hint">尚无标记题目。做题时点击题目右上角的星标，可按 Passage 和题型归档在这里。</p>'}`)
+    if(it.kind==='blank'){
+      const shown=String(it.answer||'').replace(/\s*\/\/\s*/g,' 或 ')
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}" ${r==='bad'?'open':''}><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${r==='bad'?reasonChips(it):''}</details>`
+    }
+    if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${escape(it.prompt)}</p><div class="pq-analysis">${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div></details>`
+    if(it.kind==='line')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span></summary><p class="wf-prompt">${escape(it.row)}</p>${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}</details>`
+    return ''
   }
+  /* 翻译、写作：参考对照 + 自评 */
+  const sentences=t=>String(t||'').replace(/\s+/g,' ').match(/[^.!?。！？]+[.!?。！？]+["”’)]?|[^.!?。！？]+$/g)?.map(s=>s.trim()).filter(s=>s.length>2)||[]
+  const RUBRIC=[['内容','摘要准确概括了材料要点'],['内容','观点明确，论据充分、切题'],['结构','段落清楚，首尾呼应'],['结构','衔接自然，逻辑连贯'],['语言','语法基本无误'],['语言','用词准确得体，句式有变化']]
+  function selfEval(g,run){
+    const y=g.year,key=`${g.kind}-${y}`,mine=String(run.answers[key]||''),ev=run.eval?.[key]||{}
+    const ticks=ev.ticks||[]
+    if(g.kind==='translation'){
+      const ref=papers[y]?.translationReference,pts=sentences(ref)
+      const box=`<div class="pq-compare"><section><h5>我的译文 · ${words(mine)} 词</h5><div class="pq-mytext">${mine.trim()?escape(mine).replace(/\n/g,'<br>'):'<span class="workflow-hint">未作答</span>'}</div></section><section><h5>参考译文</h5><div class="pq-mytext">${ref?escape(ref).replace(/\n/g,'<br>'):'<span class="workflow-hint">暂无参考译文</span>'}</div></section></div>`
+      const done=ticks.filter(Boolean).length
+      const check=pts.length?`<div class="pq-eval"><h5>逐句对照自评 <small>每句看意思是否译出、关键词和句型是否到位</small></h5>${pts.map((p,i)=>`<label class="pq-evrow"><input type="checkbox" data-pq-eval="${key}" data-i="${i}" ${ticks[i]?'checked':''}><span>${escape(p)}</span></label>`).join('')}<p class="pq-evscore">自评 <b>${done} / ${pts.length}</b> 句到位 · 估分约 <b>${Math.round(done/pts.length*100)}%</b></p></div>`:''
+      const guide=papers[y]?.translationAnalysis
+      return `<div class="workflow-report-card"><h3>${y} · 翻译</h3>${box}${check}${guide?`<details class="wf-answer-row"><summary>翻译解析</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}<div class="pq-export"><button type="button" class="secondary-btn" data-pq-export="txt" data-key="${key}">导出 txt</button><button type="button" class="secondary-btn" data-pq-export="docx" data-key="${key}">导出 Word</button></div></div>`
+    }
+    const ref=papers[y]?.writingReference,min=papers[y]?.writingMinWords,n=words(mine)
+    const done=ticks.filter(Boolean).length+(min&&n>=min?1:0),total=RUBRIC.length+(min?1:0)
+    return `<div class="workflow-report-card"><h3>${y} · 写作</h3><p>${n} 词${min?(n>=min?` · 达到最低 ${min} 词`:` · <b class="pq-bad">未达到最低 ${min} 词</b>`):''}</p><div class="pq-compare"><section><h5>我的作文</h5><div class="pq-mytext">${mine.trim()?escape(mine).replace(/\n/g,'<br>'):'<span class="workflow-hint">未作答</span>'}</div></section><section><h5>参考范文</h5><div class="pq-mytext">${ref?escape(ref).replace(/\n/g,'<br>'):'<span class="workflow-hint">暂无范文</span>'}</div></section></div>
+      <div class="pq-eval"><h5>评分维度自评 <small>对照范文，逐条打勾</small></h5>${min?`<label class="pq-evrow auto"><input type="checkbox" disabled ${n>=min?'checked':''}><span><em>字数</em>达到 ${min} 词（自动判断）</span></label>`:''}${RUBRIC.map(([d,t],i)=>`<label class="pq-evrow"><input type="checkbox" data-pq-eval="${key}" data-i="${i}" ${ticks[i]?'checked':''}><span><em>${d}</em>${t}</span></label>`).join('')}<p class="pq-evscore">自评 <b>${done} / ${total}</b> 项 · 估分约 <b>${Math.round(done/total*100)}%</b></p></div>
+      ${papers[y]?.writingAnalysis?`<details class="wf-answer-row"><summary>写作指南</summary><p class="wf-analysis">${escape(papers[y].writingAnalysis).replace(/\n/g,'<br>')}</p></details>`:''}<div class="pq-export"><button type="button" class="secondary-btn" data-pq-export="txt" data-key="${key}">导出 txt</button><button type="button" class="secondary-btn" data-pq-export="docx" data-key="${key}">导出 Word</button></div></div>`
+  }
+  function renderReport(){
+    const run=lastRun;if(!run)return
+    const st=stats(run)
+    const hist=load().history||[]
+    const prev=[...hist].reverse().find(h=>h.finishedAt<run.finishedAt&&sig(h)===sig(run))
+    const prevPct=prev?stats(prev).pct:null
+    const diff=st.pct!=null&&prevPct!=null?st.pct-prevPct:null
+    const m=Math.floor((run.elapsed||0)/60),s=(run.elapsed||0)%60
+    const bars=run.groups.map((g,gi)=>{const its=gItems(g).filter(gradable);if(!its.length)return '';const ok=its.filter(it=>grade(it,run.answers)==='ok').length,p=Math.round(ok/its.length*100)
+      return `<div class="pq-bar"><span>${escape(groupLabel(g))}</span><div><i style="width:${p}%" class="${p<60?'low':p<80?'mid':''}"></i></div><b>${ok}/${its.length}</b></div>`}).join('')
+    const grid=run.groups.map((g,gi)=>{const its=gItems(g).filter(it=>it.kind!=='long');if(!its.length)return ''
+      return `<div class="pq-cgroup"><span>${escape(groupLabel(g))}</span><div class="pq-grid">${its.map(it=>{const r=grade(it,run.answers);return `<button type="button" class="pq-cell res r-${r}" data-pq-goto="${it.key}" aria-label="第 ${it.no} 题 ${({ok:'正确',bad:'错误',none:'未作答',self:'需自查',na:'无答案'})[r]}">${it.no}<i aria-hidden="true">${r==='ok'?'✓':r==='bad'?'✗':''}</i></button>`}).join('')}</div></div>`}).join('')
+    const objective=st.items.some(it=>it.kind!=='long')
+    const cards=run.groups.map(g=>{
+      if(g.kind==='translation'||g.kind==='writing')return selfEval(g,run)
+      let its=gItems(g)
+      if(reportFilter)its=its.filter(it=>grade(it,run.answers)==='bad')
+      if(!its.length)return ''
+      return `<div class="workflow-report-card"><h3>${escape(groupLabel(g))}</h3><div class="wf-answer-list">${its.map(it=>reportRow(it,run)).join('')}</div></div>`}).join('')
+    const name=run.type==='review'?(run.label||'错题复习'):title(run.type)
+    $('#workflow-report-content').innerHTML=`<div class="page-head pq-head"><span class="eyebrow">RESULT</span><h1>${escape(name)} · 已交卷</h1></div>
+      ${objective?`<div class="pq-hero">${ring(st.pct)}<div class="pq-hero-stats"><div><b>${st.ok}</b><span>答对</span></div><div><b>${st.wrong.length}</b><span>答错</span></div><div><b>${st.none.length}</b><span>未答</span></div><div><b>${st.gradable.length-st.none.length}/${st.gradable.length}</b><span>完成</span></div><div><b>${m}′${String(s).padStart(2,'0')}″</b><span>用时</span></div>${diff!=null?`<div class="pq-diff ${diff>0?'up':diff<0?'down':''}"><b>${diff>0?'+':''}${diff}%</b><span>比上次 ${prevPct}%</span></div>`:''}</div></div>
+      ${bars?`<div class="pq-bars">${bars}</div>`:''}
+      ${st.gradable.length<st.items.filter(it=>it.kind!=='long').length?`<p class="workflow-hint">简答、改错和部分填空需要对照答案自查，不计入正确率。</p>`:''}
+      <div class="pq-res-grid">${grid}</div>
+      <div class="pq-res-actions">${st.wrong.length?`<button type="button" class="secondary-btn ${reportFilter?'on':''}" data-pq-filter aria-pressed="${reportFilter}">${reportFilter?'显示全部题':'只看错题'}</button><button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${st.wrong.length}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>
+      ${st.wrong.length?'<p class="workflow-hint">错题已自动收进错题本。展开错题可以给它标上错因，复习时能按错因筛选。</p>':''}`:`<p class="workflow-hint">用时 ${m} 分 ${s} 秒。</p>`}
+      ${cards}
+      <div class="pq-res-foot"><button class="secondary-btn" data-workflow-back="${run.type==='mock'?'mock':'papers'}">${run.type==='mock'?'返回模考':'返回题库'}</button>${run.type!=='review'&&run.type!=='mock'?'<button class="primary-btn" data-pq-again>再练一次 <span>→</span></button>':''}</div>`
+  }
+  function saveEval(key,i,on){
+    const run=lastRun;if(!run)return
+    run.eval||={};const ev=run.eval[key]||={ticks:[]};ev.ticks[i]=on
+    writeStore(s=>{const h=(s.history||[]).find(x=>x.finishedAt===run.finishedAt);if(h)h.eval=run.eval})
+  }
+  function exportText(key,kind){
+    const run=lastRun;if(!run)return
+    const y=Number(key.split('-')[1]),isT=key.startsWith('translation'),mine=String(run.answers[key]||'')
+    const ref=isT?papers[y]?.translationReference:papers[y]?.writingReference
+    const name=`专八${y}${isT?'翻译':'写作'}`
+    const E=window.TEM8_EXPORT;if(!E)return
+    if(kind==='txt')E.txt(`${name}\n\n【我的${isT?'译文':'作文'}】\n${mine}\n\n${ref?`【参考${isT?'译文':'范文'}】\n${ref}\n`:''}`,`${name}.txt`)
+    else E.docx([{text:name,size:32,bold:true},{text:`我的${isT?'译文':'作文'} · ${words(mine)} 词`,bold:true,before:240},...mine.split(/\n+/).map(t=>({text:t})),...(ref?[{text:`参考${isT?'译文':'范文'}`,bold:true,before:360},...ref.split(/\n+/).map(t=>({text:t,color:'5A5248'}))]:[])],`${name}.docx`)
+  }
+
+  /* ---------- 字典弹窗 ---------- */
+  function wordPopup(key,el){
+    const seg=Number(el?.closest('[data-anno-p]')?.dataset.annoP)
+    if(typeof window.TEM8_SHOW_WORD==='function')window.TEM8_SHOW_WORD(String(key||'').toLowerCase(),{articleId:group()?.articleId||'',seg:Number.isFinite(seg)?seg:-1},el)
+  }
+
+  /* ---------- 精读页里的“做题”入口 ---------- */
+  function readerActions(a){
+    const qs=articleQuestions(a),choice=qs.filter(q=>q.type==='choice'),short=qs.filter(q=>q.type==='short')
+    return `<div class="workflow-reader-actions"><h3>读完后做题</h3><p>${choice.length} 道选择题 · ${short.length} 道简答题</p>${qs.length?`<button class="primary-btn" data-start-passage="${escape(a.id)}" data-passage-type="reading-group">做本篇题目 →</button>`:''}</div>`
+  }
+
+  /* ---------- 事件 ---------- */
   document.addEventListener('click',e=>{
-    const t=e.target.closest('button');if(!t)return
-    if(t.id==='reader-back'||(t.dataset.openReader!==undefined&&t.dataset.mode==='free'))document.querySelector('[data-workflow-return]').hidden=true
-    if(t.dataset.view==='mistakes')setTimeout(renderReviewGroups,0)
-    if(t.dataset.workflowType){e.stopPropagation();openConfig(t.dataset.workflowType);return}
-    if(t.dataset.startPassage){e.stopPropagation();openConfig(t.dataset.passageType,t.dataset.startPassage);start();return}
-    if(t.dataset.openReader!==undefined&&t.dataset.mode==='practice'&&t.dataset.article){
-      e.stopPropagation();openConfig('reading-group',t.dataset.article);start();return
+    const t=e.target.closest('button,[data-view]');if(!t)return
+    // 离开保护：做题中点导航或返回
+    if(!confirmBypass&&inSession()&&(t.dataset.view||t.dataset.workflowBack)&&!t.closest('#pq-dialog')){
+      const any=Object.keys(session.answers).length
+      if(any){e.preventDefault();e.stopPropagation();confirmLeave(t);return}
+      persist()
     }
-    if(t.dataset.articleMode==='practice'&&document.querySelector('#reader-view').classList.contains('active')){
-      const a=document.querySelector('#reader-mode-badge').textContent.match(/(\d{4})/)
-      const selected=articles.find(x=>x.year===Number(a?.[1])&&x.title===document.querySelector('.reader-title').textContent)
-      if(selected){e.stopPropagation();openConfig('reading-group',selected.id);start();return}
+    if(!t.matches('button'))return
+    const d=t.dataset
+    if(d.pqDlg){e.stopPropagation()
+      if(d.pqDlg==='close'){pendingLeave=null;$('#pq-dialog')?.close()}
+      else if(d.pqDlg==='submit'){$('#pq-dialog')?.close();submit()}
+      else if(d.pqDlg==='keep')leave(false)
+      else if(d.pqDlg==='discard')leave(true)
+      return}
+    if(d.pqDlgJump){e.stopPropagation();$('#pq-dialog')?.close();jump(d.pqDlgJump,Number(d.g));return}
+    if(t.id==='reader-back'||(d.openReader!==undefined&&d.mode==='free')){const r=$('[data-workflow-return]');if(r)r.hidden=true}
+    if(d.workflowType){e.stopPropagation();openConfig(d.workflowType);return}
+    if(d.startPassage){e.stopPropagation();openConfig(d.passageType||'reading-group',d.startPassage);start();return}
+    if(d.openReader!==undefined&&d.mode==='practice'&&d.article&&d.article!=='sample'){e.stopPropagation();openConfig('reading-group',d.article);start();return}
+    if(d.articleMode==='practice'&&$('#reader-view')?.classList.contains('active')){
+      const yr=$('#reader-mode-badge').textContent.match(/(\d{4})/)
+      const sel=articles.find(x=>x.year===Number(yr?.[1])&&x.title===$('.reader-title').textContent)
+      if(sel){e.stopPropagation();openConfig('reading-group',sel.id);start();return}
     }
-    if(t.dataset.workflowBack){e.stopPropagation();if(t.dataset.workflowBack==='config')openConfig(session.type,session.groups[0]?.articleId);else{document.querySelector(`[data-view="${t.dataset.workflowBack}"]`).click()}return}
-    if(t.dataset.workflowStart!==undefined){e.stopPropagation();start();return}
-    if(t.dataset.workflowStudy!==undefined){e.stopPropagation();persist();const a=article();document.querySelector('.tabbar [data-view="library"]')?.click();document.querySelector(`[data-open-reader][data-mode="free"][data-article="${a.id}"]`)?.click();document.querySelector('[data-workflow-return]').hidden=false;return}
-    if(t.dataset.workflowReturn!==undefined){e.stopPropagation();t.hidden=true;renderSession();show('workflow-session-view',title(session.type));return}
-    if(t.dataset.workflowResume!==undefined){e.stopPropagation();session=saved().session;if(session){renderSession();show('workflow-session-view',title(session.type))}return}
-    if(t.dataset.workflowNext!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current<session.groups.length-1){session.current++;persist();renderSession();window.scrollTo(0,0)}else report();return}
-    if(t.dataset.workflowPrev!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();session.current--;persist();renderSession();window.scrollTo(0,0);return}
-    if(t.dataset.workflowMark){e.stopPropagation();const y=window.scrollY;session.marks[t.dataset.workflowMark]=!session.marks[t.dataset.workflowMark];persist();renderSession();window.scrollTo(0,y);return}
-    if(t.dataset.workflowJump){e.stopPropagation();const id=t.dataset.workflowJump
-      const el=id.startsWith('language')?document.getElementById(`wf-row-${id.split('-').at(-1)}`):id.startsWith('lecture')?document.getElementById(`wf-b-${id}`):document.getElementById(`wf-q-${id}`)
-      el?.scrollIntoView({behavior:'smooth',block:'center'});el?.focus?.({preventScroll:true});return}
-    if(t.dataset.workflowLocate){e.stopPropagation();const q=questions.find(x=>qid(x)===t.dataset.workflowLocate),m=q?.prompt.match(/Para\.\s*(\d+)/i),n=q?.locatorParagraph||Number(m?.[1]);if(n)document.getElementById(`wf-p-${n}`)?.scrollIntoView({behavior:'smooth',block:'center'});return}
-    if(t.dataset.workflowWord){e.stopPropagation();const sel=window.getSelection();if(sel&&!sel.isCollapsed&&String(sel).trim())return;wordPopup(t.dataset.workflowWord);return}
-    if(t.dataset.workflowWordClose!==undefined){e.stopPropagation();document.querySelector('#workflow-word-dialog').close();return}
-    if(t.dataset.workflowWordSave!==undefined){e.stopPropagation();const key='tem8_studio_web_v1',old=JSON.parse(localStorage.getItem(key)||'{}');old.wordbook=[...new Set([...(old.wordbook||[]),wordKey])];localStorage.setItem(key,JSON.stringify(old));document.dispatchEvent(new Event('tem8:study-changed'));t.textContent='已加入单词本';return}
+    if(d.pqGroup){e.stopPropagation();const G=GROUPS.find(x=>x.id===d.pqGroup);if(G&&!G.types.includes(cfg.type))setType(G.types[0]);return}
+    if(d.pqType){e.stopPropagation();if(d.pqType!==cfg.type)setType(d.pqType);return}
+    if(d.pqYear){e.stopPropagation();const y=Number(d.pqYear);cfg.years=cfg.years.includes(y)?cfg.years.filter(x=>x!==y):[...cfg.years,y];cfg.passages=[];if(!cfg.minutesTouched)cfg.minutes=0;renderConfig();return}
+    if(d.pqYears){e.stopPropagation();const ys=yearList(cfg.type);cfg.years=d.pqYears==='all'?ys:ys.slice(0,1);cfg.passages=[];renderConfig();return}
+    if(d.pqPassage!==undefined){e.stopPropagation();const id=d.pqPassage;cfg.passages=!id?[]:cfg.passages.includes(id)?cfg.passages.filter(x=>x!==id):[...cfg.passages,id];if(cfg.passages.length===yearArticles(cfg.years[0]).length)cfg.passages=[];renderConfig();return}
+    if(d.pqMode){e.stopPropagation();cfg.mode=d.pqMode;renderConfig();return}
+    if(d.pqMin){e.stopPropagation();if(d.pqMin==='reset'){cfg.minutesTouched=false}else{cfg.minutes=Math.max(5,Math.min(300,(cfg.minutes||estimate().minutes)+Number(d.pqMin)));cfg.minutesTouched=true}renderConfig();return}
+    if(d.workflowBack){e.stopPropagation()
+      if(d.workflowBack==='config'){if(session){persist();const s=session;session=null;if(s.type==='mock'){window.TEM8_AUDIO?.stop();confirmBypass=true;document.querySelector('.seg-tabs [data-view="mock"]')?.click();confirmBypass=false}else openConfig(s.type==='review'?'reading-group':s.type)}else openConfig(cfg.type)}
+      else{const nav=document.querySelector(`.seg-tabs [data-view="${d.workflowBack}"],.tabbar [data-view="${d.workflowBack}"]`);confirmBypass=true;nav?.click();confirmBypass=false}
+      return}
+    if(d.workflowStart!==undefined){e.stopPropagation();savePrefs();start();return}
+    if(d.workflowResume!==undefined){e.stopPropagation();resume();return}
+    if(d.pqDiscard!==undefined){e.stopPropagation();if(confirm('放弃上次没交卷的练习？作答内容会被清除。')){writeStore(s=>{s.session=null});session=null;if($('#workflow-config-view').classList.contains('active'))renderConfig();renderCards()}return}
+    if(d.pqAgain!==undefined){e.stopPropagation();if(lastRun){newSession(lastRun.groups,lastRun.type,{mode:lastRun.mode,minutes:lastRun.durationMinutes||30,instant:prefs().instant,allowWord:true,replay:prefs().replay})}return}
+    if(d.pqRedo!==undefined){e.stopPropagation();if(lastRun)startKeys(stats(lastRun).wrong.map(it=>it.key),'重做错题');return}
+    if(d.pqFilter!==undefined){e.stopPropagation();reportFilter=!reportFilter;renderReport();return}
+    if(d.pqGoto){e.stopPropagation();if(reportFilter&&!document.getElementById('rp-'+d.pqGoto)){reportFilter=false;renderReport()}const el=document.getElementById('rp-'+d.pqGoto);if(el){el.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('pq-flash');setTimeout(()=>el.classList.remove('pq-flash'),1200)}return}
+    if(d.pqReason){e.stopPropagation();const k=d.pqReason,r=d.r;writeStore(s=>{const e2=s.tools?.['m:'+k];if(e2)e2.r=e2.r===r?'':r});t.parentElement.querySelectorAll('[data-pq-reason]').forEach(b=>{const on=b===t&&!b.classList.contains('on');b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});return}
+    if(d.pqExport){e.stopPropagation();exportText(d.key,d.pqExport);return}
+    if(!session)return
+    // —— 以下为做题页 ——
+    if(d.pqSubmit!==undefined){e.stopPropagation();closeDrawer();confirmSubmit();return}
+    if(d.pqDrawer!==undefined){e.stopPropagation();openDrawer();return}
+    if(d.pqDrawerClose!==undefined){e.stopPropagation();closeDrawer();return}
+    if(d.pqJump){e.stopPropagation();jump(d.pqJump,Number(d.g));return}
+    if(d.pqTab){e.stopPropagation();setTab(d.pqTab);return}
+    if(d.pqTimer){e.stopPropagation()
+      if(d.pqTimer==='hide')session.hideTimer=!session.hideTimer
+      else if(!session.deadline){if(session.pausedAt){session.pausedMs+=Date.now()-session.pausedAt;session.pausedAt=0}else session.pausedAt=Date.now()}
+      const box=t.closest('.pq-timer');if(box)box.outerHTML=timerHTML();persist();return}
+    if(d.pqStrike){e.stopPropagation();const k=d.pqStrike,i=Number(d.i),arr=session.strikes[k]||[];session.strikes[k]=arr.includes(i)?arr.filter(x=>x!==i):[...arr,i];persist();refreshItem(k);return}
+    if(d.workflowStudy!==undefined){e.stopPropagation();persist();const a=article();confirmBypass=true;document.querySelector('.tabbar [data-tab="library"]')?.click();confirmBypass=false;document.querySelector(`[data-open-reader][data-mode="free"][data-article="${a.id}"]`)?.click();const r=$('[data-workflow-return]');if(r)r.hidden=false;return}
+    if(d.workflowReturn!==undefined){e.stopPropagation();t.hidden=true;renderSession();show('workflow-session-view',title(session.type));return}
+    if(d.workflowNext!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current<session.groups.length-1){session.current++;cur='';persist();renderSession();window.scrollTo(0,0)}return}
+    if(d.workflowPrev!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current>0){session.current--;cur='';persist();renderSession();window.scrollTo(0,0)}return}
+    if(d.workflowMark){e.stopPropagation();const k=d.workflowMark;session.marks[k]=!session.marks[k];persist();t.classList.toggle('on',session.marks[k]);t.setAttribute('aria-pressed',String(session.marks[k]));t.textContent=session.marks[k]?'⚑ 已存疑':'⚐ 存疑';setCur(k);return}
+    if(d.workflowLocate){e.stopPropagation();const q=qByKey.get(d.workflowLocate),m=q?.prompt.match(/Para\.\s*(\d+)/i),n=q?.locatorParagraph||Number(m?.[1]);if(n){if(matchMedia('(max-width:760px)').matches)setTab('p');const p=document.getElementById(`wf-p-${n}`);p?.scrollIntoView({behavior:'smooth',block:'center'});p?.classList.add('anno-flash');setTimeout(()=>p?.classList.remove('anno-flash'),1400)}return}
+    if(d.workflowWord){e.stopPropagation();const sel=window.getSelection();if(sel&&!sel.isCollapsed&&String(sel).trim())return;wordPopup(d.workflowWord,t);return}
   },true)
+  function refreshItem(k){
+    const el=document.getElementById('it-'+k);if(!el)return
+    const it=gItems(group()).find(x=>x.key===k);if(!it||it.kind!=='choice')return
+    const opts=el.querySelector('.pq-opts');if(opts)opts.outerHTML=optionsHTML(it)
+    el.querySelector('.pq-instant')?.remove();const fb=feedback(it);if(fb)el.insertAdjacentHTML('beforeend',fb)
+  }
+  document.addEventListener('focusin',e=>{if(!inSession())return;const it=e.target.closest?.('[data-item]');if(it&&it.dataset.item!==cur){cur=it.dataset.item;document.querySelectorAll('[data-item].cur').forEach(x=>x.classList.toggle('cur',x===it));it.classList.add('cur');paintCard()}})
+  document.addEventListener('pointerdown',e=>{if(!inSession())return;const it=e.target.closest?.('[data-item]');if(it&&it.dataset.item!==cur)setCur(it.dataset.item)})
   document.addEventListener('change',e=>{
     const t=e.target
-    if(t.id==='workflow-year'){state.year=Number(t.value);state.articleId=articles.find(a=>a.year===state.year)?.id||'';if(state.type==='mock')state.durationMinutes=listening[state.year]?.timeLimitMinutes||0;renderConfig();return}
-    if(t.id==='workflow-duration'){state.durationMinutes=Math.max(0,Math.min(300,Number(t.value)||0));renderConfig();return}
-    if(t.name==='workflow-range'){state.range=t.value;renderConfig();return}
-    if(t.name==='workflow-article'){if(state.range==='custom')state.customIds=t.checked?[...new Set([...state.customIds,t.value])]:state.customIds.filter(x=>x!==t.value);else state.articleId=t.value;renderConfig();return}
-    if(t.name==='workflow-mode'){state.mode=t.value;renderConfig();return}
-    if(t.dataset.workflowSwitch){state[t.dataset.workflowSwitch]=t.checked;return}
-    if(t.dataset.workflowChoice){session.answers[t.dataset.workflowChoice]=Number(t.value);persist();t.closest('.workflow-options').querySelectorAll('label').forEach(x=>x.classList.toggle('selected',x.querySelector('input').checked));const card=document.querySelector(`[data-workflow-jump="${t.dataset.workflowChoice}"]`);card?.classList.add('answered');return}
+    if(t.dataset.pqSwitch){cfg[t.dataset.pqSwitch]=t.checked;renderConfig();return}
+    if(t.dataset.pqEval){saveEval(t.dataset.pqEval,Number(t.dataset.i),t.checked);const card=t.closest('.workflow-report-card');if(card){const run=lastRun,g=run.groups.find(x=>`${x.kind}-${x.year}`===t.dataset.pqEval);if(g)card.outerHTML=selfEval(g,run)}return}
+    if(!session)return
+    if(t.dataset.workflowChoice){const k=t.dataset.workflowChoice;session.answers[k]=Number(t.value);persist();refreshItem(k);setCur(k);return}
     if(t.dataset.workflowErrorKind){session.answers[t.dataset.workflowErrorKind]||={};session.answers[t.dataset.workflowErrorKind].kind=t.value;persist();return}
+    if(t.dataset.pqTarget){const y=t.dataset.pqTarget;session.targets||={};session.targets[y]=Math.max(50,Math.min(1200,Number(t.value)||300));persist();const c=$('#pq-wcount');if(c)c.innerHTML=writingCount(Number(y),session.answers[`writing-${y}`]);return}
   })
   document.addEventListener('input',e=>{
-    const t=e.target
-    if(t.dataset.workflowBlank){const key=t.dataset.workflowBlank;session.answers[key]=t.value;persist();t.classList.toggle('filled',!!t.value.trim());t.style.width=blankW(t.value)+'px'
-      const btn=document.querySelector(`[data-workflow-jump="${key}"]`);btn?.classList.toggle('answered',!!t.value.trim())
-      const x=listening[group().year]?.miniLecture
-      if(x){const n=x.blanks.filter(b=>String(session.answers[`lecture-${group().year}-${b.number}`]||'').trim()).length,el=document.querySelector('#wf-lecture-count');if(el)el.textContent=`已填 ${n} / ${x.blanks.length}`}
-      return}
-    if(t.dataset.workflowShort){session.answers[t.dataset.workflowShort]=t.value;persist();const q=questions.find(x=>qid(x)===t.dataset.workflowShort),limit=q?.wordLimit,n=words(t.value),el=document.querySelector(`[data-count-for="${t.dataset.workflowShort}"]`);el.textContent=limit?`${n} / ${limit} 词${n>limit?' · 超出限制':''}`:`${n} 词 · 上限未录入`;el.classList.toggle('over',!!limit&&n>limit);document.querySelector(`[data-workflow-jump="${t.dataset.workflowShort}"]`)?.classList.toggle('answered',!!t.value.trim());return}
-    if(t.dataset.workflowErrorText){session.answers[t.dataset.workflowErrorText]||={};session.answers[t.dataset.workflowErrorText].text=t.value;persist();return}
-    if(t.dataset.workflowText){session.answers[t.dataset.workflowText]=t.value;persist();const n=words(t.value),el=document.querySelector('#wf-long-count'),min=t.dataset.workflowText.startsWith('writing')?papers[group().year]?.writingMinWords:null;el.textContent=`${n} 词${min?` · 最低 ${min} 词`:''} · 草稿自动保存`;el.classList.toggle('under',!!min&&n<min);return}
+    const t=e.target;if(!session)return
+    if(t.dataset.workflowBlank){const k=t.dataset.workflowBlank;session.answers[k]=t.value;persist();t.classList.toggle('filled',!!t.value.trim());t.style.width=blankW(t.value)+'px'
+      const items=gItems(group()),n=items.filter(it=>isAnswered(it,session.answers)).length,el=$('#wf-lecture-count');if(el)el.textContent=`已填 ${n} / ${items.length}`;paintCard();return}
+    if(t.dataset.workflowShort){const k=t.dataset.workflowShort;session.answers[k]=t.value;persist();const it=gItems(group()).find(x=>x.key===k),limit=it?.limit,n=words(t.value),el=document.querySelector(`[data-count-for="${k}"]`);if(el){el.textContent=limit?`${n} / ${limit} 词${n>limit?' · 超出':''}`:`${n} 词`;el.classList.toggle('over',!!limit&&n>limit)}paintCard();return}
+    if(t.dataset.workflowErrorText){const k=t.dataset.workflowErrorText;session.answers[k]||={};session.answers[k].text=t.value;persist();paintCard();return}
+    if(t.dataset.workflowText){const k=t.dataset.workflowText;session.answers[k]=t.value;persist()
+      if(k.startsWith('writing')){const c=$('#pq-wcount');if(c)c.innerHTML=writingCount(Number(k.split('-')[1]),t.value)}else{const el=$('#wf-long-count');if(el)el.textContent=`${words(t.value)} 词 · 自动保存`}
+      paintCard();return}
   })
-  setInterval(()=>{if(!session||!document.querySelector('#workflow-session-view').classList.contains('active'))return;const n=session.deadline?Math.max(0,Math.ceil((session.deadline-Date.now())/1000)):Math.floor((Date.now()-session.started)/1000),el=document.querySelector('#workflow-time');if(el)el.textContent=`${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;if(session.deadline&&n===0)report()},1000)
-  window.TEM8_WORKFLOW={renderCards,readerActions,openConfig,openMock,runScore,history:()=>saved().history||[],session:()=>saved().session}
+  // 键盘：A–D 选项，←/→ 切题，F 标记存疑
+  document.addEventListener('keydown',e=>{
+    if(!inSession()||e.metaKey||e.ctrlKey||e.altKey)return
+    if($('#pq-dialog')?.open||document.querySelector('dialog[open]'))return
+    const tag=(e.target.tagName||'').toLowerCase();if(['input','textarea','select'].includes(tag)||e.target.isContentEditable)return
+    const k=e.key.toLowerCase()
+    if(k==='arrowright'||k==='arrowleft'){e.preventDefault();moveItem(k==='arrowright'?1:-1);return}
+    const items=gItems(group());if(!cur&&items[0])cur=items[0].key
+    const it=items.find(x=>x.key===cur);if(!it)return
+    if(k==='f'){e.preventDefault();document.querySelector(`[data-workflow-mark="${it.key}"]`)?.click();return}
+    if(it.kind==='choice'&&'abcd'.includes(k)&&k.length===1){const i='abcd'.indexOf(k);if(i>=(it.options||[]).length)return;e.preventDefault();session.answers[it.key]=i;persist();refreshItem(it.key);setCur(it.key);return}
+  })
+  setInterval(()=>{
+    if(!session||!$('#workflow-session-view')?.classList.contains('active'))return
+    const exam=!!session.deadline,n=exam?Math.max(0,Math.ceil((session.deadline-Date.now())/1000)):Math.floor(elapsedMs()/1000)
+    const el=$('#workflow-time');if(el&&!session.hideTimer)el.textContent=mmss(n)
+    const box=$('.pq-timer');if(box&&exam)box.classList.toggle('warn',n<=600)
+    if(exam&&n===0){submit();return}
+    if(n%15===0)persist()
+  },1000)
+  window.addEventListener('beforeunload',()=>{if(session&&!window.TEM8_IMPORTING_BACKUP)persist()})
+
+  // 一次性迁移：从旧的交卷记录里把错题、存疑标记整理进错题本
+  ;(function migrate(){
+    const s=load();if(s.mzv===1)return
+    const runs=(s.history||[]).filter(r=>r&&Array.isArray(r.groups)).sort((x,y)=>(x.finishedAt||0)-(y.finishedAt||0))
+    for(const r of runs){try{mistakeUpdate({...r,answers:r.answers||{},marks:r.marks||{},finishedAt:r.finishedAt||Date.now()})}catch{}}
+    const live=s.session;if(live?.marks&&Array.isArray(live.groups)){try{mistakeUpdate({groups:live.groups,answers:{},marks:live.marks,finishedAt:Date.now()})}catch{}}
+    writeStore(x=>{x.mzv=1})
+  })()
+  window.TEM8_WORKFLOW={renderCards,readerActions,openConfig,openMock,runScore:r=>stats(r).pct,history:()=>load().history||[],session:()=>load().session,itemInfo,startKeys,analysisHTML,parseKey,REASONS}
 })()
