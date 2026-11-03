@@ -15,29 +15,38 @@
   const midQuestions = window.TEM8_MID_QUESTIONS || []
   const allArticles = [...articles2026,...articles2025,...midArticles,...archiveArticles,...archiveArticles2]
   const allRealQuestions = [...questions2026,...questions2025,...midQuestions,...archiveQuestions,...archiveQuestions2]
-  let dictionary = window.TEM8_DICTIONARY || {}
-  let dictionaryPromise = null
+  const dictionary = window.TEM8_DICTIONARY ||= {}
+  const dictionaryLoaded = new Set()
+  const dictionaryPromises = new Map()
   let wordLookupRequest = 0
-  function ensureDictionary() {
-    if (window.TEM8_DICTIONARY) {
-      dictionary = window.TEM8_DICTIONARY
-      return Promise.resolve()
+  function dictionaryBuckets(words) {
+    const buckets = new Set()
+    for (const raw of Array.isArray(words) ? words : [words]) {
+      const word = String(raw || '').toLowerCase().replace(/^[^a-z]+/, '')
+      for (const value of [word, wordLemmas[word]]) {
+        const letter = String(value || '')[0]
+        if (/[a-z]/.test(letter)) buckets.add(letter)
+      }
     }
-    if (!dictionaryPromise) dictionaryPromise = new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = 'dictionary.js'
-      script.onload = () => {
-        dictionary = window.TEM8_DICTIONARY || {}
-        resolve()
-      }
-      script.onerror = () => {
-        dictionaryPromise = null
-        script.remove()
-        reject(new Error('词典加载失败'))
-      }
-      document.head.appendChild(script)
-    })
-    return dictionaryPromise
+    return [...buckets]
+  }
+  function needsDictionary(words) { return dictionaryBuckets(words).some(letter => !dictionaryLoaded.has(letter)) }
+  function ensureDictionary(words) {
+    return Promise.all(dictionaryBuckets(words).map(letter => {
+      if (dictionaryLoaded.has(letter)) return Promise.resolve()
+      if (!dictionaryPromises.has(letter)) dictionaryPromises.set(letter, new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = `dictionary/${letter}.js`
+        script.onload = () => { dictionaryLoaded.add(letter); resolve() }
+        script.onerror = () => {
+          dictionaryPromises.delete(letter)
+          script.remove()
+          reject(new Error('词典加载失败'))
+        }
+        document.head.appendChild(script)
+      }))
+      return dictionaryPromises.get(letter)
+    }))
   }
   const wordLemmas = { became:'become', bought:'buy', came:'come', chose:'choose', clung:'cling', gave:'give', held:'hold', kept:'keep', lying:'lie', sank:'sink', took:'take', undid:'undo', went:'go', brakemen:'brakeman', neighborhoods:'neighborhood',
     better:'good', best:'good', worse:'bad', worst:'bad', children:'child', men:'man', women:'woman', feet:'foot', teeth:'tooth', mice:'mouse', geese:'goose', oxen:'ox', lives:'life', knives:'knife', wives:'wife', leaves:'leaf', halves:'half', shelves:'shelf', wolves:'wolf', thieves:'thief', selves:'self', data:'datum', criteria:'criterion', phenomena:'phenomenon', analyses:'analysis', bases:'basis', crises:'crisis', theses:'thesis', hypotheses:'hypothesis', media:'medium', stimuli:'stimulus', curricula:'curriculum', alumni:'alumnus', cacti:'cactus', fungi:'fungus', nuclei:'nucleus', radii:'radius', formulae:'formula', was:'be', were:'be', is:'be', are:'be', am:'be', been:'be', being:'be', had:'have', has:'have', having:'have', does:'do', did:'do', done:'do', doing:'do', said:'say', made:'make', knew:'know', known:'know', got:'get', gotten:'get', fell:'fall', fallen:'fall', felt:'feel', found:'find', left:'leave', lost:'lose', met:'meet', paid:'pay', ran:'run', rose:'rise', risen:'rise', saw:'see', seen:'see', sold:'sell', sent:'send', spoke:'speak', spoken:'speak', spent:'spend', stood:'stand', swam:'swim', swum:'swim', thought:'think', told:'tell', wrote:'write', written:'write', wore:'wear', worn:'wear', won:'win', threw:'throw', thrown:'throw', grew:'grow', grown:'grow', drew:'draw', drawn:'draw', flew:'fly', flown:'fly', blew:'blow', blown:'blow', broke:'break', broken:'break', drove:'drive', driven:'drive', ate:'eat', eaten:'eat', drank:'drink', drunk:'drink', bit:'bite', bitten:'bite', hid:'hide', hidden:'hide', led:'lead', laid:'lay', lain:'lie', fled:'flee', dealt:'deal', meant:'mean', slept:'sleep', swept:'sweep', wept:'weep', crept:'creep', leapt:'leap', bent:'bend', lent:'lend', spent2:'spend', built:'build', caught:'catch', taught:'teach', fought:'fight', sought:'seek', brought:'bring', forgot:'forget', forgotten:'forget', chose:'choose', chosen:'choose', froze:'freeze', frozen:'freeze', stole:'steal', stolen:'steal', shook:'shake', shaken:'shake', woke:'wake', woken:'wake', bore:'bear', born:'bear', borne:'bear', tore:'tear', torn:'tear', wore2:'wear', swore:'swear', sworn:'swear', began:'begin', begun:'begin', rang:'ring', rung:'ring', sang:'sing', sung:'sing', drank2:'drink', shrank:'shrink', shrunk:'shrink', sprang:'spring', sprung:'spring', stuck:'stick', struck:'strike', stung:'sting', dug:'dig', hung:'hang', spun:'spin', slid:'slide', sought2:'seek', fled2:'flee', shone:'shine', shot:'shoot', fed:'feed', bled:'bleed', bred:'breed', sped:'speed', dwelt:'dwell' }
@@ -204,9 +213,9 @@
       : ''
     if (!list) return
     if (!words.length) { list.innerHTML = '<div class="review-empty"><strong>生词本还是空的</strong>阅读或做题时点开单词，点“加入单词本”就会出现在这里。</div>'; return }
-    if (!window.TEM8_DICTIONARY) {
+    if (needsDictionary(words)) {
       list.innerHTML = '<div class="review-empty">正在加载词典…</div>'
-      ensureDictionary().then(() => {
+      ensureDictionary(words).then(() => {
         if ($('words-view').classList.contains('active')) renderWordbook()
       }).catch(() => { list.innerHTML = '<div class="review-empty">词典加载失败，请刷新页面重试。</div>' })
       return
@@ -243,8 +252,8 @@
   }
   function xmlEsc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;' }[c])) }
   function exportWords(kind) {
-    if (!window.TEM8_DICTIONARY) {
-      ensureDictionary().then(() => exportWords(kind)).catch(() => alert('词典加载失败，请刷新页面重试。'))
+    if (needsDictionary(store.wordbook || [])) {
+      ensureDictionary(store.wordbook || []).then(() => exportWords(kind)).catch(() => alert('词典加载失败，请刷新页面重试。'))
       return
     }
     syncWordbook()
@@ -455,7 +464,7 @@
     $('reader-content').innerHTML = html
   }
   function showWord(key,index) {
-    if (!window.TEM8_DICTIONARY) {
+    if (needsDictionary(key)) {
       const request = ++wordLookupRequest
       const dialog = $('word-dialog')
       $('word-title').textContent = String(key || '')
@@ -463,7 +472,7 @@
       $('word-meaning').textContent = '正在加载词典…'
       $('word-dictionary').innerHTML = ''
       if (!dialog.open) dialog.showModal()
-      ensureDictionary().then(() => {
+      ensureDictionary(key).then(() => {
         if (request !== wordLookupRequest || !dialog.open) return
         dialog.close()
         showWord(key,index)
