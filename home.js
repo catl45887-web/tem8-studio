@@ -84,87 +84,57 @@
     })
   }
 
-  function render() {
-    if (!$('h-days')) return
-    today = new Date()
-    var CN = '日一二三四五六'
+  function row(view, text, end) {
+    return '<button class="h-row" type="button" data-view="' + view + '"><span>' + text + '</span><span class="h-row-end">' + end + '</span></button>'
+  }
 
-    // 倒计时
+  function render() {
+    if (!$('h-count-line')) return
+    today = new Date()
+
+    // 倒计时：一行小字
     var exam = parse(get('tem8_exam_date', ''))
     var left = exam ? dayNo(exam) - dayNo(today) : null
-    if (exam && left >= 0) {
-      $('h-days').textContent = left
-      $('h-days-cap').textContent = left === 0 ? '今天考试，加油' : '距离专八'
-      $('h-date-btn').textContent = '改日期'
-      if (input) input.value = ymd(exam)
-      var d0 = parse(days()[0]) || parse(get('tem8_exam_set', '')) || today
-      var setDay = parse(get('tem8_exam_set', ''))
-      if (setDay && setDay < d0) d0 = setDay
-      var total = Math.max(1, dayNo(exam) - dayNo(d0)), gone = Math.min(total, Math.max(0, dayNo(today) - dayNo(d0)))
-      var pct = Math.round(gone / total * 100)
-      $('h-track-fill').style.width = pct + '%'
-      $('h-track-start').textContent = (d0.getMonth() + 1) + '月' + d0.getDate() + '日 开始'
-      $('h-track-pct').textContent = '已走过 ' + pct + '%'
-      document.querySelector('.h-count').classList.remove('h-unset')
-    } else {
-      $('h-days').textContent = '—'
-      $('h-days-cap').textContent = exam ? '考试日期已过' : '距离专八'
-      $('h-date-btn').textContent = '设定考试日期'
-      $('h-track-fill').style.width = '0%'
-      $('h-track-start').textContent = (today.getMonth() + 1) + '月' + today.getDate() + '日 · 星期' + CN[today.getDay()]
-      $('h-track-pct').textContent = ''
-      document.querySelector('.h-count').classList.add('h-unset')
-    }
+    var line = $('h-count-line')
+    if (exam && left > 0) line.innerHTML = '距离专八还有 <b>' + left + '</b> 天'
+    else if (exam && left === 0) line.innerHTML = '<b>今天考试，加油</b>'
+    else line.textContent = exam ? '考试日期已过' : '距离专八'
+    $('h-date-btn').textContent = exam && left >= 0 ? '改日期' : '设定考试日期'
+    if (input && exam) input.value = ymd(exam)
 
-    // 今日推荐
-    var a = todaysPick()
+    // 主卡片：有没读完的就"继续上次"，否则今日推荐（真题）
+    var lastId = get('tem8_last_article', '')
+    var going = articles.filter(function (x) { var st = stateOf(x.id); return st.progress > 0 && !st.completed })
+    var cont = going.filter(function (x) { return x.id === lastId })[0] || going[0]
+    var a = cont || todaysPick()
+    var card = $('h-card')
     if (a) {
-      $('h-pick').hidden = false
-      $('h-pick-label').textContent = '今日推荐 · ' + a.year + ' 阅读 ' + String(a.label || '').toUpperCase()
-      $('h-pick-text').textContent = opening(a, 120)
-      var st = stateOf(a.id), q = qCount(a)
-      $('h-pick-meta').textContent = words(a) + ' 词 · ' + a.segments.length + ' 段' + (q ? ' · ' + q + ' 题' : '') + (st.completed ? ' · 已读完' : (st.progress ? ' · 读到第 ' + Math.min(st.progress, a.segments.length) + ' 段' : ''))
-      $('h-pick-read').dataset.article = a.id
-      $('h-pick-read').textContent = st.progress && !st.completed ? '接着精读' : '开始精读'
-      $('h-pick-do').dataset.article = a.id
-      $('h-pick-do').hidden = !q
-    }
+      card.hidden = false
+      var st = stateOf(a.id), tot = a.segments.length, n = Math.min(st.progress || 0, tot), q = qCount(a)
+      $('h-card-label').textContent = (cont ? '继续上次 · ' : '今日推荐 · ') + a.year + ' 真题 · ' + (a.label || '')
+      $('h-card-text').textContent = opening(a, 110)
+      $('h-card-progress').hidden = !cont
+      $('h-card-fill').style.width = Math.round(n / tot * 100) + '%'
+      $('h-card-meta').textContent = cont ? '读到第 ' + n + ' / ' + tot + ' 段' : tot + ' 段' + (q ? ' · ' + q + ' 题' : '') + (st.completed ? ' · 已读完' : '')
+      $('h-card-read').dataset.article = a.id
+      $('h-card-read').textContent = cont ? '继续精读' : '开始精读'
+      $('h-card-do').dataset.article = a.id
+      $('h-card-do').hidden = !q
+    } else card.hidden = true
 
-    // 今天：复习
+    // 今日待办：只写真实数字
     var mistakes = parseInt(($('stat-mistakes') || {}).textContent, 10) || 0
     var wb = (store().wordbook || []).length
-    var rv = $('h-review')
-    if (mistakes || wb) {
-      var parts = []
-      if (mistakes) parts.push('<b class="h-red">' + mistakes + '</b> 道错题')
-      if (wb) parts.push('<b>' + wb + '</b> 个生词')
-      $('h-review-text').innerHTML = '复习 ' + parts.join('、')
-      $('h-review-end').textContent = '约 ' + Math.max(2, Math.round(mistakes * 1.5 + wb * 0.2)) + ' 分钟 →'
-      rv.dataset.view = mistakes ? 'mistakes' : 'words'
-    } else {
-      $('h-review-text').textContent = '还没有错题和生词'
-      $('h-review-end').textContent = '去做一组题 →'
-      rv.dataset.view = 'papers'
-    }
-
-    // 今天：接着读
-    var lastId = get('tem8_last_article', '')
-    var going = articles.filter(function (x) { var s = stateOf(x.id); return s.progress > 0 && !s.completed })
-    var cont = going.filter(function (x) { return x.id === lastId })[0] || going[0]
-    var cb = $('h-continue')
-    if (cont && (!a || cont.id !== a.id)) {
-      var cs = stateOf(cont.id), tot = cont.segments.length, n = Math.min(cs.progress, tot)
-      cb.hidden = false
-      cb.dataset.article = cont.id
-      $('h-continue-text').textContent = '接着读 ' + cont.year + ' ' + (cont.label || '')
-      $('h-continue-end').textContent = n + ' / ' + tot + ' 段 →'
-      $('h-continue-fill').style.width = Math.round(n / tot * 100) + '%'
-    } else cb.hidden = true
+    var rows = []
+    if (mistakes) rows.push(row('mistakes', '错题 <b>' + mistakes + '</b> 道待回练', '→'))
+    if (wb) rows.push(row('words', '生词本 <b>' + wb + '</b> 个', '→'))
+    if (!rows.length) rows.push(row('papers', '还没有错题和生词', '做一组题 →'))
+    $('h-todo-list').innerHTML = rows.join('')
 
     // 连续天数：用一句话说
     var n2 = streak(), all = days().length
     $('h-streak').innerHTML = all
-      ? (n2 ? '你已经连续学习 <b>' + n2 + '</b> 天' : '昨天没有学习，今天重新开始') + (all > n2 ? '，一共学了 <b>' + all + '</b> 天。' : '。')
+      ? (n2 ? '已连续学习 <b>' + n2 + '</b> 天' : '昨天没有学习，今天重新开始') + (all > n2 ? '，一共学了 <b>' + all + '</b> 天。' : '。')
       : '读完一段、做一道题，都会记作今天学过。'
   }
 

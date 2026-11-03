@@ -159,7 +159,7 @@
   }
   const KEY = 'tem8_studio_web_v1'
   const letters = ['A','B','C','D']
-  const labels = { home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', my:'我的', exam:'正在练习', result:'练习结果', reader:'阅读文章', settings:'外观设置' }
+  const labels = { notes:'笔记', home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', my:'我的', exam:'正在练习', result:'练习结果', reader:'阅读文章', settings:'外观设置' }
   const defaultStore = { sessions:0, correct:0, attempted:0, mistakes:[], bookmarks:[], wordbook:[], readingStates:{}, readingTools:{}, readingBackground:'paper', practiceAnswers:{}, practiceIndex:{}, paperWork:{}, readingFont:17, draft:null, lastResult:null }
   let store = load()
   let session = null
@@ -194,7 +194,6 @@
     view = name
     document.querySelectorAll('.view').forEach(el => el.classList.toggle('active', el.id === name+'-view'))
     document.querySelectorAll('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view === name))
-    $('crumb').textContent = labels[name]
     window.scrollTo(0,0)
     renderDashboard()
     if (name === 'papers') renderCategories()
@@ -235,7 +234,7 @@
       ? `<span class="muted">共 <strong>${words.length}</strong> 词</span><button class="primary-btn" data-word-export="txt">导出 txt <span>↓</span></button><button class="secondary-btn" data-word-export="docx">导出 Word</button><button class="secondary-btn" data-word-clear>清空</button>`
       : ''
     if (!list) return
-    if (!words.length) { list.innerHTML = '<div class="review-empty"><strong>生词本还是空的</strong>阅读或做题时点开单词，点“加入单词本”就会出现在这里。</div>'; return }
+    if (!words.length) { list.innerHTML = '<div class="review-empty"><strong>生词本还是空的</strong>读文章时点开单词，点“加入单词本”就会出现在这里。<button type="button" class="secondary-btn" data-view="library">去读一篇</button></div>'; return }
     if (needsDictionary(words)) {
       list.innerHTML = '<div class="review-empty">正在加载词典…</div>'
       ensureDictionary(words).then(() => {
@@ -308,12 +307,10 @@
     if (!years.length) { el.innerHTML = '<div class="review-empty"><strong>暂无整卷数据</strong>需要同时具备听力与书面部分。</div>'; return }
     el.innerHTML = years.map(y => {
       const it = L[y] || {}
-      const mins = it.timeLimitMinutes ? `建议 ${it.timeLimitMinutes} 分钟` : '时长未录入'
       const source=paperExtras[y],hasReading=allArticles.some(a=>Number(a.year)===y)
       const ready=!!(it.audio&&it.miniLecture?.blanks?.length&&it.interview?.questions?.length&&hasReading&&source?.languageLines?.length&&source?.translation?.length&&source?.writing?.length)
-      const parts = [it.miniLecture ? 'Section A 填空' : 'Section A 待补', it.interview ? 'Section B 选择' : 'Section B 待补', hasReading ? 'Part II 阅读' : '阅读待补', source?.languageLines?.length ? 'Part III 改错' : '改错待补', source?.translation?.length ? 'Part IV 翻译' : '翻译待补', source?.writing?.length ? 'Part V 写作' : '写作待补'].filter(Boolean)
-      const missing=ready?'各部分资料齐全':!it.audio?'听力音频待补，暂不可启动':'整卷资料不全，暂不可启动'
-      return `<button class="mock-card" data-mock-year="${y}" ${ready?'':'disabled'}><span class="pill">${y} 年整卷</span><strong>${y} · TEM-8 ${ready?'完整试卷':'资料待补'}</strong><small>${parts.join(' · ')}</small><em>${mins}</em><b>${ready?'配置模考 →':missing}</b></button>`
+      const done=[it.miniLecture&&it.interview, hasReading, source?.languageLines?.length, source?.translation?.length, source?.writing?.length].filter(Boolean).length
+      return `<button class="mock-card" data-mock-year="${y}" ${ready?'':'disabled'}><strong>${y} 年整卷</strong><small>${ready ? `5 个部分 · ${it.timeLimitMinutes ? `约 ${it.timeLimitMinutes} 分钟` : '时长未录入'}` : `资料待补（已有 ${done} / 5 部分）`}</small><b>${ready?'开始 →':''}</b></button>`
     }).join('')
   }
   function paperState() { store.paperWork ||= {};store.paperWork[paperYear] ||= {language:{},translation:'',writing:''};return store.paperWork[paperYear] }
@@ -336,22 +333,28 @@
     $('stat-sessions').textContent = store.sessions+(real.history||[]).length
     $('stat-accuracy').textContent = store.attempted ? Math.round(store.correct/store.attempted*100)+'%' : '—'
     $('stat-mistakes').textContent = store.mistakes.length+review.size
-    $('mistake-nav-count').textContent = store.mistakes.length+review.size || ''
+    const dot=document.querySelector('[data-tab="review"] [data-tab-dot]'); if (dot) { const n=store.mistakes.length+review.size; dot.hidden=!n; dot.textContent=n>99?'99+':String(n||'') }
+  }
+  function openingLine(a) {
+    const t=String(a.segments?.[0]?.en||'').replace(/\s+/g,' ').trim()
+    const first=(t.match(/^.+?[.!?]["”’]?(?=\s|$)/)||[t])[0]
+    return first.length>140 ? first.slice(0,first.lastIndexOf(' ',136))+'…' : first
   }
   function renderLibrary() {
     const yearArticles=allArticles.filter(a => a.year === selectedLibraryYear)
-    $('library-year-heading').textContent=`${selectedLibraryYear} 年真题阅读`
-    $('library-year-count').textContent=`${yearArticles.length} 篇文章 · ${allRealQuestions.filter(q => q.articleId.startsWith(selectedLibraryYear+'-')).length} 道题`
+    $('library-year-heading').textContent=`${selectedLibraryYear} 年`
+    $('library-year-count').textContent=` · ${yearArticles.length} 篇 · ${allRealQuestions.filter(q => q.articleId.startsWith(selectedLibraryYear+'-')).length} 道题`
     $('library-year-nav').innerHTML=[...new Set(allArticles.map(a=>a.year))].sort((a,b)=>b-a).map(year=>`<button data-library-year="${year}" class="${year===selectedLibraryYear?'active':''}">${year}</button>`).join('')
     $('real-article-list').innerHTML = yearArticles.map(a => {
       const s=articleState(a.id), total=a.segments.length, n=Math.min(total,s.progress)
-      return `<article class="real-article-card"><div class="real-article-top"><span class="pill">${a.year} 真题 · ${esc(a.label)}</span><span>${s.completed ? '✓ 已读完' : `${n} / ${total} 段`}</span></div><h3>${esc(a.title)}</h3><p>${esc(extras.descriptions[a.id] || '阅读原文与配套真题，记录保存在当前浏览器。')}</p><div class="real-article-meta"><span>${total} 个段落</span><span>${allRealQuestions.filter(q=>q.articleId===a.id).length} 道题</span><span>点词查义</span></div><div class="progress-track"><i style="width:${Math.round(n/total*100)}%"></i></div><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n ? '继续精读' : '开始精读'} <span>↗︎</span></button><button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题 →</button></div></article>`
+      const qn=allRealQuestions.filter(q=>q.articleId===a.id).length
+      return `<article class="real-article-card"><div class="real-article-top"><span class="pill">${esc(a.label)}</span><span>${s.completed ? '已读完' : n ? `读到 ${n} / ${total} 段` : `${total} 段${qn ? ` · ${qn} 题` : ''}`}</span></div><h3 class="real-article-label">${esc(a.label)}</h3><p class="real-article-open">${esc(openingLine(a))}</p>${n && !s.completed ? `<div class="progress-track"><i style="width:${Math.round(n/total*100)}%"></i></div>` : ''}<div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n && !s.completed ? '继续精读' : '精读'}</button>${qn ? `<button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题</button>` : ''}</div></article>`
     }).join('')
   }
   function renderReview(kind) {
     const ids = kind === 'mistakes' ? store.mistakes : store.bookmarks
     const target = $(kind+'-content')
-    if (!ids.length) { target.innerHTML = `<div class="review-empty"><strong>${kind === 'mistakes' ? '错题本还是空的' : '还没有收藏题目'}</strong>${kind === 'mistakes' ? '完成选择题练习后，答错的题会保存在这里。' : '做题或看解析时，点击星标即可收藏。'}</div>`; return }
+    if (!ids.length) { target.innerHTML = `<div class="review-empty"><strong>${kind === 'mistakes' ? '错题本还是空的' : '还没有收藏题目'}</strong>${kind === 'mistakes' ? '完成选择题练习后，答错的题会保存在这里。' : '做题或看解析时，点击星标即可收藏。'}<button type="button" class="secondary-btn" data-view="papers">去做一组题</button></div>`; return }
     const items = ids.map(id => find(id)).filter(Boolean)
     target.innerHTML = (kind === 'mistakes' ? `<button class="primary-btn" data-action="retry-all">回练全部错题 <span>↗︎</span></button><div style="height:18px"></div>` : '') + `<div class="review-list">${items.map(q => `<div class="review-item"><div><small>${esc(q.typeName)} · ${esc(q.id)}</small><h3>${esc(q.prompt)}</h3></div><button data-start-one="${esc(q.id)}">${kind === 'mistakes' ? '重做' : '练习'}</button></div>`).join('')}</div>`
   }
@@ -424,7 +427,6 @@
     const state=articleState(activeArticle.id)
     document.body.classList.toggle('free-reader', readerMode === 'free')
     document.body.classList.toggle('real-practice', readerMode === 'practice')
-    $('reader-back').textContent = '← 返回阅读目录'
     $('reader-mode-badge').textContent = `${activeArticle.year} 专八真题 · ${readerMode === 'free' ? '精读' : '做题'}`
     $('reader-view').classList.toggle('reader-sepia',store.readingBackground==='sepia')
     document.querySelector('.reader-title').textContent=activeArticle.title
@@ -663,7 +665,7 @@
       if (p) { p.scrollIntoView({behavior:'smooth',block:'center'}); p.classList.add('anno-flash'); setTimeout(() => p.classList.remove('anno-flash'),1200) }
     },320)
   })
-  $('today').textContent = new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'long',day:'numeric'}).format(new Date())
+  if ($('today')) $('today').textContent = new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'long',day:'numeric'}).format(new Date())
   // 暴露给其他模块（workflow.js / intensive.js 等）复用同一个查词弹窗
   window.TEM8_SHOW_WORD = (word) => {
     const w = String(word || '').toLowerCase().replace(/[’]/g,"'")

@@ -1,0 +1,199 @@
+/* =====================================================================
+   拾页 · App 式布局（三套主题通用，最后加载）
+   - 去掉侧栏和顶栏：所有屏幕都用底部 5 栏导航，内容居中
+   - 页面头部：大标题 + 分段切换
+   - 阅读页：顶部一行工具，底部阅读工具条
+   - 查词弹窗、下拉框等配色修正
+   ===================================================================== */
+
+/* ---------- 配色变量 ---------- */
+:root{--app-on:var(--ink);--tab-bg:rgba(250,246,238,.94);--app-card:var(--paper)}
+html[data-theme=light]{--tab-bg:rgba(250,246,238,.94);--muted:#6b6156}
+html[data-theme=dark]{--tab-bg:rgba(28,27,25,.94);--muted:#9a948b}
+html[data-theme=xmas]{--app-on:var(--gold);--tab-bg:rgba(36,26,20,.95)}
+
+/* ---------- 外壳 ---------- */
+.sidebar,.w-edge,.topbar,.mobile-nav{display:none!important}
+.app-shell{display:block!important;min-height:100vh}
+.main{max-width:720px!important;margin:0 auto!important;padding:0 20px calc(96px + env(safe-area-inset-bottom))!important;float:none!important}
+body.app-wide .main{max-width:1120px!important}
+body.app-immersive .main{padding-bottom:48px!important}
+body.app-v-reader .main{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+html[data-theme=xmas] body.w-home .main{max-width:none!important;padding:0 0 calc(96px + env(safe-area-inset-bottom))!important}
+@media(min-width:1220px){body.anno-dock .app-shell{padding-right:336px}}
+
+/* ---------- 底部导航 ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:65;display:grid;grid-template-columns:repeat(5,1fr);background:var(--tab-bg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 4px max(8px,env(safe-area-inset-bottom))}
+.tabbar button{position:relative;border:0;background:none!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:50px;padding:4px 0;color:var(--muted);font:inherit;box-shadow:none!important}
+.tabbar svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tabbar span{font-size:11px;letter-spacing:.5px;line-height:1.2}
+.tabbar button.on{color:var(--app-on)}
+.tabbar button.on svg{stroke-width:2.1}
+.tabbar button.on span{font-weight:600}
+.tab-dot{position:absolute;top:3px;left:calc(50% + 7px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--accent);color:#fff;font-size:10px;line-height:16px;font-weight:600;font-style:normal}
+.tab-dot[hidden]{display:none}
+body.app-immersive .tabbar{display:none}
+html[data-theme=xmas] .tabbar button.on{text-shadow:0 0 12px rgba(230,180,110,.4)}
+html[data-theme=xmas] .tabbar span{letter-spacing:2px}
+@media(min-width:900px){
+  .tabbar{left:50%;right:auto;width:460px;transform:translateX(-50%);bottom:18px;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.14);padding:6px 10px}
+}
+
+/* ---------- 页面头部 ---------- */
+.eyebrow,.backup-kicker,.section-index{display:none!important}
+.app-head{padding:30px 0 0}
+.app-head h1{font-size:30px;line-height:1.25;margin:0;font-weight:700;letter-spacing:0;color:var(--ink)}
+html[data-theme=xmas] .app-head h1{font-family:var(--song);font-weight:400;letter-spacing:4px;color:var(--cream)}
+.seg-tabs{display:flex;gap:24px;margin:16px 0 0;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.seg-tabs::-webkit-scrollbar{display:none}
+.seg-tabs button{flex:none;border:0;background:none;padding:10px 0 11px;margin-bottom:-1px;font-size:15px;color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;border-radius:0}
+.seg-tabs button.active{color:var(--ink);border-bottom-color:var(--app-on);font-weight:600}
+html[data-theme=xmas] .seg-tabs button.active{color:var(--gold);font-weight:400}
+.app-sub{margin:16px 0 0;color:var(--muted);font-size:14px;line-height:1.7}
+.app-meta{margin:12px 0 0;font-size:13px;color:var(--muted)}
+.app-note{margin:30px 0 0;font-size:13px;line-height:1.75;color:var(--muted)}
+.page-head{margin:30px 0 20px!important}
+.page-head h1{font-size:28px!important;line-height:1.3!important;letter-spacing:0!important;margin:0 0 6px!important}
+.page-head p{font-size:14px!important}
+.back-link{font-size:14px!important;padding:14px 0 4px!important}
+
+/* 圣诞主题原来的大标题区和页内装饰标题，换成统一头部后不再需要 */
+.w-papers-head{display:none!important}
+
+/* ---------- 首页 ---------- */
+html[data-theme=xmas] .t-home{display:block;max-width:720px;margin:0 auto;padding:30px 20px 0}
+.t-home{max-width:none;padding:26px 0 10px}
+.h-count{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.h-count-line{margin:0;font-size:14px;color:var(--muted)}
+.h-count-line b{color:var(--ink);font-weight:700;font-size:15px;margin:0 2px}
+.t-home .h-date-edit{margin-left:0;font-size:13px;color:var(--muted);border:0}
+.h-card{margin-top:18px;padding-top:24px;border-top:1px solid var(--line)}
+.h-card .h-quote{font-size:24px;margin-top:12px}
+.h-progress{height:3px;background:var(--line);border-radius:3px;margin:16px 0 0;overflow:hidden}
+.h-progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .6s ease}
+.h-todo{margin-top:40px}
+.h-todo .h-label{margin-bottom:4px}
+.h-row b{font-weight:700;margin:0 2px}
+html[data-theme=xmas] .h-label{letter-spacing:3px}
+html[data-theme=xmas] .t-home .h-primary{background:var(--gold);color:#2b1e17}
+html[data-theme=xmas] .h-count-line b,html[data-theme=xmas] .h-row b{color:var(--gold)}
+
+/* ---------- 阅读目录 ---------- */
+.library-year-nav{margin-top:14px!important}
+.real-article-list{grid-template-columns:1fr!important;gap:0!important;margin:10px 0 0!important}
+html:not([data-theme=xmas]) .real-article-card{padding:22px 0!important;gap:10px!important;min-height:0!important;border-top:1px solid var(--line)!important}
+html:not([data-theme=xmas]) .real-article-card h3{display:none!important}
+.real-article-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+.real-article-top .pill{font-size:13px!important;letter-spacing:.5px!important;color:var(--ink)!important;font-weight:700}
+html[data-theme] .real-article-card p.real-article-open{flex:none;margin:0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:18px;line-height:1.55;color:var(--ink)}
+html:not([data-theme=xmas]) .real-article-card .progress-track{height:3px;margin:2px 0}
+html:not([data-theme=xmas]) .article-entry-actions{margin-top:6px}
+html:not([data-theme=xmas]) .article-entry-actions button{padding:10px 22px!important;font-size:14px!important}
+html[data-theme=xmas] .real-article-list{max-width:560px;margin:20px auto 0!important;gap:26px!important}
+
+/* ---------- 练习 ---------- */
+html:not([data-theme=xmas]) #paper-categories{grid-template-columns:1fr!important;gap:0!important;margin-top:8px}
+html:not([data-theme=xmas]) #paper-categories .category-card{padding:18px 0!important}
+.category-card p,.category-card .card-foot{font-size:13px!important}
+.mock-grid{grid-template-columns:1fr!important;gap:0!important;margin-top:14px}
+html:not([data-theme=xmas]) .mock-card{display:grid!important;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;padding:18px 0!important;text-align:left;border-top:1px solid var(--line)!important;min-height:0!important}
+html:not([data-theme=xmas]) .mock-card strong{font-size:17px;grid-column:1}
+html:not([data-theme=xmas]) .mock-card small{grid-column:1;font-size:13px;color:var(--muted)}
+html:not([data-theme=xmas]) .mock-card b{grid-column:2;grid-row:1/3;font-size:14px}
+.mock-card:disabled{opacity:.6}
+.workflow-config-grid{grid-template-columns:1fr!important}
+.workflow-toggle.unavailable,.workflow-mode-list label.unavailable{display:none!important}
+.archive-paper-note{display:none}
+
+/* ---------- 复习 / 我的 ---------- */
+.backup-grid{grid-template-columns:1fr!important;margin-top:8px!important}
+.notes-page{margin-top:10px}
+.notes-page .anno-group{margin:0;padding:18px 0;border-top:1px solid var(--line)}
+.notes-page .anno-group h4{margin:0 0 10px;font-size:14px;color:var(--ink)}
+.notes-page .anno-empty{padding:28px 0;color:var(--muted);font-size:14px;line-height:1.7}
+.review-empty{display:flex!important;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:14px!important;line-height:1.7}
+.review-empty .secondary-btn{margin-top:8px}
+#settings-view .app-head+.t-settings{margin-top:22px}
+
+/* 提示框统一成和页面同色的浅底，不再用黄色、绿色 */
+.intensive-hint,.workflow-note,.wf-note,.intensive-note,.workflow-audio-note,.workflow-hint,.workflow-alert.ok{background:var(--soft)!important;border:0!important;color:var(--muted)!important;border-radius:10px!important}
+
+/* ---------- 阅读页 ---------- */
+.rd-bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:4px;height:56px;margin:0 -20px;padding:0 10px;background:var(--tab-bg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.rd-ic{position:relative;flex:none;width:44px;height:44px;display:grid;place-items:center;border:0;background:none;color:var(--ink);border-radius:10px;padding:0}
+.rd-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rd-aa{font-family:Georgia,'Times New Roman',serif;font-size:18px;margin-left:auto}
+.rd-mode{display:inline-flex!important;margin:0 0 0 6px!important;background:var(--soft)!important;border:0!important;border-radius:10px;padding:3px!important}
+.rd-mode button{border:0!important;background:none!important;padding:7px 16px!important;border-radius:8px!important;font-size:14px!important;color:var(--muted)!important}
+.rd-mode button.active{background:var(--paper)!important;color:var(--ink)!important;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.rd-mode[hidden]{display:none!important}
+.rd-count{position:absolute;top:5px;right:4px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:var(--accent);color:#fff;font-size:10px;line-height:15px;font-style:normal}
+.rd-count[hidden]{display:none}
+.rd-panel{position:sticky;top:56px;z-index:29;margin:0 -20px;padding:14px 20px;background:var(--paper);border-bottom:1px solid var(--line);display:grid;gap:12px}
+.rd-panel[hidden]{display:none}
+.rd-panel-row{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.rd-panel-row span{width:40px}
+.rd-panel-row button{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:7px 18px;font-size:14px}
+.rd-return{display:block;border:0;background:none;color:var(--muted);font-size:14px;margin-top:12px;padding:6px 0}
+.rd-return[hidden]{display:none}
+.reader-badge,.reader-subtitle,.reader-header,.reader-controls{display:none!important}
+#reader-view .reader-title{font-size:26px!important;line-height:1.3!important;margin:24px 0 14px!important}
+#reader-view .reader-intro{margin-top:4px}
+#reader-view .continuous-article{border:0!important;background:transparent!important;padding:0!important;box-shadow:none!important;border-radius:0!important}
+#reader-view .reader-toolbar{font-size:13px;color:var(--muted);border:0;background:none;padding:0 0 10px}
+.reader-english button{border-bottom:0!important}
+.rd-done{margin:30px 0 8px;text-align:center}
+.rd-done:has(#reading-done[hidden]){display:none}
+#reading-done{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:10px 26px;font-size:14px}
+#reading-done.done{color:var(--muted)}
+.rd-tabs{position:fixed!important;left:0;right:0;bottom:0;z-index:40;display:flex!important;background:var(--tab-bg)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line)!important;border-bottom:0!important;padding:4px 4px max(8px,env(safe-area-inset-bottom))!important;margin:0!important;overflow:visible!important;gap:0!important}
+.rd-tabs button{flex:1;border:0!important;background:none!important;padding:13px 2px!important;font-size:14px!important;color:var(--muted)!important;border-radius:0!important;box-shadow:none!important}
+.rd-tabs button.active{color:var(--app-on)!important;font-weight:600}
+body.real-practice .rd-tabs{display:none!important}
+@media(min-width:900px){
+  .rd-tabs{left:50%;right:auto;width:520px;transform:translateX(-50%);bottom:18px;border:1px solid var(--line)!important;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.14)}
+}
+
+/* 笔记浮动标签：阅读页改用顶栏按钮；只在做题页保留，放到右下角 */
+.anno-toggle{display:none!important}
+body.app-v-workflow-session .anno-toggle{display:flex!important;top:auto!important;right:16px!important;bottom:calc(20px + env(safe-area-inset-bottom))!important;border:1px solid var(--line)!important;border-radius:99px!important;background:var(--paper)!important;color:var(--ink)!important;padding:10px 16px!important;box-shadow:0 8px 22px rgba(0,0,0,.16)}
+.anno-panel{z-index:80!important}
+
+/* ---------- 查词弹窗：每套主题各自一套看得清的颜色 ---------- */
+html[data-theme=light] .wpop{--wp-bg:#fffdf8;--wp-bg2:#f5efe3;--wp-line:#e6ddcd;--wp-ink:#2a2118;--wp-ink2:#5d5246;--wp-ink3:#857a6d;--wp-gold:#7d3b2f;background:#fffdf8!important;color:#2a2118!important;border-color:#e6ddcd!important;box-shadow:0 18px 48px rgba(60,40,20,.18),0 2px 6px rgba(60,40,20,.08)!important}
+html[data-theme=dark] .wpop{--wp-bg:#262421;--wp-bg2:#2e2b27;--wp-line:#3d3934;--wp-ink:#ece6dc;--wp-ink2:#c9c1b4;--wp-ink3:#9a9187;--wp-gold:#d9b47c;background:#262421!important;color:#ece6dc!important;border-color:#3d3934!important;box-shadow:0 18px 48px rgba(0,0,0,.6),0 2px 6px rgba(0,0,0,.4)!important}
+html[data-theme] .wpop .wpop-word,html[data-theme] .wpop .wpop-mean{color:var(--wp-ink)!important}
+html[data-theme] .wpop .wpop-phon,html[data-theme] .wpop .wpop-pos{color:var(--wp-ink2)!important}
+html[data-theme] .wpop .wpop-ic{color:var(--wp-ink2)!important}
+html[data-theme] .wpop .wpop-more{background:var(--wp-bg2)!important;color:var(--wp-ink2)!important;border-top-color:var(--wp-line)!important}
+html[data-theme] .wpop .wpop-more:hover{color:var(--wp-ink)!important}
+html[data-theme=light] .wpop .wpop-ic:hover{background:#f0e9dc!important}
+html[data-theme=dark] .wpop .wpop-ic:hover{background:#34312d!important}
+html[data-theme=light] .wpop-tag{color:#4a3a28!important;background:#ece2d0!important}
+html[data-theme=dark] .wpop-tag{color:#ece6dc!important;background:#3e3a34!important}
+html[data-theme=light] .wpop-freq b{color:#fff!important;background:#c2603a!important}
+html[data-theme=light] .wpop-freq em{color:#b4532f!important}
+html[data-theme=dark] .wpop-freq b{color:#1c1b19!important;background:#e8925f!important}
+html[data-theme=light] .wpop-unmark{color:#a33a2c!important}
+html[data-theme=dark] .wpop-unmark{color:#ffb8ab!important}
+html[data-theme=light] .wpop .wd-audio,html[data-theme=light] .wpop .wd-collos span{background:#f5efe3!important}
+html[data-theme=dark] .wpop .wd-audio,html[data-theme=dark] .wpop .wd-collos span{background:#2e2b27!important}
+html[data-theme=light] .wpop .wd-ex-en em{color:#2a2118!important;box-shadow:inset 0 -.45em 0 rgba(194,96,58,.18)!important}
+html[data-theme=dark] .wpop .wd-ex-en em{color:#fff!important;box-shadow:inset 0 -.45em 0 rgba(217,180,124,.3)!important}
+html[data-theme=light] .wpop-anchor{background:#ead8ba!important;color:#2a2118!important;box-shadow:none!important;font-weight:inherit!important}
+html[data-theme=dark] .wpop-anchor{background:rgba(217,180,124,.3)!important;color:#fff4e2!important}
+.wpop.sheet{z-index:120}
+
+/* ---------- 表单：深色主题下拉框、输入框看得清 ---------- */
+html[data-theme=dark] select,html[data-theme=dark] input[type=text],html[data-theme=dark] input[type=number],html[data-theme=dark] textarea{background:#262421!important;color:#ece6dc!important;border-color:#3d3934!important}
+html[data-theme=dark] select option{background:#262421;color:#ece6dc}
+html[data-theme=light] select{background:#fffdf8;color:#2a2118}
+
+/* ---------- 小字：手机上至少 12px ---------- */
+.pill,.real-article-meta span,.workflow-card small,.category-card p,.mock-card small,.h-meta,.backup-detail,.anno-src,.anno-tag{font-size:max(12px,1em)}
+.muted{font-size:13px}
+
+
+/* 圣诞首页：书房场景随页面滚动，下面接倒计时、继续上次、今日待办 */
+html[data-theme=xmas] #home-view .w-stage{position:relative!important;inset:auto!important;height:82vh!important;min-height:520px}
+html[data-theme=xmas] .real-article-card .real-article-top{display:none!important}

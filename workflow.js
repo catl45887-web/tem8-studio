@@ -50,7 +50,7 @@
   function persist(){if(session){localStorage.setItem(KEY,JSON.stringify({...saved(),session}));if(!window.TEM8_SYNC_FLUSHING)document.dispatchEvent(new Event('tem8:study-changed'))}}
   document.addEventListener('tem8:flush-records', persist)
   const anno=()=>window.TEM8_ANNO
-  function show(id,label){if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('[data-view]').forEach(el=>el.classList.remove('active'));document.querySelector('#crumb').textContent=label;window.scrollTo(0,0)}
+  function show(id,label){if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('[data-view]').forEach(el=>el.classList.remove('active'));window.scrollTo(0,0)}
   function renderCards(){
     const html=types.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">${t.id==='mock'?'查看模考设置':'配置练习'} <b>↗︎</b></span></button>`).join('')
     document.querySelector('#home-categories').innerHTML=html
@@ -379,7 +379,7 @@
     }
     if(t.dataset.workflowBack){e.stopPropagation();if(t.dataset.workflowBack==='config')openConfig(session.type,session.groups[0]?.articleId);else{document.querySelector(`[data-view="${t.dataset.workflowBack}"]`).click()}return}
     if(t.dataset.workflowStart!==undefined){e.stopPropagation();start();return}
-    if(t.dataset.workflowStudy!==undefined){e.stopPropagation();persist();const a=article();document.querySelector('.side-nav [data-view="library"]')?.click();document.querySelector(`[data-open-reader][data-mode="free"][data-article="${a.id}"]`)?.click();document.querySelector('[data-workflow-return]').hidden=false;return}
+    if(t.dataset.workflowStudy!==undefined){e.stopPropagation();persist();const a=article();document.querySelector('.tabbar [data-view="library"]')?.click();document.querySelector(`[data-open-reader][data-mode="free"][data-article="${a.id}"]`)?.click();document.querySelector('[data-workflow-return]').hidden=false;return}
     if(t.dataset.workflowReturn!==undefined){e.stopPropagation();t.hidden=true;renderSession();show('workflow-session-view',title(session.type));return}
     if(t.dataset.workflowResume!==undefined){e.stopPropagation();session=saved().session;if(session){renderSession();show('workflow-session-view',title(session.type))}return}
     if(t.dataset.workflowNext!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current<session.groups.length-1){session.current++;persist();renderSession();window.scrollTo(0,0)}else report();return}

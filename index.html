@@ -6,54 +6,27 @@
   <meta name="theme-color" content="#2b1e17">
   <meta name="description" content="专八真题阅读与题组练习。">
   <title>拾页 · 专八练习</title>
-  <link rel="stylesheet" href="styles.css?v=202611030715">
-  <link rel="stylesheet" href="reader.css?v=202611030715">
-  <link rel="stylesheet" href="workflow.css?v=202611030715">
-  <link rel="stylesheet" href="annotate.css?v=202611030715">
-  <link rel="stylesheet" href="intensive.css?v=202611030715">
+  <link rel="stylesheet" href="styles.css?v=202611030818">
+  <link rel="stylesheet" href="reader.css?v=202611030818">
+  <link rel="stylesheet" href="workflow.css?v=202611030818">
+  <link rel="stylesheet" href="annotate.css?v=202611030818">
+  <link rel="stylesheet" href="intensive.css?v=202611030818">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css?v=202611030715" id="css-winter-base">
-  <link rel="stylesheet" href="winter.css?v=202611030715" id="css-winter">
-  <link rel="stylesheet" href="wordpop.css?v=202611030715">
-  <link rel="stylesheet" href="backup.css?v=202611030715">
+  <link rel="stylesheet" href="winter-base.css?v=202611030818" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css?v=202611030818" id="css-winter">
+  <link rel="stylesheet" href="wordpop.css?v=202611030818">
+  <link rel="stylesheet" href="backup.css?v=202611030818">
   <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
-  <link rel="stylesheet" href="theme-light.css?v=202611030715">
-  <link rel="stylesheet" href="theme-dark.css?v=202611030715">
-  <link rel="stylesheet" href="themes.css?v=202611030715">
+  <link rel="stylesheet" href="theme-light.css?v=202611030818">
+  <link rel="stylesheet" href="theme-dark.css?v=202611030818">
+  <link rel="stylesheet" href="themes.css?v=202611030818">
+  <link rel="stylesheet" href="app.css?v=202611030818">
   <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
   <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}[t]})()</script>
 </head>
 <body>
   <div class="app-shell">
-    <div class="w-edge" aria-hidden="true"><span>Menu</span></div>
-    <aside class="sidebar" aria-label="主导航">
-      <a class="brand" href="#home"><span class="brand-mark">拾</span><span><span class="brand-name">拾页</span><span class="brand-en">Tem-8 Studio</span></span></a>
-      <div class="side-label">学习空间</div>
-      <nav class="side-nav">
-        <button class="nav-item active" data-view="home"><span>◫</span> 学习首页</button>
-        <button class="nav-item" data-view="library"><span>▧</span> 阅读真题</button>
-        <button class="nav-item" data-view="mock"><span>▦</span> 整卷模考</button>
-        <button class="nav-item" data-view="papers"><span>▤</span> 按题型练习</button>
-        <button class="nav-item" data-view="intensive"><span>♫</span> 精听学习</button>
-        <button class="nav-item" data-view="mistakes"><span>◇</span> 错题本 <b id="mistake-nav-count"></b></button>
-        <button class="nav-item" data-view="words"><span>✎</span> 生词本</button>
-        <button class="nav-item" data-anno-all><span>✍︎</span> 标记与笔记</button>
-        <button class="nav-item" data-view="bookmarks"><span>☆</span> 我的收藏</button>
-        <button class="nav-item" data-view="my"><span>▣</span> 我的</button>
-        <button class="nav-item" data-view="settings"><span>◐</span> 外观设置</button>
-      </nav>
-      <div class="side-bottom"><div><strong>Slow and steady.</strong></div></div>
-    </aside>
-
     <main class="main">
-      <header class="topbar"><div class="breadcrumb">专八练习 <span>/</span> <span id="crumb">学习首页</span></div><div class="t-top-right"><div class="top-date" id="today"></div><button class="t-quick" id="t-quick" type="button" aria-label="切换主题" aria-haspopup="true" aria-expanded="false" aria-controls="t-pop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button></div>
-        <div class="t-pop" id="t-pop" role="menu" aria-label="选择主题" hidden>
-          <button type="button" role="menuitemradio" data-theme-pick="xmas"><span class="t-swatch t-sw-xmas"></span>圣诞主题</button>
-          <button type="button" role="menuitemradio" data-theme-pick="dark"><span class="t-swatch t-sw-dark"></span>深色主题</button>
-          <button type="button" role="menuitemradio" data-theme-pick="light"><span class="t-swatch t-sw-light"></span>浅色主题</button>
-          <p class="t-pop-note" id="t-pop-note" hidden>当前跟随系统；选一个主题会关闭跟随。</p>
-          <hr><button type="button" class="t-more" data-view="settings">更多外观设置 →</button>
-        </div></header>
       <section id="home-view" class="view active">
         <div class="w-stage">
           <div class="w-world">
@@ -76,71 +49,59 @@
           <div hidden><b id="stat-sessions">0</b><b id="stat-mistakes">0</b><b id="stat-accuracy">—</b><b id="stat-accuracy-suffix"></b></div>
           <div id="backup-reminder" class="backup-reminder" hidden><span>学习记录还没有近期备份。换设备或清理缓存前，建议先导出。</span><button type="button" data-view="my">前往「我的」</button><button type="button" data-backup-dismiss aria-label="关闭提醒">×</button></div>
         </div>
-        <!-- 浅色 / 深色主题的首页（圣诞主题下隐藏；内容由 home.js 填写） -->
         <div class="t-home">
-          <section class="h-count" aria-labelledby="h-days">
-            <div class="h-count-row">
-              <span class="h-days" id="h-days">—</span>
-              <span class="h-days-label"><small>DAYS LEFT</small><b id="h-days-cap">距离专八</b></span>
-              <label class="h-date-edit"><span id="h-date-btn">设定考试日期</span><input type="date" id="h-exam-date" aria-label="考试日期"></label>
-            </div>
-            <div class="h-track" aria-hidden="true"><i id="h-track-fill"></i></div>
-            <div class="h-track-cap"><span id="h-track-start"></span><span id="h-track-pct"></span></div>
+          <section class="h-count">
+            <p class="h-count-line" id="h-count-line">距离专八</p>
+            <label class="h-date-edit"><span id="h-date-btn">设定考试日期</span><input type="date" id="h-exam-date" aria-label="考试日期"></label>
           </section>
 
-          <section class="h-pick" id="h-pick" hidden>
-            <div class="h-label" id="h-pick-label">今日推荐</div>
-            <p class="h-quote" id="h-pick-text"></p>
-            <div class="h-meta" id="h-pick-meta"></div>
+          <section class="h-card" id="h-card" hidden>
+            <div class="h-label" id="h-card-label"></div>
+            <p class="h-quote" id="h-card-text"></p>
+            <div class="h-progress" id="h-card-progress" hidden><i id="h-card-fill"></i></div>
+            <div class="h-meta" id="h-card-meta"></div>
             <div class="h-actions">
-              <button class="h-primary" id="h-pick-read" data-open-reader data-mode="free" data-article="">开始精读</button>
-              <button class="h-link" id="h-pick-do" data-open-reader data-mode="practice" data-article="">直接做题 <span aria-hidden="true">→</span></button>
+              <button class="h-primary" id="h-card-read" data-open-reader data-mode="free" data-article="">继续精读</button>
+              <button class="h-link" id="h-card-do" data-open-reader data-mode="practice" data-article="">直接做题 <span aria-hidden="true">→</span></button>
             </div>
           </section>
 
-          <section class="h-today">
-            <div class="h-label">今天</div>
-            <button class="h-row" data-view="mistakes" id="h-review"><span id="h-review-text">复习错题和生词</span><span class="h-row-end" id="h-review-end">→</span></button>
-            <button class="h-row h-row-stack" id="h-continue" data-open-reader data-mode="free" data-article="" hidden>
-              <span class="h-row-top"><span id="h-continue-text"></span><span class="h-row-end" id="h-continue-end"></span></span>
-              <span class="h-track" aria-hidden="true"><i id="h-continue-fill"></i></span>
-            </button>
-            <button class="h-row" data-view="library"><span>按年份读真题</span><span class="h-row-end">→</span></button>
-            <button class="h-row" data-view="papers"><span>按题型练习</span><span class="h-row-end">→</span></button>
+          <section class="h-todo">
+            <div class="h-label">今日待办</div>
+            <div id="h-todo-list"></div>
           </section>
 
           <p class="h-streak" id="h-streak"></p>
         </div>
       </section>
 
+
       <section id="library-view" class="view">
-        <div class="page-head"><span class="eyebrow">READING LIBRARY / 02</span><h1>只读文章，慢慢读懂。</h1><p>不计时、不答题。按年份打开阅读文章，记录进度，按需查看讲解。</p></div>
-        <div class="section-heading"><div><span class="section-index">YR</span><h2 id="library-year-heading">2025 年真题阅读</h2></div><span class="muted" id="library-year-count">三篇文章</span></div>
+        <header class="app-head"><h1>阅读</h1></header><p class="app-sub">不计时、不答题，按年份慢慢读真题。</p>
         <div id="library-year-nav" class="library-year-nav" aria-label="选择真题年份"></div>
+        <p class="app-meta"><span id="library-year-heading"></span><span id="library-year-count"></span></p>
         <div id="real-article-list" class="real-article-list"></div>
-        <div class="notice"><span>✳︎</span><p><strong>阅读资料说明</strong><br>收录 2009—2026 年（2020 年除外）的阅读真题，点词可查词典。多数年份配有参考答案与逐题解析（含定位、干扰项排除），部分年份另有逐段译文和长难句注释。</p></div>
+        <p class="app-note">收录 2009—2026 年（2020 年除外）的阅读真题，点词可查词典。多数年份配有参考答案与逐题解析（含定位、干扰项排除），部分年份另有逐段译文和长难句注释。</p>
       </section>
-      <section id="papers-view" class="view"><div class="w-head w-papers-head"><h2>Practice</h2><span>按题型练习</span></div><div id="paper-categories" class="category-grid"></div><p class="archive-paper-note">在题型配置页选择真题年份。听力可按 Section A、B 分项练习。</p></section>
+      <section id="papers-view" class="view"><header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><div id="paper-categories" class="category-grid"></div><p class="app-note">进入题型后再选真题年份。听力可按 Section A、B 分开练。</p></section>
 
       <section id="mock-view" class="view">
-        <div class="page-head"><span class="eyebrow">FULL PAPER / MOCK TEST</span><h1>整卷模考</h1><p>按考试顺序连续完成 Part I—V，计时作答。</p></div>
-        <div class="section-heading"><div><span class="section-index">YR</span><h2>选择模考年份</h2></div><span class="muted">整卷 · 按 Part 顺序</span></div>
+        <header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><p class="app-sub">按考试顺序连续完成 Part I—V，计时作答。</p>
         <div id="mock-list" class="mock-grid"></div>
-        <div class="notice"><span>✳︎</span><p><strong>关于整卷模考</strong><br>整卷模考把听力、阅读、改错、翻译、写作按考试顺序串成一套，作答汇总成一份报告。目前可以按年份完成各部分，整卷连续作答即将上线。</p></div>
       </section>
       <section id="intensive-view" class="view">
-        <div class="page-head"><span class="eyebrow">LISTENING STUDIO / CLOSE LISTENING</span><h1>精听学习</h1><p>听完整录音，或点击原文中的句子，从那句话开始听。</p></div>
+        <header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><p class="app-sub">听完整录音，或点原文中的句子，从那句开始听。</p>
         <div id="intensive-content"></div>
       </section>
       <section id="workflow-config-view" class="view"><div id="workflow-config-content"></div></section>
       <section id="workflow-session-view" class="view"><div id="workflow-session-content"></div></section>
       <section id="workflow-report-view" class="view"><div id="workflow-report-content"></div></section>
-      <section id="paper-archive-view" class="view"><button class="back-link" data-paper-back>← 返回练习目录</button><div class="page-head"><span class="eyebrow">REAL PAPER / WRITTEN SECTIONS</span><h1 id="archive-paper-title">历年真题</h1><p>记录保存在当前浏览器。换设备或清理缓存前，请先在「我的」中导出备份。</p></div><div class="archive-paper-tabs"><button data-paper-tab="language">语言运用</button><button data-paper-tab="translation">翻译</button><button data-paper-tab="writing">写作</button></div><div id="archive-paper-content"></div></section>
+      <section id="paper-archive-view" class="view"><button class="back-link" data-paper-back>← 返回练习目录</button><div class="page-head"><h1 id="archive-paper-title">历年真题</h1></div><div class="archive-paper-tabs"><button data-paper-tab="language">语言运用</button><button data-paper-tab="translation">翻译</button><button data-paper-tab="writing">写作</button></div><div id="archive-paper-content"></div></section>
 
-      <section id="mistakes-view" class="view"><div class="page-head"><span class="eyebrow">REVIEW / 03</span><h1>错题本</h1><p>错过的题，值得再看一遍。</p></div><div id="mistakes-content"></div></section>
-      <section id="words-view" class="view"><div class="page-head"><span class="eyebrow">VOCABULARY / 05</span><h1>生词本</h1><p>阅读或做题时点开单词即可加入；攒够一批可导出成 txt 或 Word 打印背诵。</p></div><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
+      <section id="mistakes-view" class="view"><header class="app-head"><h1>复习</h1><nav class="seg-tabs" aria-label="复习分类"><button type="button" data-view="mistakes">错题</button><button type="button" data-view="words">生词</button><button type="button" data-view="bookmarks">收藏</button><button type="button" data-view="notes">笔记</button></nav></header><div id="mistakes-content"></div></section>
+      <section id="words-view" class="view"><header class="app-head"><h1>复习</h1><nav class="seg-tabs" aria-label="复习分类"><button type="button" data-view="mistakes">错题</button><button type="button" data-view="words">生词</button><button type="button" data-view="bookmarks">收藏</button><button type="button" data-view="notes">笔记</button></nav></header><p class="app-sub">阅读或做题时点开单词即可加入；攒够一批可导出成 txt 或 Word 打印背诵。</p><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
       <section id="settings-view" class="view">
-        <div class="page-head"><span class="eyebrow">APPEARANCE</span><h1>外观设置</h1><p>选一个你看着最舒服的样子。设置保存在当前浏览器。</p></div>
+        <header class="app-head"><h1>我的</h1><nav class="seg-tabs" aria-label="我的分类"><button type="button" data-view="my">学习记录</button><button type="button" data-view="settings">外观</button></nav></header>
         <div class="t-settings">
           <div class="t-group"><label class="t-row" for="t-follow"><span><b>跟随系统</b></span><input type="checkbox" class="t-switch" id="t-follow" role="switch"></label></div>
           <p class="t-hint">开启后，将根据系统设置自动切换深色或浅色主题。</p>
@@ -171,50 +132,52 @@
           </div>
         </div>
       </section>
-      <section id="bookmarks-view" class="view"><div class="page-head"><span class="eyebrow">SAVED / 04</span><h1>我的收藏</h1><p>把值得反复琢磨的题放在这里。</p></div><div id="bookmarks-content"></div></section>
-      <section id="my-view" class="view"><div class="page-head"><span class="eyebrow">MY STUDY DATA</span><h1>我的</h1><p>记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份。</p></div><div class="backup-grid"><div class="backup-card"><span class="backup-kicker">01 / 学习记录</span><h2>备份与恢复</h2><p>一个备份文件包含做题记录、错题、生词、收藏、标记笔记和精听进度。</p><p id="backup-summary" class="backup-detail"></p><div class="backup-actions"><button type="button" class="primary-btn" data-backup-export>导出学习记录 <span>↓</span></button><button type="button" class="secondary-btn" data-backup-import>导入备份</button><input id="backup-file" type="file" accept=".json,application/json" hidden></div><p id="backup-last" class="backup-detail"></p></div><div class="backup-card"><span class="backup-kicker">02 / 浏览器存储</span><h2>本机保护</h2><p id="backup-persistence">正在检查浏览器存储状态…</p><button type="button" class="secondary-btn" data-backup-persist>申请持久存储</button><p class="backup-detail">无痕模式下，关闭无痕窗口后记录通常会丢失。请使用普通窗口，并定期导出备份。</p></div><div class="backup-card"><span class="backup-kicker">03 / 跨设备同步</span><h2>同步码</h2><p id="sync-status" role="status" aria-live="polite">正在检查云同步…</p><div id="sync-disconnected"><div class="backup-actions"><button type="button" class="primary-btn" data-sync-create>开启同步</button></div><label class="sync-label">已有同步码<input id="sync-code-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="输入另一台设备上的同步码"></label><button type="button" class="secondary-btn" data-sync-join>连接已有记录</button></div><div id="sync-connected" hidden><p class="backup-detail">在另一台设备输入下方同步码，学习记录即可合并。</p><code id="sync-code-display" class="sync-code"></code><div class="backup-actions"><button type="button" class="secondary-btn" data-sync-copy>复制同步码</button><button type="button" class="secondary-btn" data-sync-now>立即同步</button><button type="button" class="secondary-btn" data-sync-stop>停止本设备同步</button></div></div><p class="backup-detail">同步码相当于钥匙，请勿发给他人。离线时仍可在本机做题；导出备份也请继续保留。</p></div></div><p id="backup-message" class="backup-message" role="status" aria-live="polite"></p></section>
+      <section id="bookmarks-view" class="view"><header class="app-head"><h1>复习</h1><nav class="seg-tabs" aria-label="复习分类"><button type="button" data-view="mistakes">错题</button><button type="button" data-view="words">生词</button><button type="button" data-view="bookmarks">收藏</button><button type="button" data-view="notes">笔记</button></nav></header><div id="bookmarks-content"></div></section>
+      <section id="notes-view" class="view"><header class="app-head"><h1>复习</h1><nav class="seg-tabs" aria-label="复习分类"><button type="button" data-view="mistakes">错题</button><button type="button" data-view="words">生词</button><button type="button" data-view="bookmarks">收藏</button><button type="button" data-view="notes">笔记</button></nav></header><div id="notes-content" class="notes-page"></div></section>
+      <section id="my-view" class="view"><header class="app-head"><h1>我的</h1><nav class="seg-tabs" aria-label="我的分类"><button type="button" data-view="my">学习记录</button><button type="button" data-view="settings">外观</button></nav></header><p class="app-sub">学习记录保存在当前浏览器。换设备或清理缓存前，请先导出备份或开启同步。</p><div class="backup-grid"><div class="backup-card"><span class="backup-kicker">01 / 学习记录</span><h2>备份与恢复</h2><p>一个备份文件包含做题记录、错题、生词、收藏、标记笔记和精听进度。</p><p id="backup-summary" class="backup-detail"></p><div class="backup-actions"><button type="button" class="primary-btn" data-backup-export>导出学习记录 <span>↓</span></button><button type="button" class="secondary-btn" data-backup-import>导入备份</button><input id="backup-file" type="file" accept=".json,application/json" hidden></div><p id="backup-last" class="backup-detail"></p></div><div class="backup-card"><span class="backup-kicker">02 / 浏览器存储</span><h2>本机保护</h2><p id="backup-persistence">正在检查浏览器存储状态…</p><button type="button" class="secondary-btn" data-backup-persist>申请持久存储</button><p class="backup-detail">无痕模式下，关闭无痕窗口后记录通常会丢失。请使用普通窗口，并定期导出备份。</p></div><div class="backup-card"><span class="backup-kicker">03 / 跨设备同步</span><h2>同步码</h2><p id="sync-status" role="status" aria-live="polite">正在检查云同步…</p><div id="sync-disconnected"><div class="backup-actions"><button type="button" class="primary-btn" data-sync-create>开启同步</button></div><label class="sync-label">已有同步码<input id="sync-code-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="输入另一台设备上的同步码"></label><button type="button" class="secondary-btn" data-sync-join>连接已有记录</button></div><div id="sync-connected" hidden><p class="backup-detail">在另一台设备输入下方同步码，学习记录即可合并。</p><code id="sync-code-display" class="sync-code"></code><div class="backup-actions"><button type="button" class="secondary-btn" data-sync-copy>复制同步码</button><button type="button" class="secondary-btn" data-sync-now>立即同步</button><button type="button" class="secondary-btn" data-sync-stop>停止本设备同步</button></div></div><p class="backup-detail">同步码相当于钥匙，请勿发给他人。离线时仍可在本机做题；导出备份也请继续保留。</p></div></div><p id="backup-message" class="backup-message" role="status" aria-live="polite"></p></section>
 
       <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳︎ 记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份</p></aside></div></section>
-      <section id="result-view" class="view"><div class="page-head"><span class="eyebrow">YOUR RESULTS</span><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
-      <section id="reader-view" class="view"><div class="reader-header"><button class="back-link" id="reader-back">← 返回阅读目录</button><span class="reader-badge" id="reader-mode-badge"></span></div><h1 class="reader-title"></h1><p class="reader-subtitle" id="reader-subtitle">点击单词查义；按需展开译文、长难句和句法结构。</p><div id="article-mode-switch" class="article-mode-switch" role="group" aria-label="文章模式"><button data-article-mode="free">精读</button><button data-article-mode="practice">做题</button></div><div class="reader-controls"><span>正文字号</span><button data-font="-1" aria-label="缩小字号">A−</button><button data-font="1" aria-label="放大字号">A＋</button><button data-reading-background aria-label="切换阅读背景">背景</button><button data-workflow-return hidden>返回题组</button><button id="reading-done" data-action="reading-done">标记读完</button></div><div class="reader-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文阅读</button><button data-reader-tab="parse">长难句分析</button><button data-reader-tab="syntax">句法结构</button><button data-reader-tab="knowledge">知识精讲</button><button data-reader-tab="words">单词本</button></div><div id="reader-content"></div></section>
+      <section id="result-view" class="view"><div class="page-head"><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
+      <section id="reader-view" class="view"><header class="rd-bar"><button class="rd-ic" id="reader-back" type="button" aria-label="返回"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div id="article-mode-switch" class="rd-mode" role="group" aria-label="文章模式"><button type="button" data-article-mode="free">精读</button><button type="button" data-article-mode="practice">做题</button></div><button class="rd-ic rd-aa" type="button" data-rd-panel aria-label="字号与背景" aria-expanded="false">Aa</button><button class="rd-ic" type="button" data-rd-notes aria-label="笔记"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l6 6L9 21H3v-6zM12 6l6 6"/></svg><b class="rd-count" data-rd-count hidden></b></button></header><div class="rd-panel" id="rd-panel" hidden><div class="rd-panel-row"><span>字号</span><button type="button" data-font="-1" aria-label="缩小字号">A−</button><button type="button" data-font="1" aria-label="放大字号">A＋</button></div><div class="rd-panel-row"><span>背景</span><button type="button" data-reading-background aria-label="切换阅读背景">切换纸色</button></div></div><button class="rd-return" data-workflow-return hidden>← 返回题组</button><span class="reader-badge" id="reader-mode-badge"></span><h1 class="reader-title"></h1><p class="reader-subtitle" id="reader-subtitle"></p><div id="reader-content"></div><div class="rd-done"><button type="button" id="reading-done" data-action="reading-done">标记读完</button></div><nav class="reader-tabs rd-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文</button><button data-reader-tab="parse">长难句</button><button data-reader-tab="syntax">句法</button><button data-reader-tab="knowledge">知识点</button><button data-reader-tab="words">单词本</button></nav></section>
     </main>
   </div>
-  <nav class="mobile-nav" aria-label="移动端导航"><button data-view="home">⌂<span>首页</span></button><button data-view="library">▧<span>阅读</span></button><button data-view="papers">▤<span>练习</span></button><button data-view="intensive">♫<span>精听</span></button><button data-view="bookmarks">☆<span>收藏</span></button><button data-view="my">▣<span>我的</span></button></nav>
+<nav class="tabbar" aria-label="主导航"><button type="button" data-tab="home" data-view="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4z"/></svg><span>首页</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="library" data-view="library"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5h6a2 2 0 0 1 2 2V20a1.5 1.5 0 0 0-1.5-1.5H4zM20 4.5h-6a2 2 0 0 0-2 2V20a1.5 1.5 0 0 1 1.5-1.5H20z"/></svg><span>阅读</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="practice" data-view="papers"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l6 6L9 21H3v-6zM12 6l6 6"/></svg><span>练习</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="review" data-view="mistakes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5M4 4v4.5h4.5"/></svg><span>复习</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="my" data-view="my"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.5a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg><span>我的</span><b class="tab-dot" data-tab-dot hidden></b></button></nav>
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶︎ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
-  <script src="data.js?v=202611030715"></script>
-  <script src="articles2026.js?v=202611030715"></script>
-  <script src="questions2026.js?v=202611030715"></script>
-  <script src="paperExtras2026.js?v=202611030715"></script>
-  <script src="listening2026.js?v=202611030715"></script>
-  <script src="paperExtras2025.js?v=202611030715"></script>
-  <script src="papers2021_2024.js?v=202611030715"></script>
-  <script src="listeningArchive.js?v=202611030715"></script>
-  <script src="audioArchive.js?v=202611030715"></script>
-  <script src="articles2025.js?v=202611030715"></script>
-  <script src="articles2025-extras.js?v=202611030715"></script>
-  <script src="questions2025.js?v=202611030715"></script>
-  <script src="articlesArchive.js?v=202611030715"></script>
-  <script src="questionsArchive.js?v=202611030715"></script>
-  <script src="articlesArchive2.js?v=202611030715"></script>
-  <script src="questionsArchive2.js?v=202611030715"></script>
-  <script src="paperExtras.js?v=202611030715"></script>
-  <script src="paperExtras2.js?v=202611030715"></script>
-  <script src="annotations.js?v=202611030715"></script>
-  <script src="player.js?v=202611030715"></script>
-  <script src="transcripts.js?v=202611030715"></script>
-  <script src="intensive.js?v=202611030715"></script>
-  <script src="workflow.js?v=202611030715"></script>
-  <script src="dictionary/prefixes.js?v=202611030715"></script>
-  <script src="app.js?v=202611030715"></script>
-  <script src="winter.js?v=202611030715"></script>
-  <script src="wordpop.js?v=202611030715"></script>
-  <script src="backup.js?v=202611030715"></script>
-  <script src="cloud-sync/config.js?v=202611030715"></script>
-  <script type="module" src="cloud-sync/client.mjs?v=202611030715"></script>
-  <script src="themes.js?v=202611030715"></script>
-  <script src="home.js?v=202611030715"></script>
-  <script src="splash.js?v=202611030715"></script>
+  <script src="data.js?v=202611030818"></script>
+  <script src="articles2026.js?v=202611030818"></script>
+  <script src="questions2026.js?v=202611030818"></script>
+  <script src="paperExtras2026.js?v=202611030818"></script>
+  <script src="listening2026.js?v=202611030818"></script>
+  <script src="paperExtras2025.js?v=202611030818"></script>
+  <script src="papers2021_2024.js?v=202611030818"></script>
+  <script src="listeningArchive.js?v=202611030818"></script>
+  <script src="audioArchive.js?v=202611030818"></script>
+  <script src="articles2025.js?v=202611030818"></script>
+  <script src="articles2025-extras.js?v=202611030818"></script>
+  <script src="questions2025.js?v=202611030818"></script>
+  <script src="articlesArchive.js?v=202611030818"></script>
+  <script src="questionsArchive.js?v=202611030818"></script>
+  <script src="articlesArchive2.js?v=202611030818"></script>
+  <script src="questionsArchive2.js?v=202611030818"></script>
+  <script src="paperExtras.js?v=202611030818"></script>
+  <script src="paperExtras2.js?v=202611030818"></script>
+  <script src="annotations.js?v=202611030818"></script>
+  <script src="player.js?v=202611030818"></script>
+  <script src="transcripts.js?v=202611030818"></script>
+  <script src="intensive.js?v=202611030818"></script>
+  <script src="workflow.js?v=202611030818"></script>
+  <script src="dictionary/prefixes.js?v=202611030818"></script>
+  <script src="app.js?v=202611030818"></script>
+  <script src="winter.js?v=202611030818"></script>
+  <script src="wordpop.js?v=202611030818"></script>
+  <script src="backup.js?v=202611030818"></script>
+  <script src="cloud-sync/config.js?v=202611030818"></script>
+  <script type="module" src="cloud-sync/client.mjs?v=202611030818"></script>
+  <script src="themes.js?v=202611030818"></script>
+  <script src="home.js?v=202611030818"></script>
+  <script src="splash.js?v=202611030818"></script>
+  <script src="appnav.js?v=202611030818"></script>
 </body>
 </html>

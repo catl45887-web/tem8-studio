@@ -392,7 +392,7 @@
       const lb = Math.max(0, ...(db.articles[b].notes || []).map(n => n.at || 0))
       return lb - la
     })
-    if (!ids.length) return '<p class="anno-empty">还没有任何标记或笔记。</p>'
+    if (!ids.length) return '<p class="anno-empty">还没有任何标记或笔记。读文章时选中句子，就能标记或写笔记。</p>'
     return ids.map(id => {
       const r = get(id)
       const notes = [...r.notes].sort((a, b) => (b.at || 0) - (a.at || 0))
@@ -400,6 +400,7 @@
     }).join('')
   }
   function renderDrawer() {
+    if (pageEl && pageEl.offsetParent) pageEl.innerHTML = allHTML()
     if (!toggle) return
     const id = currentId()
     const notes = id ? get(id).notes.length : 0
@@ -562,7 +563,9 @@
         return
       }
     })
-    drawer.addEventListener('click', e => {
+    drawer.addEventListener('click', onListClick)
+  }
+  function onListClick(e) {
       const b = e.target.closest('button')
       if (!b) return
       const id = b.dataset.annoAid || composeArticle || currentId()
@@ -576,7 +579,12 @@
         jumpTo(aid, Number(seg))
         return
       }
-    })
+  }
+  /* 复习页里的"笔记"：列出全部标记与笔记 */
+  let pageEl = null
+  function renderPage(el) {
+    if (el && el !== pageEl) { pageEl = el; el.addEventListener('click', onListClick) }
+    if (pageEl) pageEl.innerHTML = allHTML()
   }
 
   function init() {
@@ -586,7 +594,7 @@
   }
 
   window.TEM8_ANNO = {
-    textHTML, noteCount, get, repaint, renderDrawer,
+    textHTML, noteCount, get, repaint, renderDrawer, renderPage,
     unmarkAt, isMarked, eraseRanges,
     openDrawer: (o) => openDrawer(o), closeDrawer,
     jumpTo, toast,
