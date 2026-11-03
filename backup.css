@@ -1,0 +1,15 @@
+.backup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0}
+.backup-card{padding:27px;border:1px solid var(--hair-2);border-radius:17px;background:var(--card);color:var(--cream);box-shadow:0 12px 35px rgba(0,0,0,.08)}
+.backup-card h2{margin:8px 0 12px;font-family:'Shiye Song',serif;font-size:25px}
+.backup-card p{line-height:1.75;color:var(--cream-2)}
+.backup-kicker{font-size:11px;letter-spacing:2px;color:var(--gold)}
+.backup-card .backup-detail{font-size:13px;color:var(--dim)}
+.backup-actions{display:flex;flex-wrap:wrap;gap:10px;margin:23px 0 12px}
+.backup-message{min-height:24px;color:var(--gold);font-size:14px}
+.backup-reminder{position:absolute;z-index:35;left:50%;bottom:24px;transform:translateX(-50%);width:min(620px,calc(100% - 32px));display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid var(--hair-2);border-radius:13px;background:rgba(37,26,20,.95);color:var(--cream);box-shadow:0 14px 35px rgba(0,0,0,.35);font-size:13px}
+.backup-reminder[hidden]{display:none}
+.backup-reminder span{flex:1}
+.backup-reminder button{border:0;background:transparent;color:var(--gold);white-space:nowrap}
+.backup-reminder button:last-child{font-size:20px;line-height:1}
+@media(max-width:860px){.backup-grid{grid-template-columns:1fr}.mobile-nav{grid-template-columns:repeat(6,1fr)}}
+@media(max-width:640px){.backup-reminder{bottom:86px;align-items:flex-start;flex-wrap:wrap}.backup-reminder span{flex-basis:100%}.backup-reminder button:last-child{margin-left:auto}.mobile-nav button span{font-size:11px;letter-spacing:0}}

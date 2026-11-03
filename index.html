@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="winter-base.css">
   <link rel="stylesheet" href="winter.css">
   <link rel="stylesheet" href="wordpop.css">
+  <link rel="stylesheet" href="backup.css">
 </head>
 <body>
   <div class="app-shell">
@@ -32,6 +33,7 @@
         <button class="nav-item" data-view="words"><span>✎</span> 生词本</button>
         <button class="nav-item" data-anno-all><span>✍</span> 标记与笔记</button>
         <button class="nav-item" data-view="bookmarks"><span>☆</span> 我的收藏</button>
+        <button class="nav-item" data-view="my"><span>▣</span> 我的</button>
       </nav>
       <div class="side-bottom"><div><strong>Slow and steady.</strong></div></div>
     </aside>
@@ -58,6 +60,7 @@
           <button class="w-sound" type="button" aria-pressed="false" title="窗外风雪声"><span>♪</span><em>风雪声</em></button>
           <div id="home-categories" class="category-grid" hidden></div>
           <div hidden><b id="stat-sessions">0</b><b id="stat-mistakes">0</b><b id="stat-accuracy">—</b><b id="stat-accuracy-suffix"></b></div>
+          <div id="backup-reminder" class="backup-reminder" hidden><span>学习记录还没有近期备份。换设备或清理缓存前，建议先导出。</span><button type="button" data-view="my">前往「我的」</button><button type="button" data-backup-dismiss aria-label="关闭提醒">×</button></div>
         </div>
       </section>
 
@@ -85,18 +88,19 @@
       <section id="workflow-config-view" class="view"><div id="workflow-config-content"></div></section>
       <section id="workflow-session-view" class="view"><div id="workflow-session-content"></div></section>
       <section id="workflow-report-view" class="view"><div id="workflow-report-content"></div></section>
-      <section id="paper-archive-view" class="view"><button class="back-link" data-paper-back>← 返回练习目录</button><div class="page-head"><span class="eyebrow">REAL PAPER / WRITTEN SECTIONS</span><h1 id="archive-paper-title">历年真题</h1><p>原题文字来自你提供的合集。作答自动保存在本机；2026、2025、2024、2023 与 2019—2015 年已配参考答案与解析。</p></div><div class="archive-paper-tabs"><button data-paper-tab="language">语言运用</button><button data-paper-tab="translation">翻译</button><button data-paper-tab="writing">写作</button></div><div id="archive-paper-content"></div></section>
+      <section id="paper-archive-view" class="view"><button class="back-link" data-paper-back>← 返回练习目录</button><div class="page-head"><span class="eyebrow">REAL PAPER / WRITTEN SECTIONS</span><h1 id="archive-paper-title">历年真题</h1><p>原题文字来自你提供的合集。记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份；2026、2025、2024、2023 与 2019—2015 年已配参考答案与解析。</p></div><div class="archive-paper-tabs"><button data-paper-tab="language">语言运用</button><button data-paper-tab="translation">翻译</button><button data-paper-tab="writing">写作</button></div><div id="archive-paper-content"></div></section>
 
       <section id="mistakes-view" class="view"><div class="page-head"><span class="eyebrow">REVIEW / 03</span><h1>错题本</h1><p>错过的题，值得再看一遍。</p></div><div id="mistakes-content"></div></section>
       <section id="words-view" class="view"><div class="page-head"><span class="eyebrow">VOCABULARY / 05</span><h1>生词本</h1><p>阅读或做题时点开单词即可加入；攒够一批可导出成 txt 或 Word 打印背诵。</p></div><div id="wordbook-toolbar" class="wordbook-toolbar"></div><div id="wordbook-list"></div></section>
       <section id="bookmarks-view" class="view"><div class="page-head"><span class="eyebrow">SAVED / 04</span><h1>我的收藏</h1><p>把值得反复琢磨的题放在这里。</p></div><div id="bookmarks-content"></div></section>
+      <section id="my-view" class="view"><div class="page-head"><span class="eyebrow">MY STUDY DATA</span><h1>我的</h1><p>记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份。</p></div><div class="backup-grid"><div class="backup-card"><span class="backup-kicker">01 / 学习记录</span><h2>备份与恢复</h2><p>一个备份文件包含做题记录、错题、生词、收藏、标记笔记和精听进度。</p><p id="backup-summary" class="backup-detail"></p><div class="backup-actions"><button type="button" class="primary-btn" data-backup-export>导出学习记录 <span>↓</span></button><button type="button" class="secondary-btn" data-backup-import>导入备份</button><input id="backup-file" type="file" accept=".json,application/json" hidden></div><p id="backup-last" class="backup-detail"></p></div><div class="backup-card"><span class="backup-kicker">02 / 浏览器存储</span><h2>本机保护</h2><p id="backup-persistence">正在检查浏览器存储状态…</p><button type="button" class="secondary-btn" data-backup-persist>申请持久存储</button><p class="backup-detail">无痕模式下，关闭无痕窗口后记录通常会丢失。请使用普通窗口，并定期导出备份。</p></div></div><p id="backup-message" class="backup-message" role="status" aria-live="polite"></p></section>
 
-      <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳ 作答会自动保存在当前浏览器</p></aside></div></section>
+      <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳ 记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份</p></aside></div></section>
       <section id="result-view" class="view"><div class="page-head"><span class="eyebrow">YOUR RESULTS</span><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
       <section id="reader-view" class="view"><div class="reader-header"><button class="back-link" id="reader-back">← 返回阅读目录</button><span class="reader-badge" id="reader-mode-badge">自由阅读 · 原创示例</span></div><h1 class="reader-title">A Library That Stayed Open</h1><p class="reader-subtitle" id="reader-subtitle">点击单词查义；按需展开译文、长难句和句法结构。</p><div id="article-mode-switch" class="article-mode-switch" role="group" aria-label="文章模式"><button data-article-mode="free">精读</button><button data-article-mode="practice">做题</button></div><div class="reader-controls"><span>正文字号</span><button data-font="-1" aria-label="缩小字号">A−</button><button data-font="1" aria-label="放大字号">A＋</button><button data-reading-background aria-label="切换阅读背景">背景</button><button data-workflow-return hidden>返回题组</button><button id="reading-done" data-action="reading-done">标记读完</button></div><div class="reader-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文 / 译文</button><button data-reader-tab="quiz" class="practice-only">读后题</button><button data-reader-tab="parse">长难句分析</button><button data-reader-tab="syntax">句法结构</button><button data-reader-tab="knowledge">知识精讲</button><button data-reader-tab="words">单词本</button></div><div id="reader-content"></div></section>
     </main>
   </div>
-  <nav class="mobile-nav" aria-label="移动端导航"><button data-view="home">⌂<span>首页</span></button><button data-view="library">▧<span>阅读</span></button><button data-view="papers">▤<span>练习</span></button><button data-view="intensive">♫<span>精听</span></button><button data-view="bookmarks">☆<span>收藏</span></button></nav>
+  <nav class="mobile-nav" aria-label="移动端导航"><button data-view="home">⌂<span>首页</span></button><button data-view="library">▧<span>阅读</span></button><button data-view="papers">▤<span>练习</span></button><button data-view="intensive">♫<span>精听</span></button><button data-view="bookmarks">☆<span>收藏</span></button><button data-view="my">▣<span>我的</span></button></nav>
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
@@ -126,5 +130,6 @@
   <script src="app.js"></script>
   <script src="winter.js"></script>
   <script src="wordpop.js"></script>
+  <script src="backup.js"></script>
 </body>
 </html>
