@@ -84,7 +84,7 @@
   vec2 surf(vec2 p,float t){
     vec2 gs=vec2(0.);
     float a=.9,f=34.,sp=1.7;
-    for(int k=0;k<7;k++){
+    for(int k=0;k<5;k++){
       float an=float(k)*2.39996+.4;
       vec2 d=vec2(cos(an),sin(an));
       gs+=d*cos(dot(p,d)*f+t*sp+float(k)*1.7)*a;
@@ -111,7 +111,7 @@
     col+=caus*cs*causK;
     vec3 L=normalize(vec3(.07,-.16,1.));
     float sp=max(dot(reflect(-L,n),vec3(0.,0.,1.)),0.);
-    col+=spark*(pow(sp,1400.)*2.2+pow(sp,260.)*.18);
+    col+=spark*(pow(sp,420.)*1.1+pow(sp,120.)*.14);
     vec3 rn=normalize(vec3(-rg*7.,1.));
     col+=spark*pow(max(dot(reflect(-L,rn),vec3(0.,0.,1.)),0.),300.)*1.1;
     col-=vec3(.06)*clamp(length(rg)*6.,0.,1.);
@@ -241,12 +241,12 @@
 
   var SERIF = '"TS Italic", Georgia, "Times New Roman", serif'
   var fontsReady = (document.fonts && document.fonts.load)
-    ? Promise.all([document.fonts.load('italic 400 22px "TS Italic"')]).catch(function () {})
+    ? Promise.all([document.fonts.load('italic 400 22px "TS Italic"'), document.fonts.load('300 112px "TS Title"', '拾页')]).catch(function () {})
     : Promise.resolve()
   run = runSplash(cv, {
     w: window.innerWidth, h: window.innerHeight, dark: dark, date: date, sentence: sentence,
     fonts: { serif: SERIF, sans: '-apple-system, "PingFang SC", "Noto Sans SC", sans-serif',
-             word: '300 112px "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "SimSun", serif', wordLs: 18 },
+             word: '300 112px "TS Title", "Songti SC", "STSong", "Noto Serif SC", serif', wordLs: 18 },
     fontsReady: fontsReady,
     onTap: function () { setTimeout(leave, 420) }
   })

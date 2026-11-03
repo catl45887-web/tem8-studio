@@ -41,7 +41,7 @@
   }
   const timeTitle = i => {
     const src=rows()[i]?.tSource
-    return corrected(i) ? '你已手动校准' : ['word-anchor','anchor'].includes(src) ? (year===2025?'来源文件标注为音频验证锚点':'依据你提供的 Word 时间点校准') : ['asr','asr2'].includes(src) ? '来源文件标注为 ASR 词级匹配' : src==='interp' ? '来源文件标注为插值估算' : ['anchor-interpolated','transcript-interpolated'].includes(src) ? '依据相邻来源时间点插值估算，可继续手动校准' : '初始定位，可能与录音有偏差'
+    return corrected(i) ? '已手动校准' : ['word-anchor','anchor'].includes(src) ? '时间已核对' : ['asr','asr2'].includes(src) ? '时间为自动对齐' : src==='interp' ? '时间为估算' : ['anchor-interpolated','transcript-interpolated'].includes(src) ? '时间为估算，可手动校准' : '时间为初步定位，可能与录音有偏差'
   }
   function save() { saved.year=year; saved.section=section; localStorage.setItem(KEY,JSON.stringify(saved)); document.dispatchEvent(new Event('tem8:study-changed')) }
   function audioSlot() {
@@ -60,7 +60,7 @@
     host().innerHTML=`<div class="intensive-toolbar"><div class="intensive-years" role="group" aria-label="真题年份">${years.map(y=>`<button type="button" data-intensive-year="${y}" class="${y===year?'active':''}">${y} 年</button>`).join('')}</div><div class="intensive-sections" role="group" aria-label="听力部分"><button type="button" data-intensive-section="A" class="${section==='A'?'active':''}">Section A · Mini-lecture</button><button type="button" data-intensive-section="B" class="${section==='B'?'active':''}">Section B · Interview</button></div></div>
       <div class="intensive-player" id="intensive-audio"></div>
       <div class="intensive-studybar"><div><strong>听力原文 · ${data.length} 句</strong><span>点击句子跳转并继续播放；当前句随播放高亮。</span></div><div class="intensive-study-actions"><button type="button" data-intensive-loop aria-pressed="false">单句循环</button><button type="button" data-intensive-calibrate disabled>将当前播放点设为选中句起点</button></div></div>
-      <div class="intensive-note">${year===2026?'2026 年已依据你提供的 Word 分段时间校准锚点句，段内其他句子按原有相对间隔插值；带 ◆ 的时间来自 Word，带 ~ 的时间仍是估算。':[2024,2025].includes(year)?`${year} 年已导入你提供的逐句时间戳：◆音频验证锚点，●ASR 词级匹配，~插值估算。`:'句子时间是依据原文生成的初始定位，可能与录音有偏差。'}听到一句的开头时，选中该句并点“设为起点”即可继续校准；手动校准结果保存在本机浏览器。</div>
+      <div class="intensive-note">${year===2026?'句子时间：带 ◆ 的已核对，带 ~ 的为估算。':[2024,2025].includes(year)?'句子时间：◆ 已核对，● 自动对齐，~ 估算。':'句子时间为初步定位，可能与录音有偏差。'}听到一句的开头时，选中该句并点“设为起点”即可校准，结果保存在本机。</div>
       <div class="intensive-transcript" id="intensive-lines">${data.map((row,i)=>`${section==='B'&&(i===0||row.part!==data[i-1].part)?`<div class="intensive-part-title">Interview · Part ${row.part===2?'Two':'One'}</div>`:''}<button type="button" class="intensive-line" data-intensive-line="${i}" aria-label="跳转到第 ${i+1} 句"><span class="intensive-line-no">${String(i+1).padStart(2,'0')}</span><span class="intensive-line-copy">${row.sp?`<span class="intensive-speaker">${row.sp==='W'?'主持人':'嘉宾'}</span>`:''}${esc(row.en)}</span><time data-intensive-time="${i}" title="${timeTitle(i)}">${fmt(time(i))}${timeMark(i)}</time></button>`).join('')}</div>
       <div class="intensive-calibration"><label>选中句起点 <input type="text" id="intensive-time-input" inputmode="decimal" placeholder="例：13:24.5" disabled></label><button type="button" data-intensive-save disabled>保存时间</button><button type="button" data-intensive-reset disabled>恢复初始定位</button></div>`
     audioSlot(); follow(); save()
