@@ -23,6 +23,7 @@
     const buckets = new Set()
     for (const raw of Array.isArray(words) ? words : [words]) {
       const word = String(raw || '').toLowerCase().replace(/^[^a-z]+/, '')
+      if (!/^[a-z]/.test(word)) continue
       for (const value of [word, wordLemmas[word]]) {
         const letter = String(value || '').charAt(0)
         if (/^[a-z]$/.test(letter)) buckets.add(letter)
