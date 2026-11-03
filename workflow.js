@@ -48,6 +48,7 @@
   let session=null
   let wordKey=''
   function persist(){if(session)localStorage.setItem(KEY,JSON.stringify({...saved(),session}))}
+  document.addEventListener('tem8:flush-records', persist)
   const anno=()=>window.TEM8_ANNO
   function show(id,label){if(id!=='workflow-session-view')window.TEM8_AUDIO?.stop();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('[data-view]').forEach(el=>el.classList.remove('active'));document.querySelector('#crumb').textContent=label;window.scrollTo(0,0)}
   function renderCards(){
@@ -218,7 +219,7 @@
     const slot=track?.audio?'<div id="wf-audio-slot"></div>':''
     const trSec=g.kind==='lecture'?'A':'B'
     const showTr = isListening(g.kind) && session.mode!=='exam' && !!(window.TEM8_TRANSCRIPTS && window.TEM8_TRANSCRIPTS[g.year] && window.TEM8_TRANSCRIPTS[g.year][trSec] && window.TEM8_TRANSCRIPTS[g.year][trSec].length)
-    document.querySelector('#workflow-session-content').innerHTML=`<div class="workflow-session-top"><button class="back-link" data-workflow-back="config">← 配置</button><div><strong>${session.type==='mock'?`${session.year} 年整卷模考 · ${escape(groupLabel(g))}`:escape(title(session.type))}</strong><span>${session.current+1} / ${session.groups.length} 组 · ${session.mode==='exam'?'考试':'练习'}模式</span></div>${g.kind==='reading'&&session.mode!=='exam'?'<button class="secondary-btn" data-workflow-study>进入精读</button>':''}<time id="workflow-time">${Math.floor(elapsed/60).toString().padStart(2,'0')}:${(elapsed%60).toString().padStart(2,'0')}</time></div>${slot}${showTr?'<div id="wf-transcript"></div>':''}${answerCard()}${body}<div class="workflow-session-actions"><button class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button><button class="primary-btn" data-workflow-next>${session.current<session.groups.length-1?'保存并进入下一组':'交卷'} <span>→</span></button></div><p class="workflow-hint">作答保存在当前浏览器；本次试卷与答题记录均绑定 ${session.year} 年。</p>`
+    document.querySelector('#workflow-session-content').innerHTML=`<div class="workflow-session-top"><button class="back-link" data-workflow-back="config">← 配置</button><div><strong>${session.type==='mock'?`${session.year} 年整卷模考 · ${escape(groupLabel(g))}`:escape(title(session.type))}</strong><span>${session.current+1} / ${session.groups.length} 组 · ${session.mode==='exam'?'考试':'练习'}模式</span></div>${g.kind==='reading'&&session.mode!=='exam'?'<button class="secondary-btn" data-workflow-study>进入精读</button>':''}<time id="workflow-time">${Math.floor(elapsed/60).toString().padStart(2,'0')}:${(elapsed%60).toString().padStart(2,'0')}</time></div>${slot}${showTr?'<div id="wf-transcript"></div>':''}${answerCard()}${body}<div class="workflow-session-actions"><button class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button><button class="primary-btn" data-workflow-next>${session.current<session.groups.length-1?'保存并进入下一组':'交卷'} <span>→</span></button></div><p class="workflow-hint">记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份；本次试卷与答题记录均绑定 ${session.year} 年。</p>`
     if(slot){
       // 一份录音含 A+B：A 播 0→讲座结束(sectionAEnd)，B 播指令开始(sectionBStart)→结尾。
       // 中间的"3 分钟检查"静音段两边都不放（真题里是留给考生填空的时间，App 里自己掌控）。

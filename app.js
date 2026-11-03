@@ -133,7 +133,7 @@
   const sampleArticle = { id:'sample', title:'A Library That Stayed Open', segments:reading.segments }
   const KEY = 'tem8_studio_web_v1'
   const letters = ['A','B','C','D']
-  const labels = { home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', exam:'正在练习', result:'练习结果', reader:'阅读文章' }
+  const labels = { home:'学习首页', library:'阅读真题', papers:'按题型练习', mock:'整卷模考', intensive:'精听学习', words:'生词本', 'paper-archive':'历年真题', mistakes:'错题本', bookmarks:'我的收藏', my:'我的', exam:'正在练习', result:'练习结果', reader:'阅读文章' }
   const defaultStore = { sessions:0, correct:0, attempted:0, mistakes:[], bookmarks:[], wordbook:[], readingProgress:0, readingCompleted:false, readingStates:{}, readingTools:{}, readingBackground:'paper', practiceAnswers:{}, practiceIndex:{}, paperWork:{}, readingFont:17, draft:null, lastResult:null }
   let store = load()
   let session = null
@@ -326,7 +326,7 @@
     $('library-year-nav').innerHTML=[...new Set(allArticles.map(a=>a.year))].sort((a,b)=>b-a).map(year=>`<button data-library-year="${year}" class="${year===selectedLibraryYear?'active':''}">${year}</button>`).join('')
     $('real-article-list').innerHTML = yearArticles.map(a => {
       const s=articleState(a.id), total=a.segments.length, n=Math.min(total,s.progress)
-      return `<article class="real-article-card"><div class="real-article-top"><span class="pill">${a.year} 真题 · ${esc(a.label)}</span><span>${s.completed ? '✓ 已读完' : `${n} / ${total} 段`}</span></div><h3>${esc(a.title)}</h3><p>${esc(extras.descriptions[a.id] || '阅读原文与配套真题，作答可保存在本机。')}</p><div class="real-article-meta"><span>${total} 个段落</span><span>${allRealQuestions.filter(q=>q.articleId===a.id).length} 道题</span><span>点词查义</span></div><div class="progress-track"><i style="width:${Math.round(n/total*100)}%"></i></div><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n ? '继续精读' : '开始精读'} <span>↗</span></button><button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题 →</button></div></article>`
+      return `<article class="real-article-card"><div class="real-article-top"><span class="pill">${a.year} 真题 · ${esc(a.label)}</span><span>${s.completed ? '✓ 已读完' : `${n} / ${total} 段`}</span></div><h3>${esc(a.title)}</h3><p>${esc(extras.descriptions[a.id] || '阅读原文与配套真题，记录保存在当前浏览器。')}</p><div class="real-article-meta"><span>${total} 个段落</span><span>${allRealQuestions.filter(q=>q.articleId===a.id).length} 道题</span><span>点词查义</span></div><div class="progress-track"><i style="width:${Math.round(n/total*100)}%"></i></div><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n ? '继续精读' : '开始精读'} <span>↗</span></button><button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题 →</button></div></article>`
     }).join('')
     const button = document.querySelector('#library-view [data-article="sample"]')
     button.innerHTML = n ? '继续阅读 <span>↗</span>' : '开始阅读 <span>↗</span>'
@@ -410,7 +410,7 @@
     $('reader-view').classList.toggle('reader-sepia',store.readingBackground==='sepia')
     document.querySelector('.reader-title').textContent=activeArticle.title
     document.querySelector('[data-reader-tab="translate"]').textContent=isSample ? '原文 / 译文' : '原文阅读'
-    $('reader-subtitle').textContent = isSample ? (readerMode === 'free' ? '专注阅读，不做题。点击单词查义，选中文字可标记，笔记收在右侧。' : '点击单词查看语境释义；选中文字可标记。译文和讲解均为人工整理。') : (readerMode === 'free' ? `选中想记的词句点“标记”，笔记收在右侧抽屉里。点击单词查词。${activeArticle.year===2025?'精选句有人工句法讲解。':'本年尚无人工句法讲解。'}` : '左侧原文、右侧真题。选中原文即可标记，笔记在右侧抽屉。作答自动保存在本机。')
+    $('reader-subtitle').textContent = isSample ? (readerMode === 'free' ? '专注阅读，不做题。点击单词查义，选中文字可标记，笔记收在右侧。' : '点击单词查看语境释义；选中文字可标记。译文和讲解均为人工整理。') : (readerMode === 'free' ? `选中想记的词句点“标记”，笔记收在右侧抽屉里。点击单词查词。${activeArticle.year===2025?'精选句有人工句法讲解。':'本年尚无人工句法讲解。'}` : '左侧原文、右侧真题。选中原文即可标记，笔记在右侧抽屉。记录保存在当前浏览器；换设备前请在「我的」导出备份。')
     $('article-mode-switch').hidden=isSample
     document.querySelectorAll('[data-article-mode]').forEach(b => b.classList.toggle('active',b.dataset.articleMode === readerMode))
     $('reading-done').hidden = readerMode !== 'free'
@@ -641,7 +641,8 @@
   document.addEventListener('input',e=>{ if (e.target.dataset.practiceShort) { store.practiceAnswers ||= {}; store.practiceAnswers[`${activeArticle.id}-${e.target.dataset.practiceShort}`]=e.target.value; save(); const count=e.target.value.trim().split(/\s+/).filter(Boolean).length; e.target.nextElementSibling.textContent=`${count} / 10 词`; const q=practiceQuestions(); document.querySelector('.practice-panel .practice-pane-head span').textContent=`已答 ${q.filter(item => practiceAnswer(item) !== undefined && practiceAnswer(item) !== '').length} / ${q.length} · 自动保存` } })
   document.addEventListener('input',e=>{ if (e.target.dataset.paperError) { const state=paperState();state.language ||= {};state.language[e.target.dataset.paperError]=e.target.value;save() } else if (e.target.dataset.paperField) { const state=paperState();state[e.target.dataset.paperField]=e.target.value;save();e.target.nextElementSibling.textContent=`${e.target.value.trim().split(/\s+/).filter(Boolean).length} 词` } })
   setInterval(()=>{ if (session) { $('timer').textContent=time(elapsed()); if (elapsed()%10===0) persist() } },1000)
-  window.addEventListener('beforeunload',persist)
+  document.addEventListener('tem8:flush-records',persist)
+  window.addEventListener('beforeunload',()=>{if(!window.TEM8_IMPORTING_BACKUP)persist()})
   window.TEM8_ANNO?.setOpener((id,seg) => {
     if (!allArticles.some(a => a.id === id)) return
     openReader('free',id)
