@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"nz":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"New Zealand","cn":"新西兰"}]},"media":{"uk":"media/ldoce/hwd/bre/e/lpd_nz.mp3","us":"media/ldoce/hwd/ame/e/lpd_nz.mp3"}}});

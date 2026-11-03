@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"kw":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(in writing) kilowatt(s) （","cn":"书写形式）千瓦"}]},"media":{"us":"media/ldoce/hwd/ame/b/laad3kw.mp3"},"examples":[{"en":"a 2kW electric fire * 2","cn":"千瓦的电炉"},{"en":"a 2kW electric fire","cn":""}]}});

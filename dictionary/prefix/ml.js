@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"ml":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"millilitre(s)","cn":"毫升"}]},"media":{"uk":"media/ldoce/hwd/bre/4/lpd_ml.mp3","us":"media/ldoce/hwd/ame/c/milliliter.mp3"},"examples":[{"en":"25ml water * 25","cn":"毫升水"}]}});

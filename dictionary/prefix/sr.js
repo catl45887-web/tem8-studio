@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"sr":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"Senior","cn":"老；大"}]},"collins":{"senses":[{"pos":"","cn":"(用于男性姓名中，表示同名父子中的父亲)；"}]},"media":{"us":"media/ldoce/hwd/ame/1/sr_che.mp3"},"examples":[{"en":"Douglas Fairbanks, Sr.","cn":"老道格拉斯•费尔班克斯"},{"en":"Sr Lopez","cn":"洛佩斯先生"}]}});

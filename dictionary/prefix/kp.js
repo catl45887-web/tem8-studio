@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"kp":{"oxford":{"phon":"ˌkeɪ ˈpiː","pos":"noun","senses":[{"en":"work done by soldiers in the kitchen, usually as a punishment （","cn":"常作为士兵惩罚的）伙房帮厨"}]},"media":{"uk":"media/uk/kp__gb_1.mp3","us":"media/us/kp__us_1.mp3"},"examples":[{"en":"The sergeant assigned him to KP.","cn":"中士派他下伙房去帮厨。"}]}});

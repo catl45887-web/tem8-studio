@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"wmd":{"collins":{"senses":[{"pos":"N-PLURAL","cn":"","en":"WMD is an abbreviation for (缩略=) weapons of mass destruction ."}]},"ldoce":{"phon":"hwd","pos":"noun","senses":[{"en":"weapons of mass destruction","cn":"大规模杀伤性武器"}]},"media":{"uk":"media/ldoce/hwd/bre/a/wmd1004.mp3","us":"media/ldoce/hwd/ame/1/wmd1004a.mp3"}}});

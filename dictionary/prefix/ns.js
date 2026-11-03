@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"ns":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"nanosecond(s)","cn":"毫微秒；十亿分之一秒； （台）奈秒"}]}},"nst":{"oxford":{"phon":"ˌen es ˈtiː","pos":"abbr.","senses":[{"en":"Newfoundland Standard Time","cn":"纽芬兰标准时间"}]},"media":{"uk":"media/uk/nst__gb_1.mp3","us":"media/us/nst__us_1.mp3"}}});

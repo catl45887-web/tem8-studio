@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"rd":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(used in written addresses) Road （","cn":"用于书面地址）路"}]},"collins":{"senses":[{"pos":"","cn":"…路尤用于地图或路标；"}]},"examples":[{"en":"12 Ashton Rd","cn":"阿什顿路 12 号"}]}});

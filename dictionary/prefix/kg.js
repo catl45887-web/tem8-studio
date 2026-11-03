@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"kg":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(in writing) kilogram(s) （","cn":"书写形式）千克，公斤"}]},"collins":{"senses":[{"pos":"","cn":"=) kilogram or kilograms ."}]},"media":{"uk":"media/ldoce/hwd/bre/5/lpd_kg.mp3","us":"media/ldoce/hwd/ame/5/lpd_kg.mp3"},"examples":[{"en":"10kg * 10","cn":"公斤"}]}});

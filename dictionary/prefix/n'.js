@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"n't":{"ldoce":{"phon":"hwd","pos":"","senses":[{"en":"the short form of ‘not’","cn":""}]},"media":{"uk":"media/ldoce/hwd/bre/e/brelasden_t.mp3","us":"media/ldoce/hwd/ame/e/amelasden_t.mp3"}}});

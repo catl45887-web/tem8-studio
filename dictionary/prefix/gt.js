@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"gt":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(in names of places) Great （","cn":"用于地名）大"}]},"examples":[{"en":"Gt Britain","cn":"大不列颠"},{"en":"Gt Yarmouth","cn":"大雅茅斯"}]}});

@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"oeuvre":{"oxford":{"phon":"ˈɜːvrə","pos":"noun","senses":[{"en":"all the works of a writer, artist, etc. （","cn":"作家、艺术家等的）全部作品"}]},"media":{"uk":"media/uk/oeuvre__gb_1.mp3","us":"media/us/oeuvre__us_1.mp3"},"examples":[{"en":"Picasso's oeuvre","cn":"毕加索的全部作品"},{"en":"the oeuvre of Van Gogh","cn":"凡•高的全部画作"}]}});

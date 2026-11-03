@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"km":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(in writing) kilometre(s) （","cn":"书写形式）千米，公里"}]},"media":{"us":"media/ldoce/hwd/ame/5/laad3km.mp3"}}});

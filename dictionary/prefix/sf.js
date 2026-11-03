@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"sf":{"oxford":{"phon":"ˌes ˈef","pos":"abbr.","senses":[{"en":"science fiction","cn":"科幻小说（或影片等）"}]},"collins":{"senses":[{"pos":"[N-UNCOUNT 不可数名词]","cn":"同 science fiction；"}]},"media":{"uk":"media/uk/sf__gb_1.mp3","us":"media/us/sf__us_1.mp3"}}});

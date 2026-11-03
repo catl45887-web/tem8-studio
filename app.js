@@ -16,37 +16,59 @@
   const allArticles = [...articles2026,...articles2025,...midArticles,...archiveArticles,...archiveArticles2]
   const allRealQuestions = [...questions2026,...questions2025,...midQuestions,...archiveQuestions,...archiveQuestions2]
   const dictionary = window.TEM8_DICTIONARY ||= {}
+  const dictionaryPrefixes = window.TEM8_DICTIONARY_PREFIXES || null
   const dictionaryLoaded = new Set()
   const dictionaryPromises = new Map()
   let wordLookupRequest = 0
+  function dictionaryCandidates(raw) {
+    const word = String(raw || '').toLowerCase().replace(/[’]/g, "'").replace(/^[^a-z]+|[^a-z'-]+$/g, '')
+    if (!/^[a-z]/.test(word)) return []
+    const candidates = new Set([word, wordLemmas[word]])
+    const addStems = value => stem(value).forEach(candidate => candidates.add(candidate))
+    if (/'s$/.test(word) && word.length > 3) {
+      const base = word.slice(0, -2)
+      candidates.add(base)
+      addStems(base)
+    }
+    if (/'$/.test(word)) candidates.add(word.slice(0, -1))
+    if (/^[a-z]+'[a-z]+$/.test(word)) candidates.add(word.split("'")[0])
+    if (word.includes('-')) for (const part of word.split('-').filter(Boolean)) {
+      candidates.add(part)
+      addStems(part)
+    }
+    addStems(word)
+    if (/s$/.test(word) && word.length > 3) {
+      const base = word.slice(0, -1)
+      candidates.add(base)
+      addStems(base)
+    }
+    return [...candidates].filter(value => typeof value === 'string' && /^[a-z]/.test(value))
+  }
   function dictionaryBuckets(words) {
     const buckets = new Set()
-    for (const raw of Array.isArray(words) ? words : [words]) {
-      const word = String(raw || '').toLowerCase().replace(/^[^a-z]+/, '')
-      if (!/^[a-z]/.test(word)) continue
-      for (const value of [word, wordLemmas[word]]) {
-        const letter = String(value || '').charAt(0)
-        if (/^[a-z]$/.test(letter)) buckets.add(letter)
+    for (const raw of Array.isArray(words) ? words : [words])
+      for (const candidate of dictionaryCandidates(raw)) {
+        const bucket = candidate.slice(0, dictionaryPrefixes ? 2 : 1)
+        if (!dictionaryPrefixes || dictionaryPrefixes.has(bucket)) buckets.add(bucket)
       }
-    }
     return [...buckets]
   }
-  function needsDictionary(words) { return dictionaryBuckets(words).some(letter => !dictionaryLoaded.has(letter)) }
+  function needsDictionary(words) { return dictionaryBuckets(words).some(bucket => !dictionaryLoaded.has(bucket)) }
   function ensureDictionary(words) {
-    return Promise.all(dictionaryBuckets(words).map(letter => {
-      if (dictionaryLoaded.has(letter)) return Promise.resolve()
-      if (!dictionaryPromises.has(letter)) dictionaryPromises.set(letter, new Promise((resolve, reject) => {
+    return Promise.all(dictionaryBuckets(words).map(bucket => {
+      if (dictionaryLoaded.has(bucket)) return Promise.resolve()
+      if (!dictionaryPromises.has(bucket)) dictionaryPromises.set(bucket, new Promise((resolve, reject) => {
         const script = document.createElement('script')
-        script.src = `dictionary/${letter}.js`
-        script.onload = () => { dictionaryLoaded.add(letter); resolve() }
+        script.src = dictionaryPrefixes ? `dictionary/prefix/${bucket}.js` : `dictionary/${bucket}.js`
+        script.onload = () => { dictionaryLoaded.add(bucket); resolve() }
         script.onerror = () => {
-          dictionaryPromises.delete(letter)
+          dictionaryPromises.delete(bucket)
           script.remove()
           reject(new Error('词典加载失败'))
         }
         document.head.appendChild(script)
       }))
-      return dictionaryPromises.get(letter)
+      return dictionaryPromises.get(bucket)
     }))
   }
   const wordLemmas = { became:'become', bought:'buy', came:'come', chose:'choose', clung:'cling', gave:'give', held:'hold', kept:'keep', lying:'lie', sank:'sink', took:'take', undid:'undo', went:'go', brakemen:'brakeman', neighborhoods:'neighborhood',

@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"bmw":{"ldoce":{"phon":"hwd","pos":"","senses":[{"en":"a type of high quality expensive German car, often driven by people who want to show how successful they are. BMW also make very powerful motorcycle s .","cn":""}]},"media":{"uk":"media/ldoce/hwd/bre/3/lpd_bmw.mp3","us":"media/ldoce/hwd/ame/7/p028-000002452.mp3"}}});

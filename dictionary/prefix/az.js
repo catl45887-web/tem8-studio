@@ -1,0 +1,1 @@
+Object.assign(window.TEM8_DICTIONARY, {"azure":{"media":{"uk":"media/uk/azure__gb_1.mp3","us":"media/us/azure__us_1.mp3"},"oxford":{"phon":"ˈæʒə(r)","pos":"adj.","senses":[{"en":"bright blue in colour like the sky","cn":"天蓝色的；蔚蓝色的"}]},"collins":{"senses":[{"pos":"[COLOUR 颜色词]","cn":"蔚蓝;天蓝色；"}]}}});
