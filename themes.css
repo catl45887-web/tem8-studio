@@ -34,30 +34,47 @@ html.t-switching body{animation:t-fade .32s ease}
 /* 关闭飘雪 */
 html.t-no-snow .w-flakes,html.t-no-snow .w-snow{display:none!important}
 
-/* ---------- 浅色 / 深色主题的首页 ---------- */
-.t-home{max-width:880px;padding:56px 0 24px}
-.t-date{margin:0;font-size:13px;letter-spacing:1px;color:var(--muted)}
-.t-hello{font-family:Georgia,'Noto Serif SC','Songti SC',serif;font-weight:500;font-size:clamp(32px,4.4vw,48px);line-height:1.25;letter-spacing:-.5px;margin:12px 0 10px;color:var(--ink)}
-.t-sub{margin:0;color:var(--muted);font-size:15px}
-.t-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0 8px}
-.t-stats>div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.t-stats strong{display:block;font-size:30px;font-weight:600;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
-.t-stats span{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
-.t-h2{font-size:17px;font-weight:600;margin:38px 0 14px;color:var(--ink)}
-.t-entries{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.t-entries button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;color:var(--ink);transition:border-color .15s,transform .15s}
-.t-entries button:hover{border-color:var(--green);transform:translateY(-2px)}
-.t-entries b{font-size:16px;font-weight:600}
-.t-entries small{font-size:13px;color:var(--muted)}
-.t-entries button.active{background:var(--paper)}
+/* ---------- 浅色 / 深色主题的首页（home.js 填内容） ---------- */
+@font-face{font-family:'TS Italic';src:url('winter/fonts/Cormorant-Italic.woff') format('woff');font-style:italic;font-weight:300 700;font-display:swap}
+.t-home{max-width:640px;padding:30px 0 40px;color:var(--ink)}
+.t-home [hidden]{display:none!important}
+.t-home button{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left}
+.h-count-row{display:flex;align-items:flex-end;gap:12px}
+.h-days{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:88px;line-height:.8;letter-spacing:-3px;font-variant-numeric:lining-nums}
+.h-days-label{display:flex;flex-direction:column;gap:4px;padding-bottom:2px}
+.h-days-label small{font-size:11px;letter-spacing:2.5px;color:var(--muted)}
+.h-days-label b{font-size:15px;font-weight:600}
+.h-date-edit{position:relative;margin-left:auto;align-self:center;min-height:44px;display:flex;align-items:center;font-size:13px;color:var(--muted);cursor:pointer}
+.h-date-edit input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.h-unset .h-days,.h-unset .h-days-label small{display:none}
+.h-unset .h-days-label b{font-size:22px;font-weight:700}
+.h-unset .h-date-edit{color:var(--ink);font-weight:600;border-bottom:1.5px solid var(--ink)}
+.h-track{display:block;height:2px;background:var(--line);margin-top:18px}
+.h-track i{display:block;height:2px;width:0;background:var(--ink);transition:width .6s ease}
+.h-track-cap{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--muted)}
+.h-label{font-size:12px;letter-spacing:2px;color:var(--muted)}
+.h-pick{margin-top:42px}
+.h-quote{margin:12px 0 0;font-family:'TS Italic',Georgia,'Times New Roman',serif;font-style:italic;font-size:27px;line-height:1.38;letter-spacing:-.1px}
+.h-meta{margin-top:12px;font-size:13px;color:var(--muted)}
+.h-actions{display:flex;align-items:center;flex-wrap:wrap;gap:22px;margin-top:20px}
+.t-home .h-primary{height:48px;padding:0 32px;border-radius:24px;background:var(--ink);color:var(--bg);font-size:16px;font-weight:600;transition:transform .12s ease}
+.t-home .h-primary:active{transform:scale(.97)}
+.t-home .h-link{min-height:44px;font-size:15px;font-weight:600}
+.h-today{margin-top:42px}
+.t-home .h-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:56px;border-bottom:1px solid var(--line);font-size:16px}
+.t-home .h-row-stack{flex-direction:column;align-items:stretch;justify-content:center;padding:14px 0 15px}
+.h-row-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.h-row-stack .h-track{margin-top:10px}
+.h-row-end{flex:none;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.h-row b{font-weight:700}
+.h-red{color:var(--accent)}
+.h-streak{margin:26px 0 0;font-size:14px;color:var(--muted)}
+.h-streak b{color:var(--ink);font-weight:600}
 @media(max-width:760px){
-  .t-home{padding:32px 0 8px}
-  .t-stats{gap:8px;margin-top:26px}
-  .t-stats>div{padding:14px 12px}
-  .t-stats strong{font-size:24px}
-  .t-stats span{font-size:12px}
-  .t-entries{grid-template-columns:repeat(2,1fr);gap:10px}
-  .t-entries button{padding:16px}
+  .t-home{padding:22px 4px 10px}
+  .h-days{font-size:80px}
+  .h-quote{font-size:24px}
+  .h-pick,.h-today{margin-top:36px}
 }
 
 /* ---------- 顶栏：主题快捷切换 ---------- */
@@ -200,3 +217,60 @@ html:not([data-theme=xmas]) .backup-card h2{font-family:inherit;font-weight:600}
 html:not([data-theme=xmas]) .w-stage{display:contents}
 html:not([data-theme=xmas]) .w-stage>*:not(#backup-reminder){display:none!important}
 html:not([data-theme=xmas]) #backup-reminder:not([hidden]){position:fixed;background:var(--card);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+
+/* =====================================================================
+   浅色 / 深色：书页式排版——去掉卡片和边框，用字号、字重、细线分层
+   ===================================================================== */
+html:not([data-theme=xmas]) .stat-card,
+html:not([data-theme=xmas]) .review-item,
+html:not([data-theme=xmas]) .real-article-card,
+html:not([data-theme=xmas]) .archive-paper-card,
+html:not([data-theme=xmas]) .mock-card,
+html:not([data-theme=xmas]) .library-card,
+html:not([data-theme=xmas]) .backup-card,
+html:not([data-theme=xmas]) .wordbook-row{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none}
+html:not([data-theme=xmas]) .category-card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:18px 2px}
+html:not([data-theme=xmas]) .category-card:hover,
+html:not([data-theme=xmas]) .real-article-card:hover{transform:none;box-shadow:none}
+html:not([data-theme=xmas]) .category-card h3{font-size:18px;font-weight:700}
+html:not([data-theme=xmas]) .real-article-card,
+html:not([data-theme=xmas]) .backup-card{padding-left:2px;padding-right:2px}
+html:not([data-theme=xmas]) .real-article-card h3,
+html:not([data-theme=xmas]) .library-copy h2{font-family:Georgia,'Times New Roman',serif;font-weight:400}
+html:not([data-theme=xmas]) .page-head h1{font-weight:700;letter-spacing:0}
+html:not([data-theme=xmas]) .eyebrow{letter-spacing:2px}
+html:not([data-theme=xmas]) .pill{background:transparent;padding:0;border-radius:0;letter-spacing:1px}
+html:not([data-theme=xmas]) .notice{background:transparent;border-top:1px solid var(--line);border-radius:0;padding-left:2px}
+html:not([data-theme=xmas]) .paper-feature,
+html:not([data-theme=xmas]) .result-hero{background:transparent;border-top:2px solid var(--ink);border-radius:0;padding-left:2px;padding-right:2px}
+/* 主按钮：墨色药丸；次要按钮：文字 + 细框 */
+html:not([data-theme=xmas]) .primary-btn,
+html:not([data-theme=xmas]) .submit-btn{background:var(--ink);border-color:var(--ink);color:var(--bg);border-radius:99px}
+html:not([data-theme=xmas]) .primary-btn:hover{background:var(--ink);opacity:.88}
+html:not([data-theme=xmas]) .secondary-btn{background:transparent;border:1.5px solid var(--line);border-radius:99px;color:var(--ink)}
+html:not([data-theme=xmas]) .nav-item.active,
+html:not([data-theme=xmas]) .nav-item:hover{background:transparent;color:var(--ink);font-weight:700}
+html:not([data-theme=xmas]) .nav-item b{background:var(--accent);color:#fff}
+/* 年份：时间轴式 */
+html:not([data-theme=xmas]) .library-year-nav button{font-family:Georgia,'Times New Roman',serif;font-size:17px;color:var(--muted)}
+html:not([data-theme=xmas]) .library-year-nav button.active{color:var(--ink);font-size:20px;border-bottom-color:var(--ink)}
+/* 设置页：分组不加框 */
+html:not([data-theme=xmas]) .t-group{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0}
+html:not([data-theme=xmas]) .t-row{padding-left:2px;padding-right:2px}
+html:not([data-theme=xmas]) .t-sw-light::after{background:#2a2118}
+html:not([data-theme=xmas]) .t-sw-dark::after{background:#e6e1d8}
+
+/* ---------- 手机底栏：线条图标（themes.js 插入；圣诞主题仍用原样式） ---------- */
+.mobile-nav .t-ico{display:none}
+html:not([data-theme=xmas]) .mobile-nav button{font-size:0;gap:4px;color:var(--muted)}
+html:not([data-theme=xmas]) .mobile-nav .t-ico{display:block;width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+html:not([data-theme=xmas]) .mobile-nav button span{font-size:11px}
+html:not([data-theme=xmas]) .mobile-nav button.active{color:var(--ink)}
+html:not([data-theme=xmas]) .mobile-nav button.active .t-ico{stroke-width:2.1}
+html:not([data-theme=xmas]) .mobile-nav button.active span{font-weight:700}
+
+/* ---------- 水波开屏（splash.js） ---------- */
+.t-splash-enter{position:absolute;left:50%;bottom:max(16px,env(safe-area-inset-bottom));margin-left:-22px;width:44px;height:44px;border:0;background:transparent;display:grid;place-items:center;padding:0;animation:t-float 2.6s ease-in-out infinite}
+.t-splash-enter:focus-visible{outline:1.5px solid currentColor;outline-offset:2px;border-radius:50%}
+@keyframes t-float{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-6px);opacity:1}}
+html[data-theme=xmas] .t-noxmas{display:none}
