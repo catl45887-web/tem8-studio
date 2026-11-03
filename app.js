@@ -487,22 +487,23 @@
     }
     $('reader-content').innerHTML = html
   }
-  function showWord(key,index) {
+  function showWord(key,index,anchor) {
+    const request = ++wordLookupRequest
     if (needsDictionary(key)) {
-      const request = ++wordLookupRequest
-      const dialog = $('word-dialog')
-      $('word-title').textContent = String(key || '')
-      $('word-detail').textContent = ''
-      $('word-meaning').textContent = '正在加载词典…'
-      $('word-dictionary').innerHTML = ''
-      if (!dialog.open) dialog.showModal()
+      window.TEM8_WORDPOP?.close()
+      anchor?.classList.add('word-lookup-pending')
       ensureDictionary(key).then(() => {
-        if (request !== wordLookupRequest || !dialog.open) return
-        dialog.close()
-        showWord(key,index)
+        if (request !== wordLookupRequest) return
+        showWord(key,index,anchor)
       }).catch(() => {
-        if (request === wordLookupRequest && dialog.open) $('word-meaning').textContent = '词典加载失败，请刷新页面重试。'
-      })
+        if (request !== wordLookupRequest) return
+        const dialog = $('word-dialog')
+        $('word-title').textContent = String(key || '')
+        $('word-detail').textContent = ''
+        $('word-meaning').textContent = '词典加载失败，请刷新页面重试。'
+        $('word-dictionary').innerHTML = ''
+        if (!dialog.open) dialog.showModal()
+      }).finally(() => anchor?.classList.remove('word-lookup-pending'))
       return
     }
     activeWord = String(key || '').toLowerCase().replace(/[’']s$/,'').replace(/[’']/g,'\'')
@@ -572,6 +573,7 @@
     if (window.TEM8_WORDPOP) {
       const w = activeWord
       window.TEM8_WORDPOP.open({
+        anchor,
         word: w, lemma, pos: posClean, phon, uk: md.uk, us: md.us,
         meaning: primary || '词典暂未收录这个词。',
         freq: examFreq(w, lemma),
@@ -644,7 +646,7 @@
     if (target.dataset.readingBackground !== undefined) { store.readingBackground=store.readingBackground==='sepia'?'paper':'sepia'; save(); updateReaderChrome(); return }
     if (target.dataset.translate !== undefined) { const i=Number(target.dataset.translate); translations[i]=!translations[i]; renderReader(); return }
     if (target.dataset.markRead) { const state=articleState(activeArticle.id); state.progress=Math.max(state.progress,Number(target.dataset.markRead)); setArticleState(activeArticle.id,state); renderReader(); return }
-    if (target.dataset.word) { const sel=window.getSelection(); if (sel && !sel.isCollapsed && String(sel).trim()) return; showWord(target.dataset.word,Number(target.dataset.segment)); return }
+    if (target.dataset.word) { const sel=window.getSelection(); if (sel && !sel.isCollapsed && String(sel).trim()) return; showWord(target.dataset.word,Number(target.dataset.segment),target); return }
     if (target.dataset.readerAnswer) { readerAnswers[target.dataset.readerAnswer]=Number(target.dataset.index); renderReader(); return }
     if (target.dataset.action === 'translate-all') { translations=translations.map(()=>!translations.every(Boolean)); renderReader(); return }
     if (target.dataset.action === 'reading-done') { setArticleState(activeArticle.id,{ progress:activeArticle.segments.length, completed:true }); $('reading-done').textContent='✓ 已读完'; $('reading-done').classList.add('done'); renderReader(); return }

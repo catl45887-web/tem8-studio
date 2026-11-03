@@ -22,6 +22,7 @@ mark.anno-hl.r{background:var(--hl-r);box-shadow:inset 0 -2px 0 var(--hl-r-line)
 .anno-chip .anno-chip-erase:hover{background:rgba(232,104,96,.22)}
 
 /* 被查的单词 */
+.word-lookup-pending{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
 .wpop-anchor{background:rgba(230,199,154,.28)!important;color:#fff4e2!important;border-radius:3px}
 
 /* ===== 查词小卡片 ===== */

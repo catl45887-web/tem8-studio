@@ -84,7 +84,7 @@
     opts = o || {}
     if (anchor) anchor.classList.remove('wpop-anchor')
     const recent = lastDown.el && Date.now() - lastDown.at < 2000 && lastDown.el.isConnected && !pop.contains(lastDown.el)
-    anchor = recent ? lastDown.el : null
+    anchor = opts.anchor?.isConnected ? opts.anchor : recent ? lastDown.el : null
     if (anchor) anchor.classList.add('wpop-anchor')
 
     pop.querySelector('.wpop-word').textContent = opts.word || ''
