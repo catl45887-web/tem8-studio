@@ -240,3 +240,25 @@
   window.TEM8_REVIEW = { renderMistakes, renderWords, count, noteWord }
   window.TEM8_RENDER_DASH?.()
 })()
+/* 「我的」页：把备份 / 同步模块写出的状态文字，汇总到顶部状态行 */
+;(() => {
+  const $ = id => document.getElementById(id)
+  if (!$('mx-last')) return
+  function sync() {
+    const last = $('backup-last')?.textContent || ''
+    const m = last.match(/上次导出：(.+)$/)
+    $('mx-last').textContent = m ? m[1].replace(/:\d\d$/, '') : '从未'
+    $('mx-last').classList.toggle('warn', !m)
+    const st = $('sync-status')?.textContent || ''
+    const on = !$('sync-connected')?.hidden
+    $('mx-sync').textContent = on ? (/失败|错误|无法/.test(st) ? '连接异常' : '已开启') : /未配置|不可用|暂不可用/.test(st) ? '不可用' : '未开启'
+    const p = $('backup-persistence')?.textContent || ''
+    const granted = /已授予/.test(p)
+    $('mx-store').textContent = granted ? '已受保护' : /不支持|无法|不可用/.test(p) ? '未受保护' : /尚未/.test(p) ? '未受保护' : '检查中'
+    $('mx-persist').hidden = granted
+    $('mx-warn').hidden = !/无法写入/.test($('backup-summary')?.textContent || '')
+  }
+  const mo = new MutationObserver(sync)
+  ;['backup-last', 'sync-status', 'backup-persistence', 'backup-summary', 'sync-connected'].forEach(id => { const el = $(id); if (el) mo.observe(el, { childList: true, characterData: true, subtree: true, attributes: true }) })
+  sync()
+})()

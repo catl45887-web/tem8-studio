@@ -6,22 +6,22 @@
   <meta name="theme-color" content="#2b1e17">
   <meta name="description" content="专八真题阅读与题组练习。">
   <title>拾页 · 专八练习</title>
-  <link rel="stylesheet" href="styles.css?v=202611030936">
-  <link rel="stylesheet" href="reader.css?v=202611030936">
-  <link rel="stylesheet" href="workflow.css?v=202611030936">
-  <link rel="stylesheet" href="annotate.css?v=202611030936">
-  <link rel="stylesheet" href="intensive.css?v=202611030936">
+  <link rel="stylesheet" href="styles.css?v=202611032018">
+  <link rel="stylesheet" href="reader.css?v=202611032018">
+  <link rel="stylesheet" href="workflow.css?v=202611032018">
+  <link rel="stylesheet" href="annotate.css?v=202611032018">
+  <link rel="stylesheet" href="intensive.css?v=202611032018">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css?v=202611030936" id="css-winter-base">
-  <link rel="stylesheet" href="winter.css?v=202611030936" id="css-winter">
-  <link rel="stylesheet" href="wordpop.css?v=202611030936">
-  <link rel="stylesheet" href="backup.css?v=202611030936">
+  <link rel="stylesheet" href="winter-base.css?v=202611032018" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css?v=202611032018" id="css-winter">
+  <link rel="stylesheet" href="wordpop.css?v=202611032018">
+  <link rel="stylesheet" href="backup.css?v=202611032018">
   <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
-  <link rel="stylesheet" href="theme-light.css?v=202611030936">
-  <link rel="stylesheet" href="theme-dark.css?v=202611030936">
-  <link rel="stylesheet" href="themes.css?v=202611030936">
-  <link rel="stylesheet" href="app.css?v=202611030936">
-  <link rel="stylesheet" href="practice.css?v=202611030936">
+  <link rel="stylesheet" href="theme-light.css?v=202611032018">
+  <link rel="stylesheet" href="theme-dark.css?v=202611032018">
+  <link rel="stylesheet" href="themes.css?v=202611032018">
+  <link rel="stylesheet" href="app.css?v=202611032018">
+  <link rel="stylesheet" href="practice.css?v=202611032018">
   <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
   <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}[t]})()</script>
 </head>
@@ -72,7 +72,7 @@
         <div id="mock-list" class="mock-grid"></div>
       </section>
       <section id="intensive-view" class="view">
-        <header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><p class="app-sub">听完整录音，或点原文中的句子，从那句开始听。</p>
+        <header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header>
         <div id="intensive-content"></div>
       </section>
       <section id="workflow-config-view" class="view"><div id="workflow-config-content"></div></section>
@@ -116,7 +116,21 @@
       </section>
       <section id="bookmarks-view" class="view"><header class="app-head"><h1>复习</h1><nav class="seg-tabs" aria-label="复习分类"><button type="button" data-view="mistakes">错题</button><button type="button" data-view="words">生词</button><button type="button" data-view="bookmarks">收藏</button><button type="button" data-view="notes">笔记</button></nav></header><div id="bookmarks-content"></div></section>
       <section id="notes-view" class="view"><header class="app-head"><h1>复习</h1><nav class="seg-tabs" aria-label="复习分类"><button type="button" data-view="mistakes">错题</button><button type="button" data-view="words">生词</button><button type="button" data-view="bookmarks">收藏</button><button type="button" data-view="notes">笔记</button></nav></header><div id="notes-content" class="notes-page"></div></section>
-      <section id="my-view" class="view"><header class="app-head"><h1>我的</h1><nav class="seg-tabs" aria-label="我的分类"><button type="button" data-view="my">学习记录</button><button type="button" data-view="settings">外观</button></nav></header><p class="app-sub">学习记录保存在当前浏览器。换设备或清理缓存前，请先导出备份或开启同步。</p><div class="backup-grid"><div class="backup-card"><span class="backup-kicker">01 / 学习记录</span><h2>备份与恢复</h2><p>一个备份文件包含做题记录、错题、生词、收藏、标记笔记和精听进度。</p><p id="backup-summary" class="backup-detail"></p><div class="backup-actions"><button type="button" class="primary-btn" data-backup-export>导出学习记录 <span>↓</span></button><button type="button" class="secondary-btn" data-backup-import>导入备份</button><input id="backup-file" type="file" accept=".json,application/json" hidden></div><p id="backup-last" class="backup-detail"></p></div><div class="backup-card"><span class="backup-kicker">02 / 浏览器存储</span><h2>本机保护</h2><p id="backup-persistence">正在检查浏览器存储状态…</p><button type="button" class="secondary-btn" data-backup-persist>申请持久存储</button><p class="backup-detail">无痕模式下，关闭无痕窗口后记录通常会丢失。请使用普通窗口，并定期导出备份。</p></div><div class="backup-card"><span class="backup-kicker">03 / 跨设备同步</span><h2>同步码</h2><p id="sync-status" role="status" aria-live="polite">正在检查云同步…</p><div id="sync-disconnected"><div class="backup-actions"><button type="button" class="primary-btn" data-sync-create>开启同步</button></div><label class="sync-label">已有同步码<input id="sync-code-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="输入另一台设备上的同步码"></label><button type="button" class="secondary-btn" data-sync-join>连接已有记录</button></div><div id="sync-connected" hidden><p class="backup-detail">在另一台设备输入下方同步码，学习记录即可合并。</p><code id="sync-code-display" class="sync-code"></code><div class="backup-actions"><button type="button" class="secondary-btn" data-sync-copy>复制同步码</button><button type="button" class="secondary-btn" data-sync-now>立即同步</button><button type="button" class="secondary-btn" data-sync-stop>停止本设备同步</button></div></div><p class="backup-detail">同步码相当于钥匙，请勿发给他人。离线时仍可在本机做题；导出备份也请继续保留。</p></div></div><p id="backup-message" class="backup-message" role="status" aria-live="polite"></p></section>
+      <section id="my-view" class="view"><header class="app-head"><h1>我的</h1><nav class="seg-tabs" aria-label="我的分类"><button type="button" data-view="my">学习记录</button><button type="button" data-view="settings">外观</button></nav></header><div class="mx">
+<div class="mx-status" aria-live="polite"><div><small>上次备份</small><b id="mx-last">从未</b></div><div><small>同步</small><b id="mx-sync">未开启</b></div><div><small>本机存储</small><b id="mx-store">检查中</b></div></div>
+<p class="mx-warn" id="mx-warn" hidden>当前浏览器无法保存记录，可能是无痕模式。请换普通窗口，或先导出备份。</p>
+<h3 class="mx-h">备份</h3>
+<div class="mx-group">
+<button type="button" class="mx-row" data-backup-export><span><b>导出备份</b><small>做题、错题、生词、收藏、笔记、精听进度</small></span><i aria-hidden="true">↓</i></button>
+<button type="button" class="mx-row" data-backup-import><span><b>导入备份</b><small id="backup-summary"></small></span><i aria-hidden="true">›</i></button>
+<input id="backup-file" type="file" accept=".json,application/json" hidden>
+<button type="button" class="mx-row" data-backup-persist id="mx-persist"><span><b>申请持久存储</b><small id="backup-persistence">正在检查浏览器存储状态…</small></span><i aria-hidden="true">›</i></button>
+<p id="backup-last" hidden></p>
+</div>
+<h3 class="mx-h">跨设备同步</h3>
+<details class="mx-group mx-sync"><summary class="mx-row"><span><b>同步码</b><small id="sync-status" role="status" aria-live="polite">正在检查云同步…</small></span><i aria-hidden="true">›</i></summary>
+<div class="mx-body"><div id="sync-disconnected"><button type="button" class="primary-btn" data-sync-create>开启同步</button><label class="sync-label">已有同步码<input id="sync-code-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="输入另一台设备上的同步码"></label><button type="button" class="secondary-btn" data-sync-join>连接已有记录</button></div><div id="sync-connected" hidden><p class="backup-detail">在另一台设备输入下方同步码，记录会自动合并。</p><code id="sync-code-display" class="sync-code"></code><div class="backup-actions"><button type="button" class="secondary-btn" data-sync-copy>复制同步码</button><button type="button" class="secondary-btn" data-sync-now>立即同步</button><button type="button" class="secondary-btn" data-sync-stop>停止本设备同步</button></div></div><p class="backup-detail">同步码相当于钥匙，不要发给别人。</p></div></details>
+</div><p id="backup-message" class="backup-message" role="status" aria-live="polite"></p></section>
 
       <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳︎ 记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份</p></aside></div></section>
       <section id="result-view" class="view"><div class="page-head"><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
@@ -127,40 +141,40 @@
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶︎ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
-  <script src="data.js?v=202611030936"></script>
-  <script src="articles2026.js?v=202611030936"></script>
-  <script src="questions2026.js?v=202611030936"></script>
-  <script src="paperExtras2026.js?v=202611030936"></script>
-  <script src="listening2026.js?v=202611030936"></script>
-  <script src="paperExtras2025.js?v=202611030936"></script>
-  <script src="papers2021_2024.js?v=202611030936"></script>
-  <script src="listeningArchive.js?v=202611030936"></script>
-  <script src="audioArchive.js?v=202611030936"></script>
-  <script src="articles2025.js?v=202611030936"></script>
-  <script src="articles2025-extras.js?v=202611030936"></script>
-  <script src="questions2025.js?v=202611030936"></script>
-  <script src="articlesArchive.js?v=202611030936"></script>
-  <script src="questionsArchive.js?v=202611030936"></script>
-  <script src="articlesArchive2.js?v=202611030936"></script>
-  <script src="questionsArchive2.js?v=202611030936"></script>
-  <script src="paperExtras.js?v=202611030936"></script>
-  <script src="paperExtras2.js?v=202611030936"></script>
-  <script src="annotations.js?v=202611030936"></script>
-  <script src="player.js?v=202611030936"></script>
-  <script src="transcripts.js?v=202611030936"></script>
-  <script src="intensive.js?v=202611030936"></script>
-  <script src="workflow.js?v=202611030936"></script>
-  <script src="dictionary/prefixes.js?v=202611030936"></script>
-  <script src="app.js?v=202611030936"></script>
-  <script src="review.js?v=202611030936"></script>
-  <script src="winter.js?v=202611030936"></script>
-  <script src="wordpop.js?v=202611030936"></script>
-  <script src="backup.js?v=202611030936"></script>
-  <script src="cloud-sync/config.js?v=202611030936"></script>
-  <script type="module" src="cloud-sync/client.mjs?v=202611030936"></script>
-  <script src="themes.js?v=202611030936"></script>
-  <script src="home.js?v=202611030936"></script>
-  <script src="splash.js?v=202611030936"></script>
-  <script src="appnav.js?v=202611030936"></script>
+  <script src="data.js?v=202611032018"></script>
+  <script src="articles2026.js?v=202611032018"></script>
+  <script src="questions2026.js?v=202611032018"></script>
+  <script src="paperExtras2026.js?v=202611032018"></script>
+  <script src="listening2026.js?v=202611032018"></script>
+  <script src="paperExtras2025.js?v=202611032018"></script>
+  <script src="papers2021_2024.js?v=202611032018"></script>
+  <script src="listeningArchive.js?v=202611032018"></script>
+  <script src="audioArchive.js?v=202611032018"></script>
+  <script src="articles2025.js?v=202611032018"></script>
+  <script src="articles2025-extras.js?v=202611032018"></script>
+  <script src="questions2025.js?v=202611032018"></script>
+  <script src="articlesArchive.js?v=202611032018"></script>
+  <script src="questionsArchive.js?v=202611032018"></script>
+  <script src="articlesArchive2.js?v=202611032018"></script>
+  <script src="questionsArchive2.js?v=202611032018"></script>
+  <script src="paperExtras.js?v=202611032018"></script>
+  <script src="paperExtras2.js?v=202611032018"></script>
+  <script src="annotations.js?v=202611032018"></script>
+  <script src="player.js?v=202611032018"></script>
+  <script src="transcripts.js?v=202611032018"></script>
+  <script src="intensive.js?v=202611032018"></script>
+  <script src="workflow.js?v=202611032018"></script>
+  <script src="dictionary/prefixes.js?v=202611032018"></script>
+  <script src="app.js?v=202611032018"></script>
+  <script src="review.js?v=202611032018"></script>
+  <script src="winter.js?v=202611032018"></script>
+  <script src="wordpop.js?v=202611032018"></script>
+  <script src="backup.js?v=202611032018"></script>
+  <script src="cloud-sync/config.js?v=202611032018"></script>
+  <script type="module" src="cloud-sync/client.mjs?v=202611032018"></script>
+  <script src="themes.js?v=202611032018"></script>
+  <script src="home.js?v=202611032018"></script>
+  <script src="splash.js?v=202611032018"></script>
+  <script src="appnav.js?v=202611032018"></script>
 </body>
 </html>
