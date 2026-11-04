@@ -153,7 +153,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 5,
         "fix": "删除 the（the language → language）",
-        "analysis": "［解析 】本句意为 “ 在学习第二语言的过程中语言教学的作用是什么？ “ 其中的 the role ·of和 the acquisi­ tion of 中的 the 都是表示特指 ， 而 language teach­ ing是泛指， 没必要用定冠词 the。"
+        "analysis": "［解析 】本句意为 “ 在学习第二语言的过程中语言教学的作用是什么？ “ 其中的 the role ·of和 the acquisition of 中的 the 都是表示特指 ， 而 language teaching是泛指， 没必要用定冠词 the。"
       },
       {
         "number": 6,
@@ -312,12 +312,12 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 5,
         "fix": "circumstances 后加 that",
-        "analysis": "【解析】本题考查强调旬型 。原文强调 ， 只有在特殊情况下， 人们才会意识到语言的复杂性 ，而在一般情况下 ，因为使用语言是不费劲的事 ， 而人们认为语言是理所当然的事 。 本旬强调的是状语 only in exceptional cir­ cumstances, 因此要在 circumstances后面加上 that。"
+        "analysis": "【解析】本题考查强调旬型 。原文强调 ， 只有在特殊情况下， 人们才会意识到语言的复杂性 ，而在一般情况下 ，因为使用语言是不费劲的事 ， 而人们认为语言是理所当然的事 。 本旬强调的是状语 only in exceptional circumstances, 因此要在 circumstances后面加上 that。"
       },
       {
         "number": 6,
         "fix": "influenced → affected",
-        "analysis": "专八 2013 · -2 2 【解析 】本题考查表示 “ 影响 ” 的两个词 influence 和 affect 的区别。 虽然两者字面意思是 “ 影响 \",influ­ ence 的英语定义是 \"tocause a change\" , 即“ 左右 ， 影响 ，感化，产生作用\" '侧重 ” 导致发生变化\" a affect 除有 influence的 “ 影响 ” 含义外 ， 还表示 “ 受疾病侵袭 \"。 句中表示 ” 中风 ” 对语言能力的影响 ，故用社fect。"
+        "analysis": "专八 2013 · -2 2 【解析 】本题考查表示 “ 影响 ” 的两个词 influence 和 affect 的区别。 虽然两者字面意思是 “ 影响 \",influence 的英语定义是 \"to cause a change\" , 即“ 左右 ， 影响 ，感化，产生作用\" '侧重 ” 导致发生变化\" a affect 除有 influence的 “ 影响 ” 含义外 ， 还表示 “ 受疾病侵袭 \"。 句中表示 ” 中风 ” 对语言能力的影响 ，故用社fect。"
       },
       {
         "number": 7,
@@ -327,7 +327,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 8,
         "fix": "anyone → someone",
-        "analysis": "（解析］因为该旬是肯定句 ，要表达 “ 某人 “ 应用 some­ one, 而不是 anyone。"
+        "analysis": "（解析］因为该旬是肯定句 ，要表达 “ 某人 “ 应用 someone, 而不是 anyone。"
       },
       {
         "number": 9,
@@ -341,7 +341,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       }
     ],
     "translationReference": "Life is like a glass of w血，never ceasing to offer wonders to those who truly love it. Holding the glass in the hand, you w川observe that the dark red is reminiscent of blood, which justly symbols the trace of life. Taking a sip and recollecting its aftertaste in the mouth, you w出taste the sweetness mixed with a bit of bitterness, a taste as complicated and elusive as life is. Once you swallow the sip, the linger ing aroma w讥refresh the heart and mind, leaving the drinker life-long benefits. How remarkably wine re-  sembles life: the longer the wine ages, the mellower it may taste; the more you experience, the more life may reward you. Life, at its twilight, becomes a good wine waiting to be savored, calm and profound in its color yet full of generosity and wisdom in its flavor.",
-    "writingReference": "Regulating Uber Digital Ride Finder Ride-hailing service like Uber has facilitated the transportation of citizens, but meanwhile it has raised many regulation questions. Officials focus on the differences in ,regulating taxi drivers and Uber drivers. For one thing, unlike taxi drivers, Uber drivers do not need any qualifications; they do not need to pay licens ing and insurance fees.\nTherefore, they operate more cheaply than taxi drivers, which may be detrimental to taxi drivers' income and consumers' interests. For another, presently in most countries such as the UK, without a clearly stated law regulating Uber, the police are puzzled whether the Uber drivers have violated the law or not. Citizens treat the matter from different aspects.\nThey say services su_ch as Uber result from teclmologi cal advances and what needs to be done is to ensure the safety of the Uber cars. They are also concerned with distinguishing between rides-for-hire and driving-oneself-around legally. I think the opinions stated in the given material are all reasonable and the regulation of Uber is in ur gent need now.\nTo tackle the issue more comprehensively, I would like to add the following points in the regulation. First, safety is the most critical issue fortransportation, so the regulation of Uber service must com bine the background check on the driver with the safety inspection of the car itself. Cases have been re vealed that some Uber users were sexually abused when taking a Uber vehicle.\nLessons must be learned from . such tragedy in mal血g up relevant rules or laws. Second, in regulating ride-hailing services, the interests of all related parties including taxi drivers,. Uber drivers, passengers, and citizens should be taken into consideration. Attention also needs to be paid to the protection of the enviromnent, with efforts made to reduce as much greenhouse gas emission as possible and to meet the need for convenient transportation of all the citizens.\nIn short, it is unadvisable and impossible to ban the Uber service. However, strict and careful regula tions are required if the new service industry is to be developed healthily.",
+    "writingReference": "Regulating Uber Digital Ride Finder Ride-hailing service like Uber has facilitated the transportation of citizens, but meanwhile it has raised many regulation questions. Officials focus on the differences in ,regulating taxi drivers and Uber drivers. For one thing, unlike taxi drivers, Uber drivers do not need any qualifications; they do not need to pay licens ing and insurance fees.\nTherefore, they operate more cheaply than taxi drivers, which may be detrimental to taxi drivers' income and consumers' interests. For another, presently in most countries such as the UK, without a clearly stated law regulating Uber, the police are puzzled whether the Uber drivers have violated the law or not. Citizens treat the matter from different aspects.\nThey say services su_ch as Uber result from teclmologi cal advances and what needs to be done is to ensure the safety of the Uber cars. They are also concerned with distinguishing between rides-for-hire and driving-oneself-around legally. I think the opinions stated in the given material are all reasonable and the regulation of Uber is in ur gent need now.\nTo tackle the issue more comprehensively, I would like to add the following points in the regulation. First, safety is the most critical issue for transportation, so the regulation of Uber service must com bine the background check on the driver with the safety inspection of the car itself. Cases have been re vealed that some Uber users were sexually abused when taking a Uber vehicle.\nLessons must be learned from . such tragedy in mal血g up relevant rules or laws. Second, in regulating ride-hailing services, the interests of all related parties including taxi drivers,. Uber drivers, passengers, and citizens should be taken into consideration. Attention also needs to be paid to the protection of the enviromnent, with efforts made to reduce as much greenhouse gas emission as possible and to meet the need for convenient transportation of all the citizens.\nIn short, it is unadvisable and impossible to ban the Uber service. However, strict and careful regula tions are required if the new service industry is to be developed healthily.",
     "translationAnalysis": "1. 第一句由两个短句组成，两个短句分别用了不同的主语： “生活”和 “热爱生活的人” 。可将两个短句合译成一个句子，有两种处理方法可以借鉴。其一，用分号来连接两个部分，表示第二个部分是对前面部分的进一步阐述，例如：Life is like a glass of wine; those who love it can always discover endless wonders from it; 其二，都用life 作为主语，将 “热爱生活的人 “处理成宾语，如译文。由于红酒常装玻璃杯中，故” 一杯红酒” 中的 “杯” 可选用glass 或 goblet\"高脚杯” 。\n2. 第二句由三个小短句组成，第一个小短句没有主语，翻译时有多种处理方法。其一，用泛指主语you , 处理成条件从句：If you hold it in the hand, … ；其二，处理成非谓语动词的现在分词形式Holding it in the hand, you will心其三，用祈使句Hold it in the hand and you will… o\n3. 第三句的句式和上一句相似，处理方法也可借鉴。”拫一口”可译成take a sip ; \"甘中有一丝苦涩” 可译成sweet ness m议ed with a bit of bitterness。\n4. 第四句 “ 喝一口下肚” 中 “ 喝” 和”下肚”为同义反复。英译时要避免这种同义反复，译为drink a mouth of wine 即可，至于to your belly 、to your stomach 是不言自明的，没有必要译出。”沁人心脾”是成语，可以选择与 “心脾 “无关的表达方法，比如：refresh \\ one's mind 、gratifying 。也可以选择与 “心”有关的表达方法，比如permeate through one's heart 、penetrate to one's heart。但是不能按照 “心脾”字面翻译。\n5. 第五句是一个类比，前半句讲酒道，后半句讲人理，为了加强衔接，可以酌情增译How remarkably wine resembles life , 并用冒号引出后面的类比，因为汉语的句式比较工整，英语翻译也要尽量简洁对仗。 “ 红酒越陈越美味” 中的 “陈”并非指 “陈旧＂，故不可译作stale , 该词实指 “存放的时间长” ，故译文用了转换译法，用了动词age 来表达。 “美味”在文中特指酒的香醇，故选用mellow 一词，指 “芳醇的＂，非常妥帖。\n6. 最后一句如果按原文结构翻译成四句话，势必很松散罗嗦，不符合英语形合的特点。根据整个段落布局的需要，仍然可以用 “人生”作为主语， “走向晚年”可以灵活地处理为后置定语in its twilight。短句”其色彩是沉静的，味道中充满慷慨与智慧” 可译成形容词短语和介词词组后置加以连接。为了平衡美，译文将 “沉静 “ 翻译成calm and pro found, 这样能更好地和后面的generosity and wisdom 相对称。",
     "writingAnalysis": "题目给出了两类人对Uber 的合法性的评价，包括政府官员和普通市民。在概括时，考生须注意总结出共性观点。 两名官员的意见侧重点不同，可分开讲述。市民的看法比较统一，总体上都支持立法监管Uber。根据题目的要求，考生 可采取以下的布局： 第一段：从两方面分述政府官员对Uber 的看法。第一，认为Uber 服务损害出租车司机的利益；第二，官员对Uber 是否合法存在质疑。 第二段：概述普通市民的看法—一总体上支持立法监管，同时指出，监管这类进行出租业务的车不应与监管其他车 辆有区别。 第三～五段：提出自己的观点——－同意应立法监管，然后从两方面深入讨论该问题。 第六段：总结全文，指出只有立法监管Uber, 才能使这项新服务得到良好发展。"
   },
@@ -449,7 +449,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 2,
         "fix": "certain → some / certain 前加 a / kind → kinds",
-        "analysis": "【解析 】此处限定词 certain后面跟可数名词单数(kind) ' 应以 a certain表达 ，只有后面跟可数名词复数时，才能直接用 certain, 故可改为 a certain kind或 cer­ tain kinds。而 some 在做限定词时有” 某一 ” 的意思 ， 后面可直接跟可数名词单数 ， kind是可数名词单数形式， 所以此处也可以把 certain改为 some。"
+        "analysis": "【解析 】此处限定词 certain后面跟可数名词单数(kind) ' 应以 a certain表达 ，只有后面跟可数名词复数时，才能直接用 certain, 故可改为 a certain kind或 certain kinds。而 some 在做限定词时有” 某一 ” 的意思 ， 后面可直接跟可数名词单数 ， kind是可数名词单数形式， 所以此处也可以把 certain改为 some。"
       },
       {
         "number": 3,
@@ -601,7 +601,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 2,
         "fix": "conscience → consciousness",
-        "analysis": "【解析 ）conscience 意为 “ 良心 ， 良知 \"'而 conscious­ ness 意为 ” 意识 ，知觉 ” 。句中的 that 引导同位语从句具体说明前面的名词的内容 ，而该内容为 “ 我 ” 的一种想法（或意识），因而此处应为 consciousness。"
+        "analysis": "【解析 ）conscience 意为 “ 良心 ， 良知 \"'而 consciousness 意为 ” 意识 ，知觉 ” 。句中的 that 引导同位语从句具体说明前面的名词的内容 ，而该内容为 “ 我 ” 的一种想法（或意识），因而此处应为 consciousness。"
       },
       {
         "number": 3,
@@ -784,7 +784,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 3,
         "fix": "There → It",
-        "analysis": "【解析 】本旬真正的主语是 to talk about prirni­ tive peoples or cultures (谈论原始人类或原始文化），而 there 不能用作形式主语 ，应改成 it。 另， 看到句首的 There 以及谓语动词 be可以先把本句当作 there be 句型考察； 然而 be后面是形容词 appropri­ ate 而不是名词结构 ， 故应考虑是旬型上的错误。"
+        "analysis": "【解析 】本旬真正的主语是 to talk about prirnitive peoples or cultures (谈论原始人类或原始文化），而 there 不能用作形式主语 ，应改成 it。 另， 看到句首的 There 以及谓语动词 be可以先把本句当作 there be 句型考察； 然而 be后面是形容词 appropriate 而不是名词结构 ， 故应考虑是旬型上的错误。"
       },
       {
         "number": 4,
@@ -804,7 +804,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 7,
         "fix": "similar → different",
-        "analysis": "【解析 】爱斯基摩人和英国人的生活环境明显不同，且 environments也是复数形式，故应将sinillar改成 differ­ ent。"
+        "analysis": "【解析 】爱斯基摩人和英国人的生活环境明显不同，且 environments也是复数形式，故应将sinillar改成 different。"
       },
       {
         "number": 8,
@@ -943,7 +943,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 5,
         "fix": "therefore → however",
-        "analysis": "【解析 ］此旬与前旬在意义上应是转折关系 ，前句说，nurs- PART IV TRANSLATION ery rhyme是先学后传 ， 学会与传播之间的时间差距少则 20年 ， 多则 70年 ； 本旬说 school lore 或 play­ ground rhyme , 孩子们一边学一边传。 二者形成对照。 故用转折意义的 however 替换 therefore。"
+        "analysis": "【解析 ］此旬与前旬在意义上应是转折关系 ，前句说，nurs- PART IV TRANSLATION ery rhyme是先学后传 ， 学会与传播之间的时间差距少则 20年 ， 多则 70年 ； 本旬说 school lore 或 playground rhyme , 孩子们一边学一边传。 二者形成对照。 故用转折意义的 however 替换 therefore。"
       },
       {
         "number": 6,
@@ -953,7 +953,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 7,
         "fix": "currently → current",
-        "analysis": "［解析 】此句意为 “ 若某个游戏童谣一直流行上百年\"' 表示 “ 流行 “ 应用形容词 current。 此处用形容词 cur­ rent 作t o have been 的表语 。"
+        "analysis": "［解析 】此句意为 “ 若某个游戏童谣一直流行上百年\"' 表示 “ 流行 “ 应用形容词 current。 此处用形容词 current 作t o have been 的表语 。"
       },
       {
         "number": 8,

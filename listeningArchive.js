@@ -1339,7 +1339,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 5,
           "wordLimit": 3,
           "answer": "Types of stress",
-          "analysis": "【解析抽空格下面出现的 A. positive stress 和B . negative stress 可知此部分是 “压力的类型 ” ，同时参照第 1 点( Definitionof stres s) 和第 3点 (Ways to cope with stres s) 的写法 ，此空填 Types of stress 。"
+          "analysis": "【解析抽空格下面出现的 A. positive stress 和B . negative stress 可知此部分是 “压力的类型 ” ，同时参照第 1 点( Definition of stres s) 和第 3点 (Ways to cope with stres s) 的写法 ，此空填 Types of stress 。"
         },
         {
           "number": 6,
@@ -1381,13 +1381,13 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 12,
           "wordLimit": 3,
           "answer": "result",
-          "analysis": "【解析］此题是针对应对压力的第三个方法 “ 合理计划和行动 ”出的题目 。 录音在解释第三个方法时， 首先提到了制定计划的原因 ， 然后说明制定计划本身和计划及行动的结果 (r esult of the plan or ac­ tion)都可以帮助消减压力 ， 故此处答案应为 res ult。"
+          "analysis": "【解析］此题是针对应对压力的第三个方法 “ 合理计划和行动 ”出的题目 。 录音在解释第三个方法时， 首先提到了制定计划的原因 ， 然后说明制定计划本身和计划及行动的结果 (r esult of the plan or action)都可以帮助消减压力 ， 故此处答案应为 res ult。"
         },
         {
           "number": 13,
           "wordLimit": 3,
           "answer": "accept out-of-control situations // accept unchangeable situations",
-          "analysis": "changeable situations 2 【解析 】此题是应对压力的第四个方法。 录音提到此方法是要学会接受超出你控制能力的情形 (accept situations which are out of your control )。 回答此题时注意既要体现核心意思 ， 又要将答案控制在三个词以内。 考生可将原文的 accept situations which are out of your control 改为 accept out­ of-control situations , 或根据录音随后提到的 un­ changeable, 填入 accept unchangeable situations。"
+          "analysis": "changeable situations 2 【解析 】此题是应对压力的第四个方法。 录音提到此方法是要学会接受超出你控制能力的情形 (accept situations which are out of your control )。 回答此题时注意既要体现核心意思 ， 又要将答案控制在三个词以内。 考生可将原文的 accept situations which are out of your control 改为 accept out of-control situations , 或根据录音随后提到的 unchangeable, 填入 accept unchangeable situations。"
         },
         {
           "number": 14,
@@ -1399,7 +1399,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 15,
           "wordLimit": 3,
           "answer": "reasonable speed",
-          "analysis": "【解析 】此题针对应对压力的最后一个方法。 录音明确提到 pace 的意思是以合理的速度 (at a reason­ able speed)去完成自己可处理的任务 (manageable tasks)。 提纲中已提供 manageable task, 故本题应填另一个要素 ： reasonable speed。 SE CTIO_�--B Part One: Now listen to t加 interviewbetween Oscar-winning actress Angelina Jolie and CNN's Andrew Damon. M: First of all thank you obviously for your time, Angelina. You are now in Iraq. So what is your main aim in this visit? What are you trying to accomplish while you are out here? W: Well I came to the region about 6 months ago. I frrst went to Syria because I work with U.N.H.C.R. and there are 1.5 million refugees in Syria alone from Iraq and while I was there, I went inside and met with some internally displaced people. You know, these are the people made homeless because of the war. [ 1 ]The are refu ees and this tri is to et a better icture of the intemall dis laced eo le and to discuss the situation with the local ovemment with our ovemment with the NGOs and with local eo le and t to understand what is ha enin [2]because there are over 2 million internally displaced people and [l]there doesn't seem to be a real coherent lan to hel them and there's lots of good w诅and lots of discussion— but just a lot of talk at the moment and a lot of pieces need to be put togeth.er. [l]So, trying to figure out what they are. M: What kind of a sense have you been able to get so far in terms of how severe the crisis is and what actually needs to be done to help out? W: Well, I in my research before I came here, I looked at the numbers and there are over 4 million peo­ ple displaced and of the 2 m皿on internally displaced it's estimated that 58 percent are under 12 years old. [3]So it's a ve hi h number of eo le in a ve ve vulnerable situation and a lot of oun kids. So far the different officials I've met with and different local eo le I've met with all have shared concerns and ve stron 1 ou know the have s oken out about the humanitarian crisis but um there seems to be a block in. I'm not good at policy and fixing all this and saying what's wrong. [4]But I do know that for exam le U.N.H.C.R. needs to be more active inside Ir ' . M: How do you think U.N.H.C.R. should be doing? W: Well, I don't have the answ"
+          "analysis": "【解析 】此题针对应对压力的最后一个方法。 录音明确提到 pace 的意思是以合理的速度 (at a reasonable speed)去完成自己可处理的任务 (manageable tasks)。 提纲中已提供 manageable task, 故本题应填另一个要素 ： reasonable speed。 SE CTIO_�--B Part One: Now listen to t加 interview between Oscar-winning actress Angelina Jolie and CNN's Andrew Damon. M: First of all thank you obviously for your time, Angelina. You are now in Iraq. So what is your main aim in this visit? What are you trying to accomplish while you are out here? W: Well I came to the region about 6 months ago. I frrst went to Syria because I work with U.N.H.C.R. and there are 1.5 million refugees in Syria alone from Iraq and while I was there, I went inside and met with some internally displaced people. You know, these are the people made homeless because of the war. [ 1 ]The are refu ees and this tri is to et a better icture of the intemall dis laced eo le and to discuss the situation with the local ovemment with our ovemment with the NGOs and with local eo le and t to understand what is ha enin [2]because there are over 2 million internally displaced people and [l]there doesn't seem to be a real coherent lan to hel them and there's lots of good w诅and lots of discussion— but just a lot of talk at the moment and a lot of pieces need to be put togeth.er. [l]So, trying to figure out what they are. M: What kind of a sense have you been able to get so far in terms of how severe the crisis is and what actually needs to be done to help out? W: Well, I in my research before I came here, I looked at the numbers and there are over 4 million people displaced and of the 2 m皿on internally displaced it's estimated that 58 percent are under 12 years old. [3]So it's a ve hi h number of eo le in a ve ve vulnerable situation and a lot of oun kids. So far the different officials I've met with and different local eo le I've met with all have shared concerns and ve stron 1 ou know the have s oken out about the humanitarian crisis but um there seems to be a block in. I'm not good at policy and fixing all this and saying what's wrong. [4]But I do know that for exam le U.N.H.C.R. needs to be more active inside Ir ' . M: How do you think U.N.H.C.R. should be doing? W: Well, I don't have the answ"
         }
       ],
       "answerSheet": "Answer Sheet One"
@@ -1416,7 +1416,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "To work out a plan for refugees."
           ],
           "answer": 3,
-          "analysis": "【解析 】题目问 Angelina访问伊拉克的主要目的 ， 这是对话中记者提出的第一个问题。 Angelina说她此次到访的目的是为了了解难民的情况 ，和当地政府 、美国政府 、非政府组织以及当地民众探讨局势 ，弄清情况 。 她又说现在似乎只有良好愿望而没有真正明确的计划去帮助他们 ，她要做的就是制定 (figure out)计划 ，所以答案应是 D。 【点睛】 A\"使世人关注难民危机”和B \"照顾伊拉克难民 ”在A ngelina的回答中都没有出现， 易排除 。 录音确实提到 An­ gelina和U .N .H. C.R. 一起工作( work with U.N.H. C.R. ), 但这并非她此行的主要目的， 故应排除 C\"为 U.N.H. C.R. 工作 ”。"
+          "analysis": "【解析 】题目问 Angelina访问伊拉克的主要目的 ， 这是对话中记者提出的第一个问题。 Angelina说她此次到访的目的是为了了解难民的情况 ，和当地政府 、美国政府 、非政府组织以及当地民众探讨局势 ，弄清情况 。 她又说现在似乎只有良好愿望而没有真正明确的计划去帮助他们 ，她要做的就是制定 (figure out)计划 ，所以答案应是 D。 【点睛】 A\"使世人关注难民危机”和B \"照顾伊拉克难民 ”在A ngelina的回答中都没有出现， 易排除 。 录音确实提到 Angelina和U .N .H. C.R. 一起工作( work with U.N.H. C.R. ), 但这并非她此行的主要目的， 故应排除 C\"为 U.N.H. C.R. 工作 ”。"
         },
         {
           "number": 2,
@@ -1428,7 +1428,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "About 3.5 million."
           ],
           "answer": 1,
-          "analysis": "【解析 】题目问叙利亚境内有多少流离失所的人 。 Angelina在访谈一开始就讲到她先去了叙利亚 ， 探访当地难民情况。 其中提到了 internallydisplaced people 的人数为 over 2 million, 所以本题选 B。 【点睛】 A项的 1.5 m诅ion是指从伊拉克逃到叙利亚的难民 ，不是叙利亚难民的总数 。 C项的 4 million是Angelina所专八201 4- 13 看过的研究数据， 而且是指该片战乱地区的难民总数，也不是指叙利亚当地的难民。 D 项的数字在录音中未提及 ，也找不到任何原文依据。"
+          "analysis": "【解析 】题目问叙利亚境内有多少流离失所的人 。 Angelina在访谈一开始就讲到她先去了叙利亚 ， 探访当地难民情况。 其中提到了 internally displaced people 的人数为 over 2 million, 所以本题选 B。 【点睛】 A项的 1.5 m诅ion是指从伊拉克逃到叙利亚的难民 ，不是叙利亚难民的总数 。 C项的 4 million是Angelina所专八201 4- 13 看过的研究数据， 而且是指该片战乱地区的难民总数，也不是指叙利亚当地的难民。 D 项的数字在录音中未提及 ，也找不到任何原文依据。"
         },
         {
           "number": 3,
@@ -1464,7 +1464,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "It helps to figure out a plan for refugees of Iraq."
           ],
           "answer": 2,
-          "analysis": "【解析 ]Angelina说到 U.N.H.C.R. 在伊拉克的救助行动还不够积极 ，接着在回答关于 U.N.H.C.R. 应该如何行动的问题时 ，提到有一件急需解决的事情——该组织在当地没有帮助清点和登记难民的实际驻扎点 ， C项所述与此相符。 【点睛】 根据 Angelina关于 U.N.H.C.R的回答 ，可知该组织在帮助处理此次危机的过程中未够积极， A项不对。 Angelina 虽然与这个组织一起工作 ，并且说到是因此而先去了趟叙利亚， 但只是去了解当地的难民情况 ，没有说帮忙登记难民， B项不对。 D项也与\" U.N.H.C.R. 不够积极 ”的说法不符。 Part Two: M: Do you think the global community has a responsibility to address that? W: Well, I think the global community always has a responsibility to any humanitarian crisis. [6]And I think it's in our best interest to address a humanitarian crisis on this scale because dis lacement can lead to a lot of instability and aggression. We certainly don't want that. A lot of people feel it's a little calmer now ... this is the time to really discuss and, and tcy to get these communities back together. But if these communities don't start coming back together properly, [7A]if we don't start really counting the people… [7B]understanding where they are... what they need… [7D]making sure the schools are being built... makin sure the electrici the water and all these needs are bein met and also understanding that a lot of the people that w诅return are going to come back to houses that are occupied or de­ stroyed and bombed out ... It's going to be a big operation to understand the needs… to address it, to help people put the pieces of their li�e back tqgether and return to their communities. [8)80 it's really ·ust ettin the lan to ether … ettin the rou to ether and eve bod activel focused on hel in the refugees. M: What would be the message that you would want to carcy out of here back home or even the message that you would want to get out internationally in terms of what's happening here... the refugee crisis… the consequences that could happen in the future if it's not properly addressed? W: I always hate speculation on the news, so I don't want to be somebody who speculates. Um but I think it's clear that a displaced unstable pop1Ilation is what happens in Iraq, and how Iraq settles in the years to come is going to affect the entire Middle East. [9]And a big part of what is going to affect how it settles is how these eo le are returned and settled into their homes into their communi "
+          "analysis": "【解析 ]Angelina说到 U.N.H.C.R. 在伊拉克的救助行动还不够积极 ，接着在回答关于 U.N.H.C.R. 应该如何行动的问题时 ，提到有一件急需解决的事情——该组织在当地没有帮助清点和登记难民的实际驻扎点 ， C项所述与此相符。 【点睛】 根据 Angelina关于 U.N.H.C.R的回答 ，可知该组织在帮助处理此次危机的过程中未够积极， A项不对。 Angelina 虽然与这个组织一起工作 ，并且说到是因此而先去了趟叙利亚， 但只是去了解当地的难民情况 ，没有说帮忙登记难民， B项不对。 D项也与\" U.N.H.C.R. 不够积极 ”的说法不符。 Part Two: M: Do you think the global community has a responsibility to address that? W: Well, I think the global community always has a responsibility to any humanitarian crisis. [6]And I think it's in our best interest to address a humanitarian crisis on this scale because dis lacement can lead to a lot of instability and aggression. We certainly don't want that. A lot of people feel it's a little calmer now ... this is the time to really discuss and, and tcy to get these communities back together. But if these communities don't start coming back together properly, [7A]if we don't start really counting the people… [7B]understanding where they are... what they need… [7D]making sure the schools are being built... makin sure the electrici the water and all these needs are bein met and also understanding that a lot of the people that w诅return are going to come back to houses that are occupied or destroyed and bombed out ... It's going to be a big operation to understand the needs… to address it, to help people put the pieces of their li�e back tqgether and return to their communities. [8)80 it's really ·ust ettin the lan to ether … ettin the rou to ether and eve bod activel focused on hel in the refugees. M: What would be the message that you would want to carcy out of here back home or even the message that you would want to get out internationally in terms of what's happening here... the refugee crisis… the consequences that could happen in the future if it's not properly addressed? W: I always hate speculation on the news, so I don't want to be somebody who speculates. Um but I think it's clear that a displaced unstable pop1Ilation is what happens in Iraq, and how Iraq settles in the years to come is going to affect the entire Middle East. [9]And a big part of what is going to affect how it settles is how these eo le are returned and settled into their homes into their communi "
         },
         {
           "number": 6,
@@ -1488,7 +1488,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Recovering the infrastructure."
           ],
           "answer": 2,
-          "analysis": "【 解析 】Angelina在回答国际社会应该如何参与救助时 ， 提到应该开始清点难民数量 (A 项）、 了解他们的落脚地点 （ 即B 项的 “ 登记难民信息\" )以及恢复各种基本生活设施 (D 项）。 所以本题选 C项 。 【点睛】 C 项 “ 将难民送至一个安全的地方 “ 未在录音中提及。 本题考查细节信息 ， 听音时注意尽量做好笔记，然后逐项排除，即可得出答案。 at ''lll lJEST eJ'.plain whllt the elobal con:,unity should _do? [b] 【解析】题目所问与记者的第四个问题相似 。 Angelina的回答是整合计划 ，整合群体力量 ， 使得每个人都能积极投身到帮助难民之事上来。 所以 B项 ” 采取迅速有效的行动 ” 是最佳答案 。 【点睛】 A 项和 C 项都是 Angelina提到的该采取的具体行动 ，不具有总结性； D 项中的 instability\"不稳定 ” 和 aggres­ sion\"攻击行为 ” 都是难民居无定所的后果 ，避免它们的发生应该采取积极的行动 ，故 D 项不如 B 项恰当具体。"
+          "analysis": "【 解析 】Angelina在回答国际社会应该如何参与救助时 ， 提到应该开始清点难民数量 (A 项）、 了解他们的落脚地点 （ 即B 项的 “ 登记难民信息\" )以及恢复各种基本生活设施 (D 项）。 所以本题选 C项 。 【点睛】 C 项 “ 将难民送至一个安全的地方 “ 未在录音中提及。 本题考查细节信息 ， 听音时注意尽量做好笔记，然后逐项排除，即可得出答案。 at ''lll lJEST eJ'.plain whllt the elobal con:,unity should _do? [b] 【解析】题目所问与记者的第四个问题相似 。 Angelina的回答是整合计划 ，整合群体力量 ， 使得每个人都能积极投身到帮助难民之事上来。 所以 B项 ” 采取迅速有效的行动 ” 是最佳答案 。 【点睛】 A 项和 C 项都是 Angelina提到的该采取的具体行动 ，不具有总结性； D 项中的 instability\"不稳定 ” 和 aggression\"攻击行为 ” 都是难民居无定所的后果 ，避免它们的发生应该采取积极的行动 ，故 D 项不如 B 项恰当具体。"
         },
         {
           "number": 8,
@@ -1569,25 +1569,25 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 1,
           "wordLimit": 3,
           "answer": "reading with purpose",
-          "analysis": "【解析 】 说话人提到主动学习者的第一个特点是 ，他们往往会带着理解和记忆的目的来阅读 (read with the purpose of understanding and remembering) , 由第四 、五点的 beingable to 的形式可知，此处不能直接用 read,而要用动名词 reading。 同时 ，由于字数限制， 空格处填上 readingwith purpose即可。"
+          "analysis": "【解析 】 说话人提到主动学习者的第一个特点是 ，他们往往会带着理解和记忆的目的来阅读 (read with the purpose of understanding and remembering) , 由第四 、五点的 being able to 的形式可知，此处不能直接用 read,而要用动名词 reading。 同时 ，由于字数限制， 空格处填上 reading with purpose即可。"
         },
         {
           "number": 2,
           "wordLimit": 3,
           "answer": "checking understanding",
-          "analysis": "【解析 】说话人明确指出 ，主动学习者会在阅读前设定目标 (set goals) 并在阅读过程中检查自己的理解 (check their understanding)。 A项提纲b efore reading: setting goals 对应说话人提到的其中一点信息 ， 且使用了动名词形式 ，本空作为与此并列的内容， 也应为动名词形式 ，故填入 checkingunder­ standing。"
+          "analysis": "【解析 】说话人明确指出 ，主动学习者会在阅读前设定目标 (set goals) 并在阅读过程中检查自己的理解 (check their understanding)。 A项提纲b efore reading: setting goals 对应说话人提到的其中一点信息 ， 且使用了动名词形式 ，本空作为与此并列的内容， 也应为动名词形式 ，故填入 checking understanding。"
         },
         {
           "number": 3,
           "wordLimit": 3,
           "answer": "reflective",
-          "analysis": "【解析 】 该空位于并列连词 and及形容词 critical之前， 应填入形容词。 说话人在介绍主动学习者的第二个特点时提到 ，主动学习者会对信息进行反思并做批判性思考 (reflecton information and think .criti­ cally) , 反思 (beingreflective)是主动学习的重要部分。 结合前面对空格词性的分析 ，确认该空应填 re­ flect的形容词形式 ，即 reflective。"
+          "analysis": "【解析 】 该空位于并列连词 and及形容词 critical之前， 应填入形容词。 说话人在介绍主动学习者的第二个特点时提到 ，主动学习者会对信息进行反思并做批判性思考 (reflect on information and think .critically) , 反思 (beingreflective)是主动学习的重要部分。 结合前面对空格词性的分析 ，确认该空应填 reflect的形容词形式 ，即 reflective。"
         },
         {
           "number": 4,
           "wordLimit": 3,
           "answer": "puzzling // confusing",
-          "analysis": "【解析 】该空位于介词 of 之后， 名词 concepts之前 ， 应填入修饰 concepts 的前置形容词。 说话人提到主动学习者会甄别出他们不能很好理解的概念 (con­ cepts that… very well) , 此处 concepts 的修饰成分是一个后置定语从句 ，不能照搬作为答案 ， 应根据其意思将其同义转化为形容词，如 puzzling或c onfus­ ing等。"
+          "analysis": "【解析 】该空位于介词 of 之后， 名词 concepts之前 ， 应填入修饰 concepts 的前置形容词。 说话人提到主动学习者会甄别出他们不能很好理解的概念 (concepts that… very well) , 此处 concepts 的修饰成分是一个后置定语从句 ，不能照搬作为答案 ， 应根据其意思将其同义转化为形容词，如 puzzling或c onfusing等。"
         },
         {
           "number": 5,
@@ -1599,31 +1599,31 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 6,
           "wordLimit": 3,
           "answer": "comprehensive and organized",
-          "analysis": "［解析 ］说话人在介绍主动学习者第三个特点时提到 ， 主动学习者会积极听讲 ， 并通过有条理的方法详尽地做笔记 (takingcomprehensive notes in an orga­ nized way) , 据此判断，记笔记的方式应是详尽且有条理 ， 故本空应填 comprehensiveand organized。"
+          "analysis": "［解析 ］说话人在介绍主动学习者第三个特点时提到 ， 主动学习者会积极听讲 ， 并通过有条理的方法详尽地做笔记 (taking comprehensive notes in an organized way) , 据此判断，记笔记的方式应是详尽且有条理 ， 故本空应填 comprehensive and organized。"
         },
         {
           "number": 7,
           "wordLimit": 3,
           "answer": "get assistance",
-          "analysis": "［解析 】 讲座提到的第四个特点是当遇到问题时就去寻求帮助 (g et assistance when they are experi­ encing problems) , 故答案填g et assistance。"
+          "analysis": "［解析 】 讲座提到的第四个特点是当遇到问题时就去寻求帮助 (g et assistance when they are experiencing problems) , 故答案填g et assistance。"
         },
         {
           "number": 8,
           "wordLimit": 3,
           "answer": "constant understanding monitoring // monitoring",
-          "analysis": "their understanding 【解析 】空格位于介词短语 because of 之后 ，应填入名词或动名词。 说话人提到 ， 因为主动学习者经常监控自己的理解情况 (constantly monitoring their understanding) , 一旦出现理解问题， 他们就会知道并在迷失方向前寻求帮助。 结合对空格成分的分析及答案不超过三个词的规定， 本空填 constant under­ standing monitoring最佳 ， monitoringtheir under­ standing也可接受。"
+          "analysis": "their understanding 【解析 】空格位于介词短语 because of 之后 ，应填入名词或动名词。 说话人提到 ， 因为主动学习者经常监控自己的理解情况 (constantly monitoring their understanding) , 一旦出现理解问题， 他们就会知道并在迷失方向前寻求帮助。 结合对空格成分的分析及答案不超过三个词的规定， 本空填 constant understanding monitoring最佳 ， monitoringtheir understanding也可接受。"
         },
         {
           "number": 9,
           "wordLimit": 3,
           "answer": "predict study difficulties // predict difficult points",
-          "analysis": "【解析 】讲座提到 ，主动学习者还经常会预测课程中一些难点 (predictthe courses, or . even particular concepts within courses that may give them trouble) , 原文内容较长 ，需要进行概括 ，答案可以写成 predictstudy difficulties或p redictdifficult points等。"
+          "analysis": "【解析 】讲座提到 ，主动学习者还经常会预测课程中一些难点 (predict the courses, or . even particular concepts within courses that may give them trouble) , 原文内容较长 ，需要进行概括 ，答案可以写成 predict study difficulties或p redictdifficult points等。"
         },
         {
           "number": 10,
           "wordLimit": 3,
           "answer": "question information",
-          "analysis": "【解析 】讲座提到 ，主动学习者第五个特点是质疑信专八 20 13 -12 息， 答案照写录音中的 questioninformation即可。"
+          "analysis": "【解析 】讲座提到 ，主动学习者第五个特点是质疑信专八 20 13 -12 息， 答案照写录音中的 question information即可。"
         },
         {
           "number": 11,
@@ -1641,19 +1641,19 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 13,
           "wordLimit": 3,
           "answer": "poor performance",
-          "analysis": "【解析 】本空位于介词 toward 之后 ，应填入一个名词性成分。 说话人在对比了主动学习者和被动学习者对学习责任的认知之后， 还对比了这两种学习者在面临学习成绩欠佳( don't perlorm as well; per­ formance is poor)时的不同表现 ， 总结这些表达再结合空格分析 ，答案为 poor perlormance 。"
+          "analysis": "【解析 】本空位于介词 toward 之后 ，应填入一个名词性成分。 说话人在对比了主动学习者和被动学习者对学习责任的认知之后， 还对比了这两种学习者在面临学习成绩欠佳( don't perlorm as well; performance is poor)时的不同表现 ， 总结这些表达再结合空格分析 ，答案为 poor perlormance 。"
         },
         {
           "number": 14,
           "wordLimit": 3,
           "answer": "change studying behaviors",
-          "analysis": "【解析 】说话人提到 ，主动学习者在表现不佳时，会作出评估( evaluate why they didn't do well) , 并在下一次改变学习方法( change those studying be­ haviors the next time) , 故答案填 change study­ ing behaviors即可。"
+          "analysis": "【解析 】说话人提到 ，主动学习者在表现不佳时，会作出评估( evaluate why they didn't do well) , 并在下一次改变学习方法( change those studying behaviors the next time) , 故答案填 change studying behaviors即可。"
         },
         {
           "number": 15,
           "wordLimit": 3,
           "answer": "school work // studies",
-          "analysis": "［解析 】说话人明确指出技巧(skill)不能与意愿 (will) 相比， 并举例说明 ，如果没有学习动机， 即便是一个博学的人也会 does little school work and rarely studies。 据此可见 ，意愿的重要性体现在学业上 ，所以填 school work 或 studies。 S�C TION B Part One: Interviewer: Good morning, Mr. West. Nice to have you on our program. Interviewee: Good morning. Interviewer: OK. We all work or very few people can get away with not working. Work is a fact of life when we're adults. But before, there wasn't a lot of choice in the selection of work Now things are different. [l] With reater mobili the mobili that is offered when eo le have reater o ortunities for hi her education or trainin more and more eo le are able to choose the fields that interest them. They can and do have opinions about what makes one job for them better than another job. So, Mr. West, what do people actually want from their jobs? What 扛e workers' opinions, you know, about what makes one job better than another? Interviewee: Well, to answer your questions, I'd like to look at two polls, two smveys. They were both done in the 1990s. The purposes were to find out what issues or job characteristics were es­ pecially important to workers. Interviewer: Umm. What were they? Interviewee: Some of you might guess that the answer is obvious. Interviewer: I think so. Inter viewee: You might say \"oh people just want higher salaries, more money.\" But let's see if that's true. Interviewer: OK. Interviewee: Now, the first poll. The first poll was taken in 1990, and this poll asked respondents to choose what was the most important to them among five items. And they were only allowed to choose one out of the five items. Interviewer: So what were the five items? Interviewee: Alright. The first item was important and meaningful work. The second was high income. The third was chances for advancement, promotion and so on. The fourth item was job security, and the flfth was shorter work hours, OK? Interviewer: It would be interesting to know the smvey results. Interviewee: Yes, now let me tell you the results. [2C]50% considered important and meanin如W work the most im ortant characteristic of a · ob. The didn't choose hi h income. Interestin . [3]Anyway, 24% did sa hi h income was the most im ortant "
+          "analysis": "［解析 】说话人明确指出技巧(skill)不能与意愿 (will) 相比， 并举例说明 ，如果没有学习动机， 即便是一个博学的人也会 does little school work and rarely studies。 据此可见 ，意愿的重要性体现在学业上 ，所以填 school work 或 studies。 S�C TION B Part One: Interviewer: Good morning, Mr. West. Nice to have you on our program. Interviewee: Good morning. Interviewer: OK. We all work or very few people can get away with not working. Work is a fact of life when we're adults. But before, there wasn't a lot of choice in the selection of work Now things are different. [l] With reater mobili the mobili that is offered when eo le have reater o ortunities for hi her education or trainin more and more eo le are able to choose the fields that interest them. They can and do have opinions about what makes one job for them better than another job. So, Mr. West, what do people actually want from their jobs? What 扛e workers' opinions, you know, about what makes one job better than another? Interviewee: Well, to answer your questions, I'd like to look at two polls, two smveys. They were both done in the 1990s. The purposes were to find out what issues or job characteristics were especially important to workers. Interviewer: Umm. What were they? Interviewee: Some of you might guess that the answer is obvious. Interviewer: I think so. Inter viewee: You might say \"oh people just want higher salaries, more money.\" But let's see if that's true. Interviewer: OK. Interviewee: Now, the first poll. The first poll was taken in 1990, and this poll asked respondents to choose what was the most important to them among five items. And they were only allowed to choose one out of the five items. Interviewer: So what were the five items? Interviewee: Alright. The first item was important and meaningful work. The second was high income. The third was chances for advancement, promotion and so on. The fourth item was job security, and the flfth was shorter work hours, OK? Interviewer: It would be interesting to know the smvey results. Interviewee: Yes, now let me tell you the results. [2C]50% considered important and meanin如W work the most im ortant characteristic of a · ob. The didn't choose hi h income. Interestin . [3]Anyway, 24% did sa hi h income was the most im ortant "
         }
       ],
       "answerSheet": "Answer Sheet One"
@@ -1718,7 +1718,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Six."
           ],
           "answer": 1,
-          "analysis": "【解析 ]Mr. West 介绍第二份调查问卷时说 ，针对问卷的每一个调查项均设有四个选项 ，分别是 “ 不重要 ““ 有点重要 ”“ 重要 ” 和 “ 非常重要 “ 。所以本题选 B 项。 【点睛】本题不难， 答案基本可以直接从录音原文中听出来 。 Part Two: Interviewer: Sorry to interrupt you. How many items altoge_ther? Inter viewee: Oh, the poll had 16 items. Let me give you a few examples. Interviewer: 0 K. Inter viewee: The second item they asked about is interesting work They asked how important is interesting work to you. And again, I'm just going to tell you about how many people said it was very important. In this case, 78% of the respondents ranked this as very important to them. Interviewer: 78%? Inter viewee: Yes, 78%. This is a key point, I think One often sees people working for a lot less if they en­ joy their work Interviewer: That's true. 4 Interviewee: [6]The fourth item the asked about was o ortuni to learn new skills. How important is that to you? 68% ranked this as very important. [6]And I think that goes again to the idea of in- terest level ersonal satisfaction and the idea that eo le want their work to be meanin Interviewer: Definitely. Interviewee: Another item, item NO. 7, recognition from coworkers. 62% of the respondents said that this was very important. It was important for them to be recognized, to be respected, and ac­ knowledged for the work they've done. And I see recognition as a psychological benefit. There's no monetary reward necessarily attached to it, although sometimes they could be. But more people are looking for the psychological reward in terms of appreciation. Interviewer: [7]It seems to me that eo le value s cholo ical reward a lot more than mone . Interviewee: That's right. At least the poll result seemed to say so. Now, let's take a look at another item, NO. 14. Interviewer: OK! Interviewee: NO. 14 was chances for promotion. 53% said that this was very important to them. It was im­ portant to them to have opportunities for advancement, chances for promotion. [8]And I think this oes alon with hi h income and reco nition. That's both a s cholo ical reward romo­ tion, as well as a monetary reward. Interviewer: Umm. Interviewee: [10]15 is contact with a lot of eo le. Some eo le are ve eo le-oriented and 52% said that this was very importa"
+          "analysis": "【解析 ]Mr. West 介绍第二份调查问卷时说 ，针对问卷的每一个调查项均设有四个选项 ，分别是 “ 不重要 ““ 有点重要 ”“ 重要 ” 和 “ 非常重要 “ 。所以本题选 B 项。 【点睛】本题不难， 答案基本可以直接从录音原文中听出来 。 Part Two: Interviewer: Sorry to interrupt you. How many items altoge_ther? Inter viewee: Oh, the poll had 16 items. Let me give you a few examples. Interviewer: 0 K. Inter viewee: The second item they asked about is interesting work They asked how important is interesting work to you. And again, I'm just going to tell you about how many people said it was very important. In this case, 78% of the respondents ranked this as very important to them. Interviewer: 78%? Inter viewee: Yes, 78%. This is a key point, I think One often sees people working for a lot less if they enjoy their work Interviewer: That's true. 4 Interviewee: [6]The fourth item the asked about was o ortuni to learn new skills. How important is that to you? 68% ranked this as very important. [6]And I think that goes again to the idea of in- terest level ersonal satisfaction and the idea that eo le want their work to be meanin Interviewer: Definitely. Interviewee: Another item, item NO. 7, recognition from coworkers. 62% of the respondents said that this was very important. It was important for them to be recognized, to be respected, and acknowledged for the work they've done. And I see recognition as a psychological benefit. There's no monetary reward necessarily attached to it, although sometimes they could be. But more people are looking for the psychological reward in terms of appreciation. Interviewer: [7]It seems to me that eo le value s cholo ical reward a lot more than mone . Interviewee: That's right. At least the poll result seemed to say so. Now, let's take a look at another item, NO. 14. Interviewer: OK! Interviewee: NO. 14 was chances for promotion. 53% said that this was very important to them. It was important to them to have opportunities for advancement, chances for promotion. [8]And I think this oes alon with hi h income and reco nition. That's both a s cholo ical reward romotion, as well as a monetary reward. Interviewer: Umm. Interviewee: [10]15 is contact with a lot of eo le. Some eo le are ve eo le-oriented and 52% said that this was very importa"
         },
         {
           "number": 6,
@@ -1839,13 +1839,13 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 4,
           "wordLimit": 3,
           "answer": "time sampling",
-          "analysis": "【解析 】原文介绍了两种取样的方式 ，分别是 time sampling和 situationsampling , 这里要填第一种， 故填t imesampling。"
+          "analysis": "【解析 】原文介绍了两种取样的方式 ，分别是 time sampling和 situation sampling , 这里要填第一种， 故填t imesampling。"
         },
         {
           "number": 5,
           "wordLimit": 3,
           "answer": "variable // of different lengths",
-          "analysis": "【解析 】原文提到在 random sampling中， 每次观察的间隔时间会变 (inteivals... could vary …) ， 可长可短 (some longer others short er )。· 根据题目 ， 这里可填形容词或介词短语 ，因此 ，答案是 variable或o f dif­ ferent lengths。"
+          "analysis": "【解析 】原文提到在 random sampling中， 每次观察的间隔时间会变 (inteivals... could vary …) ， 可长可短 (some longer others short er )。· 根据题目 ， 这里可填形容词或介词短语 ，因此 ，答案是 variable或o f different lengths。"
         },
         {
           "number": 6,
@@ -1857,19 +1857,19 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 7,
           "wordLimit": 3,
           "answer": "different locations // different circumstances",
-          "analysis": "f erent conditions 【解析】在介绍 situationsampling的定义时 ， 原文说这是在不同地点 、不同情况下研究行为 (in different locations and under different circumstances and conditions) , 由于字数的限制 ，答案在 locations, cir­ cumstances和c onditions中选填一个即可。"
+          "analysis": "f erent conditions 【解析】在介绍 situation sampling的定义时 ， 原文说这是在不同地点 、不同情况下研究行为 (in different locations and under different circumstances and conditions) , 由于字数的限制 ，答案在 locations, circumstances和c onditions中选填一个即可。"
         },
         {
           "number": 8,
           "wordLimit": 3,
           "answer": "varies // changes // differs",
-          "analysis": "【解析 】原文提到运用 situationsampling的原因是人或动物的行为方式不可能在所有情景中都一样 。根据题目 ， 答案应该是表示变化或不同的动词的第三人称单数形式 ， 故答案可以是 varies, changes, differs 等。"
+          "analysis": "【解析 】原文提到运用 situation sampling的原因是人或动物的行为方式不可能在所有情景中都一样 。根据题目 ， 答案应该是表示变化或不同的动词的第三人称单数形式 ， 故答案可以是 varies, changes, differs 等。"
         },
         {
           "number": 9,
           "wordLimit": 3,
           "answer": "advantage // purpose",
-          "analysis": "【解析 】原文提到研究者通过 situationsampling可以做出更客观的观察报告 (more objective observa­ tions)。 可见 ， 更客观的观察报告是 situationsam­ pling的优势或目的 。 因此，答案应该是 advantage或 purpose 。"
+          "analysis": "【解析 】原文提到研究者通过 situation sampling可以做出更客观的观察报告 (more objective observations)。 可见 ， 更客观的观察报告是 situation sampling的优势或目的 。 因此，答案应该是 advantage或 purpose 。"
         },
         {
           "number": 10,
@@ -1887,25 +1887,25 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 12,
           "wordLimit": 3,
           "answer": "has control // having control",
-          "analysis": "［解析 】原文在回答 What is a field experiment? 这个问题时明确指出 ， 在 fieldexperiment中研究者控制一个或多个条件。 另外，根据空格后的 over 可知c ontrol 应该是名词 (control 作动词时为及物动词， 后面不需要加 over) ; 再者 ， researcher 为单数 ， 因此 ，答案为 has control 或 havingcontrol 。"
+          "analysis": "［解析 】原文在回答 What is a field experiment? 这个问题时明确指出 ， 在 field experiment中研究者控制一个或多个条件。 另外，根据空格后的 over 可知c ontrol 应该是名词 (control 作动词时为及物动词， 后面不需要加 over) ; 再者 ， researcher 为单数 ， 因此 ，答案为 has control 或 having control 。"
         },
         {
           "number": 13,
           "wordLimit": 3,
           "answer": "normally occurring // in natural settings",
-          "analysis": "【解析 】原文提到 observationwithout intervention 的主要目的是 to describe behaviour as it nor­ mally occurs, that is, in a natural setting。根据题目 ， 该题应该填修饰 behaviour的分词或介词短语，因此 ，答案为 normally occurring 或 innatural settings。"
+          "analysis": "【解析 】原文提到 observation without intervention 的主要目的是 to describe behaviour as it normally occurs, that is, in a natural setting。根据题目 ， 该题应该填修饰 behaviour的分词或介词短语，因此 ，答案为 normally occurring 或 in natural settings。"
         },
         {
           "number": 14,
           "wordLimit": 3,
           "answer": "method",
-          "analysis": "【解析 】原文提到在 observation without interven­ tion的情况下 ， 观察者是不对观察的对象和环境进行干扰的 (withoutany attempt by the observer to intervene) , 这里即空格后的 no intervention , 而根据题目前后的内容， 本题应该填类似于题目中出现的 purpose 和 researcher 这样的单个名词，而 “ 没有干扰 ” 可以归纳为这一观察手段的方法或实施途径， 故答案可填 method。"
+          "analysis": "【解析 】原文提到在 observation without intervention的情况下 ， 观察者是不对观察的对象和环境进行干扰的 (without any attempt by the observer to intervene) , 这里即空格后的 no intervention , 而根据题目前后的内容， 本题应该填类似于题目中出现的 purpose 和 researcher 这样的单个名词，而 “ 没有干扰 ” 可以归纳为这一观察手段的方法或实施途径， 故答案可填 method。"
         },
         {
           "number": 15,
           "wordLimit": 3,
           "answer": "a passive recorder",
-          "analysis": "【解析】 原文提到在 observ ationwithout interven­ tion的情况下 ， 观察者实际上是一个 ” 被动的记录者\" '答案照写录音提到的 a passive recorder 即可 。 SE CTION B Part One: M: People often wonder how the human brain creates, for example, a beautiful painting, a sculpture or even a delicious dinner. Today we are honoured to have Dr. Nancy Andreasen, a neuroscientist at the University of Iowa on our talk show. Dr. Andreasen has recently written a book called The Creating Brain: The Neur oscience of Genius. In her book, she tackles the question and tries to look into the brain behind creativity. M: Dr. Andreasen, thanks for coming on our show. W: Pleasure. M: Now, Dr. Andreasen can we start with the question \"What is creativity?\" W: Well, creativity can be saying as a process. This process starts with a person, for example an artist, musician, inventor or even someone who's trying to figure out a better way of doing a task at work or at home. [ 1 ]That erson must think about the roblem or or their ro·ect in a novel wa and then come up with a solution. M: Hmm, I see. But how long will it take for the person to find a solution as it were? W: Well, it depends. [ 1 ]The creative rocess can o b in a flash or it can take ears. But the end result is invariabl the roduction of somethin new and useful such as the automobile or somethin beauti­ ful and artistic such as a aintin b Vincent van Go h. M: Hmm, Dr. Andreasen, then do you think the ability to be creative is inborn or not? W: Well, no one knows yet if the ability to be creative, for example, the ability to produce a haunting symphony is the result of the environment or a genetic makeup that allows people to be creative more easily. [2]However creativi does seem to run in certain families. M: Is that so? W: Yes. You see, [2]Johann Sebastian Bach was the most famous member of the Bach famil but there were 20 other eminent musicians who came from the same famil M: That's very interesting. Now Dr. Andreasen, we've so far been talking about those famous creative peo­ ple like van Gogh or Bach who have produced great pieces of work . [l]Does that mean that creativity only resides in great people? W: [l]No, certainly not. [3]Creativi is not limited I mean to the mast"
+          "analysis": "【解析】 原文提到在 observ ationwithout intervention的情况下 ， 观察者实际上是一个 ” 被动的记录者\" '答案照写录音提到的 a passive recorder 即可 。 SE CTION B Part One: M: People often wonder how the human brain creates, for example, a beautiful painting, a sculpture or even a delicious dinner. Today we are honoured to have Dr. Nancy Andreasen, a neuroscientist at the University of Iowa on our talk show. Dr. Andreasen has recently written a book called The Creating Brain: The Neur oscience of Genius. In her book, she tackles the question and tries to look into the brain behind creativity. M: Dr. Andreasen, thanks for coming on our show. W: Pleasure. M: Now, Dr. Andreasen can we start with the question \"What is creativity?\" W: Well, creativity can be saying as a process. This process starts with a person, for example an artist, musician, inventor or even someone who's trying to figure out a better way of doing a task at work or at home. [ 1 ]That erson must think about the roblem or or their ro·ect in a novel wa and then come up with a solution. M: Hmm, I see. But how long will it take for the person to find a solution as it were? W: Well, it depends. [ 1 ]The creative rocess can o b in a flash or it can take ears. But the end result is invariabl the roduction of somethin new and useful such as the automobile or somethin beautiful and artistic such as a aintin b Vincent van Go h. M: Hmm, Dr. Andreasen, then do you think the ability to be creative is inborn or not? W: Well, no one knows yet if the ability to be creative, for example, the ability to produce a haunting symphony is the result of the environment or a genetic makeup that allows people to be creative more easily. [2]However creativi does seem to run in certain families. M: Is that so? W: Yes. You see, [2]Johann Sebastian Bach was the most famous member of the Bach famil but there were 20 other eminent musicians who came from the same famil M: That's very interesting. Now Dr. Andreasen, we've so far been talking about those famous creative people like van Gogh or Bach who have produced great pieces of work . [l]Does that mean that creativity only resides in great people? W: [l]No, certainly not. [3]Creativi is not limited I mean to the mast"
         }
       ],
       "answerSheet": "Answer Sheet One"
@@ -1934,7 +1934,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Creativity comes from both environment and genetic makeup."
           ],
           "answer": 0,
-          "analysis": "[解析】当采访者问创新能力是否天生时 ， Dr. Andreasen指出 ，虽然不能确定创新源自环境还是基因 ，但是创新确实有家族性(… creativitydoes seem to run in certain families)。 随后采访者对此提出疑问 \"Is that so?\" , Dr. Andreasen明确回答 Yes, 并以 Bach family为例进行说明 。 可见 ， 引用该例子是为了说明前面 creativity does seem to run in certain fam让ies这句话 ，即说明创新能力具有 “ 家族性 ” ，也就是说 ，与基因构成有关。 故答案是 A项。 ［点睛】例证题。 应注意 ，文章举例都是为上下文的观点服务的。 一般来说 ，观点会出现在例子的前后（以例证前居多 ）。对话中 ，没有明确提到 B 项 ” 似乎是环境的产物 ” 和 D 项 ” 源自环境及基因构成 ” 的观点 ，可首先排除 。 在 Bach family 的例子后 ，采访者提出疑问 ” 是不是伟人才有创造力 \" , Dr. Andreasen明确回答 No, certainly not , C 项与此相悖 ，故也可排除 。"
+          "analysis": "[解析】当采访者问创新能力是否天生时 ， Dr. Andreasen指出 ，虽然不能确定创新源自环境还是基因 ，但是创新确实有家族性(… creativity does seem to run in certain families)。 随后采访者对此提出疑问 \"Is that so?\" , Dr. Andreasen明确回答 Yes, 并以 Bach family为例进行说明 。 可见 ， 引用该例子是为了说明前面 creativity does seem to run in certain fam让ies这句话 ，即说明创新能力具有 “ 家族性 ” ，也就是说 ，与基因构成有关。 故答案是 A项。 ［点睛】例证题。 应注意 ，文章举例都是为上下文的观点服务的。 一般来说 ，观点会出现在例子的前后（以例证前居多 ）。对话中 ，没有明确提到 B 项 ” 似乎是环境的产物 ” 和 D 项 ” 源自环境及基因构成 ” 的观点 ，可首先排除 。 在 Bach family 的例子后 ，采访者提出疑问 ” 是不是伟人才有创造力 \" , Dr. Andreasen明确回答 No, certainly not , C 项与此相悖 ，故也可排除 。"
         },
         {
           "number": 3,
@@ -1970,7 +1970,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Removing old ideas and thoughts."
           ],
           "answer": 2,
-          "analysis": "【解析】 采访者提问人的大脑在灵光一闪的瞬间都会发生些什么事情 。 根据 Dr. Andreasen回答中的最后一句 “ 我们已经知道大脑的那个区域可以连接思想或想法 (thatbrain region is known to… thoughts)\" , 可知本题应选 C。 【点睛】 A 项 “ 筛选想法 \".._B 项 “ 回顾想法 ” 、D 项 “ 去除旧想法 ” 在录音中均未提及 。 Part Two: M: I see. Another question, do you think there is a creative personality? W: Well, perhaps w_e can put it this way. Gifted people in the arts or science tend to enjoy adventure. They often like to explore new places or ideas. Uh, [6]they don't like being hemmed in by rules or convention and and the often look at roblerns from a different an le. Another oint is is the often have to move do edl ahead on a ro·ect-even when the outside world re·ects their art or new ideas. M: Dr. Andreasen, what about the role of the environment in the creative process? W: [7]Environment does play a role. You see there have been hotbeds of creativity throughout history. [7]For exam le the ci of Florence durin the Renaissance eriod was home to both Leonardo da Vin­ ci and Michelangelo. Both men in fact came from · families that didn't especially value creativity, yet someone noticed a spark of talent in them and both got the training and fmancial backing to produce extraordinary pieces of art. M: Uh, [8]since the environment hel s in the creative rocess are there wa s for eo le to build a better more creative brain? W: Well, I suggest that you spend 30 minutes a day on a creativity workout. M: Oh, could you say a bit more about that? W: Yes, you do three things. First, explore an unfamiliar area of knowledge. For example, people who use a lot of math on the job should sign up for a painting class. M: And the second? W: The second is, spend time each day thinking. [9]This means that ou don't censor our thou hts but allow our mind to o· freel to a roblem and see what kind of solutions or ideas come u . M: Next thing? W: That is, practice the art of paying attention. Look for and really observe a person, an object or some­ thing in your daily commute that you hadn't noticed before. Try describing or drawing that object in a journal or sketchbook. M: I hope that your advice will help people to train their brain to be creative. OK, thari.k you very much Dr. Andreasen for talking on the"
+          "analysis": "【解析】 采访者提问人的大脑在灵光一闪的瞬间都会发生些什么事情 。 根据 Dr. Andreasen回答中的最后一句 “ 我们已经知道大脑的那个区域可以连接思想或想法 (that brain region is known to… thoughts)\" , 可知本题应选 C。 【点睛】 A 项 “ 筛选想法 \".._B 项 “ 回顾想法 ” 、D 项 “ 去除旧想法 ” 在录音中均未提及 。 Part Two: M: I see. Another question, do you think there is a creative personality? W: Well, perhaps w_e can put it this way. Gifted people in the arts or science tend to enjoy adventure. They often like to explore new places or ideas. Uh, [6]they don't like being hemmed in by rules or convention and and the often look at roblerns from a different an le. Another oint is is the often have to move do edl ahead on a ro·ect-even when the outside world re·ects their art or new ideas. M: Dr. Andreasen, what about the role of the environment in the creative process? W: [7]Environment does play a role. You see there have been hotbeds of creativity throughout history. [7]For exam le the ci of Florence durin the Renaissance eriod was home to both Leonardo da Vinci and Michelangelo. Both men in fact came from · families that didn't especially value creativity, yet someone noticed a spark of talent in them and both got the training and fmancial backing to produce extraordinary pieces of art. M: Uh, [8]since the environment hel s in the creative rocess are there wa s for eo le to build a better more creative brain? W: Well, I suggest that you spend 30 minutes a day on a creativity workout. M: Oh, could you say a bit more about that? W: Yes, you do three things. First, explore an unfamiliar area of knowledge. For example, people who use a lot of math on the job should sign up for a painting class. M: And the second? W: The second is, spend time each day thinking. [9]This means that ou don't censor our thou hts but allow our mind to o· freel to a roblem and see what kind of solutions or ideas come u . M: Next thing? W: That is, practice the art of paying attention. Look for and really observe a person, an object or something in your daily commute that you hadn't noticed before. Try describing or drawing that object in a journal or sketchbook. M: I hope that your advice will help people to train their brain to be creative. OK, thari.k you very much Dr. Andreasen for talking on the"
         },
         {
           "number": 6,
@@ -1994,7 +1994,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Leonardo da Vinci."
           ],
           "answer": 3,
-          "analysis": "【 解析 ]Dr . Andreasen 在回答环境在创新过程中所起到的作用时 ，以文艺复兴时期的佛罗伦萨为例进行说明 ，其中提到了两个名人 Leonardo da Vinci和 Michelangelo ,故本题选 D 项。 ［点睛】 A 项 Vincentvan Gogh 是前面部分讲到创新过程可长可短时提到的名人， B 项 Nancy Andreasen 是受访者的名字 ， C 项 JohannSebastian Bach是前面讲到创新有一定家族性时举的例子。 这三者在后面讲环境对创新的影响时均未提及。"
+          "analysis": "【 解析 ]Dr . Andreasen 在回答环境在创新过程中所起到的作用时 ，以文艺复兴时期的佛罗伦萨为例进行说明 ，其中提到了两个名人 Leonardo da Vinci和 Michelangelo ,故本题选 D 项。 ［点睛】 A 项 Vincentvan Gogh 是前面部分讲到创新过程可长可短时提到的名人， B 项 Nancy Andreasen 是受访者的名字 ， C 项 Johann Sebastian Bach是前面讲到创新有一定家族性时举的例子。 这三者在后面讲环境对创新的影响时均未提及。"
         },
         {
           "number": 8,
@@ -2006,7 +2006,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "The environment is significant in the creative process."
           ],
           "answer": 3,
-          "analysis": "【 解析 】采访者在提问时提到 sinceenvironment helps in the creative process\" 既然环境在创新过程中有帮助 \"' 即 Dr. Andreasen 同意这个观点 ，故 D 项正确。 【点睛】 细节推理题 。 Dr. Andreasen 明确介绍了几种创造力的训练方法，故 A 错。 Dr. Andreasen 建议人们探索不同领域的知识 ，这并不表明大多数人兴趣广泛，故 B 错。 C 与文中说的 ” 不管伟人还是普通人均有创造力 ” 相矛盾。"
+          "analysis": "【 解析 】采访者在提问时提到 since environment helps in the creative process\" 既然环境在创新过程中有帮助 \"' 即 Dr. Andreasen 同意这个观点 ，故 D 项正确。 【点睛】 细节推理题 。 Dr. Andreasen 明确介绍了几种创造力的训练方法，故 A 错。 Dr. Andreasen 建议人们探索不同领域的知识 ，这并不表明大多数人兴趣广泛，故 B 错。 C 与文中说的 ” 不管伟人还是普通人均有创造力 ” 相矛盾。"
         },
         {
           "number": 9,
@@ -2018,7 +2018,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Observing things ignored before."
           ],
           "answer": 1,
-          "analysis": "【解析 】Dr. Andreasen 在建议人们每天花 30 分钟训练创造力之后 ，在采访者要求下 ，接着说了几点具体的训练建议，其中 “ 每天花些时间思考 ” 这条建议后面补充说到 ” 并非要对你的想法进行审查 \"( Thismeans that you don't censor your thoughts) , 所以 B 项并非 Dr. Andreasen 建议的训练方式 ，故为本题答案 。 【点睛】 A, C、D 三项分别对应录音中提到的几条建议 ： C 项对应 “ 探索陌生的知识领域 \"; A 项对应 “ 每天花些时间思考\";\" 训练专注力 ” 的具体做法是观察以前没注意的人、 事、 物 ， D 项 “ 观察以前忽略的事情 ” 与之对应 。"
+          "analysis": "【解析 】Dr. Andreasen 在建议人们每天花 30 分钟训练创造力之后 ，在采访者要求下 ，接着说了几点具体的训练建议，其中 “ 每天花些时间思考 ” 这条建议后面补充说到 ” 并非要对你的想法进行审查 \"( This means that you don't censor your thoughts) , 所以 B 项并非 Dr. Andreasen 建议的训练方式 ，故为本题答案 。 【点睛】 A, C、D 三项分别对应录音中提到的几条建议 ： C 项对应 “ 探索陌生的知识领域 \"; A 项对应 “ 每天花些时间思考\";\" 训练专注力 ” 的具体做法是观察以前没注意的人、 事、 物 ， D 项 “ 观察以前忽略的事情 ” 与之对应 。"
         },
         {
           "number": 10,
@@ -2030,7 +2030,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Five."
           ],
           "answer": 2,
-          "analysis": "[解析 】访谈中分别提到了 Vincentvan Gogh, Johann Sebastian Bach, Leonardo da Vinci以及 Michelange­ lo, 所以答案为 C项。 【点睛 】要注意听题目问的范围是 “ 整个访谈中 ＂ ，回答本题需总览访谈两个部分的情况。 PART II READING COMPREHENSION SE� TI�� _ A_, PASSAGE ONE 全文翻译画线点评 (1)我以前在自己衣柜中看到的是衣服 ，但最近，每当我把目光投向一棵猓鞋子、一排排衬衫 、毛衣、 夹克时，看到的却是水。 (2 ) 生产一件 T 恤，从棉花地里种植棉花开始到制成成品在商店上架，由头至尾要消耗 569 加仓的水，而一双跑鞋则要耗去 1,247 加仑的水。 (3) 直到去年秋天我才开始注意自己的 “ 水足迹 ” 。 [11 ] 水足迹网络对水足迹的定义是：用以生产商品和提供服务所消耗的淡水总量 。 自 2008年以来这家荷兰的非营利机构一直致力于提升公众对淡水资源稀缺的意识 [12] 但我是通过读 Thof?as M. Kosti en 写的绿色蓝皮书才明白该怎样把自己的活动也计算在 “ 水足迹 “ 内。 (4 )我已安装了灰水回收系统 ，这个系统可将洗衣机和和浴缸排出的废水导入我的庭院， 让其得以循环再用。这一系统平均每天节省 50加仓淡水。 我也装了雨桶和渗坑来收集从我屋檐倾泻而下的上千加仑的雨水 。我甚至安装了堆肥厕所——－最后的绿色堡垒。 (5) [25]老实说我对自己能通过这些耗资不菲的项目而节省饮用水感到相当满意。 从我上一次的水电账单来看 ，我的家庭日常用水量大约是 58 加仑 ——－远低于我两年前每天用的 178 加仓； 以前我还没有节水意识 ，还没有开始利用所有这些节水系统来保护、 节约和围积水。 (6)如今我意识到我的日常消费选择可能具有更大的影响 －这一影响不仅是对本地的水供应而言 ，也是对全球性水供应而言的 ：世界上有 11 亿人接触不到淡水， 而在将来， 那些现在拥有淡水资源的人可获得的淡水将会越来越少。 (7) 我每天喝 4 杯咖啡 ，每杯咖啡需要 37 加仓的水来生产 ，这包括种植咖啡豆、加工咖啡豆以及将用棕色纸袋包装的混合咖啡送到我家厨房所用到的水。 一磅牛排呢？ 需要用 1581 加仓。 我的车呢 ？ 需要用 32000加仓。 (8)为了弄清楚我使用了多少虚拟水（ 译注 ：指生产产品和服务所需要的水资源 ）， 我登录到 “ 绿色蓝皮书 ” 网站，输入我日常的消费习惯，用它的水足迹计算器未计算我的用水量。 把我的早、 中、 晚餐和零食的水足迹， 以及我日常饮用的 ” 兴奋剂 ” 和 “ 镇定剂 ” 咖啡、 葡萄酒和啤酒— —－的水足迹全部加起来 。仅计算我的吃喝 ，我每天就得消耗 512加仑的虚拟水。 (9) 一句话：够惊人的 。 (1 0) [26]更惊人的是我在穿衣上所耗去的大量虚拟水。 我完全算不上是爱穿衣打扮的人，但我新买的那点衣服所耗的虚拟水又一次超过了每天从我水龙头里流出的水量。 如果我真心要节水， 我意识到我可以在生活方式上做些简单的改变。 再仔细点看 ，我生活中消耗最多虚拟水的地方是食物和衣服， 尤其是肉类 、咖啡 ，奇怪的是 ，还包括牛仔服和皮夹克。 (11) [14] 我来自中西部这是解释我为食肉动物的另一种方式。 我在成长过程中每天吃三次肉。 而尽管我因为健康原因一直在尝试减少肉类的摄取量但我无法想象放弃吃培根、汉堡或上等肋排。 然而 ，我可以想象少吃一点， 这正是我一直在做的。 偶尔不吃（ 含肉 ）汉堡而改吃蔬菜汉堡可以节约 750加仓水 。 (12)我喝咖啡的习惯要难改一些。 我每天要喝一壶咖啡 ，而我爱每一滴咖啡， 即使是＿冷咖啡。 好吧 ，我有咖啡瘾。 改为喝茶的话 ，每喝一杯可以节约 31 加仑虚拟水 ，但我情愿寻找其他虚拟水用水源头 ，从那里节水。 我的方法是：多喝豆奶（ 每加仑豆奶用水 208 加仑） ，少喝普通牛奶 （每加仓牛奶需要用水 708 加仑） ；多吃土豆 （每磅土豆用水 13 加仑） ， 少吃玉米（ 每磅玉米需用水 108 加仑）。 (13)我是个骑摩托车的人，所以我拥有的皮革制品的数量比一般人多 ， 尤其是皮靴和皮夹克。 所有这些制品耗水量都极大。 做一件皮夹克耗水 7,996加仑， 因为皮革是牛的副产品。 做一条牛仔裤需耗水 2,866 加仑 ，因为牛仔裤是由吸水量很大的棉花制成的 。 (1 4) 水足迹数据是从多种渠道获取的 ， 比如政府机构和行业协会 ，并通过测量产品在制造过程中涉及的所有用水量来计算的。 以一条蓝色牛仔裤的水足迹为例， 测算内容包括种植足以制作一条牛仔裤的棉花所需的用水量 (2247 加仑） 、稀释这些棉花生长所需杀虫剂的用水量以及制作一条牛仔裤涉及的其他物品的用水量。 (15)计算这些我每年买的衣服所耗的虚拟水量简直就像看到了我朋友的游泳池。 [15 ]而我整个衣柜差不多可以开奥林匹克水上运动会了。 (1 6) 我倒吸一口凉气 。 (17)我最新的解决办法是买二手衣。 当然内衣和袜子不在此策略范畴 ，[13] 但我对少买些衣服或在良愿会这样的二手货商店购物完全没有问题事实上，为了省钱"
+          "analysis": "[解析 】访谈中分别提到了 Vincentvan Gogh, Johann Sebastian Bach, Leonardo da Vinci以及 Michelangelo, 所以答案为 C项。 【点睛 】要注意听题目问的范围是 “ 整个访谈中 ＂ ，回答本题需总览访谈两个部分的情况。 PART II READING COMPREHENSION SE� TI�� _ A_, PASSAGE ONE 全文翻译画线点评 (1)我以前在自己衣柜中看到的是衣服 ，但最近，每当我把目光投向一棵猓鞋子、一排排衬衫 、毛衣、 夹克时，看到的却是水。 (2 ) 生产一件 T 恤，从棉花地里种植棉花开始到制成成品在商店上架，由头至尾要消耗 569 加仓的水，而一双跑鞋则要耗去 1,247 加仑的水。 (3) 直到去年秋天我才开始注意自己的 “ 水足迹 ” 。 [11 ] 水足迹网络对水足迹的定义是：用以生产商品和提供服务所消耗的淡水总量 。 自 2008年以来这家荷兰的非营利机构一直致力于提升公众对淡水资源稀缺的意识 [12] 但我是通过读 Thof?as M. Kosti en 写的绿色蓝皮书才明白该怎样把自己的活动也计算在 “ 水足迹 “ 内。 (4 )我已安装了灰水回收系统 ，这个系统可将洗衣机和和浴缸排出的废水导入我的庭院， 让其得以循环再用。这一系统平均每天节省 50加仓淡水。 我也装了雨桶和渗坑来收集从我屋檐倾泻而下的上千加仑的雨水 。我甚至安装了堆肥厕所——－最后的绿色堡垒。 (5) [25]老实说我对自己能通过这些耗资不菲的项目而节省饮用水感到相当满意。 从我上一次的水电账单来看 ，我的家庭日常用水量大约是 58 加仑 ——－远低于我两年前每天用的 178 加仓； 以前我还没有节水意识 ，还没有开始利用所有这些节水系统来保护、 节约和围积水。 (6)如今我意识到我的日常消费选择可能具有更大的影响 －这一影响不仅是对本地的水供应而言 ，也是对全球性水供应而言的 ：世界上有 11 亿人接触不到淡水， 而在将来， 那些现在拥有淡水资源的人可获得的淡水将会越来越少。 (7) 我每天喝 4 杯咖啡 ，每杯咖啡需要 37 加仓的水来生产 ，这包括种植咖啡豆、加工咖啡豆以及将用棕色纸袋包装的混合咖啡送到我家厨房所用到的水。 一磅牛排呢？ 需要用 1581 加仓。 我的车呢 ？ 需要用 32000加仓。 (8)为了弄清楚我使用了多少虚拟水（ 译注 ：指生产产品和服务所需要的水资源 ）， 我登录到 “ 绿色蓝皮书 ” 网站，输入我日常的消费习惯，用它的水足迹计算器未计算我的用水量。 把我的早、 中、 晚餐和零食的水足迹， 以及我日常饮用的 ” 兴奋剂 ” 和 “ 镇定剂 ” 咖啡、 葡萄酒和啤酒— —－的水足迹全部加起来 。仅计算我的吃喝 ，我每天就得消耗 512加仑的虚拟水。 (9) 一句话：够惊人的 。 (1 0) [26]更惊人的是我在穿衣上所耗去的大量虚拟水。 我完全算不上是爱穿衣打扮的人，但我新买的那点衣服所耗的虚拟水又一次超过了每天从我水龙头里流出的水量。 如果我真心要节水， 我意识到我可以在生活方式上做些简单的改变。 再仔细点看 ，我生活中消耗最多虚拟水的地方是食物和衣服， 尤其是肉类 、咖啡 ，奇怪的是 ，还包括牛仔服和皮夹克。 (11) [14] 我来自中西部这是解释我为食肉动物的另一种方式。 我在成长过程中每天吃三次肉。 而尽管我因为健康原因一直在尝试减少肉类的摄取量但我无法想象放弃吃培根、汉堡或上等肋排。 然而 ，我可以想象少吃一点， 这正是我一直在做的。 偶尔不吃（ 含肉 ）汉堡而改吃蔬菜汉堡可以节约 750加仓水 。 (12)我喝咖啡的习惯要难改一些。 我每天要喝一壶咖啡 ，而我爱每一滴咖啡， 即使是＿冷咖啡。 好吧 ，我有咖啡瘾。 改为喝茶的话 ，每喝一杯可以节约 31 加仑虚拟水 ，但我情愿寻找其他虚拟水用水源头 ，从那里节水。 我的方法是：多喝豆奶（ 每加仑豆奶用水 208 加仑） ，少喝普通牛奶 （每加仓牛奶需要用水 708 加仑） ；多吃土豆 （每磅土豆用水 13 加仑） ， 少吃玉米（ 每磅玉米需用水 108 加仑）。 (13)我是个骑摩托车的人，所以我拥有的皮革制品的数量比一般人多 ， 尤其是皮靴和皮夹克。 所有这些制品耗水量都极大。 做一件皮夹克耗水 7,996加仑， 因为皮革是牛的副产品。 做一条牛仔裤需耗水 2,866 加仑 ，因为牛仔裤是由吸水量很大的棉花制成的 。 (1 4) 水足迹数据是从多种渠道获取的 ， 比如政府机构和行业协会 ，并通过测量产品在制造过程中涉及的所有用水量来计算的。 以一条蓝色牛仔裤的水足迹为例， 测算内容包括种植足以制作一条牛仔裤的棉花所需的用水量 (2247 加仑） 、稀释这些棉花生长所需杀虫剂的用水量以及制作一条牛仔裤涉及的其他物品的用水量。 (15)计算这些我每年买的衣服所耗的虚拟水量简直就像看到了我朋友的游泳池。 [15 ]而我整个衣柜差不多可以开奥林匹克水上运动会了。 (1 6) 我倒吸一口凉气 。 (17)我最新的解决办法是买二手衣。 当然内衣和袜子不在此策略范畴 ，[13] 但我对少买些衣服或在良愿会这样的二手货商店购物完全没有问题事实上，为了省钱"
         }
       ]
     },
@@ -2085,19 +2085,19 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 2,
           "wordLimit": 3,
           "answer": "beyond the message // in context // depending on context",
-          "analysis": "context [解析 】在弱语境文化下 ，信息 、事件 、动作是独立实 【解析 】原文提到 ， 在强语境文化中， 信息所在的语境体， 其意义不依赖语境或环境而独立存在 。对原文稍包含更重要的意义和信息 。也就是说 ， 意义不在于信加概括可得此答案 。 息本身 ， 而取决于语境 ， 故答案可填 beyond the 10. body language message, in content或 dependingon context。 【 解析 】在弱语境文化下 ，＇ 人们较少关注身体语言"
+          "analysis": "context [解析 】在弱语境文化下 ，信息 、事件 、动作是独立实 【解析 】原文提到 ， 在强语境文化中， 信息所在的语境体， 其意义不依赖语境或环境而独立存在 。对原文稍包含更重要的意义和信息 。也就是说 ， 意义不在于信加概括可得此答案 。 息本身 ， 而取决于语境 ， 故答案可填 beyond the 10. body language message, in content或 depending on context。 【 解析 】在弱语境文化下 ，＇ 人们较少关注身体语言"
         },
         {
           "number": 3,
           "wordLimit": 3,
           "answer": "the context",
-          "analysis": "【解析 】原文 pay attention to 的宾语是 what has guage) , 答案填 body language。 been in and around the message, 是对 the con­ text 的解释 ， 后文又明确说 the context of the message, 故答案为 the context。"
+          "analysis": "【解析 】原文 pay attention to 的宾语是 what has guage) , 答案填 body language。 been in and around the message, 是对 the context 的解释 ， 后文又明确说 the context of the message, 故答案为 the context。"
         },
         {
           "number": 4,
           "wordLimit": 3,
           "answer": "heavier sensory involvement // closeness to people",
-          "analysis": "【解析 】原文从两个角度 （私人空间和时间观念 ）举例阐述强语境文化。 从私人空间的角度阐述时提到 ，人们倾向于身体的更密切接触 ，故答案为 heavier sen­ sory involvement或 closeness to people。"
+          "analysis": "【解析 】原文从两个角度 （私人空间和时间观念 ）举例阐述强语境文化。 从私人空间的角度阐述时提到 ，人们倾向于身体的更密切接触 ，故答案为 heavier sensory involvement或 closeness to people。"
         },
         {
           "number": 5,
@@ -2109,7 +2109,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 6,
           "wordLimit": 3,
           "answer": "body language",
-          "analysis": "【解析 】本题考查说明私人空间的第三个例子 ，即强语境文化下人们注重身体语言 。 故答案为 body Ian­ guage。"
+          "analysis": "【解析 】本题考查说明私人空间的第三个例子 ，即强语境文化下人们注重身体语言 。 故答案为 body Ianguage。"
         },
         {
           "number": 7,
@@ -2151,7 +2151,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 13,
           "wordLimit": 3,
           "answer": "lateness // unpunctuality",
-          "analysis": "【解析 】 在弱语境文化环境下 ，人们期望守时 ，讨厌迟到。 原文用了 upset with lateness, expect punc­ tuality, 因此答案可直接用 lateness, 也可用 un­ punctuality或fle�bilityof time。"
+          "analysis": "【解析 】 在弱语境文化环境下 ，人们期望守时 ，讨厌迟到。 原文用了 upset with lateness, expect punctuality, 因此答案可直接用 lateness, 也可用 unpunctuality或fle�bilityof time。"
         },
         {
           "number": 14,
@@ -2163,7 +2163,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 15,
           "wordLimit": 3,
           "answer": "importance // influence",
-          "analysis": "【解析 】原文在结论处指出， 在跨文化交际中， 要进行成功交际 ， 人们应该把文化差异这一因素考虑进去 ， 由此可以推断了解不同文化背境对成功交际 (sue­ cessful communication) 具有重要意义及影响力 ， 故此空应填 importance或influence。 S�C T�ON B Part One: W: Good morning, Dr. Harley. Thank you very much for coming on our radio talk We know that you are an applied linguist specializing in second language acquisition. M: Right. W: So, today, urmm… we'll look at this issue. Now, first, Dr. Harley, could you please tell us what is sec­ ond language acquisition? M: Well, [l]second Ian ua e ac uisition is \"ha ens when a child or adult has alread become com etent at a lan ua e and then urmm... the attem t to learn another.\" W: OK, most people think, including me, [lOA]it is difficult to learn another language. What are the rea­ sons? Why is it so? M: Well, there are a number of reasons for this. Urmm… 丘st, there have been research studies. [2]归 have shown that some as ects of lan ua e learnin es eciall s tax are more difficult be ond a cer­ tain age, say after around 12 years of age. W: So, age plays an important role in language learning? M: Yes. But that's not the only reason. W: Oh, is that so? M: Yes. For example, umm, time and interest. Old children and adults often have less time and motivation to learn a second language. W: Mm… M: Another is related to the similarities and differences between one's mother tongue and the second lan­ guage. We fmd that learners will experience difficulty when their mother tongue and the second lan­ guage they are learning differ. In general, the more idiosyncratic a feature is in a particular language, relative to other languages, the more difficult it will be to acquire. W: Perhaps this is the key issue. [lOA]Differences between lan ua es cause lan ua e learnin roblems. M: Well, this may be one of the issues here, [3]but this cannot be the whole sto as not all differences between languages cause difficulty. Let me give you an example. W: OK. M: [3]Research has found that man errors b Czech s eakers leamin En lish were made on s tactic constructions in which the two lan ua es do not differ. W: Oh, really? The picture is more complicated than we've imagined. M: Defirlitely yes. Each language learning situation is differe"
+          "analysis": "【解析 】原文在结论处指出， 在跨文化交际中， 要进行成功交际 ， 人们应该把文化差异这一因素考虑进去 ， 由此可以推断了解不同文化背境对成功交际 (suecessful communication) 具有重要意义及影响力 ， 故此空应填 importance或influence。 S�C T�ON B Part One: W: Good morning, Dr. Harley. Thank you very much for coming on our radio talk We know that you are an applied linguist specializing in second language acquisition. M: Right. W: So, today, urmm… we'll look at this issue. Now, first, Dr. Harley, could you please tell us what is second language acquisition? M: Well, [l]second Ian ua e ac uisition is \"ha ens when a child or adult has alread become com etent at a lan ua e and then urmm... the attem t to learn another.\" W: OK, most people think, including me, [lOA]it is difficult to learn another language. What are the reasons? Why is it so? M: Well, there are a number of reasons for this. Urmm… 丘st, there have been research studies. [2]归 have shown that some as ects of lan ua e learnin es eciall s tax are more difficult be ond a certain age, say after around 12 years of age. W: So, age plays an important role in language learning? M: Yes. But that's not the only reason. W: Oh, is that so? M: Yes. For example, umm, time and interest. Old children and adults often have less time and motivation to learn a second language. W: Mm… M: Another is related to the similarities and differences between one's mother tongue and the second language. We fmd that learners will experience difficulty when their mother tongue and the second language they are learning differ. In general, the more idiosyncratic a feature is in a particular language, relative to other languages, the more difficult it will be to acquire. W: Perhaps this is the key issue. [lOA]Differences between lan ua es cause lan ua e learnin roblems. M: Well, this may be one of the issues here, [3]but this cannot be the whole sto as not all differences between languages cause difficulty. Let me give you an example. W: OK. M: [3]Research has found that man errors b Czech s eakers leamin En lish were made on s tactic constructions in which the two lan ua es do not differ. W: Oh, really? The picture is more complicated than we've imagined. M: Defirlitely yes. Each language learning situation is differe"
         }
       ],
       "answerSheet": "Answer Sheet One"
@@ -2216,7 +2216,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "The direct method."
           ],
           "answer": 0,
-          "analysis": "【解析 】Dr. Harley 介绍了几种常见的语言教学方法 。 其中 ， traditionalmethod强调翻译和语法教学 。 根据 di­ rect method 中的关键词 conversational skills、audiolingualmethod 中的 emphasizesspeaking和 inunersion method中的 through the medium of the second language可知 ， B、 C、D 三项都提倡 speaking。故答案为 A 项。 【点睛】在听录音时 ，着重听这四个教学方法的介绍 ，边听边记下它们各自的相关细节信息。"
+          "analysis": "【解析 】Dr. Harley 介绍了几种常见的语言教学方法 。 其中 ， traditionalmethod强调翻译和语法教学 。 根据 direct method 中的关键词 conversational skills、audiolingualmethod 中的 emphasizes speaking和 inunersion method中的 through the medium of the second language可知 ， B、 C、D 三项都提倡 speaking。故答案为 A 项。 【点睛】在听录音时 ，着重听这四个教学方法的介绍 ，边听边记下它们各自的相关细节信息。"
         },
         {
           "number": 5,
@@ -2228,7 +2228,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "All teaching must be carried out in a foreign country."
           ],
           "answer": 2,
-          "analysis": "【解析 ］本题问的是 inunersionmethod的相关信息 。 Dr. Harley 在对 inunersionmethod 补充说明时，提到用这种教学法时学习者不能讲自己的母语 ，所用的事情必须用正在学的这门语言来完成 ， C项 ” 在沟通中不允许使用母语” 与此相符 ，为本题答案 。 【点睛】 A 项 “ 强调翻译和语法教学 ” 是 traditionalmethod的特征。 B 项 “ 在开口说之前不提倡阅读训练 ” 是 audiolin­ gual method的特征。 D 项 ” 所有教学都必须在国外进行“ 颇具迷惑性 ，因为 Dr. Harley 还补充了一点个人看法 ，他觉得出国让自己完全浸入到这门外语的语言环境当中是学习新语言的最地道的方法， 但 inunersionmethod是指完全使用第二语言的媒介来教学 ，两者不能等同 ，所以 D 项也不对。 Part Two: W: Thank you very much, Dr. Harley, for introducing some of the language teaching methods. Now let's move on to something a bit theoretical. Since second language acquisition and teaching are a fascinating area for researchers, are there any theories to explain second language acquisition? M: Yes, [lOC]man theories and models have been ut forward b researchers so far. Toda I'd like to mention the five h otheses ro osed b Ste hen Krashen. W: OK. M: The five hypotheses, or what he calls, the monitor model of second language learning. W: What does it mean? M: OK. The first hypothesis is the acquisition and learning distinction hypothesis. According to Kras hen, children acquire their first language largely unconsciously and automaticallY, [6]but adults could only learn a 专八 201 1 -1 4 second language consciously and effortfully. And adults could indeed acquire the second language, at least in part. W: Right. Then what's his second hypothesis? M: His second hypothesis is the natural order in acquisition hypothesis. Basically, he means that the order­ ing which learners acquire syntactic rules is the same in both languages. W: Oh, that's something really new to me. M: [8]The third h othesis is the monitor h othesis which is central to his theo . Here again, we come across the distinction between acquisition and learning. According to this hypothesis, the acquisition processes create sentences in the second language, right? But learning enables the development of a monitoring process to check and edit this output. [7]The monitor uses lmowledge of the rules. That's why, as I said just now, learning is a conscious process. W: [7]This means in learnin ou use lmowled e of the lan ua e to make sure what ou sa or write is correct. Is that so? M: Yes. His fourth hypothesis is the·"
+          "analysis": "【解析 ］本题问的是 inunersionmethod的相关信息 。 Dr. Harley 在对 inunersionmethod 补充说明时，提到用这种教学法时学习者不能讲自己的母语 ，所用的事情必须用正在学的这门语言来完成 ， C项 ” 在沟通中不允许使用母语” 与此相符 ，为本题答案 。 【点睛】 A 项 “ 强调翻译和语法教学 ” 是 traditionalmethod的特征。 B 项 “ 在开口说之前不提倡阅读训练 ” 是 audiolingual method的特征。 D 项 ” 所有教学都必须在国外进行“ 颇具迷惑性 ，因为 Dr. Harley 还补充了一点个人看法 ，他觉得出国让自己完全浸入到这门外语的语言环境当中是学习新语言的最地道的方法， 但 inunersionmethod是指完全使用第二语言的媒介来教学 ，两者不能等同 ，所以 D 项也不对。 Part Two: W: Thank you very much, Dr. Harley, for introducing some of the language teaching methods. Now let's move on to something a bit theoretical. Since second language acquisition and teaching are a fascinating area for researchers, are there any theories to explain second language acquisition? M: Yes, [lOC]man theories and models have been ut forward b researchers so far. Toda I'd like to mention the five h otheses ro osed b Ste hen Krashen. W: OK. M: The five hypotheses, or what he calls, the monitor model of second language learning. W: What does it mean? M: OK. The first hypothesis is the acquisition and learning distinction hypothesis. According to Kras hen, children acquire their first language largely unconsciously and automaticallY, [6]but adults could only learn a 专八 201 1 -1 4 second language consciously and effortfully. And adults could indeed acquire the second language, at least in part. W: Right. Then what's his second hypothesis? M: His second hypothesis is the natural order in acquisition hypothesis. Basically, he means that the ordering which learners acquire syntactic rules is the same in both languages. W: Oh, that's something really new to me. M: [8]The third h othesis is the monitor h othesis which is central to his theo . Here again, we come across the distinction between acquisition and learning. According to this hypothesis, the acquisition processes create sentences in the second language, right? But learning enables the development of a monitoring process to check and edit this output. [7]The monitor uses lmowledge of the rules. That's why, as I said just now, learning is a conscious process. W: [7]This means in learnin ou use lmowled e of the lan ua e to make sure what ou sa or write is correct. Is that so? M: Yes. His fourth hypothesis is the·"
         },
         {
           "number": 6,
@@ -2240,7 +2240,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Language acquisition outweighs language learning."
           ],
           "answer": 1,
-          "analysis": "【 解析 】本题问的是 Kr ashen 的第一个假说的相关信息 。这个假说讲的是习得和学习的区别 ， 其中提到成人学习二语是一种有意识去付出努力的行为 (adults could only learn a second language consciously and eff ortful­ ly) ,B 项与之相符。 【点睛 ]Kr ashen 的第一个假说认为儿童的丹语习得过程主要是在不知不觉中自动进行的 ，A 项的表述与此相反。 录音中提到成年人至少在一定程度上可以习得第二语言 ，故 C 项不对 o Krashen 的这个假说并未对语言习得和语言学习的重要性进行比较， D 项无原文依据。"
+          "analysis": "【 解析 】本题问的是 Kr ashen 的第一个假说的相关信息 。这个假说讲的是习得和学习的区别 ， 其中提到成人学习二语是一种有意识去付出努力的行为 (adults could only learn a second language consciously and eff ortfully) ,B 项与之相符。 【点睛 ]Kr ashen 的第一个假说认为儿童的丹语习得过程主要是在不知不觉中自动进行的 ，A 项的表述与此相反。 录音中提到成年人至少在一定程度上可以习得第二语言 ，故 C 项不对 o Krashen 的这个假说并未对语言习得和语言学习的重要性进行比较， D 项无原文依据。"
         },
         {
           "number": 7,
@@ -2264,7 +2264,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "The monitor helps understand language input."
           ],
           "answer": 1,
-          "analysis": "【 解析 】本题间 monitorhypothesis的相关信息 。 B 项 “ 它是 Stephen Krashen 的理论的核心内容 ” 正是对录音中 “第三个假说是监控假说 ，而这是他的理论核心 ” 的同义表述 ，故为答案 。 【点睛 l 录音提到 “ 学习可以促使监控过程的形成 ， 以检查和编辑输出 (learning enables… to check and edit this output)\" 可知 ，这种监控是在有意识的学习 (learning)过程中， 而非在习得过程中产生的，故 A 项不对。 C 项 “ 两种语言的习得过程的顺序是一样的 ” 是第二个假说的内容。 根据监控假说 ， monitor是对语言的输出进行检查和编辑， 不是针对语言输入， D 项不对。"
+          "analysis": "【 解析 】本题间 monitor hypothesis的相关信息 。 B 项 “ 它是 Stephen Krashen 的理论的核心内容 ” 正是对录音中 “第三个假说是监控假说 ，而这是他的理论核心 ” 的同义表述 ，故为答案 。 【点睛 l 录音提到 “ 学习可以促使监控过程的形成 ， 以检查和编辑输出 (learning enables… to check and edit this output)\" 可知 ，这种监控是在有意识的学习 (learning)过程中， 而非在习得过程中产生的，故 A 项不对。 C 项 “ 两种语言的习得过程的顺序是一样的 ” 是第二个假说的内容。 根据监控假说 ， monitor是对语言的输出进行检查和编辑， 不是针对语言输入， D 项不对。"
         },
         {
           "number": 9,
@@ -2276,7 +2276,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "The acquisition and learning distinction hypothesis."
           ],
           "answer": 1,
-          "analysis": "【 解析 】本题问哪个假说讲的是情感因素在语言学习中的作用 。 根据录音 ，最后一条假说 activefilter hypothesis 就提到了态度和情感因素对二语习得也很重要 ，所以 B 项为答案 。 【点睛 】假如听不全相关的解题信息 ，也可以在听到问题时通过对其他听得比较细致的选项进行排除来得出答案。"
+          "analysis": "【 解析 】本题问哪个假说讲的是情感因素在语言学习中的作用 。 根据录音 ，最后一条假说 active filter hypothesis 就提到了态度和情感因素对二语习得也很重要 ，所以 B 项为答案 。 【点睛 】假如听不全相关的解题信息 ，也可以在听到问题时通过对其他听得比较细致的选项进行排除来得出答案。"
         },
         {
           "number": 10,
@@ -2358,25 +2358,25 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 4,
           "wordLimit": 3,
           "answer": "physical paralinguistic features",
-          "analysis": "【解析 】讲座介绍的第二类特征是 “ 身体副语言特征 \"' 答案照写原文提到的 physicalparalinguistic fea­ tures即可。 注意参照第一类的 vocal paralinguis­ tic features的提示 ，features要用复数形式。"
+          "analysis": "【解析 】讲座介绍的第二类特征是 “ 身体副语言特征 \"' 答案照写原文提到的 physical paralinguistic features即可。 注意参照第一类的 vocal paralinguistic features的提示 ，features要用复数形式。"
         },
         {
           "number": 5,
           "wordLimit": 3,
           "answer": "universal signals // signs // expressions",
-          "analysis": "II common expression(s) II usual expression(s) ［解析 】此题涉及的是副语言特征的第二大类。 与下面的l ess common expressions \"不那么常见的表情 ” 是并列关系 。录音中谈到面部表情时 ，提到“ 笑容在全世界范围内都是愉快和欢迎的信号 ” ，故答案为 uni­ versal signal(s)或 universalexpression(s)等 。"
+          "analysis": "II common expression(s) II usual expression(s) ［解析 】此题涉及的是副语言特征的第二大类。 与下面的l ess common expressions \"不那么常见的表情 ” 是并列关系 。录音中谈到面部表情时 ，提到“ 笑容在全世界范围内都是愉快和欢迎的信号 ” ，故答案为 universal signal(s)或 universal expression(s)等 。"
         },
         {
           "number": 6,
           "wordLimit": 3,
           "answer": "eyebrow raising",
-          "analysis": "［解析 】讲座在提到 “ 不那么常见的表情\"(l ess com- mon expressions) 时， 首先举的例子是扬起眉毛 (raising eye-brows·) , 暗示你感到惊奇或对某事情感兴趣 (you are surprised or interested in some­ thing)。 参照与此空并列的 lip biting( 该处是由原文的 biting your lip 转化而来的 ）， 故答案应将原文的 raising eye-brows转换成 eye-browraising。"
+          "analysis": "［解析 】讲座在提到 “ 不那么常见的表情\"(l ess com- mon expressions) 时， 首先举的例子是扬起眉毛 (raising eye-brows·) , 暗示你感到惊奇或对某事情感兴趣 (you are surprised or interested in something)。 参照与此空并列的 lip biting( 该处是由原文的 biting your lip 转化而来的 ）， 故答案应将原文的 raising eye-brows转换成 eye-brow raising。"
         },
         {
           "number": 7,
           "wordLimit": 3,
           "answer": "thought or uncertainty",
-          "analysis": "ty II contemplation or uncertainty 【解析 ］原文说 “ 咬紧嘴唇表示你在深思或者对某事不确定 ” 。根据上一行的名词词组 surpriseor interest, 可知此处也应填名词（ 词组）。 故可把原文的形容词短语d eep in thinking or uncertain about something 转换为名词短语 thoughtor uncertainty, 也可用近义表达代替 。"
+          "analysis": "ty II contemplation or uncertainty 【解析 ］原文说 “ 咬紧嘴唇表示你在深思或者对某事不确定 ” 。根据上一行的名词词组 surprise or interest, 可知此处也应填名词（ 词组）。 故可把原文的形容词短语d eep in thinking or uncertain about something 转换为名词短语 thought or uncertainty, 也可用近义表达代替 。"
         },
         {
           "number": 8,
@@ -2388,25 +2388,25 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 9,
           "wordLimit": 3,
           "answer": "truth-telling // telling the truth // honesty",
-          "analysis": "［解析 】讲座在谈论其他文化中不同手势的含义时提到， 把手放在心脏上表示你在讲真话。 根据题目上下文判断， 此空需填一个名词性表达， 故答案为 _truth­ telling、telling (the) truth或 honesty。"
+          "analysis": "［解析 】讲座在谈论其他文化中不同手势的含义时提到， 把手放在心脏上表示你在讲真话。 根据题目上下文判断， 此空需填一个名词性表达， 故答案为 _truthtelling、telling (the) truth或 honesty。"
         },
         {
           "number": 10,
           "wordLimit": 3,
           "answer": "distance // keeping a distance",
-          "analysis": "【解析 】录音中谈到说话者之间的身体距离也可传达很多信息。 比如，距离近 (c lo seness) 可传达亲密或威胁的信号 ， 而保持距离则表示正式或缺乏兴趣 。故答案为 distance 或 keepinga distance。"
+          "analysis": "【解析 】录音中谈到说话者之间的身体距离也可传达很多信息。 比如，距离近 (c lo seness) 可传达亲密或威胁的信号 ， 而保持距离则表示正式或缺乏兴趣 。故答案为 distance 或 keeping a distance。"
         },
         {
           "number": 11,
           "wordLimit": 3,
           "answer": "situation // context // occasion",
-          "analysis": "【解析】录音中提到，proxim ity的含义因不同个体和文化而异 。 之后又谈到 “ 在某些场合如非正式的聚会上，即使很近的距离也很正常 ，但在其他场合如与上级见面，同样的距离就会很不恰当 ” 。故答案为 sit­ uation或其近义表达 。"
+          "analysis": "【解析】录音中提到，proxim ity的含义因不同个体和文化而异 。 之后又谈到 “ 在某些场合如非正式的聚会上，即使很近的距离也很正常 ，但在其他场合如与上级见面，同样的距离就会很不恰当 ” 。故答案为 situation或其近义表达 。"
         },
         {
           "number": 12,
           "wordLimit": 3,
           "answer": "mood // happy or not",
-          "analysis": "【解析】录音中说到 ，hunched shoulders 和a hang- ing head可传达一个人是否快乐 。 此空可根据原文 whether a person is happy or not 总结出答案 mood 或沿用原文的表达 happyor not。 专八 20 10 -1 2"
+          "analysis": "【解析】录音中说到 ，hunched shoulders 和a hang- ing head可传达一个人是否快乐 。 此空可根据原文 whether a person is happy or not 总结出答案 mood 或沿用原文的表达 happy or not。 专八 20 10 -1 2"
         },
         {
           "number": 13,
@@ -2418,13 +2418,13 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 14,
           "wordLimit": 3,
           "answer": "unconsciously same posture // unconscious imitation",
-          "analysis": "tion 【解析】录音中讲到 echoing时用了举例说明 。譬如， 当两个人非常认同对方的观点时 ， 他们往往会无意识地采取相同的身体姿势 （如相同的站姿或坐姿 ）， 这样能辅助语言的交际。 根据题目 ，答案为 uncon­ sciously same posture 或 unconsciousimitation。"
+          "analysis": "tion 【解析】录音中讲到 echoing时用了举例说明 。譬如， 当两个人非常认同对方的观点时 ， 他们往往会无意识地采取相同的身体姿势 （如相同的站姿或坐姿 ）， 这样能辅助语言的交际。 根据题目 ，答案为 unconsciously same posture 或 unconscious imitation。"
         },
         {
           "number": 15,
           "wordLimit": 3,
           "answer": "mockery // mocking",
-          "analysis": "【解析 】录音在末尾部分提到 ，当刻意模仿别人时 ，代表是在嘲笑别人(mockingat another speaker ) , 由于此处需要名词形式 ，故可选填 mockery 或 mock­ ing。 SECTl!)N B Part One: W: The word diversity has become a cliche in the United States today. [l]It seems to me that nowadays Americans cannot turn on the television or read a news a er without seein the word o u some­ where as a descri tion of the 础erican demo ra hic. Then what is this diversity in the US? Today, we are very pleased to have Dr James Johnson here on our talk show. Welcome, Dr Johnson. M: Thanks. W: Dr Johnson, we know you have done extensive research on diversity. So, what is, how do you define diversity in the American context? M: Well, at one time the US was called a melting pot, you know, which means that people of 11}any differ­ ent religions, cultures, and races could shed their traditional cultural identities and blend into one ho­ mogeneous nation. W: Am I right in saying that a melting pot would emphasize the idea of all in one or being the same? M: Yes, you may say so. Um, of course, when the phrase \"melting pot\" was popular, there was also the idea of being different, but being different then simply meant Catholic as opposed to Prot estant, or Irish as opposed to Swedish or Italian. W: Has the idea of being different change over the years? M: Yes, of course. You see today, [2]we use the word diversi to refer to more-visible ethnic differences — Asian American African American and Latino for instance. And religious diversity refers to a variety of world religions, not merely different branches of Christianity. W: And now is America as a whole truly diverse? M: Well, I think in all this talk of diversity there is a critical point that may be missed: that is, diversity is not occurring everywhere in the US, or at least not to a degree that would alter the demography of every region in the country. W: Oh, really? M: I can give you an example. Recently a New York Times article describes the town of Selinsgrove, Pennsylvania. You see, in the last 10 years things have barely changed in that town. The population has dropped by one, from 5,384 to 5,383 and the town remains virtually 100% white. [5]The article thus concludes that man ortions of th"
+          "analysis": "【解析 】录音在末尾部分提到 ，当刻意模仿别人时 ，代表是在嘲笑别人(mocking at another speaker ) , 由于此处需要名词形式 ，故可选填 mockery 或 mocking。 SECTl!)N B Part One: W: The word diversity has become a cliche in the United States today. [l]It seems to me that nowadays Americans cannot turn on the television or read a news a er without seein the word o u somewhere as a descri tion of the 础erican demo ra hic. Then what is this diversity in the US? Today, we are very pleased to have Dr James Johnson here on our talk show. Welcome, Dr Johnson. M: Thanks. W: Dr Johnson, we know you have done extensive research on diversity. So, what is, how do you define diversity in the American context? M: Well, at one time the US was called a melting pot, you know, which means that people of 11}any different religions, cultures, and races could shed their traditional cultural identities and blend into one homogeneous nation. W: Am I right in saying that a melting pot would emphasize the idea of all in one or being the same? M: Yes, you may say so. Um, of course, when the phrase \"melting pot\" was popular, there was also the idea of being different, but being different then simply meant Catholic as opposed to Prot estant, or Irish as opposed to Swedish or Italian. W: Has the idea of being different change over the years? M: Yes, of course. You see today, [2]we use the word diversi to refer to more-visible ethnic differences — Asian American African American and Latino for instance. And religious diversity refers to a variety of world religions, not merely different branches of Christianity. W: And now is America as a whole truly diverse? M: Well, I think in all this talk of diversity there is a critical point that may be missed: that is, diversity is not occurring everywhere in the US, or at least not to a degree that would alter the demography of every region in the country. W: Oh, really? M: I can give you an example. Recently a New York Times article describes the town of Selinsgrove, Pennsylvania. You see, in the last 10 years things have barely changed in that town. The population has dropped by one, from 5,384 to 5,383 and the town remains virtually 100% white. [5]The article thus concludes that man ortions of th"
         }
       ],
       "answerSheet": "Answer Sheet One"
@@ -2453,7 +2453,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "It means acceptance of more branches of Christianity."
           ],
           "answer": 2,
-          "analysis": "【解析 】录音中 Dr Johnson 谈到 diversity时， 给的定义是 more对sible ethnic differences , 故选 C 项。 ［点睛】细节题。 这个题目问 diversity的定义。 采访开头女主持人问： “ 你如何定义美国社会的多样性? \"Dr Johnson 没有直接回答，而是从形容美国社会的 ” 大熔炉 ” 一词 (A 项） 谈起，之后才给出定义。 所以解答本题时要尤其注意 referto 这样表定义的词。"
+          "analysis": "【解析 】录音中 Dr Johnson 谈到 diversity时， 给的定义是 more对sible ethnic differences , 故选 C 项。 ［点睛】细节题。 这个题目问 diversity的定义。 采访开头女主持人问： “ 你如何定义美国社会的多样性? \"Dr Johnson 没有直接回答，而是从形容美国社会的 ” 大熔炉 ” 一词 (A 项） 谈起，之后才给出定义。 所以解答本题时要尤其注意 refer to 这样表定义的词。"
         },
         {
           "number": 3,
@@ -2489,7 +2489,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "They have the same racial composition."
           ],
           "answer": 1,
-          "analysis": "【 解析 】根据选项的一些特征 （如Both... 、the same以及 population和 racialcomposition等） ，推测题目可能要问某两个地方的某个趋势或共同之处。 录音中在讲 Selinsgrove和 Maine时， 都提到它们的种族单一性基本没怎么变， 所以 B项 ” 他们的种族构成都很稳定 ” 为本题答案 。 【点睛】录音只提到 Selinsgrove在过去十年的人口总数几乎无变化， 但未提及 Maine的人口数变化情况 ， A 项不对。 录音中也只说到 Selinsgrove 的种族人口情况曾被《纽约时报 》报道 ，没说 Maine有否因此见于报端 ， C 项也不对。 虽然两地的种族构成都比较单一，而且都是白人 ，但 Maine的是高加索人 (Caucasian) , 录音中有专门指出是指 non-Hispanic whites, 提示白人也有不同的种族细分， Selinsgrove 的只说了是 whites, 因此不能简单将二者等同 ，故不选 D 项。 Part Two: W: This shows that racial diversity is not occurring everywhere. Then what about other types of diversity? M: Right. The second type of diversity is age diversity. And there are some interesting age gap developing between states. For example, there was a large gap between the average age of. the 5 states with the youngest populations and the 5 states with the oldest populations. This, of course, is well-known. What is less discussed is the difference between the racial makeup of yotmger and older populations. [6]Most of the o ulations havin the reatest racial diversi are oun er on avera e than the o ulations with great Caucasian representation. It is also well-known that Caucasians tend to be more affluent than other ethnic groups on average. In our pay-as-you-go social security system, workers are taxed to pay the benefit of retirees. [7]So this could lead to a future where wealth is s stematicall redistribut­ ed from oun er oorer minorities to older wealthier ones. W: This is a very interesting point. Then what is the third type of diversity in the US? M: The third is religious diversity. Immigration from India, Pakistan, and the Middle East brought radically increased numbers of Hindus and Muslims to the US. And Chinese, Vietnamese, Japanese and other Asian immigrants increased the numbers of Buddhists. W: Oh, I see. M: [8]But the oint is that these reli ions didn't settle eve here. The settled mainl in California and m· or northeastern and mid-western cities such as New York Philadel hia Chica o and Minnea olis. [9]From 1990 to 2000 the number of Muslims in New York ci rew from 600 000 to nearl 1 million. [lO]In the Los An eles area there are now more than 300 Buddhist tern les. 4 W: So we see that many pa"
+          "analysis": "【 解析 】根据选项的一些特征 （如Both... 、the same以及 population和 racial composition等） ，推测题目可能要问某两个地方的某个趋势或共同之处。 录音中在讲 Selinsgrove和 Maine时， 都提到它们的种族单一性基本没怎么变， 所以 B项 ” 他们的种族构成都很稳定 ” 为本题答案 。 【点睛】录音只提到 Selinsgrove在过去十年的人口总数几乎无变化， 但未提及 Maine的人口数变化情况 ， A 项不对。 录音中也只说到 Selinsgrove 的种族人口情况曾被《纽约时报 》报道 ，没说 Maine有否因此见于报端 ， C 项也不对。 虽然两地的种族构成都比较单一，而且都是白人 ，但 Maine的是高加索人 (Caucasian) , 录音中有专门指出是指 non-Hispanic whites, 提示白人也有不同的种族细分， Selinsgrove 的只说了是 whites, 因此不能简单将二者等同 ，故不选 D 项。 Part Two: W: This shows that racial diversity is not occurring everywhere. Then what about other types of diversity? M: Right. The second type of diversity is age diversity. And there are some interesting age gap developing between states. For example, there was a large gap between the average age of. the 5 states with the youngest populations and the 5 states with the oldest populations. This, of course, is well-known. What is less discussed is the difference between the racial makeup of yotmger and older populations. [6]Most of the o ulations havin the reatest racial diversi are oun er on avera e than the o ulations with great Caucasian representation. It is also well-known that Caucasians tend to be more affluent than other ethnic groups on average. In our pay-as-you-go social security system, workers are taxed to pay the benefit of retirees. [7]So this could lead to a future where wealth is s stematicall redistributed from oun er oorer minorities to older wealthier ones. W: This is a very interesting point. Then what is the third type of diversity in the US? M: The third is religious diversity. Immigration from India, Pakistan, and the Middle East brought radically increased numbers of Hindus and Muslims to the US. And Chinese, Vietnamese, Japanese and other Asian immigrants increased the numbers of Buddhists. W: Oh, I see. M: [8]But the oint is that these reli ions didn't settle eve here. The settled mainl in California and m· or northeastern and mid-western cities such as New York Philadel hia Chica o and Minnea olis. [9]From 1990 to 2000 the number of Muslims in New York ci rew from 600 000 to nearl 1 million. [lO]In the Los An eles area there are now more than 300 Buddhist tern les. 4 W: So we see that many pa"
         },
         {
           "number": 6,
@@ -2610,7 +2610,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 3,
           "wordLimit": 3,
           "answer": "audience // non-professionals // ordinary people",
-          "analysis": "laymen 【解析 】 原文提到写实验报告时要把自己的读者当作 “对该报告的研究领域一无所知的听众\"'故可用 au­ dience, 也可用 non-professionals, laymen或o rdi­ nary people。"
+          "analysis": "laymen 【解析 】 原文提到写实验报告时要把自己的读者当作 “对该报告的研究领域一无所知的听众\"'故可用 audience, 也可用 non-professionals, laymen或o rdinary people。"
         },
         {
           "number": 4,
@@ -2634,7 +2634,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 7,
           "wordLimit": 3,
           "answer": "a common mistake // mistaken assumption",
-          "analysis": "wrong // incorrect 【解析 】材料提到， 如果实验报告的作者把该报告的评阅者当作自己的读者 ， 这样假设就错了 。因此， 应填 a common mistake, 或填入mistakenassumption等表示“错误 ” 的表达。"
+          "analysis": "wrong // incorrect 【解析 】材料提到， 如果实验报告的作者把该报告的评阅者当作自己的读者 ， 这样假设就错了 。因此， 应填 a common mistake, 或填入mistaken assumption等表示“错误 ” 的表达。"
         },
         {
           "number": 8,
@@ -2646,7 +2646,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 9,
           "wordLimit": 3,
           "answer": "necessary background information",
-          "analysis": "【解析 】材料中提到了五项任务 ，其中第二项是给读者提供必要的背景 (p,rovided the reader with the background necessary to ... ) , 让他们明白你在做什 3 么和你为什么这么做 ， 此处应填入名词（ 词组） ，将原文概括一下， 答案可填 necessarybackground in­ formation。"
+          "analysis": "【解析 】材料中提到了五项任务 ，其中第二项是给读者提供必要的背景 (p,rovided the reader with the background necessary to ... ) , 让他们明白你在做什 3 么和你为什么这么做 ， 此处应填入名词（ 词组） ，将原文概括一下， 答案可填 necessary background information。"
         },
         {
           "number": 10,
@@ -2682,7 +2682,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 15,
           "wordLimit": 3,
           "answer": "a lack // lack // absence",
-          "analysis": "【解析】原文指出研究中需避免的第二点是 “ 缺乏调查论证 ” ，故填入表示“ 缺乏 “ 意义的短语 a lack of、 lack of 或 absenceof。 ��CTION � Part One: M: Good morning, Mrs. Collins! Welcome to our studio. As a distinguished member of Toastmasters Inter­ national, could you tell us a bit about the background of the organization? W: I am delighted to have that opportunity. Toastmasters is an international organization, designed to de­ velop effective speaking and listening skills. [l]I t was founded in 1924 b Ral h Smedle and it's head­ quartered in California. M: What is the purpose of Toastmasters? W: [2]Toastmasters has a two-fold ose: the ersonal rowth of the individual and stron effective com- munication skills. M: Then, who is Toastmasters open to? And what kind of members do you have now? W: [3]Well man eo le think Toastmasters is o en onl to those individuals who wish to be rofessional speakers, but that is defi血tely not true. Toastmasters is open to_ the public at large. Any individual who 咋hes to improve his public speaking is welcome. And also, those who just want to increase their overall self-confidence are encouraged to attend. M: Another question is how can Toastmasters help you in job situations? W: [4]B becomin involved in Toastmasters ou will learn different methods of communicatin what ou reall want to sa and e uall im ortant ou will learn what our audience e ects· from ou so ou can deliver that messa e to them in a lo ical fashion. Some people are comfortable around friends, but whe� they appear before a group they don't know, they get tense. [4]0ur organization helps our mem­ bers to et calm and or anize thou hts and deliver them in an effective w� . M: Is Toastmasters concerned with total communication, not just for speaking but other communicati�n skills? W: Most often, people assume that when you are listening, you are also paying attention. This is not always true. (5]Man times eo le are waitin for their turn to s eak and are not reall listenin at all. Toast­ masters can develop a person overall in terms of organizing their thoughts, getting input from others and then receiving effective feedback."
+          "analysis": "【解析】原文指出研究中需避免的第二点是 “ 缺乏调查论证 ” ，故填入表示“ 缺乏 “ 意义的短语 a lack of、 lack of 或 absence of。 ��CTION � Part One: M: Good morning, Mrs. Collins! Welcome to our studio. As a distinguished member of Toastmasters International, could you tell us a bit about the background of the organization? W: I am delighted to have that opportunity. Toastmasters is an international organization, designed to develop effective speaking and listening skills. [l]I t was founded in 1924 b Ral h Smedle and it's headquartered in California. M: What is the purpose of Toastmasters? W: [2]Toastmasters has a two-fold ose: the ersonal rowth of the individual and stron effective com- munication skills. M: Then, who is Toastmasters open to? And what kind of members do you have now? W: [3]Well man eo le think Toastmasters is o en onl to those individuals who wish to be rofessional speakers, but that is defi血tely not true. Toastmasters is open to_ the public at large. Any individual who 咋hes to improve his public speaking is welcome. And also, those who just want to increase their overall self-confidence are encouraged to attend. M: Another question is how can Toastmasters help you in job situations? W: [4]B becomin involved in Toastmasters ou will learn different methods of communicatin what ou reall want to sa and e uall im ortant ou will learn what our audience e ects· from ou so ou can deliver that messa e to them in a lo ical fashion. Some people are comfortable around friends, but whe� they appear before a group they don't know, they get tense. [4]0ur organization helps our members to et calm and or anize thou hts and deliver them in an effective w� . M: Is Toastmasters concerned with total communication, not just for speaking but other communicati�n skills? W: Most often, people assume that when you are listening, you are also paying attention. This is not always true. (5]Man times eo le are waitin for their turn to s eak and are not reall listenin at all. Toastmasters can develop a person overall in terms of organizing their thoughts, getting input from others and then receiving effective feedback."
         }
       ],
       "answerSheet": "Answer Sheet One"
@@ -2699,7 +2699,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "It is an exclusive club for professional speakers."
           ],
           "answer": 2,
-          "analysis": "【解析 ］本题考查 Toastmasters的背景信息 。 录音提到 Toastmasters由 RalpfSmedley在 1924年创立 。 C项所述与此相符 ，故为答案 。 mternat10nal)机【点睛】 A 项 “ 这是一个总部在加州的地方机构 ” 中的 local与录音不符，录音说的是这是一个国际性C 构； 被访者提到 Toastmasters设立的初衷是培养学员的演讲和倾听技巧 (develop effective speaking and listening skills) ,B 项信息不全； D 项强调 professionalspeakers , 应予以排除 。 4"
+          "analysis": "【解析 ］本题考查 Toastmasters的背景信息 。 录音提到 Toastmasters由 RalpfSmedley在 1924年创立 。 C项所述与此相符 ，故为答案 。 mternat10nal)机【点睛】 A 项 “ 这是一个总部在加州的地方机构 ” 中的 local与录音不符，录音说的是这是一个国际性C 构； 被访者提到 Toastmasters设立的初衷是培养学员的演讲和倾听技巧 (develop effective speaking and listening skills) ,B 项信息不全； D 项强调 professional speakers , 应予以排除 。 4"
         },
         {
           "number": 2,
@@ -2747,7 +2747,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "Because they are not interested in the talking."
           ],
           "answer": 1,
-          "analysis": "'【 解析 】本题考查人们为什么很多时候没在听人讲话。 录音提到的原因是人们在等候自己说话的时机 。 B 项所述与此相符， 故为答案 。 ［点睛】 A项 “ 因为他们在走神 ” 和D 项 “ 因为他们对谈话不感兴趣 ” 录音未提及 ；C 项中的 ” 他们在组织想法” 是在提及 Toastmasters能为人们提供的帮助是涉及的一个方面。 PP.rt Two· M: Then, how does Toastmasters train people? W: [6]Toastmasters has an a roach of learnin b <loin . [6]/[7]The Toastmasters International organization rovides a menu we refer to as the basic menu because it ives a uideline for the develo ment of speeches. [6]These s eeches cater to different oses. For exam le one ob·ec tive 1ni ht be to <level- o vocal v狙ie · anothermi ht be to or anize our thou hts or develo our use of humor in s eeches. M: Can you also learn other skills, such as parliamentary procedures or being master of ceremonies? W: Yes, different assignments within Toastmasters involve not only preparation of speeches and then pre­ senting these before an audience, but also the opportunity of serving as toastmaster of the meeting. This assignment helps members practice being an MC for a meeting, that is, a master of ceremonies. Other assignments include serving as an evaluator for another speaker, or serving as [S]a grammarian who will monitor use of filler words or hrases such as \"and\", \"uh\", \"er\" or \"you know\". Both of these assignments w诅 allow the member to increase or enhance their listening skills. M: I know that there is an eight-week program for young people and also an eight-week speech craft course offered for adults. What do these involve? W: [9]The are basicall introduction to Toastmasters in eneral. A sample, providing the opportunity for an individual to determine whether or not they wish to get involved in Toastmasters by joining a club. M: What can an individual gain from being in Toastmasters? W: I would say, self-confidence and some tricks of the trade in the development of speeches. But that is only the beginning. As an individual continues to give speeches and improve, he progresses from the point of being fearful to stand before a group of peers to the point where he can address any group of people with a degree of self-confidence. Leadership skills are also developed by learning to organize and conduct meetings. M: OK. Thank you very much, Mrs. Collins, f"
+          "analysis": "'【 解析 】本题考查人们为什么很多时候没在听人讲话。 录音提到的原因是人们在等候自己说话的时机 。 B 项所述与此相符， 故为答案 。 ［点睛】 A项 “ 因为他们在走神 ” 和D 项 “ 因为他们对谈话不感兴趣 ” 录音未提及 ；C 项中的 ” 他们在组织想法” 是在提及 Toastmasters能为人们提供的帮助是涉及的一个方面。 PP.rt Two· M: Then, how does Toastmasters train people? W: [6]Toastmasters has an a roach of learnin b <loin . [6]/[7]The Toastmasters International organization rovides a menu we refer to as the basic menu because it ives a uideline for the develo ment of speeches. [6]These s eeches cater to different oses. For exam le one ob·ec tive 1ni ht be to <level- o vocal v狙ie · anothermi ht be to or anize our thou hts or develo our use of humor in s eeches. M: Can you also learn other skills, such as parliamentary procedures or being master of ceremonies? W: Yes, different assignments within Toastmasters involve not only preparation of speeches and then presenting these before an audience, but also the opportunity of serving as toastmaster of the meeting. This assignment helps members practice being an MC for a meeting, that is, a master of ceremonies. Other assignments include serving as an evaluator for another speaker, or serving as [S]a grammarian who will monitor use of filler words or hrases such as \"and\", \"uh\", \"er\" or \"you know\". Both of these assignments w诅 allow the member to increase or enhance their listening skills. M: I know that there is an eight-week program for young people and also an eight-week speech craft course offered for adults. What do these involve? W: [9]The are basicall introduction to Toastmasters in eneral. A sample, providing the opportunity for an individual to determine whether or not they wish to get involved in Toastmasters by joining a club. M: What can an individual gain from being in Toastmasters? W: I would say, self-confidence and some tricks of the trade in the development of speeches. But that is only the beginning. As an individual continues to give speeches and improve, he progresses from the point of being fearful to stand before a group of peers to the point where he can address any group of people with a degree of self-confidence. Leadership skills are also developed by learning to organize and conduct meetings. M: OK. Thank you very much, Mrs. Collins, f"
         },
         {
           "number": 6,
@@ -2795,7 +2795,7 @@ window.TEM8_LISTENING_ARCHIVE = {
             "The programs of Toastmasters."
           ],
           "answer": 0,
-          "analysis": "【解析 】本题考查八周项目和八周演讲课程包含的内容 。 录音中被访者提到涉及的主要是关于 Toastmasters 的介绍 (introductionto Toastmasters)。 A 项表述与此一致，故为答案。 【点睛】 B 项\"Toastmasters 的使命 ” 、C项\"Toastmasters 的宣传 ” 和 D 项\"Toastmasters 的项目 “ 均与录音表述不符。"
+          "analysis": "【解析 】本题考查八周项目和八周演讲课程包含的内容 。 录音中被访者提到涉及的主要是关于 Toastmasters 的介绍 (introduction to Toastmasters)。 A 项表述与此一致，故为答案。 【点睛】 B 项\"Toastmasters 的使命 ” 、C项\"Toastmasters 的宣传 ” 和 D 项\"Toastmasters 的项目 “ 均与录音表述不符。"
         },
         {
           "number": 10,
