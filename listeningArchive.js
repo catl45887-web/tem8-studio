@@ -2000,7 +2000,7 @@ window.TEM8_LISTENING_ARCHIVE = {
           "number": 8,
           "part": 2,
           "options": [
-            "Brain exercising willnotmake people creative.",
+            "Brain exercising will not make people creative.",
             "Most people have diversified interests and hobbies.",
             "Creativity can only be found in great people.",
             "The environment is significant in the creative process."

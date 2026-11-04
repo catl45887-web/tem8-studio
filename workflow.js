@@ -290,11 +290,11 @@
   }
   function newSession(groups,type,opts={}){
     const exam=opts.mode==='exam'
-    session={v:3,groups,current:0,answers:{},marks:{},strikes:{},started:Date.now(),pausedMs:0,pausedAt:0,hideTimer:false,
+    session={v:3,id:Date.now().toString(36),groups,current:0,answers:{},marks:{},strikes:{},started:Date.now(),pausedMs:0,pausedAt:0,hideTimer:false,
       deadline:exam?Date.now()+opts.minutes*60000:null,durationMinutes:exam?opts.minutes:0,mode:exam?'exam':'practice',
       instant:!exam&&!!opts.instant,allowWord:!exam&&opts.allowWord!==false,replay:!!opts.replay,type,year:groups[0]?.year,years:[...new Set(groups.map(g=>g.year))]}
     cur='';mobileTab='p'
-    persist();renderSession();show('workflow-session-view',title(type))
+    persist();audioPending=needAudio();renderSession();show('workflow-session-view',title(type));prepareAudio()
   }
   function start(){
     const groups=makeGroups();if(!groups.length)return
@@ -332,14 +332,54 @@
     writeStore(s=>{s.session=session})
     const el=$('#pq-saved');if(el)el.textContent=`已保存 ${clock(session.savedAt)}`
   }
+  // 打字时不必每个字都整份写盘（会卡、还会触发同步），停顿一下再存
+  let persistT=0
+  function persistSoon(){clearTimeout(persistT);persistT=setTimeout(()=>{if(session)persist()},500)}
   document.addEventListener('tem8:flush-records',()=>{if(session)persist()})
+
+  /* ---------- 开考前把听力整份下载到本机 ---------- */
+  // 下载期间先不挂播放器：浏览器里同一个文件边播边下会和整份下载抢连接，反而更慢
+  let audioPending=false
+  const needAudio=()=>!!window.TEM8_PRELOAD&&!!session&&audioSrcs(session.groups).some(s=>!window.TEM8_PRELOAD.has(s))
+  function audioSrcs(groups){return [...new Set(groups.filter(g=>isListening(g.kind)).map(g=>listening[g.year]?.audio).filter(Boolean))]}
+  function prepareAudio(){
+    const P=window.TEM8_PRELOAD;if(!P||!session)return
+    const need=audioSrcs(session.groups).filter(s=>!P.has(s));if(!need.length)return
+    const owner=session,t0=Date.now();let done=false
+    const d=dialog(`<h3>正在准备听力</h3><p>把录音完整下载到本机，考试中不会再卡顿。下载完成后自动开始，计时从那时算起。</p><div class="px-prog" role="progressbar" aria-label="下载进度"><i></i></div><p class="px-prog-num" aria-live="polite">连接中…</p><div class="pq-dlg-actions"><button type="button" class="pq-link" data-px-load="skip">不等了，边下边听</button></div>`)
+    d.dataset.lock='1'
+    const bar=d.querySelector('.px-prog i'),num=d.querySelector('.px-prog-num')
+    const finish=()=>{
+      if(done)return;done=true;audioPending=false;delete d.dataset.lock;if(d.open)d.close()
+      if(session===owner){const dt=Date.now()-t0;session.started+=dt;if(session.deadline)session.deadline+=dt;persist();renderSession()}
+    }
+    prepareAudio.skip=finish
+    ;(async()=>{
+      try{
+        for(let i=0;i<need.length;i++){
+          await P.load(need[i],(got,total)=>{if(done)return
+            const pct=total?Math.min(100,Math.round(got/total*100)):0
+            if(bar)bar.style.width=(total?pct:Math.min(95,got/2e5))+'%'
+            if(num)num.textContent=`${need.length>1?`第 ${i+1}/${need.length} 段 · `:''}${(got/1048576).toFixed(1)}${total?` / ${(total/1048576).toFixed(1)}`:''} MB${total?` · ${pct}%`:''}`})
+        }
+        if(bar)bar.style.width='100%';if(num)num.textContent='准备好了'
+        setTimeout(finish,250)
+      }catch(err){
+        if(done)return
+        if(num)num.textContent='下载失败：网络不稳定。可以重试，或先开始（边下边听可能会卡）。'
+        const acts=d.querySelector('.pq-dlg-actions');if(acts)acts.innerHTML='<button type="button" class="secondary-btn" data-px-load="skip">先开始</button><button type="button" class="primary-btn" data-px-load="retry">重试</button>'
+        prepareAudio.retry=()=>{done=true;delete d.dataset.lock;d.close();audioPending=true;prepareAudio()}
+      }
+    })()
+  }
   function resume(){
     const s=load().session;if(!s?.groups?.length)return false
     session={...s,answers:s.answers||{},marks:s.marks||{},strikes:s.strikes||{}}
     const now=Date.now()
     session.started=now-(s.elapsedMs||Math.max(0,(s.savedAt||now)-s.started-(s.pausedMs||0)));session.pausedMs=0;session.pausedAt=0
     if(session.deadline)session.deadline=now+(s.remainingMs??Math.max(0,s.deadline-(s.savedAt||now)))
-    cur='';renderSession();show('workflow-session-view',title(session.type));return true
+    session.id||=String(s.started||Date.now())
+    cur='';audioPending=needAudio();renderSession();show('workflow-session-view',title(session.type));prepareAudio();return true
   }
   const anno=()=>window.TEM8_ANNO
   function show(id,label){
@@ -365,13 +405,14 @@
       const sel=v===i,cls=[sel?'sel':'',strikes.includes(i)?'struck':'',showFb&&i===it.answer?'right':'',showFb&&sel&&i!==it.answer?'wrong':''].filter(Boolean).join(' ')
       return `<div class="pq-opt ${cls}"><label><input type="radio" name="o-${it.key}" data-workflow-choice="${it.key}" value="${i}" ${sel?'checked':''}><b>${LETTERS[i]}</b><span>${escape(o)}</span><i class="pq-check" aria-hidden="true">✓</i></label><button type="button" class="pq-strike" data-pq-strike="${it.key}" data-i="${i}" aria-pressed="${strikes.includes(i)}" title="${strikes.includes(i)?'恢复':'划掉'}选项 ${LETTERS[i]}">${strikes.includes(i)?'恢复':'排除'}</button></div>`}).join('')}</div>`
   }
+  const pane=(head,body,ink,cls='')=>`<div class="px-col ${cls}">${head?`<div class="px-head">${head}</div>`:''}<section class="px-pane"${ink?` data-ink="${ink}"`:''}>${body}</section></div>`
   function readingItems(){
     const items=gItems(group()),choice=items.filter(i=>i.kind==='choice'),short=items.filter(i=>i.kind==='short')
     let html=''
-    if(choice.length)html+=`<h3 class="workflow-section-title">选择题 <small>${choice.length} 道</small></h3>`+choice.map(it=>`<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no}</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4>${optionsHTML(it)}${feedback(it)}</article>`).join('')
+    if(choice.length)html+=`<h3 class="workflow-section-title">选择题 <small>${choice.length} 道</small></h3>`+choice.map(it=>`<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no}</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4>${optionsHTML(it)}${feedback(it)}</article>`).join('')
     if(short.length)html+=`<h3 class="workflow-section-title">简答题 <small>${short.length} 道</small></h3>`+short.map(it=>{
       const value=session.answers[it.key]||'',n=words(value),limit=it.limit
-      return `<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no} · 简答</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4><textarea data-workflow-short="${it.key}" placeholder="在此作答" rows="3">${escape(value)}</textarea><div class="workflow-question-foot">${it.q.locatorParagraph||/Para\.\s*\d+/i.test(it.prompt)?`<button type="button" data-workflow-locate="${it.key}">看原文对应段落</button>`:'<span></span>'}<span data-count-for="${it.key}" class="${limit&&n>limit?'over':''}">${n}${limit?` / ${limit} 词${n>limit?' · 超出':''}`:' 词'}</span></div></article>`}).join('')
+      return `<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no} · 简答</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4><textarea data-workflow-short="${it.key}" placeholder="在此作答" rows="3">${escape(value)}</textarea><div class="workflow-question-foot">${it.q.locatorParagraph||/Para\.\s*\d+/i.test(it.prompt)?`<button type="button" data-workflow-locate="${it.key}">看原文对应段落</button>`:'<span></span>'}<span data-count-for="${it.key}" class="${limit&&n>limit?'over':''}">${n}${limit?` / ${limit} 词${n>limit?' · 超出':''}`:' 词'}</span></div></article>`}).join('')
     return html
   }
   function passageText(a){
@@ -383,38 +424,61 @@
   }
   function renderReading(){
     const a=article(),n=gItems(group()).length
-    return `<div class="pq-tabs" role="tablist"><button type="button" role="tab" data-pq-tab="p" aria-selected="${mobileTab==='p'}" class="${mobileTab==='p'?'on':''}">文章</button><button type="button" role="tab" data-pq-tab="q" aria-selected="${mobileTab==='q'}" class="${mobileTab==='q'?'on':''}">题目 <small>${n}</small></button></div>
-      <div class="pq-read" data-tab="${mobileTab}"><section class="pq-pass"><div class="pq-pane-head"><strong>${a.year} · ${escape(passageName(a))}</strong><span>${session.allowWord?'点词查义 · ':''}选中文字可标记</span></div>${passageText(a)}</section><section class="pq-qs"><div class="pq-pane-head"><strong>题目</strong><span>${n} 题 · 键盘 A–D 作答</span></div>${readingItems()}</section></div>`
+    return `<div class="px-tabs" role="tablist"><button type="button" role="tab" data-pq-tab="p" aria-selected="${mobileTab==='p'}" class="${mobileTab==='p'?'on':''}">文章</button><button type="button" role="tab" data-pq-tab="q" aria-selected="${mobileTab==='q'}" class="${mobileTab==='q'?'on':''}">题目 <small>${n}</small></button></div>
+      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span>${session.allowWord?'点词查义 · ':''}选中文字可标记</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span>${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
   }
   const blankW=v=>Math.min(300,Math.max(150,String(v||'').length*7.2+26))
+  // 提纲数据里有两种旧格式：“…(1)______ …”下面再单独一行“(1) ______”，或正文里只有“______”、编号单独成行。
+  // 统一成原卷样子：每个空写成“(n) ______”，留在它所在的那一行。
+  function lectureLines(outline,count){
+    const out=[]
+    for(const raw of outline||[]){
+      // 有的年份原卷只印编号“(3)”不印横线，也当作空
+      let t=String(raw).replace(/\s+_\s*$/,'').replace(/\((\d+)\)\s*(?:_+|…+|\.{3,})/g,' ($1) ______ ').replace(/\((\d{1,2})\)(?! ______)/g,(m,n)=>+n>=1&&+n<=(count||15)?` (${n}) ______ `:m)
+      const solo=/^\s*\((\d+)\) ______\s*$/.exec(t)
+      if(solo&&out.length){
+        const n=solo[1],prev=out[out.length-1]
+        if(prev.includes(`(${n}) ______`))continue
+        let done=false
+        const merged=prev.replace(/_{3,}/g,(m,i,str)=>{if(done||/\(\d+\)\s*$/.test(str.slice(0,i)))return m;done=true;return ` (${n}) ______ `})
+        if(done){out[out.length-1]=merged;continue}
+      }
+      out.push(t)
+    }
+    return out.map(t=>t.replace(/\s{2,}/g,' ').replace(/\s+([.,:;?!])/g,'$1').replace(/:\(/g,': (').trim()).filter(Boolean)
+  }
   function renderLecture(){
     const g=group(),x=listening[g.year]?.miniLecture
-    if(!x)return '<div class="workflow-card"><p class="workflow-hint">本年暂无 Section A 数据。</p></div>'
+    if(!x)return '<div class="px-col"><section class="px-pane"><p class="workflow-hint">本年暂无 Section A 数据。</p></section></div>'
     const only=g.only?.length?new Set(g.only.map(String)):null
     const raw=String(x.title||'').trim(),bad=/…|\.{3,}|_{3,}|^[IVX]+[.、]/i.test(raw)
-    const rows=x.outline.map((line,i)=>{
-      if(i===0&&!bad&&line.trim()===raw)return ''
-      const t=line.trim(),lv=t.startsWith('-')?2:t.startsWith('●')?1:(/_{3,}/.test(t)?1:0),body=t.replace(/^[-●]\s*/,'')
-      const html=escape(body).replace(/\((\d+)\)\s*_{2,}/g,(m,num)=>{
+    const lines=lectureLines(x.outline,x.blanks?.length),seen=new Set()
+    const rows=lines.map((line,i)=>{
+      if(i===0&&!bad&&line===raw)return ''
+      const lv=/^[—–-]/.test(line)?2:/^[●•]/.test(line)?1:0
+      const html=escape(line).replace(/\((\d+)\) ______/g,(m,num)=>{
         const key=`lecture-${g.year}-${num}`,val=session.answers[key]||''
-        if(only&&!only.has(num))return `<span class="wf-blank-no">(${num})</span><span class="pq-blank-off">······</span>`
-        return `<span class="wf-blank-no">(${num})</span><input class="wf-blank${val?' filled':''}${key===cur?' cur':''}" id="it-${key}" data-item="${key}" data-workflow-blank="${key}" value="${escape(val)}" style="width:${blankW(val)}px" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="next" aria-label="第 ${num} 空">`})
-      return `<p class="wf-ol lv${lv}">${html}</p>`}).join('')
-    const items=gItems(g),filled=items.filter(it=>isAnswered(it,session.answers)).length
-    return `<div class="workflow-card"><div class="wf-lecture-head"><h2>${bad?'Mini-lecture':escape(raw)}</h2><span class="wf-lecture-count" id="wf-lecture-count">已填 ${filled} / ${items.length}</span></div><p class="workflow-hint">边听边填${x.blanks[0]?.wordLimit?`，每空不超过 ${x.blanks[0].wordLimit} 词`:''}。${g.only?'灰色的空本次不用填。':''}</p><div class="workflow-prompt wf-outline wf-lecture-outline">${rows}</div></div>`
+        if((only&&!only.has(num))||seen.has(num))return `<span class="px-gap off"><b>(${num})</b><u></u></span>`
+        seen.add(num)
+        return `<button type="button" class="px-gap${String(val).trim()?' filled':''}" id="gap-${key}" data-px-gap="${key}" aria-label="第 ${num} 空，点一下到答题纸作答"><b>(${num})</b><u></u></button>`})
+      return `<p class="px-ol lv${lv}">${html}</p>`}).join('')
+    const items=gItems(g),filled=items.filter(it=>isAnswered(it,session.answers)).length,limit=x.blanks?.[0]?.wordLimit
+    const sheet=`<ol class="px-sheet">${items.map(it=>{const v=session.answers[it.key]||''
+      return `<li class="px-line" id="it-${it.key}" data-item="${it.key}"><label><b>${it.no}</b><input class="px-ans" data-workflow-blank="${it.key}" value="${escape(v)}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-label="第 ${it.no} 空"></label></li>`}).join('')}</ol>`
+    return `<div class="px-split px-lec">${pane(`<strong>Section A · Mini-lecture</strong><span>${limit?`每空不超过 ${limit} 词`:''}</span>`,`<h2 class="px-lec-title">${bad?'Mini-lecture':escape(raw)}</h2><div class="px-outline">${rows}</div>`,'o','px-col-o')}${pane(`<strong>答题纸</strong><span id="wf-lecture-count">已填 ${filled} / ${items.length}</span>`,`${g.only?'<p class="workflow-hint">本次只做提纲里没变灰的空。</p>':''}${sheet}`,'','px-col-s')}</div>`
   }
   function renderInterview(){
     const g=group(),src=listening[g.year]
-    return `<div class="workflow-card"><p class="workflow-hint">Section B · Interview。原卷只印选项，题干在录音里。</p><div class="pq-intv">${gItems(g).map(it=>`<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>${it.no}</span>${flagBtn(it.key)}</div>${optionsHTML(it)}${feedback(it)}</article>`).join('')}</div>${src?.audio?'':'<p class="workflow-hint">本年录音暂缺，可按纸面作答。</p>'}</div>`
+    return pane(`<strong>Section B · Interview</strong><span>原卷只印选项，题干在录音里</span>`,`<div class="pq-intv">${gItems(g).map(it=>`<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>${it.no}</span>${flagBtn(it.key)}</div>${optionsHTML(it)}${feedback(it)}</article>`).join('')}</div>${src?.audio?'':'<p class="workflow-hint">本年录音暂缺，可按纸面作答。</p>'}`,'q','px-col-one')
   }
   function renderLanguage(){
     const y=group().year,src=papers[y]||{},rows=src.languageLines||[]
     const para=rows.some(r=>String(r[0]).length>140)
     const ttl=String(src.languageTitle||'').trim()
-    return `<div class="workflow-card pq-proof${para?' pq-proof-para':''}"><h2 class="pq-proof-h">Part III · Language Usage</h2><p class="pq-proof-rule">标了题号的行各有一处错误。错词：写出正确的词；缺词：写 ∧ 和缺的词；多余：写 / 和多余的词。</p>${ttl?`<p class="pq-proof-title">${escape(ttl)}</p>`:''}<div class="pq-proof-sheet" data-pq-sheet>${rows.map((row,i)=>{
+    return pane('',`<div class="workflow-card pq-proof${para?' pq-proof-para':''}"><h2 class="pq-proof-h">Part III · Language Usage</h2><p class="pq-proof-rule">标了题号的行各有一处错误。错词：写出正确的词；缺词：写 ∧ 和缺的词；多余：写 / 和多余的词。</p>${ttl?`<p class="pq-proof-title">${escape(ttl)}</p>`:''}<div class="pq-proof-sheet" data-pq-sheet>${rows.map((row,i)=>{
       const key=`language-${y}-${i+1}`,n=gapNo(row),ans=session.answers[key]||{}
       if(!n)return `<div class="pq-pl"><span class="pq-pl-t">${escape(row[0])}</span><span class="pq-pl-a"></span></div>`
-      return `<div class="pq-pl gap ${key===cur?'cur':''}" id="it-${key}" data-item="${key}"><span class="pq-pl-t">${escape(row[0])}</span><span class="pq-pl-a"><label><span class="pq-pl-n">(${n})</span><input class="pq-pl-in" data-workflow-error-text="${key}" value="${escape(ans.text||'')}" enterkeyhint="next" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="第 ${n} 题"></label><span class="pq-pl-keys" aria-hidden="true"><button type="button" tabindex="-1" data-pq-ins="∧">∧</button><button type="button" tabindex="-1" data-pq-ins="/">/</button></span></span></div>`}).join('')}</div></div>`
+      return `<div class="pq-pl gap" id="it-${key}" data-item="${key}"><span class="pq-pl-t">${escape(row[0])}</span><span class="pq-pl-a"><label><span class="pq-pl-n">(${n})</span><input class="pq-pl-in" data-workflow-error-text="${key}" value="${escape(ans.text||'')}" enterkeyhint="next" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="第 ${n} 题"></label><span class="pq-pl-keys" aria-hidden="true"><button type="button" tabindex="-1" data-pq-ins="∧">∧</button><button type="button" tabindex="-1" data-pq-ins="/">/</button></span></span></div>`}).join('')}</div></div>`,'l','px-col-one')
   }
   // 改错答题纸：整行不拆开；放不下时先缩小字号（最小 12px），再不行就左右滑动
   function fitSheet(){
@@ -429,13 +493,13 @@
   }
   function renderTranslation(){
     const y=group().year,key=`translation-${y}`,v=session.answers[key]||''
-    return `<div class="pq-trans"><section class="workflow-card"><h2>原文${papers[y].translationTarget?'<small>划线部分为翻译范围</small>':''}</h2><div class="workflow-prompt pq-src">${translationSource(y)}</div></section><section class="workflow-card"><h2>我的译文</h2><textarea class="workflow-long-answer" id="it-${key}" data-item="${key}" data-workflow-text="${key}" placeholder="在这里写英文译文">${escape(v)}</textarea><p class="workflow-word-count" id="wf-long-count">${words(v)} 词 · 自动保存</p></section></div>`
+    return `<div class="px-split px-trans">${pane(`<strong>原文</strong><span>${papers[y].translationTarget?'划线部分为翻译范围':''}</span>`,`<div class="workflow-prompt pq-src">${translationSource(y)}</div>`,'s','px-col-p')}${pane(`<strong>我的译文</strong><span id="wf-long-count">${words(v)} 词 · 自动保存</span>`,`<textarea class="workflow-long-answer px-long" id="it-${key}" data-item="${key}" data-workflow-text="${key}" placeholder="在这里写英文译文">${escape(v)}</textarea>`,'','px-col-q')}</div>`
   }
   function writingTarget(y){const t=session.targets?.[y];return t||papers[y]?.writingMinWords||300}
   function writingCount(y,v){const n=words(v),t=writingTarget(y),pct=Math.min(100,Math.round(n/t*100));return `<div class="pq-wbar"><i style="width:${pct}%" class="${n>=t?'done':''}"></i></div><p class="workflow-word-count ${n<t?'under':''}" id="wf-long-count">${n} / ${t} 词${n>=t?' · 已达标':` · 还差 ${t-n} 词`} · 自动保存</p>`}
   function renderWriting(){
     const y=group().year,src=papers[y],key=`writing-${y}`,v=session.answers[key]||''
-    return `<div class="workflow-card"><h2>写作 · 摘要＋观点</h2><details open><summary>写作要求与材料</summary><div class="workflow-prompt">${(src.writing||[]).map(x=>`<p>${escape(x)}</p>`).join('')}</div></details><div class="pq-target"><label>目标字数 <input type="number" min="50" max="1200" step="10" value="${writingTarget(y)}" data-pq-target="${y}"></label>${src.writingMinWords?`<small>原卷最低 ${src.writingMinWords} 词</small>`:''}</div><textarea class="workflow-long-answer pq-essay" id="it-${key}" data-item="${key}" data-workflow-text="${key}" placeholder="在这里写作文">${escape(v)}</textarea><div id="pq-wcount">${writingCount(y,v)}</div></div>`
+    return pane(`<strong>写作 · 摘要＋观点</strong><span></span>`,`<details open class="px-wmat"><summary>写作要求与材料</summary><div class="workflow-prompt">${(src.writing||[]).map(x=>`<p>${escape(x)}</p>`).join('')}</div></details><div class="pq-target"><label>目标字数 <input type="number" min="50" max="1200" step="10" value="${writingTarget(y)}" data-pq-target="${y}"></label>${src.writingMinWords?`<small>原卷最低 ${src.writingMinWords} 词</small>`:''}</div><textarea class="workflow-long-answer pq-essay px-long" id="it-${key}" data-item="${key}" data-workflow-text="${key}" placeholder="在这里写作文">${escape(v)}</textarea><div id="pq-wcount">${writingCount(y,v)}</div>`,'w','px-col-one')
   }
   function groupLabel(g){
     if(g.kind==='reading')return `${g.year} · ${passageName(art(g.articleId))}`
@@ -458,52 +522,60 @@
     return `<div class="pq-timer ${exam?'down':'up'} ${exam&&secs<=600?'warn':''} ${paused?'paused':''}"><button type="button" data-pq-timer="hide" title="${hidden?'显示':'隐藏'}计时" aria-label="${exam?'剩余时间':'已用时间'}"><time id="workflow-time">${hidden?'··:··':mmss(secs)}</time></button>${exam?'':`<button type="button" data-pq-timer="pause" title="${paused?'继续':'暂停'}计时" aria-label="${paused?'继续':'暂停'}计时">${paused?'继续':'暂停'}</button>`}</div>`
   }
   function renderSession(){
-    const g=group(),kind=g.kind
+    const g=group(),kind=g.kind,mock=session.type==='mock'
     const body=kind==='reading'?renderReading():kind==='lecture'?renderLecture():kind==='interview'?renderInterview():kind==='language'?renderLanguage():kind==='translation'?renderTranslation():renderWriting()
     const track=isListening(kind)?listening[g.year]:null
-    const slot=track?.audio?'<div id="wf-audio-slot" class="pq-audio"></div>':''
     const trSec=kind==='lecture'?'A':'B'
     const showTr=isListening(kind)&&session.mode!=='exam'&&!!window.TEM8_TRANSCRIPTS?.[g.year]?.[trSec]?.length
+    const audio=track?.audio?`<div class="px-audio"><div id="wf-audio-slot" class="pq-audio"></div>${showTr?'<div id="wf-transcript"></div>':''}</div>`:''
     const last=session.current===session.groups.length-1
     const name=session.type==='review'?(session.label||'错题复习'):title(session.type)
-    const nav=`<div class="pq-gnav"><button type="button" class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button>${last?'<button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button>':'<button type="button" class="primary-btn" data-workflow-next>下一组 <span>→</span></button>'}</div>`
     const all=allItems(session.groups),done=all.filter(it=>isAnswered(it,session.answers)).length
-    $('#workflow-session-content').innerHTML=`<div class="pq-top"><button class="pq-back" type="button" data-workflow-back="config" aria-label="返回">←</button><div class="pq-title"><strong>${escape(name)}</strong><span>${escape(groupLabel(g))}${session.groups.length>1?` · 第 ${session.current+1}/${session.groups.length} 组`:''} · ${session.mode==='exam'?'计时':'练习'}</span></div>${kind==='reading'&&session.mode!=='exam'?'<button class="pq-ghost" type="button" data-workflow-study>精读</button>':''}<span class="pq-saved" id="pq-saved">${session.savedAt?'已保存 '+clock(session.savedAt):''}</span>${timerHTML()}</div>
-      <div class="pq-shell ${kind==='reading'?'is-reading':''}"><div class="pq-main">${slot}${showTr?'<div id="wf-transcript"></div>':''}${body}<div class="pq-main-nav">${nav}</div></div><aside class="pq-aside" aria-label="答题卡"><div class="pq-cardwrap">${cardHTML()}</div><button type="button" class="pq-submit" data-pq-submit>交卷</button></aside></div>
-      <div class="pq-bottom"><button type="button" class="pq-cardbtn" data-pq-drawer aria-haspopup="dialog"><b>答题卡</b><span>${done}/${all.length}</span></button>${nav}</div>
-      <div class="pq-drawer" id="pq-drawer" hidden><button type="button" class="pq-drawer-bg" data-pq-drawer-close aria-label="关闭答题卡"></button><div class="pq-sheet" role="dialog" aria-label="答题卡"><div class="pq-grip"></div><div class="pq-cardwrap">${cardHTML()}</div><div class="pq-sheet-actions"><button type="button" class="secondary-btn" data-pq-drawer-close>关闭</button><button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button></div></div></div>`
+    const nav=`<button type="button" class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button><span class="px-where">${escape(groupLabel(g))}${session.groups.length>1?` · ${session.current+1}/${session.groups.length}`:''}</span>${last?'<button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button>':'<button type="button" class="primary-btn" data-workflow-next>下一组 <span>→</span></button>'}`
+    const ink=window.TEM8_INK
+    $('#workflow-session-content').innerHTML=`<header class="px-top"><button class="pq-back" type="button" data-workflow-back="config" aria-label="返回">←</button><div class="pq-title"><strong>${escape(name)}</strong><span>${escape(groupLabel(g))} · ${session.mode==='exam'?'计时':'练习'}</span></div><span class="px-mini" data-px-mini hidden></span>${kind==='reading'&&session.mode!=='exam'?'<button class="pq-ghost" type="button" data-workflow-study>精读</button>':''}<span class="pq-saved" id="pq-saved">${session.savedAt?'已保存 '+clock(session.savedAt):''}</span>${timerHTML()}${ink?`<button type="button" class="px-tb" data-ink-toggle aria-pressed="${ink.on}">手写</button>`:''}<button type="button" class="px-tb" data-px-card aria-haspopup="dialog">答题卡 <span data-px-count>${done}/${all.length}</span></button></header>
+      ${ink?`<div class="px-inkbar">${ink.barHTML()}</div>`:''}${audio}
+      <div class="px-body px-k-${kind}">${body}</div>
+      <footer class="px-foot">${nav}</footer>
+      <div class="px-card" id="px-card" hidden><button type="button" class="px-card-bg" data-px-card-close aria-label="收起答题卡"></button><aside class="px-card-sheet" role="dialog" aria-label="答题卡"><div class="pq-cardwrap">${cardHTML()}</div><div class="px-card-acts"><button type="button" class="secondary-btn" data-px-card-close>收起</button><button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button></div></aside></div>
+      <button type="button" class="px-handle" data-px-card aria-label="展开答题卡"><span>答题卡</span></button>`
     if(kind==='language')requestAnimationFrame(fitSheet)
-    if(slot){
+    if(track?.audio&&audioPending)$('#wf-audio-slot').innerHTML='<p class="px-prog-num">听力准备中…</p>'
+    else if(track?.audio){
       const bStart=Number(track.sectionBStart)||0,aEnd=Number(track.sectionAEnd)||0
-      const start=kind==='interview'?bStart:0
-      const end=kind==='lecture'?(aEnd>0?aEnd:(bStart>0?bStart:(track.audioDuration||0))):0
-      const hint=kind==='interview'&&bStart>0?`从 Section B 起点（${mmss(bStart)}）开始`:kind==='lecture'&&aEnd>0?`Section A 到 ${mmss(aEnd)} 结束`:''
-      window.TEM8_AUDIO?.mount($('#wf-audio-slot'),{src:track.audio,mode:session.mode,replay:session.mode==='exam'?!!session.replay:true,title:`${g.year} 真题听力 · Section ${trSec}`,duration:track.audioDuration||0,start,end,note:hint})
+      // 整卷模考：Section A、B 一口气放完，和考场一样，切到别的题组也不停
+      const start=mock?0:kind==='interview'?bStart:0
+      const end=mock?0:kind==='lecture'?(aEnd>0?aEnd:(bStart>0?bStart:(track.audioDuration||0))):0
+      const hint=mock?'Section A、B 连续播放':kind==='interview'&&bStart>0?`从 Section B 起点（${mmss(bStart)}）开始`:kind==='lecture'&&aEnd>0?`Section A 到 ${mmss(aEnd)} 结束`:''
+      window.TEM8_AUDIO?.mount($('#wf-audio-slot'),{src:track.audio,mode:session.mode,replay:session.mode==='exam'?!!session.replay:true,title:mock?`${g.year} 真题听力 · Section A + B`:`${g.year} 真题听力 · Section ${trSec}`,duration:track.audioDuration||0,start,end,note:hint})
     }
     if(showTr){const c=$('#wf-transcript');if(c)renderTranscript(g.year,trSec,c)}
     anno()?.refresh(kind==='reading'?article().id:'')
+    ink?.attach($('#workflow-session-content'),session.id,session.current)
+    tickMini()
   }
   function paintCard(){
     const html=cardHTML()
     document.querySelectorAll('.pq-cardwrap').forEach(box=>{box.innerHTML=html})
     const all=allItems(session.groups),done=all.filter(it=>isAnswered(it,session.answers)).length
-    const b=$('.pq-cardbtn span');if(b)b.textContent=`${done}/${all.length}`
+    document.querySelectorAll('[data-px-count]').forEach(b=>{b.textContent=`${done}/${all.length}`})
   }
   function setCur(key,scroll){
     if(!key)return
     cur=key
-    document.querySelectorAll('[data-item].cur').forEach(el=>el.classList.remove('cur'))
     const el=document.getElementById('it-'+key)
-    if(el){el.classList.add('cur');if(scroll){
+    if(el&&scroll){
       if(group().kind==='reading'&&mobileTab!=='q'&&matchMedia('(max-width:760px)').matches)setTab('q')
-      el.scrollIntoView({behavior:scroll==='key'?'auto':'smooth',block:'center'})}}
+      el.scrollIntoView({behavior:scroll==='key'?'auto':'smooth',block:'center'})}
     paintCard()
   }
-  function setTab(t){mobileTab=t;const r=$('.pq-read');if(r)r.dataset.tab=t;document.querySelectorAll('[data-pq-tab]').forEach(b=>{b.classList.toggle('on',b.dataset.pqTab===t);b.setAttribute('aria-selected',String(b.dataset.pqTab===t))});window.scrollTo({top:0})}
+  function setTab(t){mobileTab=t;const r=$('.px-split');if(r)r.dataset.tab=t;document.querySelectorAll('[data-pq-tab]').forEach(b=>{b.classList.toggle('on',b.dataset.pqTab===t);b.setAttribute('aria-selected',String(b.dataset.pqTab===t))})}
+  // 整卷模考的听力是一整段连续播放，切题组不打断；按题型练习时离开听力题组才停
+  function stopAudioOnNav(){if(isListening(group().kind)&&session.type!=='mock')window.TEM8_AUDIO?.stop()}
   function jump(key,gi){
     closeDrawer()
-    if(gi!==undefined&&gi!==session.current){if(isListening(group().kind))window.TEM8_AUDIO?.stop();session.current=gi;persist();cur=key;renderSession()}
-    setTimeout(()=>{setCur(key,true);const el=document.getElementById('it-'+key);if(el&&el.matches('input,textarea'))el.focus({preventScroll:true})},30)
+    if(gi!==undefined&&gi!==session.current){stopAudioOnNav();session.current=gi;persist();cur=key;renderSession()}
+    setTimeout(()=>{setCur(key,true);const el=document.getElementById('it-'+key),f=el?.matches('input,textarea')?el:el?.querySelector('input[data-workflow-blank],textarea');if(f)f.focus({preventScroll:true})},30)
   }
   function moveItem(dir){
     const items=gItems(group());if(!items.length)return
@@ -511,12 +583,41 @@
     i=i<0?(dir>0?0:items.length-1):Math.max(0,Math.min(items.length-1,i+dir))
     setCur(items[i].key,'key')
   }
-  function openDrawer(){const d=$('#pq-drawer');if(d){d.hidden=false;requestAnimationFrame(()=>d.classList.add('open'))}}
-  function closeDrawer(){const d=$('#pq-drawer');if(d&&!d.hidden){d.classList.remove('open');setTimeout(()=>{d.hidden=true},200)}}
-
+  function openDrawer(){const d=$('#px-card');if(d){paintCard();d.hidden=false;requestAnimationFrame(()=>d.classList.add('open'))}}
+  function closeDrawer(){const d=$('#px-card');if(d&&!d.hidden){d.classList.remove('open');setTimeout(()=>{d.hidden=true},220)}}
+  // 右边缘往左滑打开答题卡，在答题卡上往右滑收起
+  let swipe=null
+  document.addEventListener('touchstart',e=>{
+    if(!inSession()||e.touches.length!==1)return
+    const t=e.touches[0];if(t.touchType==='stylus')return
+    const open=!$('#px-card')?.hidden
+    if(open&&e.target.closest('.px-card-sheet'))swipe={x:t.clientX,y:t.clientY,mode:'close'}
+    else if(!open&&t.clientX>innerWidth-26)swipe={x:t.clientX,y:t.clientY,mode:'open'}
+    else swipe=null
+  },{passive:true})
+  document.addEventListener('touchmove',e=>{
+    if(!swipe)return
+    const t=e.touches[0],dx=t.clientX-swipe.x,dy=t.clientY-swipe.y
+    if(Math.abs(dy)>Math.abs(dx)*1.2){swipe=null;return}
+    if(swipe.mode==='open'&&dx<-40){swipe=null;openDrawer()}
+    else if(swipe.mode==='close'&&dx>50){swipe=null;closeDrawer()}
+  },{passive:true})
+  document.addEventListener('touchend',()=>{swipe=null})
+  // 听力在放、但当前不在听力题组时，顶栏提示一下
+  function tickMini(){
+    const m=$('[data-px-mini]');if(!m||!session)return
+    const A=window.TEM8_AUDIO,on=!!A?.playing&&!isListening(group().kind)
+    m.hidden=!on;if(on)m.textContent=`听力播放中 ${mmss(A.currentTime)}`
+  }
+  document.addEventListener('tem8:audio-blocked',()=>{
+    if(!inSession()||$('[data-px-resume]'))return
+    const host=$('.px-audio')||$('.px-top');host?.insertAdjacentHTML('afterend','<button type="button" class="px-resume" data-px-resume>听力被系统打断了，点这里继续播放</button>')
+  })
+  document.addEventListener('tem8:audio-playing',()=>{$('[data-px-resume]')?.remove()})
   /* ---------- 对话框（交卷确认 / 离开保护） ---------- */
   function dialog(html){
-    let d=$('#pq-dialog');if(!d){d=document.createElement('dialog');d.id='pq-dialog';d.className='pq-dialog';document.body.appendChild(d)}
+    let d=$('#pq-dialog');if(!d){d=document.createElement('dialog');d.id='pq-dialog';d.className='pq-dialog';d.addEventListener('cancel',e=>{if(d.dataset.lock)e.preventDefault()});document.body.appendChild(d)}
+    delete d.dataset.lock
     d.innerHTML=`<div class="pq-dialog-inner">${html}</div>`;if(!d.open)d.showModal();return d
   }
   function confirmSubmit(){
@@ -574,6 +675,7 @@
   function submit(){
     if(!session)return
     persist()
+    clearTimeout(persistT);window.TEM8_INK?.drop(session.id)
     const run={type:session.type,year:session.year,years:session.years||[session.year],finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks,mode:session.mode,elapsed:Math.round(elapsedMs()/1000),durationMinutes:session.durationMinutes||0,label:session.label||'',eval:{}}
     writeStore(s=>{s.session=null;s.history=[...(s.history||[]),run].slice(-80)})
     mistakeUpdate(run)
@@ -631,11 +733,11 @@
     const mark={ok:'正确',bad:'错误',none:'未作答',self:'自查',na:''}[r]
     if(it.kind==='choice'){
       const mine=v===undefined||v===''?'未作答':LETTERS[v],right=it.answer===undefined?'暂无':LETTERS[it.answer]
-      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}" ${r==='bad'?'open':''}><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${escape(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${escape(o)}</li>`).join('')}</ol><div class="pq-analysis">${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${r==='bad'?reasonChips(it):''}</details>`
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${escape(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${escape(o)}</li>`).join('')}</ol><div class="pq-analysis">${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${r==='bad'?reasonChips(it):''}</details>`
     }
     if(it.kind==='blank'){
       const shown=String(it.answer||'').replace(/\s*\/\/\s*/g,' 或 ')
-      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}" ${r==='bad'?'open':''}><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${r==='bad'?reasonChips(it):''}</details>`
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${r==='bad'?reasonChips(it):''}</details>`
     }
     if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${escape(it.prompt)}</p><div class="pq-analysis">${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div></details>`
     if(it.kind==='line')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span></summary><p class="wf-prompt">${escape(it.row)}</p>${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}</details>`
@@ -668,28 +770,44 @@
     const prev=[...hist].reverse().find(h=>h.finishedAt<run.finishedAt&&sig(h)===sig(run))
     const prevPct=prev?stats(prev).pct:null
     const diff=st.pct!=null&&prevPct!=null?st.pct-prevPct:null
-    const m=Math.floor((run.elapsed||0)/60),s=(run.elapsed||0)%60
-    const bars=run.groups.map((g,gi)=>{const its=gItems(g).filter(gradable);if(!its.length)return '';const ok=its.filter(it=>grade(it,run.answers)==='ok').length,p=Math.round(ok/its.length*100)
-      return `<div class="pq-bar"><span>${escape(groupLabel(g))}</span><div><i style="width:${p}%" class="${p<60?'low':p<80?'mid':''}"></i></div><b>${ok}/${its.length}</b></div>`}).join('')
-    const grid=run.groups.map((g,gi)=>{const its=gItems(g).filter(it=>it.kind!=='long');if(!its.length)return ''
-      return `<div class="pq-cgroup"><span>${escape(groupLabel(g))}</span><div class="pq-grid">${its.map(it=>{const r=grade(it,run.answers);return `<button type="button" class="pq-cell res r-${r}" data-pq-goto="${it.key}" aria-label="第 ${it.no} 题 ${({ok:'正确',bad:'错误',none:'未作答',self:'需自查',na:'无答案'})[r]}">${it.no}<i aria-hidden="true">${r==='ok'?'✓':r==='bad'?'✗':''}</i></button>`}).join('')}</div></div>`}).join('')
-    const objective=st.items.some(it=>it.kind!=='long')
-    const cards=run.groups.map(g=>{
-      if(g.kind==='translation'||g.kind==='writing')return selfEval(g,run)
-      let its=gItems(g)
-      if(reportFilter)its=its.filter(it=>grade(it,run.answers)==='bad')
-      if(!its.length)return ''
-      return `<div class="workflow-report-card"><h3>${escape(groupLabel(g))}</h3><div class="wf-answer-list">${its.map(it=>reportRow(it,run)).join('')}</div></div>`}).join('')
+    const m=Math.floor((run.elapsed||0)/60),sec=(run.elapsed||0)%60
     const name=run.type==='review'?(run.label||'错题复习'):title(run.type)
-    $('#workflow-report-content').innerHTML=`<div class="page-head pq-head"><h1>${escape(name)} · 已交卷</h1></div>
-      ${objective?`<div class="pq-hero">${ring(st.pct)}<div class="pq-hero-stats"><div><b>${st.ok}</b><span>答对</span></div><div><b>${st.wrong.length}</b><span>答错</span></div><div><b>${st.none.length}</b><span>未答</span></div><div><b>${st.gradable.length-st.none.length}/${st.gradable.length}</b><span>完成</span></div><div><b>${m}′${String(s).padStart(2,'0')}″</b><span>用时</span></div>${diff!=null?`<div class="pq-diff ${diff>0?'up':diff<0?'down':''}"><b>${diff>0?'+':''}${diff}%</b><span>比上次 ${prevPct}%</span></div>`:''}</div></div>
-      ${bars?`<div class="pq-bars">${bars}</div>`:''}
-      ${st.gradable.length<st.items.filter(it=>it.kind!=='long').length?`<p class="workflow-hint">简答、改错和部分填空需要对照答案自查，不计入正确率。</p>`:''}
-      <div class="pq-res-grid">${grid}</div>
-      <div class="pq-res-actions">${st.wrong.length?`<button type="button" class="secondary-btn ${reportFilter?'on':''}" data-pq-filter aria-pressed="${reportFilter}">${reportFilter?'显示全部题':'只看错题'}</button><button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${st.wrong.length}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>
-      ${st.wrong.length?'<p class="workflow-hint">错题已自动收进错题本。展开错题可以给它标上错因，复习时能按错因筛选。</p>':''}`:`<p class="workflow-hint">用时 ${m} 分 ${s} 秒。</p>`}
-      ${cards}
-      <div class="pq-res-foot"><button class="secondary-btn" data-workflow-back="${run.type==='mock'?'mock':'papers'}">${run.type==='mock'?'返回模考':'返回题库'}</button>${run.type!=='review'&&run.type!=='mock'?'<button class="primary-btn" data-pq-again>再练一次 <span>→</span></button>':''}</div>`
+    const secs=run.groups.map((g,gi)=>{
+      const its=gItems(g),c={ok:0,bad:0,none:0,self:0,na:0},by={ok:[],bad:[],none:[],self:[],na:[]}
+      its.forEach(it=>{const r=grade(it,run.answers);c[r]++;by[r].push(it)})
+      return {g,gi,its,c,by,long:its.length===1&&its[0].kind==='long',total:its.filter(gradable).length}
+    })
+    const obj=secs.filter(x=>!x.long)
+    const selfN=obj.reduce((n,x)=>n+x.c.self,0)
+    const wrongN=st.wrong.length,noneN=st.none.length
+    const lbl=x=>escape(groupLabel(x.g))
+    // 1 成绩卡
+    const hero=obj.length?`<section class="rp-hero">
+      <div class="rp-score"><div class="rp-big"><b>${st.ok}</b><span>/ ${st.gradable.length}</span></div><p>客观题答对</p><div class="rp-meter" aria-hidden="true"><i class="ok" style="width:${st.gradable.length?st.ok/st.gradable.length*100:0}%"></i><i class="bad" style="width:${st.gradable.length?wrongN/st.gradable.length*100:0}%"></i></div></div>
+      <dl class="rp-kpi"><div><dt>答错</dt><dd class="bad">${wrongN}</dd></div><div><dt>未作答</dt><dd>${noneN}</dd></div><div><dt>已答正确率</dt><dd>${st.pct==null?'—':st.pct+'%'}${diff!=null?`<small class="${diff>0?'up':diff<0?'down':''}">${diff>0?'+':''}${diff}%</small>`:''}</dd></div><div><dt>用时</dt><dd>${m}′${String(sec).padStart(2,'0')}″</dd></div></dl>
+    </section>
+    ${selfN||secs.some(x=>x.long)?`<p class="rp-note">${selfN?`另有 ${selfN} 题（简答、改错等）需要对照答案自查，`:''}${secs.some(x=>x.long)?'翻译、写作在最下面对照参考自评，':''}都不计入上面的分数。</p>`:''}`:`<p class="rp-note">用时 ${m} 分 ${sec} 秒。</p>`
+    // 2 分项表
+    const table=obj.length?`<section class="rp-card"><h2>各部分</h2><table class="rp-table"><thead><tr><th>部分</th><th>对</th><th>错</th><th>未答</th>${selfN?'<th>自查</th>':''}<th class="rp-th-bar"><span class="sr">比例</span></th></tr></thead><tbody>${obj.map(x=>{const t=x.its.length||1
+      return `<tr><th scope="row">${lbl(x)}</th><td class="ok">${x.c.ok}</td><td class="bad">${x.c.bad}</td><td>${x.c.none}</td>${selfN?`<td>${x.c.self}</td>`:''}<td class="rp-bar"><span><i class="ok" style="width:${x.c.ok/t*100}%"></i><i class="bad" style="width:${x.c.bad/t*100}%"></i><i class="self" style="width:${x.c.self/t*100}%"></i></span></td></tr>`}).join('')}</tbody></table></section>`:''
+    // 3 答题卡总览
+    const grid=obj.length?`<section class="rp-card"><div class="rp-card-h"><h2>答题卡</h2><div class="rp-legend"><span><i class="r-ok"></i>对</span><span><i class="r-bad"></i>错</span><span><i class="r-none"></i>未答</span>${selfN?'<span><i class="r-self"></i>自查</span>':''}</div></div>${obj.map(x=>`<div class="rp-gline"><span>${lbl(x)}</span><div class="rp-cells">${x.its.map(it=>{const r=grade(it,run.answers);return `<button type="button" class="rp-cell r-${r}" data-pq-goto="${it.key}" aria-label="第 ${it.no} 题 ${({ok:'正确',bad:'错误',none:'未作答',self:'需自查',na:'无答案'})[r]}">${it.no}</button>`}).join('')}</div></div>`).join('')}<p class="rp-tip">点题号直接看那道题的解析。</p></section>`:''
+    const acts=obj.length?`<div class="rp-acts">${wrongN?`<button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${wrongN}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>${wrongN?'<p class="rp-tip">错题已自动收进错题本，展开错题可以标错因。</p>':''}`:''
+    // 4 解析：按部分折叠；错题直接列出（点开看解析），答对、未作答各自收起来
+    const sub=(label,list,open)=>list.length?`<details class="rp-sub"${open?' open':''}><summary>${label} · ${list.length} 题</summary><div class="wf-answer-list">${list.map(it=>reportRow(it,run)).join('')}</div></details>`:''
+    const detail=secs.map(x=>{
+      if(x.long)return selfEval(x.g,run)
+      const head=[x.c.bad?`<em class="bad">错 ${x.c.bad}</em>`:'',x.c.ok?`对 ${x.c.ok}`:'',x.c.none?`未答 ${x.c.none}`:'',x.c.self?`自查 ${x.c.self}`:''].filter(Boolean).join(' · ')
+      return `<details class="rp-sec" ${x.c.bad||x.c.self?'open':''}><summary><b>${lbl(x)}</b><span>${head}</span></summary>
+        ${x.by.bad.length?`<div class="wf-answer-list rp-wrong">${x.by.bad.map(it=>reportRow(it,run)).join('')}</div>`:''}
+        ${x.c.self?`<div class="rp-selfh">需要自查</div><div class="wf-answer-list">${x.by.self.map(it=>reportRow(it,run)).join('')}</div>`:''}
+        ${sub('答对',x.by.ok,false)}${sub('未作答（点开看答案）',[...x.by.none,...x.by.na],false)}
+      </details>`}).join('')
+    $('#workflow-report-content').innerHTML=`<div class="rp">
+      <header class="rp-head"><h1>${escape(name)} · 已交卷</h1><p>${escape([...new Set(run.groups.map(g=>g.year))].join('、'))} · ${day(run.finishedAt)} ${clock(run.finishedAt)}</p></header>
+      ${hero}${table}${grid}${acts}
+      ${detail?`<h2 class="rp-h2">解析</h2>${detail}`:''}
+      <div class="pq-res-foot"><button class="secondary-btn" data-workflow-back="${run.type==='mock'?'mock':'papers'}">${run.type==='mock'?'返回模考':'返回题库'}</button>${run.type!=='review'&&run.type!=='mock'?'<button class="primary-btn" data-pq-again>再练一次 <span>→</span></button>':''}</div></div>`
   }
   function saveEval(key,i,on){
     const run=lastRun;if(!run)return
@@ -734,8 +852,9 @@
       else if(d.pqDlg==='mock'){$('#pq-dialog')?.close();const f=pendingMock;pendingMock=null;f?.()}
       else if(d.pqDlg==='submit'){$('#pq-dialog')?.close();submit()}
       else if(d.pqDlg==='keep')leave(false)
-      else if(d.pqDlg==='discard')leave(true)
+      else if(d.pqDlg==='discard'){window.TEM8_INK?.drop(session?.id);leave(true)}
       return}
+    if(d.pxLoad){e.stopPropagation();if(d.pxLoad==='skip')prepareAudio.skip?.();else prepareAudio.retry?.();return}
     if(d.pqDlgJump){e.stopPropagation();$('#pq-dialog')?.close();jump(d.pqDlgJump,Number(d.g));return}
     if(t.id==='reader-back'||(d.openReader!==undefined&&d.mode==='free')){const r=$('[data-workflow-return]');if(r)r.hidden=true}
     if(d.workflowType){e.stopPropagation();openConfig(d.workflowType);return}
@@ -764,12 +883,16 @@
     if(d.pqAgain!==undefined){e.stopPropagation();if(lastRun){newSession(lastRun.groups,lastRun.type,{mode:lastRun.mode,minutes:lastRun.durationMinutes||30,instant:prefs().instant,allowWord:true,replay:prefs().replay})}return}
     if(d.pqRedo!==undefined){e.stopPropagation();if(lastRun)startKeys(stats(lastRun).wrong.map(it=>it.key),'重做错题');return}
     if(d.pqFilter!==undefined){e.stopPropagation();reportFilter=!reportFilter;renderReport();return}
-    if(d.pqGoto){e.stopPropagation();if(reportFilter&&!document.getElementById('rp-'+d.pqGoto)){reportFilter=false;renderReport()}const el=document.getElementById('rp-'+d.pqGoto);if(el){el.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('pq-flash');setTimeout(()=>el.classList.remove('pq-flash'),1200)}return}
+    if(d.pqGoto){e.stopPropagation();if(reportFilter&&!document.getElementById('rp-'+d.pqGoto)){reportFilter=false;renderReport()}const el=document.getElementById('rp-'+d.pqGoto);if(el){for(let p=el.parentElement?.closest('details');p;p=p.parentElement?.closest('details'))p.open=true;el.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('pq-flash');setTimeout(()=>el.classList.remove('pq-flash'),1200)}return}
     if(d.pqReason){e.stopPropagation();const k=d.pqReason,r=d.r;writeStore(s=>{const e2=s.tools?.['m:'+k];if(e2)e2.r=e2.r===r?'':r});t.parentElement.querySelectorAll('[data-pq-reason]').forEach(b=>{const on=b===t&&!b.classList.contains('on');b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});return}
     if(d.pqExport){e.stopPropagation();exportText(d.key,d.pqExport);return}
     if(!session)return
     // —— 以下为做题页 ——
     if(d.pqSubmit!==undefined){e.stopPropagation();closeDrawer();confirmSubmit();return}
+    if(d.pxCard!==undefined){e.stopPropagation();const c=$('#px-card');if(c&&!c.hidden)closeDrawer();else openDrawer();return}
+    if(d.pxCardClose!==undefined){e.stopPropagation();closeDrawer();return}
+    if(d.pxGap){e.stopPropagation();const f=document.querySelector(`[data-workflow-blank="${d.pxGap}"]`);if(f){f.focus({preventScroll:true});f.scrollIntoView({block:'center',behavior:'smooth'})}return}
+    if(d.pxResume!==undefined){e.stopPropagation();window.TEM8_AUDIO?.play();t.remove();return}
     if(d.pqDrawer!==undefined){e.stopPropagation();openDrawer();return}
     if(d.pqDrawerClose!==undefined){e.stopPropagation();closeDrawer();return}
     if(d.pqJump){e.stopPropagation();jump(d.pqJump,Number(d.g));return}
@@ -781,8 +904,8 @@
     if(d.pqStrike){e.stopPropagation();const k=d.pqStrike,i=Number(d.i),arr=session.strikes[k]||[];session.strikes[k]=arr.includes(i)?arr.filter(x=>x!==i):[...arr,i];persist();refreshItem(k);return}
     if(d.workflowStudy!==undefined){e.stopPropagation();persist();const a=article();confirmBypass=true;document.querySelector('.tabbar [data-tab="library"]')?.click();confirmBypass=false;document.querySelector(`[data-open-reader][data-mode="free"][data-article="${a.id}"]`)?.click();const r=$('[data-workflow-return]');if(r)r.hidden=false;return}
     if(d.workflowReturn!==undefined){e.stopPropagation();t.hidden=true;renderSession();show('workflow-session-view',title(session.type));return}
-    if(d.workflowNext!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current<session.groups.length-1){session.current++;cur='';persist();renderSession();window.scrollTo(0,0)}return}
-    if(d.workflowPrev!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current>0){session.current--;cur='';persist();renderSession();window.scrollTo(0,0)}return}
+    if(d.workflowNext!==undefined){e.stopPropagation();stopAudioOnNav();if(session.current<session.groups.length-1){session.current++;cur='';persist();renderSession()}return}
+    if(d.workflowPrev!==undefined){e.stopPropagation();stopAudioOnNav();if(session.current>0){session.current--;cur='';persist();renderSession()}return}
     if(d.workflowMark){e.stopPropagation();const k=d.workflowMark;session.marks[k]=!session.marks[k];persist();t.classList.toggle('on',session.marks[k]);t.setAttribute('aria-pressed',String(session.marks[k]));t.textContent=session.marks[k]?'已存疑':'存疑';setCur(k);return}
     if(d.workflowLocate){e.stopPropagation();const q=qByKey.get(d.workflowLocate),m=q?.prompt.match(/Para\.\s*(\d+)/i),n=q?.locatorParagraph||Number(m?.[1]);if(n){if(matchMedia('(max-width:760px)').matches)setTab('p');const p=document.getElementById(`wf-p-${n}`);p?.scrollIntoView({behavior:'smooth',block:'center'});p?.classList.add('anno-flash');setTimeout(()=>p?.classList.remove('anno-flash'),1400)}return}
     if(d.workflowWord){e.stopPropagation();const sel=window.getSelection();if(sel&&!sel.isCollapsed&&String(sel).trim())return;wordPopup(d.workflowWord,t);return}
@@ -793,7 +916,11 @@
     const opts=el.querySelector('.pq-opts');if(opts)opts.outerHTML=optionsHTML(it)
     el.querySelector('.pq-instant')?.remove();const fb=feedback(it);if(fb)el.insertAdjacentHTML('beforeend',fb)
   }
-  document.addEventListener('focusin',e=>{if(!inSession())return;const it=e.target.closest?.('[data-item]');if(it&&it.dataset.item!==cur){cur=it.dataset.item;document.querySelectorAll('[data-item].cur').forEach(x=>x.classList.toggle('cur',x===it));it.classList.add('cur');paintCard()}})
+  document.addEventListener('focusin',e=>{if(!inSession())return
+    document.querySelectorAll('.px-gap.on').forEach(x=>x.classList.remove('on'))
+    const b=e.target.dataset?.workflowBlank;if(b){const g=document.getElementById('gap-'+b);if(g){g.classList.add('on');g.scrollIntoView({block:'nearest',behavior:'smooth'})}}
+    const it=e.target.closest?.('[data-item]');if(it&&it.dataset.item!==cur){cur=it.dataset.item;paintCard()}})
+  document.addEventListener('focusout',e=>{if(e.target.dataset?.workflowBlank)setTimeout(()=>{if(!document.activeElement?.dataset?.workflowBlank)document.querySelectorAll('.px-gap.on').forEach(x=>x.classList.remove('on'))},0)})
   document.addEventListener('pointerdown',e=>{if(!inSession())return;const it=e.target.closest?.('[data-item]');if(it&&it.dataset.item!==cur)setCur(it.dataset.item)})
   document.addEventListener('change',e=>{
     const t=e.target
@@ -806,11 +933,11 @@
   })
   document.addEventListener('input',e=>{
     const t=e.target;if(!session)return
-    if(t.dataset.workflowBlank){const k=t.dataset.workflowBlank;session.answers[k]=t.value;persist();t.classList.toggle('filled',!!t.value.trim());t.style.width=blankW(t.value)+'px'
+    if(t.dataset.workflowBlank){const k=t.dataset.workflowBlank;session.answers[k]=t.value;persistSoon();t.classList.toggle('filled',!!t.value.trim());if(!t.classList.contains('px-ans'))t.style.width=blankW(t.value)+'px';document.getElementById('gap-'+k)?.classList.toggle('filled',!!t.value.trim())
       const items=gItems(group()),n=items.filter(it=>isAnswered(it,session.answers)).length,el=$('#wf-lecture-count');if(el)el.textContent=`已填 ${n} / ${items.length}`;paintCard();return}
-    if(t.dataset.workflowShort){const k=t.dataset.workflowShort;session.answers[k]=t.value;persist();const it=gItems(group()).find(x=>x.key===k),limit=it?.limit,n=words(t.value),el=document.querySelector(`[data-count-for="${k}"]`);if(el){el.textContent=limit?`${n} / ${limit} 词${n>limit?' · 超出':''}`:`${n} 词`;el.classList.toggle('over',!!limit&&n>limit)}paintCard();return}
-    if(t.dataset.workflowErrorText){const k=t.dataset.workflowErrorText,v=t.value;session.answers[k]||={};session.answers[k].text=v;session.answers[k].kind=/^\s*[∧^]/.test(v)?'insert':/^\s*[\/／]/.test(v)?'delete':v.trim()?'replace':'';persist();paintCard();return}
-    if(t.dataset.workflowText){const k=t.dataset.workflowText;session.answers[k]=t.value;persist()
+    if(t.dataset.workflowShort){const k=t.dataset.workflowShort;session.answers[k]=t.value;persistSoon();const it=gItems(group()).find(x=>x.key===k),limit=it?.limit,n=words(t.value),el=document.querySelector(`[data-count-for="${k}"]`);if(el){el.textContent=limit?`${n} / ${limit} 词${n>limit?' · 超出':''}`:`${n} 词`;el.classList.toggle('over',!!limit&&n>limit)}paintCard();return}
+    if(t.dataset.workflowErrorText){const k=t.dataset.workflowErrorText,v=t.value;session.answers[k]||={};session.answers[k].text=v;session.answers[k].kind=/^\s*[∧^]/.test(v)?'insert':/^\s*[\/／]/.test(v)?'delete':v.trim()?'replace':'';persistSoon();paintCard();return}
+    if(t.dataset.workflowText){const k=t.dataset.workflowText;session.answers[k]=t.value;persistSoon()
       if(k.startsWith('writing')){const c=$('#pq-wcount');if(c)c.innerHTML=writingCount(Number(k.split('-')[1]),t.value)}else{const el=$('#wf-long-count');if(el)el.textContent=`${words(t.value)} 词 · 自动保存`}
       paintCard();return}
   })
@@ -848,6 +975,7 @@
     if(!session||!$('#workflow-session-view')?.classList.contains('active'))return
     const exam=!!session.deadline,n=exam?Math.max(0,Math.ceil((session.deadline-Date.now())/1000)):Math.floor(elapsedMs()/1000)
     const el=$('#workflow-time');if(el&&!session.hideTimer)el.textContent=mmss(n)
+    tickMini()
     const box=$('.pq-timer');if(box&&exam)box.classList.toggle('warn',n<=600)
     if(exam&&n===0){submit();return}
     if(n%15===0)persist()

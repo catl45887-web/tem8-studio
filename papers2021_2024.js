@@ -9,27 +9,27 @@ window.TEM8_MID_ARTICLES = [
   "segments": [
    {
     "number": 1,
-    "en": "If the properties of human language make it such a unique communication system, quite different from the communication systems of other creatures, then it would seem extremely unlikely that other creatures would be able to understand it. Some humans, however, do not behave as if this is the case. There is, after all, a lot of spoken language directed by humans to animals, apparently under the impression that the animal follows what is being said.Riders can say Whoa to horses and they stop. Should we treat these examples as evidence that non-humans can understand human language? Probably not. The standard explanation is that the animal produces a particular behavior in response to a particular sound-stimulus or noise, but does not actually “understand” what the words in the noise mean."
+    "en": "If the properties of human language make it such a unique communication system, quite different from the communication systems of other creatures, then it would seem extremely unlikely that other creatures would be able to understand it. Some humans, however, do not behave as if this is the case. There is, after all, a lot of spoken language directed by humans to animals, apparently under the impression that the animal follows what is being said. Riders can say Whoa to horses and they stop. Should we treat these examples as evidence that non-humans can understand human language? Probably not. The standard explanation is that the animal produces a particular behavior in response to a particular sound-stimulus or noise, but does not actually “understand” what the words in the noise mean."
    },
    {
     "number": 2,
-    "en": "In an early attempt to teach a chimpanzee to use human language, in the 1930s, two scientists (Luella and Winthrop Kellogg) raised an infant chimpanzee together with their baby son. The chimpanzee, called Gua, was reported to be able to understand about a hundred words, but did not“say” any of them. In the 1940s, a chimpanzee named Viki was reared by another scientist couple(Catherine and Keith Hayes) in their own home, exactly as if she were a human child. These foster parents spent five years attempting to get Viki to “say” English words by trying to shape her mouth as she produced sounds. Viki eventually managed to produce some words, rather poorly articulated versions of“mama”,“papa” and“cup”. In retrospect, this was a remarkable achievement since it has become clear that non-human primates do not actually have a physically structured vocal tract which is suitable for articulating the sounds used in speech."
+    "en": "In an early attempt to teach a chimpanzee to use human language, in the 1930s, two scientists (Luella and Winthrop Kellogg) raised an infant chimpanzee together with their baby son. The chimpanzee, called Gua, was reported to be able to understand about a hundred words, but did not “say” any of them. In the 1940s, a chimpanzee named Viki was reared by another scientist couple(Catherine and Keith Hayes) in their own home, exactly as if she were a human child. These foster parents spent five years attempting to get Viki to “say” English words by trying to shape her mouth as she produced sounds. Viki eventually managed to produce some words, rather poorly articulated versions of “mama”, “papa” and “cup”. In retrospect, this was a remarkable achievement since it has become clear that non-human primates do not actually have a physically structured vocal tract which is suitable for articulating the sounds used in speech."
    },
    {
     "number": 3,
-    "en": "Recognizing that a chimpanzee was a poor candidate for spoken language learning, another scientist couple (Beatrix and Allen Gardner)set out to teach a female chimpanzee called Washoe to use a version of American Sign Language. This sign language has all the essential properties of human language and is learned by many congenitally deaf children as their natural first language. From the beginning, the Gardner's and their research assistants raised Washoe like a human child in a comfortable domestic environment. Sign language was always used when Washoe was around and she was encouraged to use signs. In a period of three and a half years, Washoe came to use signs for more than a hundred words. Even more impressive was Washoe's ability to take these forms and combine them to produce“sentences” of the type“gimme tickle”,“more fruit” and “open food drink”. Some of the forms appear to have been inventions by Washoe,as in her novel sign for “bib” and in the combination“water bird” (referring to a swan), which would seem to indicate that her communication system had the potential for productivity."
+    "en": "Recognizing that a chimpanzee was a poor candidate for spoken language learning, another scientist couple (Beatrix and Allen Gardner)set out to teach a female chimpanzee called Washoe to use a version of American Sign Language. This sign language has all the essential properties of human language and is learned by many congenitally deaf children as their natural first language. From the beginning, the Gardner's and their research assistants raised Washoe like a human child in a comfortable domestic environment. Sign language was always used when Washoe was around and she was encouraged to use signs. In a period of three and a half years, Washoe came to use signs for more than a hundred words. Even more impressive was Washoe's ability to take these forms and combine them to produce “sentences” of the type “gimme tickle”, “more fruit” and “open food drink”. Some of the forms appear to have been inventions by Washoe, as in her novel sign for “bib” and in the combination “water bird” (referring to a swan), which would seem to indicate that her communication system had the potential for productivity."
    },
    {
     "number": 4,
-    "en": "At the same time as Washoe was learning sign language, another chimpanzee named Sarah was being taught (by Ann and David Premack) to use a set of plastic shapes for the purpose of communicating with humans. These plastic shapes represented“words” that could be arranged in sequence to build “sentences”. The basic approach was quite different from that of the Gardner's. Sarah was systematically trained to associate these shapes with objects or actions. She remained an animal in a cage, being trained with food rewards to manipulate a set of symbols. Once she had learned to use a large number of these plastic shapes, Sarah was capable of getting an apple by selecting the correct plastic shape(a blue triangle)from a large array. Sarah was also capable of producing“sentences” such as\"Mary give chocolate Sarah\" and had the impressive capacity to understand complex structures such as“If Sarah put red on green, Mary give Sarah chocolate”."
+    "en": "At the same time as Washoe was learning sign language, another chimpanzee named Sarah was being taught (by Ann and David Premack) to use a set of plastic shapes for the purpose of communicating with humans. These plastic shapes represented “words” that could be arranged in sequence to build “sentences”. The basic approach was quite different from that of the Gardner's. Sarah was systematically trained to associate these shapes with objects or actions. She remained an animal in a cage, being trained with food rewards to manipulate a set of symbols. Once she had learned to use a large number of these plastic shapes, Sarah was capable of getting an apple by selecting the correct plastic shape(a blue triangle)from a large array. Sarah was also capable of producing “sentences” such as\"Mary give chocolate Sarah\" and had the impressive capacity to understand complex structures such as “If Sarah put red on green, Mary give Sarah chocolate”."
    },
    {
     "number": 5,
-    "en": "A psychologist Herbert Terrace argued that chimpanzees simply produce signs in response to the demands of people and tend to repeat signs those people use, yet they are treated as if they are taking part in a“conversation”. As in many critical studies of animal learning, the chimpanzees'behavior is viewed as a type of conditioned response to cues provided by human trainers."
+    "en": "A psychologist Herbert Terrace argued that chimpanzees simply produce signs in response to the demands of people and tend to repeat signs those people use, yet they are treated as if they are taking part in a “conversation”. As in many critical studies of animal learning, the chimpanzees' behavior is viewed as a type of conditioned response to cues provided by human trainers."
    },
    {
     "number": 6,
-    "en": "Important lessons have been learned from attempts to teach chimpanzees how to use forms of language. We have answered some questions. Were Washoe and Sarah capable of taking part in interaction with humans by using a symbol system chosen by humans and not chimpanzees? The answer is clearly“Yes.” Could Washoe and Sarah go on to perform linguistically on a level comparable to a two-year-old child? The answer is just as clearly“No.” In arriving at these answers, we have also had to face the fact that, even with our list of key properties, we still don't seem to have a non-controversial definition of what counts as \"using language”. It has to be fair to say that, in both cases, we observe the participants“using language”. However, there is a difference. Underlying the two-year-old's communicative activity is the capacity to develop a highly complex system of sounds and structures, plus a set of computational procedures, which will allow the child to produce extended discourse containing a potentially infinite number of novel utterances. No other creature has been observed “using language” in this sense. It is in this more fundamental or abstract sense that we say that language is uniquely human."
+    "en": "Important lessons have been learned from attempts to teach chimpanzees how to use forms of language. We have answered some questions. Were Washoe and Sarah capable of taking part in interaction with humans by using a symbol system chosen by humans and not chimpanzees? The answer is clearly “Yes.” Could Washoe and Sarah go on to perform linguistically on a level comparable to a two-year-old child? The answer is just as clearly “No.” In arriving at these answers, we have also had to face the fact that, even with our list of key properties, we still don't seem to have a non-controversial definition of what counts as \"using language”. It has to be fair to say that, in both cases, we observe the participants “using language”. However, there is a difference. Underlying the two-year-old's communicative activity is the capacity to develop a highly complex system of sounds and structures, plus a set of computational procedures, which will allow the child to produce extended discourse containing a potentially infinite number of novel utterances. No other creature has been observed “using language” in this sense. It is in this more fundamental or abstract sense that we say that language is uniquely human."
    }
   ],
   "wordCount": 868
@@ -42,11 +42,11 @@ window.TEM8_MID_ARTICLES = [
   "segments": [
    {
     "number": 1,
-    "en": "It was well past midnight this past July and the round-the-clock Arctic sun was shining on Mercy Bay. Exhausted Parks Canada archaeologist Ryan Harris was experiencing a rare moment of rest on the rocky beach, looking out over the bay's dark, ice-studded water. Around him, a dozen red-and-yellow tents lined the shoreline—the only signs of life. Every day for the previous two weeks, work had started by mid- morning and continued nonstop for 16 hours. Night and day had little relevance in the murky, near-freezing waters. Along with Parks Canada's chief of underwater archaeology,Marc-Andre Bernier, Harris has overseen more than 100 dives at this remote inlet of Banks Island in Aulavik National Park, exploring the wreck of HMS Investigator, a British vessel that has sat on the bottom of the bay for more than 160 years."
+    "en": "It was well past midnight this past July and the round-the-clock Arctic sun was shining on Mercy Bay. Exhausted Parks Canada archaeologist Ryan Harris was experiencing a rare moment of rest on the rocky beach, looking out over the bay's dark, ice-studded water. Around him, a dozen red-and-yellow tents lined the shoreline—the only signs of life. Every day for the previous two weeks, work had started by mid- morning and continued nonstop for 16 hours. Night and day had little relevance in the murky, near-freezing waters. Along with Parks Canada's chief of underwater archaeology, Marc-Andre Bernier, Harris has overseen more than 100 dives at this remote inlet of Banks Island in Aulavik National Park, exploring the wreck of HMS Investigator, a British vessel that has sat on the bottom of the bay for more than 160 years."
    },
    {
     "number": 2,
-    "en": "Harris and a small team of archaeologists had discovered Investigator in 2010 and returned in 2011 with a larger team to dive, study, and document the wreck, which holds a critical place in the history of Arctic exploration. Twenty-five feet below the surface, Investigator sits upright, intact, and remarkably well preserved. Silt covers everything below the main deck, entombing the officers’cabins, the ship's galley,and a full library. The archaeologists had intended to leave the wreck and its artifacts where they had lain since the polar ship was abandoned, trapped in ice, on June 3,1853.Artifact recovery was not part of their original plan, but that plan changed after their first few dives."
+    "en": "Harris and a small team of archaeologists had discovered Investigator in 2010 and returned in 2011 with a larger team to dive, study, and document the wreck, which holds a critical place in the history of Arctic exploration. Twenty-five feet below the surface, Investigator sits upright, intact, and remarkably well preserved. Silt covers everything below the main deck, entombing the officers’cabins, the ship's galley, and a full library. The archaeologists had intended to leave the wreck and its artifacts where they had lain since the polar ship was abandoned, trapped in ice, on June 3, 1853. Artifact recovery was not part of their original plan, but that plan changed after their first few dives."
    },
    {
     "number": 3,
@@ -54,7 +54,7 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 4,
-    "en": "Each piece fished from the water was a clue to life at sea aboard a ship during a period of British fervor for Arctic exploration. The captain of Investigator,Robert McClure, was originally sent to find and rescue two ships, HMS Erebus and HMS Terror, that Sir John Franklin had led into the Arctic in 1845 to discover the long-sought Northwest Passage connecting the Atlantic and Pacific oceans. Investigator's voyage ended, without sight or word of Franklin's ships or crew, when it was set upon by ice in Mercy Bay. After 39 months at sea, the listing ship sat, slowly being crushed on all sides, for three frigid years—with no Inuit encounters, no British search parties, and no relief. For much of that time, McClure and his crew of 60 were desperate and under constant threat of starvation, until a surprising rescue in the spring of 1853. Fifty-five men survived the ordeal."
+    "en": "Each piece fished from the water was a clue to life at sea aboard a ship during a period of British fervor for Arctic exploration. The captain of Investigator, Robert McClure, was originally sent to find and rescue two ships, HMS Erebus and HMS Terror, that Sir John Franklin had led into the Arctic in 1845 to discover the long-sought Northwest Passage connecting the Atlantic and Pacific oceans. Investigator's voyage ended, without sight or word of Franklin's ships or crew, when it was set upon by ice in Mercy Bay. After 39 months at sea, the listing ship sat, slowly being crushed on all sides, for three frigid years—with no Inuit encounters, no British search parties, and no relief. For much of that time, McClure and his crew of 60 were desperate and under constant threat of starvation, until a surprising rescue in the spring of 1853. Fifty-five men survived the ordeal."
    },
    {
     "number": 5,
@@ -62,7 +62,7 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 6,
-    "en": "The archaeologists came prepared for delays, nasty weather, and polar bears — but they weren't prepared for the number of artifacts that needed recovery. Harris, Bernier, Cary,and their crews had packed cameras, lasers, and measuring tapes to document the sites but fewer items to help them retrieve, excavate, or transfer artifacts. Recovering the wreck’s finds quickly used up their small toolkit for stabilizing artifacts: foam padding, tongue depressors, and gauze bandages."
+    "en": "The archaeologists came prepared for delays, nasty weather, and polar bears — but they weren't prepared for the number of artifacts that needed recovery. Harris, Bernier, Cary, and their crews had packed cameras, lasers, and measuring tapes to document the sites but fewer items to help them retrieve, excavate, or transfer artifacts. Recovering the wreck’s finds quickly used up their small toolkit for stabilizing artifacts: foam padding, tongue depressors, and gauze bandages."
    },
    {
     "number": 7,
@@ -99,7 +99,7 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 5,
-    "en": "One unversed in such matters can have no notion of the many and tragic things that can happen to a chicken. It is born out of an egg, lives for a few weeks as a tiny fluffy thing such as you will see pictured on Easter cards, then becomes hideously naked, eats quantities of corn and meal bought by the sweat of your father's brow,gets diseases called pip, cholera, and other names, stands looking with stupid eyes at the sun, becomes sick and dies. A few hens and now and then a rooster,intended to serve God's mysterious ends, struggle through to maturity. The hens lay eggs out of which come other chickens and the dreadful cycle is thus made complete. It is all unbelievably complex. Most philosophers must have been raised on chicken farms. One hopes for so much from a chicken and is so dreadfully disillusioned. Small chickens, just setting out on the journey of life, look so bright and alert and they are in fact so dreadfully stupid. They are so much like people they mix one up in one's judgments of life. If disease does not kill them they wait until your expectations are thoroughly aroused and then walk under the wheels of a wagon—to go squashed and dead back to their maker. Vermin infest their youth, and fortunes must be spent for curative powders."
+    "en": "One unversed in such matters can have no notion of the many and tragic things that can happen to a chicken. It is born out of an egg, lives for a few weeks as a tiny fluffy thing such as you will see pictured on Easter cards, then becomes hideously naked, eats quantities of corn and meal bought by the sweat of your father's brow, gets diseases called pip, cholera, and other names, stands looking with stupid eyes at the sun, becomes sick and dies. A few hens and now and then a rooster, intended to serve God's mysterious ends, struggle through to maturity. The hens lay eggs out of which come other chickens and the dreadful cycle is thus made complete. It is all unbelievably complex. Most philosophers must have been raised on chicken farms. One hopes for so much from a chicken and is so dreadfully disillusioned. Small chickens, just setting out on the journey of life, look so bright and alert and they are in fact so dreadfully stupid. They are so much like people they mix one up in one's judgments of life. If disease does not kill them they wait until your expectations are thoroughly aroused and then walk under the wheels of a wagon—to go squashed and dead back to their maker. Vermin infest their youth, and fortunes must be spent for curative powders."
    },
    {
     "number": 6,
@@ -132,19 +132,19 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 2,
-    "en": "Sugar taxes vary in design around the world in 26 countries. In Mexico, a 10% tax on sugary drinks was introduced in 2014.When the tax starts in the UK in April, there will be two bands — one for sugar content above 5g per 100ml and a second, higher tax on drinks containing more than 8g of sugar per 100ml."
+    "en": "Sugar taxes vary in design around the world in 26 countries. In Mexico, a 10% tax on sugary drinks was introduced in 2014. When the tax starts in the UK in April, there will be two bands — one for sugar content above 5g per 100ml and a second, higher tax on drinks containing more than 8g of sugar per 100ml."
    },
    {
     "number": 3,
-    "en": "In a 2018 statement on nutrition the Australian Medical Association(AMA) urged the government to introduce an SSB tax. This is significant because AMA is generally conservative when it comes to health policy and often avoids controversial debates. But it now wants a sugar tax“as a matter of priority”."
+    "en": "In a 2018 statement on nutrition the Australian Medical Association(AMA) urged the government to introduce an SSB tax. This is significant because AMA is generally conservative when it comes to health policy and often avoids controversial debates. But it now wants a sugar tax “as a matter of priority”."
    },
    {
     "number": 4,
-    "en": "The health minister has made it clear the government will not support it, saying food labelling laws and voluntary codes of conduct to restrict food marketing to children are adequate. A Labor MP also stopped short of supporting a tax,saying other strategies are needed to promote a healthy lifestyle. The Greens,led by former doctor Richard Di Natale, support the tax and have previously proposed a 20% increase to the price of sugary drinks."
+    "en": "The health minister has made it clear the government will not support it, saying food labelling laws and voluntary codes of conduct to restrict food marketing to children are adequate. A Labor MP also stopped short of supporting a tax, saying other strategies are needed to promote a healthy lifestyle. The Greens, led by former doctor Richard Di Natale, support the tax and have previously proposed a 20% increase to the price of sugary drinks."
    },
    {
     "number": 5,
-    "en": "According to Prof. Tim Gill, from the Boden Institute of Obesity,Nutrition, Exercise &Eating Disorders in Sydney, the strength of an SSB tax is that it targets an easily defined product.“It's easy to identify sugary drinks and their manufacturers, and you can tax them at their production,\" he said.\"There are a limited number of sugary drinks producers in Australia.A problem for governments collecting taxes can be how complicated it can be.If you were to try to tax every sugary food for example, that would be very complicated to do.”"
+    "en": "According to Prof. Tim Gill, from the Boden Institute of Obesity, Nutrition, Exercise &Eating Disorders in Sydney, the strength of an SSB tax is that it targets an easily defined product.“It's easy to identify sugary drinks and their manufacturers, and you can tax them at their production,\" he said.\"There are a limited number of sugary drinks producers in Australia.A problem for governments collecting taxes can be how complicated it can be. If you were to try to tax every sugary food for example, that would be very complicated to do.”"
    },
    {
     "number": 6,
@@ -168,11 +168,11 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 11,
-    "en": "Lobby groups from the food and beverage industry are powerful. The Australian Beverages Council, the industry's lobby group, has been fighting against a tax for years. It says there is no evidence a tax will do anything to reduce obesity,and it will cost jobs, which is a frightening message for politicians. The Australasian Association of Convenience Stores (AACS) described the introduction of an SSB tax in the UK as “lazy,” “flawed,” \"discriminatory\" and“irrational”. It has ramped up its campaign to prevent such a tax in Australia."
+    "en": "Lobby groups from the food and beverage industry are powerful. The Australian Beverages Council, the industry's lobby group, has been fighting against a tax for years. It says there is no evidence a tax will do anything to reduce obesity, and it will cost jobs, which is a frightening message for politicians. The Australasian Association of Convenience Stores (AACS) described the introduction of an SSB tax in the UK as “lazy,” “flawed,” \"discriminatory\" and “irrational”. It has ramped up its campaign to prevent such a tax in Australia."
    },
    {
     "number": 12,
-    "en": "Would introducing a sugar tax make Australia a nanny-state? It depends on whether you believe the food and beverage industry has too much power.Health experts argue that through advertising, product placement and political influence, the food and beverage industry has an unfair and non-transparent influence over consumer purchasing habits,and that children especially are sometimes powerless to recognise or resist it. They say an SSB tax would hold the industry to account. Others argue people need to take personal responsibility."
+    "en": "Would introducing a sugar tax make Australia a nanny-state? It depends on whether you believe the food and beverage industry has too much power. Health experts argue that through advertising, product placement and political influence, the food and beverage industry has an unfair and non-transparent influence over consumer purchasing habits, and that children especially are sometimes powerless to recognise or resist it. They say an SSB tax would hold the industry to account. Others argue people need to take personal responsibility."
    },
    {
     "number": 13,
@@ -193,19 +193,19 @@ window.TEM8_MID_ARTICLES = [
   "segments": [
    {
     "number": 1,
-    "en": "I'd been living in Los Angeles just under a year when, in the spring of 1983, I answered an ad in the Hollywood Reporter for a receptionist and got the job. The pay wasn't much, but the work was in“the Business” —an apt Los Angeles euphemism for the entertainment industry. The location was within bicycling distance of my home,and they only wanted someone to work mornings. I'd get off by 1 p.m.,which I thought would leave me plenty of time to do my own writing. I was wrong about that. The place was so frantic I'd come out wired and need the rest of the day to simply calm down. When, after about two weeks, I realized my afternoons were being spent in activities equivalent to running around the block twenty or thirty times, I asked to be put on full-time. Since I wasn't getting anything else, why not, I figured, jump in for the total experience."
+    "en": "I'd been living in Los Angeles just under a year when, in the spring of 1983, I answered an ad in the Hollywood Reporter for a receptionist and got the job. The pay wasn't much, but the work was in “the Business” —an apt Los Angeles euphemism for the entertainment industry. The location was within bicycling distance of my home, and they only wanted someone to work mornings. I'd get off by 1 p.m.,which I thought would leave me plenty of time to do my own writing. I was wrong about that. The place was so frantic I'd come out wired and need the rest of the day to simply calm down. When, after about two weeks, I realized my afternoons were being spent in activities equivalent to running around the block twenty or thirty times, I asked to be put on full-time. Since I wasn't getting anything else, why not, I figured, jump in for the total experience."
    },
    {
     "number": 2,
-    "en": "The(still thriving) company I found myself a part of possessed the unlikely name of Breakdown Services, Ltd. During the six months I worked there, I learned to savor all of that phrase's more cynical reverberations, but in terms of the job it dealt with the dismantling or breakdown of television and film scripts. Scripts gathered from producers or studios would be regurgitated(回流)by Breakdown in the form of plot summaries, character descriptions, number of scenes per character,and the number of dialogue lines each speaks. These compilations were then xeroxed and distributed to hundreds of subscribing actors'agents who proceeded to submit their clients for likely parts. It was a process, as I was to discover by way of angry phone calls when“breakdowns” arrived late or not at all, that the agents regarded with a reverence others might reserve for morning prayer."
+    "en": "The(still thriving) company I found myself a part of possessed the unlikely name of Breakdown Services, Ltd. During the six months I worked there, I learned to savor all of that phrase's more cynical reverberations, but in terms of the job it dealt with the dismantling or breakdown of television and film scripts. Scripts gathered from producers or studios would be regurgitated(回流)by Breakdown in the form of plot summaries, character descriptions, number of scenes per character, and the number of dialogue lines each speaks. These compilations were then xeroxed and distributed to hundreds of subscribing actors' agents who proceeded to submit their clients for likely parts. It was a process, as I was to discover by way of angry phone calls when “breakdowns” arrived late or not at all, that the agents regarded with a reverence others might reserve for morning prayer."
    },
    {
     "number": 3,
-    "en": "Breakdown Services, Ltd. was the brainchild of a young man named Gary Marsh. Gary was twenty- eight when I met him, but he'd founded Breakdown when he was eighteen and was considered something of an entrepreneurial prodigy. His mother was an agent and he'd observed the piles of scripts she and her agent pals had to plow through in order to match a given role with the talent they represented.He'd also observed how much they hated the reading part of their jobs and had cleverly devised breakdowns as a way of extracting the material they needed."
+    "en": "Breakdown Services, Ltd. was the brainchild of a young man named Gary Marsh. Gary was twenty- eight when I met him, but he'd founded Breakdown when he was eighteen and was considered something of an entrepreneurial prodigy. His mother was an agent and he'd observed the piles of scripts she and her agent pals had to plow through in order to match a given role with the talent they represented. He'd also observed how much they hated the reading part of their jobs and had cleverly devised breakdowns as a way of extracting the material they needed."
    },
    {
     "number": 4,
-    "en": "By the time I arrived, five full-time breakdown writers worked in a desk-lined back room overlooking a parking lot.I've heard the current crew has now advanced to computers,but when I was there typewriters were the norm.When they weren't typing, the writers would curl up on the office's worn stuffed couch and, with a script propped against one arm,fill legal-sized yellow pads with dialogue line numbers and comments which they’d then type up. It could be a complex job. For example, the breakdown for a film originally called Teenage Gambler lists over forty characters, ranging from the teenaged gambling leader to five waiters who sing\"Happy Birthday\" at a surprise party."
+    "en": "By the time I arrived, five full-time breakdown writers worked in a desk-lined back room overlooking a parking lot.I've heard the current crew has now advanced to computers, but when I was there typewriters were the norm. When they weren't typing, the writers would curl up on the office's worn stuffed couch and, with a script propped against one arm, fill legal-sized yellow pads with dialogue line numbers and comments which they’d then type up. It could be a complex job. For example, the breakdown for a film originally called Teenage Gambler lists over forty characters, ranging from the teenaged gambling leader to five waiters who sing\"Happy Birthday\" at a surprise party."
    },
    {
     "number": 5,
@@ -213,15 +213,15 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 6,
-    "en": "For Gary, the most problematical aspect of the breakdown business was its limited market. This had nothing to do with his operating methodology;he did what he could to exploit the possibilities. Each weekday a hardy crew made predawn deliveries of breakdowns to agents'homes or offices, while a post-dawn quartet of pager-equipped Breakdown field workers haunted the big studios ready to pounce on an available script. For these studio prowlers speed was of the essence, not only because Hollywood tends to be crisis-prone and wants everything done quickly, but because a rival, spawned by the success of Breakdown Services, Ltd. and infuriatingly named BreakThrough Productions,Ltd., was also on the hunt."
+    "en": "For Gary, the most problematical aspect of the breakdown business was its limited market. This had nothing to do with his operating methodology; he did what he could to exploit the possibilities. Each weekday a hardy crew made predawn deliveries of breakdowns to agents' homes or offices, while a post-dawn quartet of pager-equipped Breakdown field workers haunted the big studios ready to pounce on an available script. For these studio prowlers speed was of the essence, not only because Hollywood tends to be crisis-prone and wants everything done quickly, but because a rival, spawned by the success of Breakdown Services, Ltd. and infuriatingly named BreakThrough Productions, Ltd., was also on the hunt."
    },
    {
     "number": 7,
-    "en": "Breakdown Services unquestionably dominated the field, but the field itself had immutable perimeters. Breakdown's subscribers had to be accredited agents, though there were some exceptions to this rule. For instance, specialized media organizations, such as the competitive, vulture-like companies that insured movie productions,could keep tabs on the industry by subscribing to the weekly Breakdown summaries. But the whole Breakdown operation was hard to monitor. When I was there, a Breakdown subscription was expensive, something like $500 a year. And though breakdowns were copyrighted and unauthorized reproduction was clearly prohibited, xerox machines are notoriously bad at picking up such distinctions and among the larger agencies breakdowns were undoubtedly duplicated and passed around."
+    "en": "Breakdown Services unquestionably dominated the field, but the field itself had immutable perimeters. Breakdown's subscribers had to be accredited agents, though there were some exceptions to this rule. For instance, specialized media organizations, such as the competitive, vulture-like companies that insured movie productions, could keep tabs on the industry by subscribing to the weekly Breakdown summaries. But the whole Breakdown operation was hard to monitor. When I was there, a Breakdown subscription was expensive, something like $500 a year. And though breakdowns were copyrighted and unauthorized reproduction was clearly prohibited, xerox machines are notoriously bad at picking up such distinctions and among the larger agencies breakdowns were undoubtedly duplicated and passed around."
    },
    {
     "number": 8,
-    "en": "Gary's response to these built-in economic dilemmas was to diversify. A separate department for commercials, for example, appeared as part of the Breakdown menu. Although Breakdown staffers were supposed to refrain from giving tips to potential talent, I did once tell a friend— who hoped to finance the college educations of her five-year-old identical twins by getting them on a commercial— that a juice company had put out a call for identical twin girls. Their agent submitted them,but they didn't get the job. The nightly Breakdown delivery system expanded to an all-day messenger service. Gary also made available an assortment of directories and mailing labels listing casting directors, talent agents, and literary agents in Los Angeles and New York. The current Breakdown brochure adds yet another Breakdown amenity; for fifteen dollars you can receive an“actors'relaxation” cassette tape“designed to maximize your abilities and stimulate your creative senses”."
+    "en": "Gary's response to these built-in economic dilemmas was to diversify. A separate department for commercials, for example, appeared as part of the Breakdown menu. Although Breakdown staffers were supposed to refrain from giving tips to potential talent, I did once tell a friend— who hoped to finance the college educations of her five-year-old identical twins by getting them on a commercial— that a juice company had put out a call for identical twin girls. Their agent submitted them, but they didn't get the job. The nightly Breakdown delivery system expanded to an all-day messenger service. Gary also made available an assortment of directories and mailing labels listing casting directors, talent agents, and literary agents in Los Angeles and New York. The current Breakdown brochure adds yet another Breakdown amenity; for fifteen dollars you can receive an “actors' relaxation” cassette tape “designed to maximize your abilities and stimulate your creative senses”."
    }
   ],
   "wordCount": 1044
@@ -238,15 +238,15 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 2,
-    "en": "I could not have believed that a rag carpet could feast me so,and so content me; or that there could be such solace to the soul in wall-paper and framed lithographs(平版印刷画),and bright-colored tidies and lamp-mats, and Windsor chairs, and vanished whatnots(陈设架)with sea-shells and books and china vases on them,and the score of little unclassifiable tricks and touches that a woman's hand distributes about a home, which one sees without knowing he sees them, yet would miss in a moment if they were taken away. The delight that was in my heart showed in my face,and the man saw it and was pleased; saw it so plainly that he answered it as if it had been spoken."
+    "en": "I could not have believed that a rag carpet could feast me so, and so content me; or that there could be such solace to the soul in wall-paper and framed lithographs(平版印刷画),and bright-colored tidies and lamp-mats, and Windsor chairs, and vanished whatnots(陈设架)with sea-shells and books and china vases on them, and the score of little unclassifiable tricks and touches that a woman's hand distributes about a home, which one sees without knowing he sees them, yet would miss in a moment if they were taken away. The delight that was in my heart showed in my face, and the man saw it and was pleased; saw it so plainly that he answered it as if it had been spoken."
    },
    {
     "number": 3,
-    "en": "“All her work,” he said, caressingly; \"she did it all herself—every bit,\"and he took the room in with a glance which was full of affectionate worship. One of those soft Japanese fabrics with which women drape with careful negligence the upper part of a picture-frame was out of adjustment. He noticed it, and rearranged it with cautious pains, stepping back several times to gauge the effect before he got it to suit him. Then he gave it a light finishing pat or two with his hand, and said:“She always does that. You can't tell just what it lacks, but it does lack something until you've done that—you can see it yourself after it's done, but that is all you know;you can't find out the law of it. It's like the finishing pats a mother gives the child's hair after she's got it combed and brushed, I reckon. I've seen her fix all these things so much that I can do them all just her way, though I don't know the law of any of them. But she knows the law. She knows the why and the how both; but I don't know the why; I only know the how.”"
+    "en": "“All her work,” he said, caressingly; \"she did it all herself—every bit,\"and he took the room in with a glance which was full of affectionate worship. One of those soft Japanese fabrics with which women drape with careful negligence the upper part of a picture-frame was out of adjustment. He noticed it, and rearranged it with cautious pains, stepping back several times to gauge the effect before he got it to suit him. Then he gave it a light finishing pat or two with his hand, and said:“She always does that. You can't tell just what it lacks, but it does lack something until you've done that—you can see it yourself after it's done, but that is all you know; you can't find out the law of it. It's like the finishing pats a mother gives the child's hair after she's got it combed and brushed, I reckon. I've seen her fix all these things so much that I can do them all just her way, though I don't know the law of any of them. But she knows the law. She knows the why and the how both; but I don't know the why; I only know the how.”"
    },
    {
     "number": 4,
-    "en": "He took me into a bedroom so that I might wash my hands; such a bedroom as I had not seen for years: white counterpane, white pillows, carpeted floor, papered walls, pictures, dressing-table, with mirror and pin-cushion and dainty toilet things; and in the corner a wash-stand, with real china-ware bowl and pitcher,and with soap in a china dish, and on a rack more than a dozen towels— towels too clean and white for one out of practice to use without some vague sense of profanation. So my face spoke again, and he answered with gratified words:“All her work; she did it all herself—every bit.Nothing here that hasn't felt the touch of her hand.Now you would think—But I mustn't talk so much.”"
+    "en": "He took me into a bedroom so that I might wash my hands; such a bedroom as I had not seen for years: white counterpane, white pillows, carpeted floor, papered walls, pictures, dressing-table, with mirror and pin-cushion and dainty toilet things; and in the corner a wash-stand, with real china-ware bowl and pitcher, and with soap in a china dish, and on a rack more than a dozen towels— towels too clean and white for one out of practice to use without some vague sense of profanation. So my face spoke again, and he answered with gratified words:“All her work; she did it all herself—every bit. Nothing here that hasn't felt the touch of her hand. Now you would think—But I mustn't talk so much.”"
    },
    {
     "number": 5,
@@ -254,7 +254,7 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 6,
-    "en": "I went to the little black-walnut bracket on the farther wall, and did find there what I had not yet noticed— a picture case. It contained the sweetest girlish face, and the most beautiful, as it seemed to me, that I had ever seen. The man drank the admiration from my face,and was fully satisfied."
+    "en": "I went to the little black-walnut bracket on the farther wall, and did find there what I had not yet noticed— a picture case. It contained the sweetest girlish face, and the most beautiful, as it seemed to me, that I had ever seen. The man drank the admiration from my face, and was fully satisfied."
    },
    {
     "number": 7,
@@ -298,7 +298,7 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 17,
-    "en": "I heard the words, but hardly noticed them, I was so deep in my thinkings and strugglings. He left me, but I didn't know. Presently he was back, with the picture case in his hand, and he held it open before me and said:“There,now, tell her to her face you could have stayed to see her, and you wouldn't.”"
+    "en": "I heard the words, but hardly noticed them, I was so deep in my thinkings and strugglings. He left me, but I didn't know. Presently he was back, with the picture case in his hand, and he held it open before me and said:“There, now, tell her to her face you could have stayed to see her, and you wouldn't.”"
    }
   ],
   "wordCount": 1061
@@ -555,7 +555,7 @@ window.TEM8_MID_QUESTIONS = [
    "Non-human creatures are different in vocal tracts."
   ],
   "answer": 3,
-  "analysis": "【定位】题目指明是第2段。\n【详解】第2段中，两次尝试都未能让黑猩猩成功“说话”,这主要是因为非人灵长类动物并没有适合发出语音的声道生理结构(non-human primates do not actually have a physically structured vocal tract)。D项 “非人类生物在声道结构上与人类存在差异”与原文意思相符，Non-human creatures对应原文non-human primates, vocal tract为原文重现。\n【干扰排除】文中只有黑猩猩Gua和人类孩子一起长大，Viki只是被当成人类孩子一样抚养(as if she were a human child),文章并未明确表明黑猩猩必须与人类孩子一起抚养才能学习语言，故排除A项。尽管尝试改变口型帮助 Viki“说”出了一些词，但结果并不理想，故排除B项“口型塑造在语言学习中是关键”。文中完全未提及实验的时间长度对结果有什么影响，故排除C项“时间长度是实验中的一个重要因素”。"
+  "analysis": "【定位】题目指明是第2段。\n【详解】第2段中，两次尝试都未能让黑猩猩成功“说话”,这主要是因为非人灵长类动物并没有适合发出语音的声道生理结构(non-human primates do not actually have a physically structured vocal tract)。D项 “非人类生物在声道结构上与人类存在差异”与原文意思相符，Non-human creatures对应原文non-human primates, vocal tract为原文重现。\n【干扰排除】文中只有黑猩猩Gua和人类孩子一起长大，Viki只是被当成人类孩子一样抚养(as if she were a human child),文章并未明确表明黑猩猩必须与人类孩子一起抚养才能学习语言，故排除A项。尽管尝试改变口型帮助 Viki “说”出了一些词，但结果并不理想，故排除B项“口型塑造在语言学习中是关键”。文中完全未提及实验的时间长度对结果有什么影响，故排除C项“时间长度是实验中的一个重要因素”。"
  },
  {
   "number": 12,
@@ -569,7 +569,7 @@ window.TEM8_MID_QUESTIONS = [
    "They were non-human primates for experiments."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干中的Washoe and Sarah 可定位至第3、4段。\n【详解】从第3、4段可以看出，Washoe和Sarah被抚养的环境完全不同。Washoe像人类孩子一样在舒适的家庭环境中被抚养(raised Washoe like a human chid... domestic environment),而Sarah则在笼子里 (remained an animal in a cage)被训练。因此，B项“它们在类似的环境中得到抚养”不正确。\n【干扰排除】第4段第3句明确提到了两组实验的训练方式截然不同，故排除A项“它们的教学方法不一样”。文中明确提到Washoe和Sarah都有创新的表达方式，对应原文Some of the forms appear to have been inventions by Washoe和Sarah was also capable of producing“sentences”,故排除C项“它们在表达上有一定的创新性”。D项“它们是用于实验的非人灵长类动物”也是正确的说法，第3、4段描述的就是对这两只黑猩猩进行的实验。"
+  "analysis": "【定位】根据题干中的Washoe and Sarah 可定位至第3、4段。\n【详解】从第3、4段可以看出，Washoe和Sarah被抚养的环境完全不同。Washoe像人类孩子一样在舒适的家庭环境中被抚养(raised Washoe like a human chid... domestic environment),而Sarah则在笼子里 (remained an animal in a cage)被训练。因此，B项“它们在类似的环境中得到抚养”不正确。\n【干扰排除】第4段第3句明确提到了两组实验的训练方式截然不同，故排除A项“它们的教学方法不一样”。文中明确提到Washoe和Sarah都有创新的表达方式，对应原文Some of the forms appear to have been inventions by Washoe和Sarah was also capable of producing “sentences”,故排除C项“它们在表达上有一定的创新性”。D项“它们是用于实验的非人灵长类动物”也是正确的说法，第3、4段描述的就是对这两只黑猩猩进行的实验。"
  },
  {
   "number": 13,
@@ -607,11 +607,11 @@ window.TEM8_MID_QUESTIONS = [
   "options": [
    "Work started on the ship wreck during the team's second trip.",
    "The original plan was to explore the ship and retrieve the artifacts.",
-   "The team spent their nights near a local residents'community.",
+   "The team spent their nights near a local residents' community.",
    "The team began exploring the ship wreck soon after its discovery."
   ],
   "answer": 0,
-  "analysis": "【定位】根据选项的相关表述及出题顺序，定位到第1、2段。\n【详解】第2段第1句中，Harris和一支考古学家小队在2010年发现了“调查者号”,而他们对这艘沉船进行潜水、研究和记录则是在2011年。由此可见，A项“对沉船进行作业是在团队的第二次探访中开始的”表述正确，故为答案，同时排除D项“在发现沉船后不久，团队就开始了探索”。\n【干扰排除】第2段最后一句提到了original plan“最初的计划”,其具体内容在上一句：考古学家们原本打算将沉船及其文物留在原地(leave... its artifacts where they had lain),可见B项“最初的计划是探索这艘船并找回文物”表述错误。第1段第3句提到，Harris周围有十几个红黄拼色的帐篷沿着海岸线一字排开，结合第5段倒数第3句可知，这些居民社区虽然是离他们最近的，但实际距离还是比较远(125英里),可见Harris团队并不是在当地居民社区附近过夜，排除C项。"
+  "analysis": "【定位】根据选项的相关表述及出题顺序，定位到第1、2段。\n【详解】第2段第1句中，Harris和一支考古学家小队在2010年发现了“调查者号”,而他们对这艘沉船进行潜水、研究和记录则是在2011年。由此可见，A项“对沉船进行作业是在团队的第二次探访中开始的”表述正确，故为答案，同时排除D项“在发现沉船后不久，团队就开始了探索”。\n【干扰排除】第2段最后一句提到了original plan “最初的计划”,其具体内容在上一句：考古学家们原本打算将沉船及其文物留在原地(leave... its artifacts where they had lain),可见B项“最初的计划是探索这艘船并找回文物”表述错误。第1段第3句提到，Harris周围有十几个红黄拼色的帐篷沿着海岸线一字排开，结合第5段倒数第3句可知，这些居民社区虽然是离他们最近的，但实际距离还是比较远(125英里),可见Harris团队并不是在当地居民社区附近过夜，排除C项。"
  },
  {
   "number": 16,
@@ -653,7 +653,7 @@ window.TEM8_MID_QUESTIONS = [
    "Inefficient."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干中的the archaeologists'way of protecting the retrieved artifacts定位到第8段。\n【详解】第8段的前3句都在描述考古学家如何打捞文物，其中第1句提到用一个黑色大储藏箱的盖子(a large black storage case)来装火枪，第2句提到用一个装食物的冷藏箱(A large food cooler)来装铜船壳，第3句则提到用复杂的方式来打捞一块脆弱的长方形镶嵌毡。整体来看，由于缺乏工具，考古人员只能随机应变，因此他们所运用的打捞方式都比较新颖、非传统。选项中只有B项“新颖的”符合文章逻辑。\n【干扰排除】A“不可思议的”、C项“可想象的”和D项“效率低下的”都无法概括考古学家打捞文物所用方式的特点，故排除。"
+  "analysis": "【定位】根据题干中的the archaeologists' way of protecting the retrieved artifacts定位到第8段。\n【详解】第8段的前3句都在描述考古学家如何打捞文物，其中第1句提到用一个黑色大储藏箱的盖子(a large black storage case)来装火枪，第2句提到用一个装食物的冷藏箱(A large food cooler)来装铜船壳，第3句则提到用复杂的方式来打捞一块脆弱的长方形镶嵌毡。整体来看，由于缺乏工具，考古人员只能随机应变，因此他们所运用的打捞方式都比较新颖、非传统。选项中只有B项“新颖的”符合文章逻辑。\n【干扰排除】A“不可思议的”、C项“可想象的”和D项“效率低下的”都无法概括考古学家打捞文物所用方式的特点，故排除。"
  },
  {
   "number": 19,
@@ -681,7 +681,7 @@ window.TEM8_MID_QUESTIONS = [
    "aspiring"
   ],
   "answer": 3,
-  "analysis": "【定位】根据题干中的his mother和出题顺序定位到第2、3段。\n【详解】作者的母亲在第2段中登场，该段第3句提到作者的父母开始变得ambitious“有野心”;第3段第1句提到，这样的变化应该归咎于母亲，并且该段最后一句表明，母亲对自己无欲无求，但对父亲和作者却抱有很大的期待(incurably ambitious)。D项的aspiring与ambitious意思相近，意为“有抱负的”,故为答案。\n【干扰排除】第3段第2句提到母亲会读一点书和杂志，但这不代表她就一定知识渊博，排除A项。B项“有责任心的” 利用第3段第1句原词responsible做干扰；该句的意思是母亲需要为二人心态的变化负责，并非说母亲有责任心，排除B项。第3段第2句说母亲幻想作者成为一个统治者，这只是一个母亲对儿子的期盼，不代表她想象力丰富，排除 C项。"
+  "analysis": "【定位】根据题干中的his mother和出题顺序定位到第2、3段。\n【详解】作者的母亲在第2段中登场，该段第3句提到作者的父母开始变得ambitious “有野心”;第3段第1句提到，这样的变化应该归咎于母亲，并且该段最后一句表明，母亲对自己无欲无求，但对父亲和作者却抱有很大的期待(incurably ambitious)。D项的aspiring与ambitious意思相近，意为“有抱负的”,故为答案。\n【干扰排除】第3段第2句提到母亲会读一点书和杂志，但这不代表她就一定知识渊博，排除A项。B项“有责任心的” 利用第3段第1句原词responsible做干扰；该句的意思是母亲需要为二人心态的变化负责，并非说母亲有责任心，排除B项。第3段第2句说母亲幻想作者成为一个统治者，这只是一个母亲对儿子的期盼，不代表她想象力丰富，排除 C项。"
  },
  {
   "number": 21,
@@ -753,7 +753,7 @@ window.TEM8_MID_QUESTIONS = [
   "prompt": "How did Washoe demonstrate the potential of productivity (Para. 3)?",
   "type": "short",
   "referenceAnswer": "She invented novel language signs and combinations.",
-  "analysis": "【详解】potential for productivity出现在第3段最后一句，前面的which would seem to indicate that..说明which指代的内容就是答案。由前面的内容可知，猩猩Washoe在三年半的时间里用手语表达了一百多个单词，并将这些手势组合起来，创造了很多新句子(combine them to produce“sentences”),它还发明了(been inventions by Washoe)自己的新手势(her novel sign)、新词组(combination),因此答案表达出“它能够发明新句子、新手势(语言符号)、新词组”的意思即可。"
+  "analysis": "【详解】potential for productivity出现在第3段最后一句，前面的which would seem to indicate that..说明which指代的内容就是答案。由前面的内容可知，猩猩Washoe在三年半的时间里用手语表达了一百多个单词，并将这些手势组合起来，创造了很多新句子(combine them to produce “sentences”),它还发明了(been inventions by Washoe)自己的新手势(her novel sign)、新词组(combination),因此答案表达出“它能够发明新句子、新手势(语言符号)、新词组”的意思即可。"
  },
  {
   "number": 27,
@@ -761,7 +761,7 @@ window.TEM8_MID_QUESTIONS = [
   "prompt": "What does the word “ones” in Para.3 refer to?",
   "type": "short",
   "referenceAnswer": "Icebergs.",
-  "analysis": "【详解】题目问ones的指代，代词的指代一般应从上文寻找。ones所在的现在分词短语including.….修饰前面的名词，由including的意思“包括”可知，找到它修饰的名词就能知道ones指代的对象。距离该短语最近的名词有icebergs和the bay's floor。根据修饰ones的定语从句the...dive team had been dodging“潜水队一直在躲避的”,可推测他们躲避的应该是“冰山”而不能是“湾底”,故答案为Icebergs。"
+  "analysis": "【详解】题目问ones的指代，代词的指代一般应从上文寻找。ones所在的现在分词短语including.….修饰前面的名词，由including的意思“包括”可知，找到它修饰的名词就能知道ones指代的对象。距离该短语最近的名词有icebergs和the bay's floor。根据修饰ones的定语从句the...dive team had been dodging “潜水队一直在躲避的”,可推测他们躲避的应该是“冰山”而不能是“湾底”,故答案为Icebergs。"
  },
  {
   "number": 28,
@@ -785,7 +785,7 @@ window.TEM8_MID_QUESTIONS = [
   "prompt": "Describe in your own words the personality of the author's father before marriage(Para.1).",
   "type": "short",
   "referenceAnswer": "He was carefree, good-natured, sociable, and contented.",
-  "analysis": "【详解】第1段第1句作者提到了父亲的两个性格，即cheerful“快乐的”和kindly“和善的”,类似的同义词有 carefree、light-hearted“无忧无虑的”,kind、pleasant、good-natured“和蔼可亲的，友好的”等。此外，第3~5句描述了父亲周六晚上去酒吧社交的情形，故sociable“好社交的”也是其性格之一。最后两句描述的是父亲对自己的处境感到知足的状态，可用contented“满足的”来概括。"
+  "analysis": "【详解】第1段第1句作者提到了父亲的两个性格，即cheerful “快乐的”和kindly “和善的”,类似的同义词有 carefree、light-hearted “无忧无虑的”,kind、pleasant、good-natured “和蔼可亲的，友好的”等。此外，第3~5句描述了父亲周六晚上去酒吧社交的情形，故sociable “好社交的”也是其性格之一。最后两句描述的是父亲对自己的处境感到知足的状态，可用contented “满足的”来概括。"
  },
  {
   "number": 31,
@@ -793,7 +793,7 @@ window.TEM8_MID_QUESTIONS = [
   "prompt": "Describe in your own words the author's childhood on a chicken farm(Para.4).",
   "type": "short",
   "referenceAnswer": "It is bleak and disillusioning.",
-  "analysis": "【详解】在第4段中，作者描述自己在养鸡场的童年，最后一句作者谈到自己对养鸡场的看法，其中包括父母的养鸡场让他觉得生活是一场灾难(impressions of disaster)、自己成了阴郁的人(a gloomy man)、倾向于看到生活的黑暗面(inclined to see the darker side of life),并抱怨养鸡场毁了自己快乐天真的童年时光(the happy joyous days of childhood were spent on a chicken farm)。总结来看，可以用bleak“不乐观的，无望的”和 disillusioning“幻想破灭的”来形容。"
+  "analysis": "【详解】在第4段中，作者描述自己在养鸡场的童年，最后一句作者谈到自己对养鸡场的看法，其中包括父母的养鸡场让他觉得生活是一场灾难(impressions of disaster)、自己成了阴郁的人(a gloomy man)、倾向于看到生活的黑暗面(inclined to see the darker side of life),并抱怨养鸡场毁了自己快乐天真的童年时光(the happy joyous days of childhood were spent on a chicken farm)。总结来看，可以用bleak “不乐观的，无望的”和 disillusioning “幻想破灭的”来形容。"
  },
  {
   "number": 32,
@@ -812,7 +812,7 @@ window.TEM8_MID_QUESTIONS = [
    "It says the tax is inadequate for food marketing.",
    "It argues that there is no such necessity.",
    "It regards the tax as one of the top priorities.",
-   "It accepts medical professionals'advice."
+   "It accepts medical professionals' advice."
   ],
   "answer": 1,
   "analysis": "【定位】根据题目中 the Australian government's response定位至第4段。\n【详解】题目问澳大利亚政府对含糖饮料税的回应是什么。第4段第1句提到澳大利亚卫生部长已经明确表态，政府不支持征收糖税，他认为有食品标签法和自愿行为守则已经足够(.. are adequate)。B项“它认为没有这样的必要”简要概括了政府的态度。\n【干扰排除】A项“它认为对食品营销而言，征税还不够”利用文中出现的food marketing、adequate制造干扰，在原文找不到相关表述。C项“它将征税视为当务之急”属于张冠李戴，由第3段可知，把征收糖税列为当务之急的是澳大利亚医学协会，而非澳大利亚政府。D项“它采纳医学专家的建议”没有原文依据。"
@@ -829,7 +829,7 @@ window.TEM8_MID_QUESTIONS = [
    "The Australian Medical Association."
   ],
   "answer": 2,
-  "analysis": "【定位】根据题目中opposed to the SSB tax和各选项的专有名词进行定位。\n【详解】题目问哪个组织反对征税。第11段第2句提到了澳大利亚饮料协会(The Australian Beverages Council)多年来一直反对征税(fighting against a tax),故选C项。\n【干扰排除】A项“澳大利亚医疗保健和医院协会”在第10段第2句出现，B项“营养与饮食学会”出现在第8段第1句的期刊名字中，但文章没有提到这两个组织对征税的态度，故排除。D项“澳大利亚医学协会”在第3段提到，由文中的urged the government to introduce an SSB tax、wants a sugar tax“as a matter of priority”可知，它赞同征收糖税，与题目要求相反，故排除。"
+  "analysis": "【定位】根据题目中opposed to the SSB tax和各选项的专有名词进行定位。\n【详解】题目问哪个组织反对征税。第11段第2句提到了澳大利亚饮料协会(The Australian Beverages Council)多年来一直反对征税(fighting against a tax),故选C项。\n【干扰排除】A项“澳大利亚医疗保健和医院协会”在第10段第2句出现，B项“营养与饮食学会”出现在第8段第1句的期刊名字中，但文章没有提到这两个组织对征税的态度，故排除。D项“澳大利亚医学协会”在第3段提到，由文中的urged the government to introduce an SSB tax、wants a sugar tax “as a matter of priority”可知，它赞同征收糖税，与题目要求相反，故排除。"
  },
  {
   "number": 13,
@@ -871,7 +871,7 @@ window.TEM8_MID_QUESTIONS = [
    "Reputable career image."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干中的 a reason for the author to take the job定位到第1段。\n【详解】第1段第1句首先提到作者得到了那份工作，接着第2句直接指出工资不高(The pay wasn't much), 这与B项“不错的收入”中的decent“相当好的”相矛盾。故B项并不是作者接受这份工作的原因。\n【干扰排除】A项“便利的地点”和C项“理想的工作时间”都在第1段第3句中提及，该句提到上班地点离作者家很近(within bicycling distance of my home),并且只需要在上午上班(work mornings)。该段第2句提到，虽然这份工作的工资不高，但它算是在“商业圈”(the Business)里，可以推测娱乐产业在当时具有较高的地位，因而D项“良好的职业形象”可视为原因之一。"
+  "analysis": "【定位】根据题干中的 a reason for the author to take the job定位到第1段。\n【详解】第1段第1句首先提到作者得到了那份工作，接着第2句直接指出工资不高(The pay wasn't much), 这与B项“不错的收入”中的decent “相当好的”相矛盾。故B项并不是作者接受这份工作的原因。\n【干扰排除】A项“便利的地点”和C项“理想的工作时间”都在第1段第3句中提及，该句提到上班地点离作者家很近(within bicycling distance of my home),并且只需要在上午上班(work mornings)。该段第2句提到，虽然这份工作的工资不高，但它算是在“商业圈”(the Business)里，可以推测娱乐产业在当时具有较高的地位，因而D项“良好的职业形象”可视为原因之一。"
  },
  {
   "number": 16,
@@ -890,7 +890,7 @@ window.TEM8_MID_QUESTIONS = [
  {
   "number": 17,
   "articleId": "2023-2",
-  "prompt": "What does“such editorializing” in Para.5 mean according to the context?",
+  "prompt": "What does “such editorializing” in Para.5 mean according to the context?",
   "type": "choice",
   "options": [
    "Making comments.",
@@ -941,7 +941,7 @@ window.TEM8_MID_QUESTIONS = [
    "exaggeration"
   ],
   "answer": 1,
-  "analysis": "【定位】题目指明是第1、2段。\n【详解】题目问作者在第1、2段使用了什么手法营造画面感。第1段第2句提到，作者之前在矿工的小木屋里过的是一种艰苦的(all hard)生活，而这里却是个安适的地方(a nest);且第2段详细描述了这个地方温馨细巧的布置，与第1段里矿工小屋简陋随意的陈设形成鲜明对比。所以，答案为B项“对比”。\n【干扰排除】第1段中的fasting“禁食”和 famishing“饥饿”为拟人的用法，nourishment“营养品”为比喻，但这些修辞是为了说明作者的感受，而非营造画面感，故排除A项“拟人”和C项“比喻”。D项“夸张”并未在文中运用。"
+  "analysis": "【定位】题目指明是第1、2段。\n【详解】题目问作者在第1、2段使用了什么手法营造画面感。第1段第2句提到，作者之前在矿工的小木屋里过的是一种艰苦的(all hard)生活，而这里却是个安适的地方(a nest);且第2段详细描述了这个地方温馨细巧的布置，与第1段里矿工小屋简陋随意的陈设形成鲜明对比。所以，答案为B项“对比”。\n【干扰排除】第1段中的fasting “禁食”和 famishing “饥饿”为拟人的用法，nourishment “营养品”为比喻，但这些修辞是为了说明作者的感受，而非营造画面感，故排除A项“拟人”和C项“比喻”。D项“夸张”并未在文中运用。"
  },
  {
   "number": 21,
@@ -1012,7 +1012,7 @@ window.TEM8_MID_QUESTIONS = [
   "articleId": "2023-1",
   "prompt": "What can be summarized from the study results in Para.8?",
   "type": "short",
-  "referenceAnswer": "Higher sugary drinks'prices lowered their sales but increased water's.",
+  "referenceAnswer": "Higher sugary drinks' prices lowered their sales but increased water's.",
   "analysis": "【详解】题目问从第8段的研究结果可以总结出什么。第8段提到《营养与饮食学会志》的一项研究结果表明，含糖饮料的价格上涨时，其销量下降，但瓶装水销量上升。因此，答案可概括为“Higher sugary drinks' prices lowered their sales but increased water's.\"。"
  },
  {
@@ -1058,7 +1058,7 @@ window.TEM8_MID_QUESTIONS = [
  {
   "number": 32,
   "articleId": "2023-3",
-  "prompt": "What does the italicized phrase“get on the right track” in Para.5 mean?",
+  "prompt": "What does the italicized phrase “get on the right track” in Para.5 mean?",
   "type": "short",
   "referenceAnswer": "To find out what the man wanted me to discover.",
   "analysis": "【详解】本题问第5段斜体短语的含义。该短语的字面意思是“找到正确的方向，遵循正确的路线”。该短语所在句提到作者努力get on the right track是想满足男人的愿望。前文提到男人的愿望是想让作者自己发现屋里的某样东西(something... that the man wanted me to discover),可见“找到正确的方向”指的就是“弄清楚男人想让我发现什么东西”,因此可概括为to find out what the man wanted me to discover。"
@@ -1103,7 +1103,7 @@ window.TEM8_MID_QUESTIONS = [
    "friendly"
   ],
   "answer": 3,
-  "analysis": "【定位】根据 describing Buck 定位至第 3 至 5 段。\n【详解】本题问作者描述 Buck 的基调。从第 3 至 5 段的内容来看，作者在描述 Buck 时，将它的地位捧得很高，描述它与其他狗不同，会陪主人游泳、打猎、散步和玩耍，和主人相处融洽，将其描述为“统治者”(over this great demesne Buck ruled. The whole realm was his, for he was king, king over...)，整体基调正面积极，也流露出喜爱之情，故选 D 项“友善的”。\n【干扰排除】虽然在描述中偶有一些含贬义的词，如 imperiously“专横的”、sated“饱享的”、egotistical“自大的”，但这些词更多是宠溺之词，不是真的批判(critical)和讽刺(sarcastic)，故排除 A、B 项。虽然文中像 for he was king、king over 等表述略有浮夸，但行文风格说不上幽默、令人发笑，也排除 C 项。"
+  "analysis": "【定位】根据 describing Buck 定位至第 3 至 5 段。\n【详解】本题问作者描述 Buck 的基调。从第 3 至 5 段的内容来看，作者在描述 Buck 时，将它的地位捧得很高，描述它与其他狗不同，会陪主人游泳、打猎、散步和玩耍，和主人相处融洽，将其描述为“统治者”(over this great demesne Buck ruled. The whole realm was his, for he was king, king over...)，整体基调正面积极，也流露出喜爱之情，故选 D 项“友善的”。\n【干扰排除】虽然在描述中偶有一些含贬义的词，如 imperiously “专横的”、sated “饱享的”、egotistical “自大的”，但这些词更多是宠溺之词，不是真的批判(critical)和讽刺(sarcastic)，故排除 A、B 项。虽然文中像 for he was king、king over 等表述略有浮夸，但行文风格说不上幽默、令人发笑，也排除 C 项。"
  },
  {
   "number": 14,
@@ -1215,7 +1215,7 @@ window.TEM8_MID_QUESTIONS = [
    "Population movement."
   ],
   "answer": 2,
-  "analysis": "【定位】根据 steppes 和 accessible 定位至第 5 段。\n【详解】本题问是什么让人能够通行草原。第 5 段末句中的 turned a forbidding landscape for pedestrians into a natural highway for grass“将行人难以踏足的禁地变成天然的草地公路”与题干中的 steppes accessible to travelers“让行人通行草原”对应，该句 when 后的内容即为条件，即开始驯养马匹和骑马(horse domestication and riding)。C 项复现原文词，故为答案。\n【干扰排除】本题关键在于找到与题干信息一致的解题句，其他三项的信息在解题句中均未提及。"
+  "analysis": "【定位】根据 steppes 和 accessible 定位至第 5 段。\n【详解】本题问是什么让人能够通行草原。第 5 段末句中的 turned a forbidding landscape for pedestrians into a natural highway for grass “将行人难以踏足的禁地变成天然的草地公路”与题干中的 steppes accessible to travelers “让行人通行草原”对应，该句 when 后的内容即为条件，即开始驯养马匹和骑马(horse domestication and riding)。C 项复现原文词，故为答案。\n【干扰排除】本题关键在于找到与题干信息一致的解题句，其他三项的信息在解题句中均未提及。"
  },
  {
   "number": 22,
@@ -1229,7 +1229,7 @@ window.TEM8_MID_QUESTIONS = [
    "their location in the trade route to the north"
   ],
   "answer": 0,
-  "analysis": "【定位】根据 Frachetti、interested 及 the south of the steppes 定位至第 7 段。\n【详解】本题问最初吸引弗拉切蒂来到草原南部地区的原因。第 7 段首句中的 was drawn to the southern region of Central Asia 与题干中的 initially interested in the areas to the south of the steppes 对应，故该句 for 后的内容就是答案。A 项“多样化的地理特征”与文中的 its environmental diversity“环境多样性”同义，故为答案。\n【干扰排除】细节题的关键在于找到与题干信息一致的解题句，其他三项在文中其他地方有提及，但与本题所问无关。"
+  "analysis": "【定位】根据 Frachetti、interested 及 the south of the steppes 定位至第 7 段。\n【详解】本题问最初吸引弗拉切蒂来到草原南部地区的原因。第 7 段首句中的 was drawn to the southern region of Central Asia 与题干中的 initially interested in the areas to the south of the steppes 对应，故该句 for 后的内容就是答案。A 项“多样化的地理特征”与文中的 its environmental diversity “环境多样性”同义，故为答案。\n【干扰排除】细节题的关键在于找到与题干信息一致的解题句，其他三项在文中其他地方有提及，但与本题所问无关。"
  },
  {
   "number": 23,
@@ -1787,7 +1787,7 @@ window.TEM8_MID_LISTENING = {
       "To better appreciate the poems."
      ],
      "answer": 3,
-     "analysis": "本题问 Maureen 为什么把录音带到了课堂上。Maureen 在采访中提到，录音能很好地让一个人的注意力回到诗歌上面(recordings offer a great way to refocus one's attention on the poem)，录音是一个用来和诗相遇的空间，一个真的很有力量的空间(a zone for encounter, a zone that's really powerful)。从这里可以看出，Maureen 觉得录音能够让学生很好地感受诗歌，故选 D 项“更好地欣赏诗歌”。\n【干扰排除】Maureen 提到带录音的好处时，并没有提及 A 项“帮助学生更好地记住诗歌”和 B 项“促进诗歌的创作”。inner ear“内在的耳朵”是 Maureen 提到的另一个话题，与她所说的“诗歌感”有关，但她并未提到 inner ear 与 recordings 之间的关系，故排除 C 项“无意识地激活一个人的内在耳朵”。",
+     "analysis": "本题问 Maureen 为什么把录音带到了课堂上。Maureen 在采访中提到，录音能很好地让一个人的注意力回到诗歌上面(recordings offer a great way to refocus one's attention on the poem)，录音是一个用来和诗相遇的空间，一个真的很有力量的空间(a zone for encounter, a zone that's really powerful)。从这里可以看出，Maureen 觉得录音能够让学生很好地感受诗歌，故选 D 项“更好地欣赏诗歌”。\n【干扰排除】Maureen 提到带录音的好处时，并没有提及 A 项“帮助学生更好地记住诗歌”和 B 项“促进诗歌的创作”。inner ear “内在的耳朵”是 Maureen 提到的另一个话题，与她所说的“诗歌感”有关，但她并未提到 inner ear 与 recordings 之间的关系，故排除 C 项“无意识地激活一个人的内在耳朵”。",
      "prompt": "Why did Maureen bring recordings to class?",
      "part": 1
     },
@@ -2148,10 +2148,10 @@ window.TEM8_MID_LISTENING = {
    "title": "Metaphors in Speaking",
    "outline": [
     "Definition",
-    "Metaphor: a way of ______beforeawayofwords",
+    "Metaphor: a way of ______ before a way of words",
     "(1) ______",
     "Examples of metaphors",
-    "Al Shook Up by Elvis Presley",
+    "All Shook Up by Elvis Presley",
     "reason for metaphors: to explain ______",
     "(2) ______",
     "Aristotle's definition of metaphor:",
@@ -2172,7 +2172,7 @@ window.TEM8_MID_LISTENING = {
     "example:______",
     "(8) ______",
     "third step: cognitive dissonance",
-    "hard to ignore______ofwords",
+    "hard to ignore ______ of words",
     "(9) ______",
     "even harder to reject______",
     "(10) ______",
@@ -2180,14 +2180,14 @@ window.TEM8_MID_LISTENING = {
     "creating expectations",
     "agent metaphors create______",
     "(11) ______",
-    "______byactivatinganalogies",
+    "______ by activating analogies",
     "(12) ______",
     "three descriptive analogies",
     "WWI analogy triggering more______",
     "(13) ______",
     "solving problems by comparing______things",
     "(14) ______",
-    "Metaphor is______yethidden.",
+    "Metaphor is ______ yet hidden.",
     "(15) ______"
    ],
    "blanks": [
@@ -2441,7 +2441,7 @@ window.TEM8_MID_LISTENING = {
     "(5) ______",
     "in the second language classroom ______being better learners—first language acquisition taking place at a very young age",
     "(6) ______",
-    "Learners'traits",
+    "Learners' traits",
     "first language acquisition: without ______",
     "(7) ______",
     "traits that improve learning in a second language classroom:",
@@ -2573,7 +2573,7 @@ window.TEM8_MID_LISTENING = {
       "It is more aesthetic."
      ],
      "answer": 0,
-     "analysis": "本题问小说写作(fiction writing)的情况。男士在对比写小说和写散文时提到，写小说会更费劲(more arduous),之后解释了原因，A项中的demanding“要求高的，费力的”与录音中的arduous同义，故为答案。\n【干扰排除】B项“很轻松”与男士说的相反。C项的“理论性的”和D项“审美的”均在访谈中提到，但与本题无关。",
+     "analysis": "本题问小说写作(fiction writing)的情况。男士在对比写小说和写散文时提到，写小说会更费劲(more arduous),之后解释了原因，A项中的demanding “要求高的，费力的”与录音中的arduous同义，故为答案。\n【干扰排除】B项“很轻松”与男士说的相反。C项的“理论性的”和D项“审美的”均在访谈中提到，但与本题无关。",
      "prompt": "How does the man feel about fiction writing?",
      "part": 1
     },
@@ -2651,7 +2651,7 @@ window.TEM8_MID_LISTENING = {
       "Gravity in Antarctica."
      ],
      "answer": 1,
-     "analysis": "题干所问是女士在访谈中问的问题(what is it that...the rates are changing),男士的回答是，有很多直接的测量数据作佐证(a lot of direct measurements),有两类数据，一是冰川高度的变化(how that height changes over time),二是冰盖的引力(即冰盖的重量);B项“冰川表面的高度”是其中一项数据，故为答案。\n【干扰排除】A项“卫星的数量”,男士说这些数据是卫星(satellites)监测，所以卫星只是监测手段，其数量与证明融冰上升速度无关。男士虽然提到了snowall“降雪量”,但并非是在回答what is it that... changing这一问题，而是在回答后一问题(Doesn’t this all balance itself out?),故排除C项。D项张冠李戴，男士说的是冰盖的引力(the gravitational pull of the ice sheet),而不是整个南极洲的重力。",
+     "analysis": "题干所问是女士在访谈中问的问题(what is it that...the rates are changing),男士的回答是，有很多直接的测量数据作佐证(a lot of direct measurements),有两类数据，一是冰川高度的变化(how that height changes over time),二是冰盖的引力(即冰盖的重量);B项“冰川表面的高度”是其中一项数据，故为答案。\n【干扰排除】A项“卫星的数量”,男士说这些数据是卫星(satellites)监测，所以卫星只是监测手段，其数量与证明融冰上升速度无关。男士虽然提到了snowall “降雪量”,但并非是在回答what is it that... changing这一问题，而是在回答后一问题(Doesn’t this all balance itself out?),故排除C项。D项张冠李戴，男士说的是冰盖的引力(the gravitational pull of the ice sheet),而不是整个南极洲的重力。",
      "prompt": "What makes scientists believe that the rising rates are changing?",
      "part": 1
     },
@@ -2812,7 +2812,7 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 7,
     "fix": "completely → complete",
-    "analysis": "题目所在句中 precision“准确”是名词，completely“完全”是副词，副词不能修饰名词，因此需将 completely 改成形容词 complete。"
+    "analysis": "题目所在句中 precision “准确”是名词，completely “完全”是副词，副词不能修饰名词，因此需将 completely 改成形容词 complete。"
    },
    {
     "number": 8,
@@ -2913,7 +2913,7 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 1,
     "fix": "Whether → Although",
-    "analysis": "本句前半句 unbelievable“不可信的”和后半句 research actually supports“研究支持”实为转折关系，故连接词 Whether 应改为 Although。"
+    "analysis": "本句前半句 unbelievable “不可信的”和后半句 research actually supports “研究支持”实为转折关系，故连接词 Whether 应改为 Although。"
    },
    {
     "number": 2,
@@ -2923,12 +2923,12 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 3,
     "fix": "are → is",
-    "analysis": "此处易将插入部分 monolinguals and bilinguals“单语和双语者”当作 are able to... 的主语，其实句子的真正主语是不定代词 everyone“每个人”，其后的谓语动词必须用第三人称单数形式，故将 are 改为 is。"
+    "analysis": "此处易将插入部分 monolinguals and bilinguals “单语和双语者”当作 are able to... 的主语，其实句子的真正主语是不定代词 everyone “每个人”，其后的谓语动词必须用第三人称单数形式，故将 are 改为 is。"
    },
    {
     "number": 4,
     "fix": "switched → switching",
-    "analysis": "本句 when 引导的分词短语作状语。由于 switch“切换、转换”与主语 biculturals“双文化者”是主动关系，故应把含被动意味的 switched 改为主动的 switching。"
+    "analysis": "本句 when 引导的分词短语作状语。由于 switch “切换、转换”与主语 biculturals “双文化者”是主动关系，故应把含被动意味的 switched 改为主动的 switching。"
    },
    {
     "number": 5,
@@ -2948,12 +2948,12 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 8,
     "fix": "find out → find（删去 out）",
-    "analysis": "本句大意为“我确实发现在不同文化下我的行为表现不同”，故推测此处的“发现”应该是偶然的，用 find 即可。find out“查明、弄清”含有付出努力之意，故应将 out 删除。"
+    "analysis": "本句大意为“我确实发现在不同文化下我的行为表现不同”，故推测此处的“发现”应该是偶然的，用 find 即可。find out “查明、弄清”含有付出努力之意，故应将 out 删除。"
    },
    {
     "number": 9,
     "fix": "fact → fact that（fact 后加 that）",
-    "analysis": "本句的主干为 I am aware of the fact，而 when I speak... English speakers 实际上是 fact 的同位语，说明 fact“事实”的具体内容，因此需要在 fact 后面添加 that 引导同位语从句。"
+    "analysis": "本句的主干为 I am aware of the fact，而 when I speak... English speakers 实际上是 fact 的同位语，说明 fact “事实”的具体内容，因此需要在 fact 后面添加 that 引导同位语从句。"
    },
    {
     "number": 10,
@@ -3014,13 +3014,13 @@ window.TEM8_MID_EXTRAS = {
   ],
   "translationTarget": "中国传统文化是我们先辈传承下来的丰厚遗产。她无时无刻不在影响着今天的中国人，为我们开创新文化提供历史根据和现实基础。传统文化在影响现实的同时，也必然在新时代的氛围中发生蜕变。中国传统文化犹如一条奔腾了五千年的永不干涸的大河，她亦旧亦新，不断吐故纳新，持续创新。",
   "writing": [
-   "Read carefully the following two excerpts on swimming requirements for university students, and then write your response in NO LESS THAN 300 WORDS, in which you should: summarize the main message of the two excerpts,and then students to graduate. You can support yourself with information from the excerpts. Marks will be awarded for content relevance, content sufficiency, organization and language quality. Failure to follow the above instructions may result in a loss of marks. Write your response on ANSWER SHEET FOUR.",
+   "Read carefully the following two excerpts on swimming requirements for university students, and then write your response in NO LESS THAN 300 WORDS, in which you should: summarize the main message of the two excerpts, and then students to graduate. You can support yourself with information from the excerpts. Marks will be awarded for content relevance, content sufficiency, organization and language quality. Failure to follow the above instructions may result in a loss of marks. Write your response on ANSWER SHEET FOUR.",
    "· make comments on whether universities should set requirements other than academic achievements for",
    "You can support yourself with information from the excerpts.",
    "Excerpt 1",
    "Sink or swim tied to bachelor's degrees",
    "Students aiming to enter one of the top universities in China this year had better be able to swim or be prepared to learn swimming and pass a swim test since this university will not grant bachelor's degrees if they cannot swim.",
-   "This September, would-be freshmen at the university will have to take swimming courses if they fail a swimming test at the beginning of their university life. And they won't receive their degrees if they cannot swim before their graduation, in accordance with a message at a university staff meeting days ago,a local newspaper reported on Monday.",
+   "This September, would-be freshmen at the university will have to take swimming courses if they fail a swimming test at the beginning of their university life. And they won't receive their degrees if they cannot swim before their graduation, in accordance with a message at a university staff meeting days ago, a local newspaper reported on Monday.",
    "As to why the university is linking swimming ability with degrees, “as a requisite survival skill, swimming is beneficial for students in the long run, since swimming is helpful in improving students' endurance and doing less harm to joints and muscles as a water sport,\"said head of the Division of Sports Science and Physical Education.",
    "Viewing the ability to swim as a must for students to earn their degrees is not new in this top university, as this ability was listed on its school regulations in the early 20th century. “",
    "As early as 90 years ago, the university required that students cannot graduate from the university or study overseas if they cannot swim, though the requirement didn't work later on since the swimming pools at the campus could not accommodate increasingly more students,\" said the head of the Sports Science and Physical Education Division.",
@@ -3028,12 +3028,12 @@ window.TEM8_MID_EXTRAS = {
    "Excerpt 2",
    "University of Chicago nixes",
    "For almost 60 years, one of the first things new students had to prove at the University of Chicago was their ability to stay afloat.",
-   "But students in the Class of 2016 wouldn't have to pass a swim test or take a swimming course in their freshman year.The University of Chicago has joined other universities in nixing the requirement.",
-   "A handful of universities still require swimming tests to graduate, a dramatic shift considering that in 1977,42 percent of colleges had some sort of swimming requirement, the Associated Press reported in 2006.By 1982 that figure had plummeted to 8 percent,and today, there are just a handful.",
+   "But students in the Class of 2016 wouldn't have to pass a swim test or take a swimming course in their freshman year. The University of Chicago has joined other universities in nixing the requirement.",
+   "A handful of universities still require swimming tests to graduate, a dramatic shift considering that in 1977,42 percent of colleges had some sort of swimming requirement, the Associated Press reported in 2006. By 1982 that figure had plummeted to 8 percent, and today, there are just a handful.",
    "Three Ivy League colleges — Columbia and Cornell universities and Dartmouth College —still require their students to pass a swim test before graduation. So do Washington and Lee University in Virginia, and Massachusetts Institute of Technology.",
-   "Jeremy Manier,a university spokesman, said the reason for the change was to give students options in how they choose to exercise. To facilitate that model, the Fit Chicago program—which used to cost students $4 to $5 a class—is now free.",
-   "Many University of Chicago students agree with the change,including Jim Foster, who is the student government's vice president for student affairs. In his opinion, the swim test was outdated. \"There's that fringe sect of universities that say it's a valuable life skill, but then again, so is self- defense,\" Foster said.“So I think it's a smart decision to really leave it up to the students to decide when, if at all, they would like to take the time to learn that skill.” The“",
-   "diverse needs” of University of Chicago's campus is one of the reasons Karen Coleman, Vice President of Campus Life, cited for nixing the swim tests in a letter to students.\"Ending (these requirements) will give us more opportunities to provide desired athletic and fitness options and give students more flexibility in how and when they engage in fitness,recreation or athletic activities,\" Coleman wrote."
+   "Jeremy Manier, a university spokesman, said the reason for the change was to give students options in how they choose to exercise. To facilitate that model, the Fit Chicago program—which used to cost students $4 to $5 a class—is now free.",
+   "Many University of Chicago students agree with the change, including Jim Foster, who is the student government's vice president for student affairs. In his opinion, the swim test was outdated. \"There's that fringe sect of universities that say it's a valuable life skill, but then again, so is self- defense,\" Foster said.“So I think it's a smart decision to really leave it up to the students to decide when, if at all, they would like to take the time to learn that skill.” The “",
+   "diverse needs” of University of Chicago's campus is one of the reasons Karen Coleman, Vice President of Campus Life, cited for nixing the swim tests in a letter to students.\"Ending (these requirements) will give us more opportunities to provide desired athletic and fitness options and give students more flexibility in how and when they engage in fitness, recreation or athletic activities,\" Coleman wrote."
   ],
   "writingMinWords": 300,
   "languageTitle": "What Bilingualism Is NOT",
@@ -3056,12 +3056,12 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 4,
     "fix": "the",
-    "analysis": "【详解】everyday life“日常生活”为泛指，其前不需要加冠词，故删去the。"
+    "analysis": "【详解】everyday life “日常生活”为泛指，其前不需要加冠词，故删去the。"
    },
    {
     "number": 5,
     "fix": "equitable → equal",
-    "analysis": "【详解】equitable意为“公正的，公平的”,用在此处修饰knowledge of... languages不符合语境。由于前后句为转折关系，根据后文的dominant“占优势的”,可推断此句指“……双语者对两种语言都同样熟悉”,故应将equitable改为表示“(数量等)相等的，相同的”的equal。"
+    "analysis": "【详解】equitable意为“公正的，公平的”,用在此处修饰knowledge of... languages不符合语境。由于前后句为转折关系，根据后文的dominant “占优势的”,可推断此句指“……双语者对两种语言都同样熟悉”,故应将equitable改为表示“(数量等)相等的，相同的”的equal。"
    },
    {
     "number": 6,
@@ -3086,11 +3086,11 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 10,
     "fix": "suspend→ delay",
-    "analysis": "【详解】此处指“双语能力会耽搁幼儿的语言习得”, suspend侧重于表示“中途暂停”,要等满足某种条件才能重新开始某事，显然不适合用于此处与 language acquisition“语言习得”搭配。表示“耽误，耽搁”应该用delay,故把suspend改为delay。 PART IV TRANSLATION"
+    "analysis": "【详解】此处指“双语能力会耽搁幼儿的语言习得”, suspend侧重于表示“中途暂停”,要等满足某种条件才能重新开始某事，显然不适合用于此处与 language acquisition “语言习得”搭配。表示“耽误，耽搁”应该用delay,故把suspend改为delay。 PART IV TRANSLATION"
    }
   ],
   "translationReference": "It exerts an omnipresent influence on Chinese people today, providing a historical and practical basis on which to embrace its new elements. While impacting the reality, traditional culture also inevitably transforms itself amid a new environment. Like a river that has been flowing for five thousand yearswithout drying up, Chinese traditional culture is both ancient and modern, constantly imbibing the new while discarding the outdated, thus innovating itself throughout its course.",
-  "writingReference": "In the first excerpt, the head of the Division of Sports Science and Physical Education is cited for his support for swimming. The official advocates swimming as a compulsory course not only because it is an important survival skill and a traditional course at some universities, but also because it is less harmful to joints and muscles than other sports.\n\nBy contrast, the second excerpt holds that swimming is only onee of the many life skills and students should be given the freedom to choose whatever sports options they feel attached to. I believe that swimming can be a valuable option, but it should not be a prerequisite for graduation, and there should also be other sports courses to meet students'diverse needs.\n\nIt is beneficial for universities and colleges to provide swimming training. This is because swimming, as an essential self-rescue skill in the event of an aquatic emergency, can effectively reduce cases of fatal drowning, which is the third leading cause of unintentional injury death. In addition, swimming is an allround activity that builds endurance, muscle strength, and cardiovascular fitness.\n\nHowever, linking swimming ability with degrees is too narrow an approach that ignores the unique needs of some students. For example, as some are unable to manage aquaphobia, listing swimming as a mandatory course means that these students cannot get their degrees despite their academic achievements. This is obviously unfair.Moreover, not every student would consider swimming as the best athletic activity — some may prefer tennis and others football.\n\nTherefore, it is crucial that universities provide a range of sports options and give students more flexibility in deciding which one to engage in. In conclusion, I feel that universities should nix the ability to swim as the requisite for graduation. But it is advised that swimming should remain one of the athletic options available to students.",
+  "writingReference": "In the first excerpt, the head of the Division of Sports Science and Physical Education is cited for his support for swimming. The official advocates swimming as a compulsory course not only because it is an important survival skill and a traditional course at some universities, but also because it is less harmful to joints and muscles than other sports.\n\nBy contrast, the second excerpt holds that swimming is only onee of the many life skills and students should be given the freedom to choose whatever sports options they feel attached to. I believe that swimming can be a valuable option, but it should not be a prerequisite for graduation, and there should also be other sports courses to meet students' diverse needs.\n\nIt is beneficial for universities and colleges to provide swimming training. This is because swimming, as an essential self-rescue skill in the event of an aquatic emergency, can effectively reduce cases of fatal drowning, which is the third leading cause of unintentional injury death. In addition, swimming is an allround activity that builds endurance, muscle strength, and cardiovascular fitness.\n\nHowever, linking swimming ability with degrees is too narrow an approach that ignores the unique needs of some students. For example, as some are unable to manage aquaphobia, listing swimming as a mandatory course means that these students cannot get their degrees despite their academic achievements. This is obviously unfair. Moreover, not every student would consider swimming as the best athletic activity — some may prefer tennis and others football.\n\nTherefore, it is crucial that universities provide a range of sports options and give students more flexibility in deciding which one to engage in. In conclusion, I feel that universities should nix the ability to swim as the requisite for graduation. But it is advised that swimming should remain one of the athletic options available to students.",
   "writingGuide": "题目提供的两篇文章都探讨“大学是否应该把游泳技能与学位挂钩”。第一篇阅读材料中的大学认为游泳是一项重要的生存技能，而且游泳作为一项水上运动不仅可以锻炼学生的耐力，对关节和肌肉损伤也更小，因此将游泳列为大学必修课。第二篇阅读材料中，芝加哥大学则取消了对游泳的要求，认为游泳固然是一项宝贵的生活技能，但也要考虑学生需求的多样性，并表示将给学生提供更多的运动选项。考生的文章可采用以下结构：\n第一段：总结两篇文章的大意，提出自己的观点——游泳可以作为选修课，但同时需要提供其他选项。\n第二段：指出第一种观点的合理之处——解释游泳作为一项选修课的好处。\n第三段：通过指出第一种做法的弊端论证第二种观点的合理之处——反对将游泳和学位挂钩。\n第四段：总结全文，重申观点。"
  },
  "2024": {
@@ -3196,10 +3196,10 @@ window.TEM8_MID_EXTRAS = {
    "You can support yourself with information from the excerpts.",
    "Excerpt 1",
    "The Convenience of Online Learning",
-   "With the widespread use of the computer and the smartphone, an increasing number of people tend to use the Internet to get information and acquire knowledge, which is quite convenient. However,about ten to twenty years ago, when people wanted to learn a language, they had to endure hours of school lessons or evening classes, with their heads buried in textbooks.",
+   "With the widespread use of the computer and the smartphone, an increasing number of people tend to use the Internet to get information and acquire knowledge, which is quite convenient. However, about ten to twenty years ago, when people wanted to learn a language, they had to endure hours of school lessons or evening classes, with their heads buried in textbooks.",
    "Nowadays, technology appears to be providing a better and more accessible way of learning languages.",
    "Having a smartphone means you can have a virtual teacher with you wherever you go. One of the many popular APPs offers 91 courses in 30 languages and has more than 300 million users. Whatever you want to learn, language-learning APPs allow you to go at your own pace and fit learning around other commitments.",
-   "Many schools in China have adopted online platforms to teach classes. In most cases, these platforms employ adaptive learning techniques which customize the learning experience based on each student's needs,interests, and learning styles. This personalized approach convinces people of the effectiveness of online learning.",
+   "Many schools in China have adopted online platforms to teach classes. In most cases, these platforms employ adaptive learning techniques which customize the learning experience based on each student's needs, interests, and learning styles. This personalized approach convinces people of the effectiveness of online learning.",
    "Excerpt 2",
    "Problems Concerning Online Education",
    "Technology has accelerated the wide spread of online education, which appears to be more accessible and more convenient compared with traditional education. However, there are also problems concerning online education. Some people may ask, for example, how can one learn subjects such as chemistry without being able to use the laboratory equipment, how can one learn a language without face-to-face interaction involving gestures, facial expressions, body postures, and how can one meet extra-curricular requirements, such as forming good habits, holding up social norms and keeping high standards of discipline if they are stuck behind a computer monitor? There are many issues that need to be addressed if online education is to thrive.",
@@ -3251,7 +3251,7 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 9,
     "fix": "of",
-    "analysis": "【详解】Imagine“想象”为及物动词，其后可直接带宾语，故删除介词of。"
+    "analysis": "【详解】Imagine “想象”为及物动词，其后可直接带宾语，故删除介词of。"
    },
    {
     "number": 10,
@@ -3260,7 +3260,7 @@ window.TEM8_MID_EXTRAS = {
    }
   ],
   "translationReference": "At the same time, a cultural sense of mission is indispensable for Chinese science fiction to chart its path towards the future. So the challenge facing science fiction writers in China now is to present the Chinese imagination of technology, the universe, and the future to the world in a well-crafted manner, while integrating it with the best of traditional Chinese culture so as to share its deep reflections on building a global community of shared future.",
-  "writingReference": "The two excerpts provided discuss the virtues and challenges of online education, highlighting both its convenience and the potential pitfalls of relying solely on technology for learning. Professor Smith, as mentioned in the second excerpt, offers a balanced view acknowledging the benefits of technology while emphasizing the irreplaceable value of traditional classroom settings. She suggests that apps and online resources should complement, but not replace, conventional teaching methods.\n\nDrawing from my own experience with online learning, I can attest to the validity of Professor Smith's argument. Online platforms, such as those offering video tutorials, have been tremendously helpful in providing flexibility and self-paced learning opportunities beyond the classroom. For example, during the COVID-19 pandemic, I relied heavily on online resources to continue my studies, which allowed me to progress academically despite the challenging circumstances.\n\nHowever, I also noticed some limitations, especially in courses requiring practical skills and interpersonal interactions,such as laboratory sciences and group discussions. These experiences were not as effective online as they were in-person. In subjects like chemistry or physics, the lack of hands-on experiments made it difficult to grasp complex concepts. Similarly, language courses suffered without reallife conversations and immediate feedback on pronunciation and gesture use.\n\nThese experiences align with the concerns raised in the excerpts about the limitations of online education in providing a holistic learning experience. Thus, I agree with Professor Smith that while online resources are invaluable for extending access and providing flexibility, they are insufficient on their own to replace traditional educational settings. The hybrid model, which combines online resources with in-person classes, seems most effective.\n\nIt leverages technology to enhance learning while retaining crucial aspects of traditional education, such as interpersonal interactions and hands-on experiences, which are necessary for comprehensive education. This balance is essential for catering to the diverse needs and learning styles of all students.",
+  "writingReference": "The two excerpts provided discuss the virtues and challenges of online education, highlighting both its convenience and the potential pitfalls of relying solely on technology for learning. Professor Smith, as mentioned in the second excerpt, offers a balanced view acknowledging the benefits of technology while emphasizing the irreplaceable value of traditional classroom settings. She suggests that apps and online resources should complement, but not replace, conventional teaching methods.\n\nDrawing from my own experience with online learning, I can attest to the validity of Professor Smith's argument. Online platforms, such as those offering video tutorials, have been tremendously helpful in providing flexibility and self-paced learning opportunities beyond the classroom. For example, during the COVID-19 pandemic, I relied heavily on online resources to continue my studies, which allowed me to progress academically despite the challenging circumstances.\n\nHowever, I also noticed some limitations, especially in courses requiring practical skills and interpersonal interactions, such as laboratory sciences and group discussions. These experiences were not as effective online as they were in-person. In subjects like chemistry or physics, the lack of hands-on experiments made it difficult to grasp complex concepts. Similarly, language courses suffered without reallife conversations and immediate feedback on pronunciation and gesture use.\n\nThese experiences align with the concerns raised in the excerpts about the limitations of online education in providing a holistic learning experience. Thus, I agree with Professor Smith that while online resources are invaluable for extending access and providing flexibility, they are insufficient on their own to replace traditional educational settings. The hybrid model, which combines online resources with in-person classes, seems most effective.\n\nIt leverages technology to enhance learning while retaining crucial aspects of traditional education, such as interpersonal interactions and hands-on experiences, which are necessary for comprehensive education. This balance is essential for catering to the diverse needs and learning styles of all students.",
   "writingGuide": "两篇材料都与“在线教育”有关。第一篇材料以教育类app为例，主要陈述在线学习的便利性和普及性。第二篇材料则陈述在线教育可能存在的问题，如缺少实操和现实交流等，最后引用Professor Smith的观点，指出教育app与传统教育并不是非此即彼，而是互为补充。考生的文章可采用以下结构：\n第一段：总结两篇文章的主题，重点复述第二篇材料中Professor Smith的观点，以便与下文自己的观点作对照。\n第二、三段：表明自己赞同Professor Smith的观点，先以自身在疫情期间的在线学习为例说明在线教育具有便利性，可用于传统课堂之外，再以需要实操和现实交流的课程为例说明在线教育对比课堂教育的不足，证明在线教育无法替代课堂教育。\n第四段：总结全文，重申在线教育增加学习机会，为学习提供便利，但无法替代课堂教育，两者应相辅相成。"
  }
 };

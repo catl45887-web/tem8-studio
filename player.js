@@ -13,7 +13,7 @@
     const m = Math.floor(s / 60), x = Math.floor(s % 60)
     return `${m}:${String(x).padStart(2, '0')}`
   }
-  let audio = null, root = null, ui = {}, raf = 0, dragging = false, started = false
+  let audio = null, root = null, ui = {}, raf = 0, dragging = false, started = false, userStop = false, waiting = false
   const cfg = { src: '', mode: 'practice', replay: false, title: '', duration: 0, start: 0, end: 0, autoplay: false, onEnded: null, note: '' }
 
   const winStart = () => (isFinite(cfg.start) && cfg.start > 0 ? cfg.start : 0)
@@ -37,6 +37,7 @@
     if (!e || !audio || audio.paused || audio.ended) return false
     if (audio.currentTime >= e - 0.05) {
       try { audio.currentTime = e } catch {}
+      userStop = true
       audio.pause()
       paint()
       if (typeof cfg.onEnded === 'function') { try { cfg.onEnded() } catch {} }
@@ -54,7 +55,23 @@
     audio.addEventListener('timeupdate', () => { if (!dragging) { hitEnd(); paint() } })
     audio.addEventListener('progress', () => { paintBuffer() })
     audio.addEventListener('play', () => { started = true; paint(); loop() })
-    audio.addEventListener('pause', () => { paint(); stopLoop() })
+    audio.addEventListener('pause', () => {
+      paint(); stopLoop()
+      // 考试锁定时用户无法暂停：被系统打断（来电、切后台、缓冲）就自动接着放；放不了就通知页面让用户点一下
+      if (locked() && started && !userStop && !audio.ended && !(winEnd() && audio.currentTime >= winEnd() - 0.1)) {
+        setTimeout(() => {
+          if (!audio.paused || userStop) return
+          try { const p = audio.play(); if (p && p.catch) p.catch(() => document.dispatchEvent(new Event('tem8:audio-blocked'))) } catch { document.dispatchEvent(new Event('tem8:audio-blocked')) }
+        }, 250)
+      }
+    })
+    audio.addEventListener('waiting', () => { waiting = true; paint() })
+    audio.addEventListener('playing', () => { waiting = false; paint(); document.dispatchEvent(new Event('tem8:audio-playing')) })
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && audio && audio.paused && locked() && started && !userStop && !audio.ended && !(winEnd() && audio.currentTime >= winEnd() - 0.1)) {
+        try { const p = audio.play(); if (p && p.catch) p.catch(() => document.dispatchEvent(new Event('tem8:audio-blocked'))) } catch {}
+      }
+    })
     audio.addEventListener('ended', () => { started = true; paint(); stopLoop(); if (typeof cfg.onEnded === 'function') { try { cfg.onEnded() } catch {} } })
     audio.addEventListener('error', () => { if (ui.note) ui.note.textContent = '音频加载失败，请确认 audio 目录下的文件存在' })
     audio.addEventListener('ratechange', () => { if (ui.rate) ui.rate.value = String(audio.playbackRate) })
@@ -129,7 +146,7 @@
     ui.play.addEventListener('click', e => {
       e.stopPropagation()
       if (audio.paused) { if (locked() && started && audio.currentTime > 0) return; play() }
-      else if (!locked()) audio.pause()
+      else if (!locked()) { userStop = true; audio.pause() }
     })
     ui.back.addEventListener('click', e => { e.stopPropagation(); nudge(-15) })
     ui.fwd.addEventListener('click', e => { e.stopPropagation(); nudge(15) })
@@ -189,7 +206,7 @@
     ui.fwd.disabled = locked()
     ui.rate.disabled = locked()
     ui.track.classList.toggle('locked', locked())
-    ui.note.textContent = !audio.src ? '未加载音频' : locked() ? lockNote() : (cfg.note || '')
+    ui.note.textContent = !audio.src ? '未加载音频' : (waiting && playing) ? '缓冲中…' : locked() ? lockNote() : (cfg.note || '')
     ui.badge.textContent = cfg.mode === 'exam' ? '考试' : '可回听'
     ui.badge.className = 'wf-audio-badge ' + (cfg.mode === 'exam' ? 'exam' : '')
     paintBuffer()
@@ -206,6 +223,7 @@
 
   function play() {
     if (!audio || !audio.src) return
+    userStop = false
     // 本节已播完再按播放：练习模式从头重播本节（考试锁定状态进不来这里）
     if (winEnd() && !locked() && audio.currentTime >= winEnd() - 0.05) {
       try { audio.currentTime = winStart() } catch {}
@@ -229,11 +247,19 @@
     const cur = audio.currentTime || 0
     const outside = !!audio.src && (cur < winStart() - 0.5 || (winEnd() && cur > winEnd() + 0.5))
     if (srcChanged) {
-      audio.src = config.src
+      // 预加载过的用本地副本，播放时不走网络
+      audio.src = (window.TEM8_PRELOAD && window.TEM8_PRELOAD.url(config.src)) || config.src
       audio.load()
       started = false
       audio.playbackRate = 1
       if (ui.rate) ui.rate.value = '1'
+    }
+    // 之前是边下边播挂上的，现在本地副本到了：没在播放时换成本地副本
+    const local = window.TEM8_PRELOAD && window.TEM8_PRELOAD.url(cfg.src)
+    if (!srcChanged && local && audio.src !== local && audio.paused) {
+      const t = audio.currentTime || 0
+      audio.src = local; audio.load()
+      if (t) audio.addEventListener('loadedmetadata', () => { try { audio.currentTime = t } catch {} }, { once: true })
     }
     pendingSeek = srcChanged || winChanged || outside
     ui.title.textContent = cfg.title || '听力音频'
@@ -265,6 +291,7 @@
 
   function stop() {
     if (!audio) return
+    userStop = true
     try { audio.pause() } catch {}
     try { audio.currentTime = winStart() } catch {}
     started = false
@@ -289,5 +316,5 @@
     if (root && root.parentNode) root.parentNode.removeChild(root)
   }
 
-  window.TEM8_AUDIO = { mount, stop, unload, play, pause: () => audio && audio.pause(), seekTo, get element() { return audio }, get mounted() { return !!root }, get config() { return cfg }, get currentTime() { return audio ? audio.currentTime : 0 } }
+  window.TEM8_AUDIO = { mount, stop, unload, play, pause: () => { if (audio) { userStop = true; audio.pause() } }, get playing() { return !!audio && !audio.paused && !audio.ended }, seekTo, get element() { return audio }, get mounted() { return !!root }, get config() { return cfg }, get currentTime() { return audio ? audio.currentTime : 0 } }
 })()
