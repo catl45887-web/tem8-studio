@@ -391,7 +391,7 @@
       const words=a.segments.reduce((k,x)=>k+String(x.en||'').split(/\s+/).filter(Boolean).length,0)
       const tag = a.id===last && !s.completed ? '<span class="rac-tag">上次学习</span>' : ''
       const sc=quizScore(a.id)
-      return `<article class="real-article-card rac rac2"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="${esc(a.label)}，已读 ${pct}%"><span class="rac-ring ${pct>=100?'full':''}" style="--p:${pct}" aria-hidden="true"><b>${pct}%</b></span><span class="rac-text"><span class="rac-meta">${esc(a.year+' · '+a.label)}${tag}</span><span class="rac-title">${esc(titleOf(a))}</span><span class="rac-words">${words.toLocaleString('en-US')} 词</span></span></button>${qn ? `<button class="rac-do" data-open-reader data-mode="practice" data-article="${esc(a.id)}">${sc?`做题 ${sc.ok}/${sc.n}`:'做题'}</button>` : ''}</article>`
+      return `<article class="real-article-card rac rac2"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="${esc(a.label)}，已读 ${pct}%"><span class="rac-ring ${pct>=100?'full':''}" style="--p:${pct}" aria-hidden="true"><b>${pct}%</b></span><span class="rac-text"><span class="rac-meta">${esc(a.year+' · '+a.label)}${tag}</span><span class="rac-title">${esc(titleOf(a))}</span><span class="rac-words">${words.toLocaleString('en-US')} 词</span></span></button></article>`
     }).join('')
   }
   function renderReview(kind) {
@@ -526,7 +526,7 @@
     const notes=extras.notes[activeArticle.id] || []
     let html = ''
     if (readerTab === 'translate') {
-      html = articleText() + (readerMode === 'free' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
+      html = articleText() + (readerMode === 'free' && document.documentElement.dataset.theme === 'xmas' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
     } else if (readerTab === 'parse') {
       html = readerIntro('长难句解析',notes.length ? '精选句子，人工整理主干与修饰关系。' : '本篇暂无人工长难句解析。') + notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p><div class="note-label">拆解</div><p>${esc(n.note)}</p></article>`).join('')
     } else if (readerTab === 'syntax') {
