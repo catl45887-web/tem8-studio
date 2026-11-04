@@ -652,3 +652,41 @@ html:not([data-theme=xmas]) .pq-opt label:active{background:var(--soft)}
 }
 body:has(.pq-drawer.open) .anno-toggle,body:has(dialog[open]) .anno-toggle{display:none!important}
 .pq-missing:focus,.pq-missing:focus-visible,.pq-dialog-inner:focus-visible{outline:none!important}
+
+/* ================= 精听：选择页 + 沉浸练习页 ================= */
+/* 选择页 */
+.ixl-list{display:grid;gap:12px;margin-top:16px}
+.ixl-card{display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding-right:8px}
+.ixl-main{flex:1;min-width:0;display:grid;gap:6px;text-align:left;border:0;background:none;color:var(--ink);font:inherit;padding:18px;cursor:pointer}
+.ixl-main b{font-size:17px}.ixl-main>span{font-size:13px;color:var(--muted)}
+.ixl-bar{display:block;height:3px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}.ixl-bar i{display:block;height:100%;background:var(--ink)}
+/* 练习页：隐藏大标题、分段 tab、底栏 */
+body.ix-play #intensive-view .app-head,body.ix-play .tabbar{display:none!important}
+body.ix-play .main{padding-top:0!important}
+.ix-topbar{position:sticky;top:0;z-index:32;display:flex;align-items:center;gap:8px;background:var(--bg);padding:10px 0;margin:0 0 4px;border-bottom:1px solid var(--line)}
+.ix-back{width:44px;height:44px;border:0;background:none;color:var(--ink);font-size:30px;line-height:1;border-radius:12px;margin-left:-8px}
+.ix-ttl{flex:1;min-width:0;display:grid}.ix-ttl b{font-size:15px}.ix-ttl small{font-size:12.5px;color:var(--muted)}
+.ix-topbar .ix-tool{height:40px;min-width:48px}
+/* 文本设置：底部面板 */
+.ix-sheet{position:fixed!important;left:50%!important;right:auto!important;top:auto!important;bottom:0;transform:translateX(-50%)!important;width:min(560px,100%)!important;margin:0!important;border-radius:18px 18px 0 0!important;padding:18px 20px max(18px,env(safe-area-inset-bottom))!important;z-index:70!important;box-shadow:0 -10px 40px rgba(0,0,0,.18)!important}
+@starting-style{.ix-sheet{transform:translateX(-50%) translateY(40px)!important;opacity:0}}
+.ix-sheet-h{text-align:center;font-size:15px}
+.ix-sheet-close{border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:15px;padding:14px 0 4px;margin:4px -20px 0;min-height:48px}
+/* 正文：去卡片和分割线，句与句靠留白 */
+.ix-list{background:none!important;border:0!important;border-radius:0!important;overflow:visible!important;padding:8px 0 calc(150px + env(safe-area-inset-bottom))}
+.ix-line{display:block!important;border:0!important;padding:8px 10px!important;margin:0 -10px 6px;border-radius:10px;box-shadow:none!important;position:relative}
+.ix-line.turn{margin-top:14px}
+.ix-line.playing{background:var(--pq-flag-bg)!important;box-shadow:none!important;transition:background-color 200ms ease}
+.ix-line:hover{background:transparent}
+.ix-copy{font-size:calc(17.5px*var(--ix-fs,1))!important;line-height:1.6!important}
+.ix-sp{display:block;width:max-content;margin:0 0 4px}
+.ix-no{display:none}
+.ix-nums .ix-no{display:inline-block;position:absolute;left:-26px;top:11px;width:24px;min-height:0!important;padding:0;font-size:11.5px!important;opacity:.7}
+.ix-nums .ix-list{padding-left:22px}
+.ix-t{position:absolute;right:10px;top:10px}
+.ix-part{padding:16px 0 4px!important;font-size:13px!important}
+.ix-zh{display:block;border:0;background:none;padding:6px 0 0;margin:0;font:inherit;font-family:system-ui,-apple-system,'PingFang SC',sans-serif;font-size:13px;color:var(--muted);text-align:left;cursor:pointer;min-height:32px}
+.ix-zh.open{font-size:14.5px;line-height:1.7;color:var(--ink);opacity:.82}
+body.ix-play #intensive-view{padding-bottom:0!important}
+.ix-cal{margin:0 0 calc(130px + env(safe-area-inset-bottom))!important}
+.ix-list+.ix-cal{margin-top:-130px!important}

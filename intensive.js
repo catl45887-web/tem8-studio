@@ -28,7 +28,7 @@
   let show = SHOWS.some(s => s[0] === saved.show) ? saved.show : (saved.mode === 'hide' ? 'tap' : 'normal')
   let view = 'read', dIdx = 0, dChecked = false
   let selected = -1, active = -1, loopOn = false, loopIdx = -1, ab = { a: null, b: null }, stopAt = null, raf = 0, opening = false, lastPosSave = 0
-  let revealed = new Set(), book = new Set(), zhOpen = new Set()
+  let revealed = new Set(), book = new Set(), zhOpen = new Set(), mode = 'list', fromStart = false
   const host = () => document.querySelector('#intensive-content')
   const rows = () => scripts[year]?.[section] || []
   const track = () => listening[year] || {}
@@ -75,25 +75,44 @@
   function textHTML(en) {
     return String(en).split(/([A-Za-z]+(?:[’'][A-Za-z]+)?)/).map((t, k) => k % 2 ? `<span class="ix-w${inBook(t) ? ' nb' : ''}" data-ix-w="${esc(t)}">${esc(t)}</span>` : esc(t)).join('')
   }
+  const zhOf = i => (window.TEM8_LISTENING_ZH || {})[year]?.[section]?.[i] || rows()[i]?.zh || ''
+  const hasZh = () => rows().some((_, i) => zhOf(i))
   function lineHTML(row, i) {
-    const part = section === 'B' && (i === 0 || row.part !== rows()[i - 1].part) ? `<div class="ix-part">Part ${row.part === 2 ? 'Two' : 'One'}</div>` : ''
-    const sp = row.sp ? `<span class="ix-sp ${row.sp === 'W' ? 'w' : 'm'}">${row.sp === 'W' ? '主持人' : '嘉宾'}</span>` : ''
+    const prev = rows()[i - 1]
+    const part = section === 'B' && (i === 0 || row.part !== prev?.part) ? `<div class="ix-part">Part ${row.part === 2 ? 'Two' : 'One'}</div>` : ''
+    const turn = row.sp && (!prev || prev.sp !== row.sp || row.part !== prev.part)
+    const sp = turn ? `<span class="ix-sp ${row.sp === 'W' ? 'w' : 'm'}">${row.sp === 'W' ? '主持人' : '嘉宾'}</span>` : ''
     const masked = (show === 'tap' || show === 'cover') && !revealed.has(i)
     const body = show === 'hide' && !revealed.has(i) ? `<span class="ix-slot">第 ${i + 1} 句 · 点击播放</span>` : `<span class="ix-text">${textHTML(row.en)}</span>`
-    const zh = (window.TEM8_LISTENING_ZH || {})[year]?.[section]?.[i] || row.zh
-    const translation = zh ? `<button type="button" class="ix-zh-toggle" data-ix-zh="${i}" aria-expanded="${zhOpen.has(i)}">${zhOpen.has(i) ? '收起译文' : '查看译文'}</button>${zhOpen.has(i) ? `<p class="ix-zh">${esc(zh)}</p>` : ''}` : ''
-    return `${part}<div class="ix-line ${masked ? 'm-' + show : ''} ${i === active ? 'playing' : ''} ${i === selected ? 'selected' : ''}" data-ix-line="${i}"><button type="button" class="ix-no" data-ix-seek="${i}" aria-label="从第 ${i + 1} 句播放">${String(i + 1).padStart(2, '0')}</button><div class="ix-copy">${sp}${body}${translation}</div><time class="ix-t" data-intensive-time="${i}">${fmt(time(i))}</time></div>`
+    const zh = zhOf(i), zm = saved.zh || 'tap'
+    const translation = !zh || zm === 'off' ? '' : zm === 'all' || zhOpen.has(i) ? `<button type="button" class="ix-zh open" data-ix-zh="${i}">${esc(zh)}</button>` : `<button type="button" class="ix-zh" data-ix-zh="${i}">点击显示译文</button>`
+    return `${part}<div class="ix-line ${turn ? 'turn' : ''} ${masked ? 'm-' + show : ''} ${i === active ? 'playing' : ''} ${i === selected ? 'selected' : ''}" data-ix-line="${i}"><button type="button" class="ix-no" data-ix-seek="${i}" aria-label="从第 ${i + 1} 句播放">${String(i + 1).padStart(2, '0')}</button><div class="ix-copy">${sp}${body}${translation}</div><time class="ix-t" data-intensive-time="${i}">${fmt(time(i))}</time></div>`
+  }
+  /* ---------- 选择页 ---------- */
+  function secLen(y, s) { const L = listening[y] || {}; return s === 'A' ? (Number(L.sectionAEnd) || Number(L.sectionBStart) || 0) : Math.max(0, (Number(L.audioDuration) || 0) - (Number(L.sectionBStart) || 0)) }
+  function renderList() {
+    document.body.classList.remove('ix-play', 'ix-on')
+    const main = allYears.filter(y => hasAudio(y) && anyScript(y)), more = allYears.filter(y => hasAudio(y) && !anyScript(y)), moreSel = more.includes(year)
+    const card = s => {
+      const k = `${year}-${s}`, pos = saved.pos?.[k], st = s === 'B' ? Number(listening[year]?.sectionBStart) || 0 : 0, len = secLen(year, s)
+      const heard = pos ? Math.max(0, pos - st) : 0, n = scripts[year]?.[s]?.length || 0
+      const dn = n ? Object.keys(saved.dscore || {}).filter(x => x.startsWith(k + '-')).length : 0
+      const meta = [fmt(len), heard > 3 ? `听到 ${fmt(heard)}` : '未开始', n ? (dn ? `听写 ${dn}/${n} 句` : `${n} 句原文`) : '只有音频'].join(' · ')
+      return `<div class="ixl-card"><button type="button" class="ixl-main" data-ix-open="${s}"><b>${year} · Section ${s} · ${s === 'A' ? '讲座' : '访谈'}</b><span>${meta}</span>${len ? `<i class="ixl-bar"><i style="width:${Math.min(100, Math.round(heard / len * 100))}%"></i></i>` : ''}</button>${heard > 3 ? `<button type="button" class="pq-link" data-ix-open="${s}" data-ix-restart>从头开始</button>` : ''}</div>`
+    }
+    host().innerHTML = `<div class="ix-years" role="group" aria-label="真题年份">${main.map(y => `<button type="button" class="pq-chip sm ${y === year ? 'on' : ''}" data-intensive-year="${y}" aria-pressed="${y === year}">${y}</button>`).join('')}${more.length ? `<label class="ix-more ${moreSel ? 'on' : ''}"><select data-ix-more aria-label="更多年份（只有音频）"><option value="">${moreSel ? year : '更多年份'}</option>${more.map(y => `<option value="${y}">${y} · 只有音频</option>`).join('')}</select></label>` : ''}</div>
+      <div class="ixl-list">${['A', 'B'].map(card).join('')}</div>`
   }
   function header() {
-    const main = allYears.filter(y => hasAudio(y) && anyScript(y))
-    const more = allYears.filter(y => hasAudio(y) && !anyScript(y))
-    const moreSel = more.includes(year)
-    return `<div class="ix-top">
-      <div class="ix-years" role="group" aria-label="真题年份">${main.map(y => `<button type="button" class="pq-chip sm ${y === year ? 'on' : ''}" data-intensive-year="${y}" aria-pressed="${y === year}">${y}</button>`).join('')}
-        ${more.length ? `<label class="ix-more ${moreSel ? 'on' : ''}"><select data-ix-more aria-label="更多年份（只有音频）"><option value="">${moreSel ? year : '更多年份'}</option>${more.map(y => `<option value="${y}">${y} · 只有音频</option>`).join('')}</select></label>` : ''}</div>
-      <div class="ix-row2"><div class="pq-seg sm" role="group" aria-label="听力部分">${['A', 'B'].map(s => `<button type="button" data-intensive-section="${s}" class="${section === s ? 'on' : ''}" aria-pressed="${section === s}">${s === 'A' ? 'Section A · 讲座' : 'Section B · 访谈'}</button>`).join('')}</div>
-        ${rows().length ? `<span class="ix-tools"><button type="button" class="ix-tool ${view === 'dict' ? 'on' : ''}" data-ix-dict-toggle aria-pressed="${view === 'dict'}">听写</button><button type="button" class="ix-tool" data-ix-aa aria-label="文本设置" title="文本设置">Aa</button></span>` : ''}</div>
-      <div class="ix-sheet" id="ix-sheet" hidden><div class="ix-sheet-row"><span>原文显示</span><div class="pq-seg sm">${SHOWS.map(([v, l]) => `<button type="button" data-ix-show="${v}" class="${show === v ? 'on' : ''}" aria-pressed="${show === v}">${l}</button>`).join('')}</div></div><div class="ix-sheet-row"><span>字号</span><div class="pq-seg sm">${FS.map(([v, l]) => `<button type="button" data-ix-fs="${v}" class="${(saved.fs || 1) === v ? 'on' : ''}" aria-pressed="${(saved.fs || 1) === v}">${l}</button>`).join('')}</div></div><p class="ix-sheet-tip">点单词查词，点序号从这句开始播。键盘：← → 切句，空格播放，L 单句循环。</p></div></div>`
+    const zh = hasZh(), opt = (k, v, l, cur) => `<button type="button" data-${k}="${v}" class="${cur === v ? 'on' : ''}" aria-pressed="${cur === v}">${l}</button>`
+    return `<div class="ix-topbar"><button type="button" class="ix-back" data-ix-back aria-label="返回精听列表">‹</button><div class="ix-ttl"><b>${year} · Section ${section}</b><small>${section === 'A' ? '讲座' : '访谈'} · ${rows().length} 句</small></div>
+      ${rows().length ? `<button type="button" class="ix-tool ${view === 'dict' ? 'on' : ''}" data-ix-dict-toggle aria-pressed="${view === 'dict'}">听写</button><button type="button" class="ix-tool" data-ix-aa aria-label="文本设置">Aa</button>` : ''}</div>
+      <div class="ix-sheet" id="ix-sheet" hidden><b class="ix-sheet-h">文本设置</b>
+        <div class="ix-sheet-row"><span>原文显示</span><div class="pq-seg sm">${SHOWS.map(([v, l]) => opt('ix-show', v, l, show)).join('')}</div></div>
+        ${zh ? `<div class="ix-sheet-row"><span>译文显示</span><div class="pq-seg sm">${[['tap', '点击显示'], ['all', '全部显示'], ['off', '隐藏']].map(([v, l]) => opt('ix-zhmode', v, l, saved.zh || 'tap')).join('')}</div></div>` : ''}
+        <div class="ix-sheet-row"><span>字号</span><div class="pq-seg sm">${FS.map(([v, l]) => opt('ix-fs', String(v), l, String(saved.fs || 1))).join('')}</div></div>
+        <div class="ix-sheet-row"><span>句子序号</span><div class="pq-seg sm">${opt('ix-nums', '1', '显示', saved.nums ? '1' : '0')}${opt('ix-nums', '0', '隐藏', saved.nums ? '1' : '0')}</div></div>
+        <p class="ix-sheet-tip">点单词查词，点句子从这句开始播。</p><button type="button" class="ix-sheet-close" data-ix-sheet-close>完成</button></div>`
   }
   function bar(script) {
     return `<div class="ix-bar" role="region" aria-label="播放控制"><div id="intensive-audio"></div><div class="ix-ctrl">
@@ -107,16 +126,18 @@
   }
   function render() {
     if (!host()) return
+    if (mode === 'list') { renderList(); return }
+    document.body.classList.add('ix-play')
     loadBook()
     const data = rows(), script = data.length > 0
     selected = -1; active = -1; loopOn = false; loopIdx = -1; ab = { a: null, b: null }; stopAt = null; revealed = new Set()
     if (!script) view = 'read'
     document.body.classList.add('ix-on')
-    host().style.setProperty('--ix-fs', saved.fs || 1)
+    host().style.setProperty('--ix-fs', saved.fs || 1); host().classList.toggle('ix-nums', !!saved.nums)
     const pos = saved.pos?.[posKey()]
     const body = !script ? `<div class="rv-empty sm"><strong>这一年还没有逐句原文</strong><p>可以用下方播放条整段精听。</p></div>`
       : view === 'dict' ? '<div id="ix-dict"></div>'
-      : `${pos ? `<p class="ix-hint">上次听到 ${fmt(pos)}</p>` : ''}<div class="ix-list" id="intensive-lines">${data.map(lineHTML).join('')}</div>
+      : `<div class="ix-list" id="intensive-lines">${data.map(lineHTML).join('')}</div>
         <details class="ix-cal" data-ix-cal><summary>句子时间不准？手动校准</summary><p class="intensive-note">选中一句，在它开头的时候点“设为起点”，结果只存在本机。</p><div class="intensive-calibration"><button type="button" data-intensive-calibrate disabled>把当前播放点设为选中句起点</button><label>选中句起点 <input type="text" id="intensive-time-input" inputmode="decimal" placeholder="13:24.5" disabled></label><button type="button" data-intensive-save disabled>保存</button><button type="button" data-intensive-reset disabled>恢复初始</button></div></details>`
     host().innerHTML = header() + body + bar(script)
     mountAudio()
@@ -129,7 +150,7 @@
     A()?.mount(el, { src: data.audio, mode: 'practice', replay: true, title: `${year} · Section ${section}`, duration: Number(data.audioDuration) || 0, start: start(), end: end(), note: '' })
     applyRate()
     const pos = saved.pos?.[posKey()], audio = A()?.element
-    if (pos && audio && view === 'read') { const go = () => { if (A().currentTime < pos - 1 || A().currentTime > pos + 1) A().seekTo(pos, false) }; if (audio.readyState >= 1) go(); else audio.addEventListener('loadedmetadata', () => setTimeout(go, 0), { once: true }) }
+    if (fromStart) { fromStart = false; if (saved.pos) delete saved.pos[posKey()] } else if (pos && audio && view === 'read') { const go = () => { if (A().currentTime < pos - 1 || A().currentTime > pos + 1) A().seekTo(pos, false) }; if (audio.readyState >= 1) go(); else audio.addEventListener('loadedmetadata', () => setTimeout(go, 0), { once: true }) }
   }
   function applyRate() { const a = A()?.element; if (a) { a.playbackRate = saved.rate || 1; a.preservesPitch = true } }
   function paintActive(idx) {
@@ -138,7 +159,7 @@
     const now = list.querySelector(`[data-ix-line="${idx}"]`)
     now?.classList.add('playing')
     const a = A()?.element
-    if (now && a && !a.paused) now.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    if (now && a && !a.paused) { const r = now.getBoundingClientRect(), top = innerHeight * 0.3; if (r.top < 70 || r.bottom > innerHeight - 160) scrollBy({ top: r.top - top, behavior: 'smooth' }) }
   }
   function follow() {
     if (raf) cancelAnimationFrame(raf)
@@ -236,9 +257,14 @@
     const d = b.dataset
     if (!b.closest('#ix-sheet') && d.ixAa === undefined) { const sh = host().querySelector('#ix-sheet'); if (sh) sh.hidden = true }
     if (!b.closest('#ix-menu') && d.ixMenu === undefined) { const m = host().querySelector('#ix-menu'); if (m) m.hidden = true }
-    if (d.intensiveYear) { savePos(); year = Number(d.intensiveYear); zhOpen = new Set(); if (!hasScript(year, section) && hasScript(year, section === 'A' ? 'B' : 'A')) section = section === 'A' ? 'B' : 'A'; render(); return }
+    if (d.ixOpen) { year = year; section = d.ixOpen; fromStart = d.ixRestart !== undefined; mode = 'play'; view = 'read'; zhOpen = new Set(); render(); scrollTo(0, 0); return }
+    if (d.ixBack !== undefined) { savePos(); A()?.stop(); mode = 'list'; render(); scrollTo(0, 0); return }
+    if (d.ixSheetClose !== undefined) { host().querySelector('#ix-sheet').hidden = true; return }
+    if (d.ixZhmode) { saved.zh = d.ixZhmode; zhOpen = new Set(); save(); host().querySelectorAll('[data-ix-zhmode]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)) }); const l = host().querySelector('#intensive-lines'); if (l) { l.innerHTML = rows().map(lineHTML).join(''); paintActive(active) } return }
+    if (d.ixNums) { saved.nums = d.ixNums === '1'; save(); host().classList.toggle('ix-nums', saved.nums); host().querySelectorAll('[data-ix-nums]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)) }); return }
+    if (d.intensiveYear) { savePos(); year = Number(d.intensiveYear); zhOpen = new Set(); save(); render(); return }
     if (d.intensiveSection) { savePos(); section = d.intensiveSection; zhOpen = new Set(); render(); return }
-    if (d.ixZh !== undefined) { const i = Number(d.ixZh); zhOpen.has(i) ? zhOpen.delete(i) : zhOpen.add(i); rerenderLine(i); return }
+    if (d.ixZh !== undefined) { if ((saved.zh || 'tap') === 'all') return; const i = Number(d.ixZh); zhOpen.has(i) ? zhOpen.delete(i) : zhOpen.add(i); rerenderLine(i); return }
     if (d.ixAa !== undefined) { const sh = host().querySelector('#ix-sheet'); sh.hidden = !sh.hidden; return }
     if (d.ixShow) { show = d.ixShow; revealed = new Set(); save(); host().querySelectorAll('[data-ix-show]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)) }); if (view === 'read') { const l = host().querySelector('#intensive-lines'); if (l) { l.innerHTML = rows().map(lineHTML).join(''); paintActive(active) } } return }
     if (d.ixFs) { saved.fs = Number(d.ixFs); save(); host().style.setProperty('--ix-fs', saved.fs); host().querySelectorAll('[data-ix-fs]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)) }); return }
@@ -261,14 +287,14 @@
     if (d.intensiveSave !== undefined) { const input = host().querySelector('#intensive-time-input'); if (!setCorrection(parseTime(input.value))) { input.focus(); input.classList.add('invalid') } else input.classList.remove('invalid'); return }
     if (d.intensiveReset !== undefined && selected >= 0) { delete saved.corrections?.[key(selected)]; save(); rows().forEach((_, i) => refreshTime(i)) }
   })
-  host()?.addEventListener('change', e => { if (e.target.dataset?.ixMore !== undefined && e.target.value) { savePos(); year = Number(e.target.value); render() } })
+  host()?.addEventListener('change', e => { if (e.target.dataset?.ixMore !== undefined && e.target.value) { year = Number(e.target.value); save(); render() } })
   host()?.addEventListener('toggle', e => { if (e.target.matches?.('[data-ix-cal]')) host().classList.toggle('ix-cal-on', e.target.open) }, true)
   host()?.addEventListener('input', e => { if (e.target.dataset?.ixdIn !== undefined) { (saved.dict ||= {})[key(dIdx)] = e.target.value; quiet(); grow(e.target) } })
   host()?.addEventListener('keydown', e => {
     if (e.target.dataset?.ixdIn !== undefined && e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); dChecked ? dGo(dIdx + 1) : dCheck() }
   })
   document.addEventListener('keydown', e => {
-    if (!document.querySelector('#intensive-view')?.classList.contains('active') || e.metaKey || e.ctrlKey || e.altKey) return
+    if (mode !== 'play' || !document.querySelector('#intensive-view')?.classList.contains('active') || e.metaKey || e.ctrlKey || e.altKey) return
     const tag = (e.target.tagName || '').toLowerCase(); if (['input', 'textarea', 'select'].includes(tag) || document.querySelector('dialog[open]')) return
     if (view === 'dict' && e.key === 'Enter' && dChecked) { e.preventDefault(); dGo(dIdx + 1); return }
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { if (!rows().length) return; e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1) }
@@ -277,9 +303,9 @@
   })
   document.addEventListener('click', e => { if (!host()?.contains(e.target)) { const sh = host()?.querySelector('#ix-sheet'), m = host()?.querySelector('#ix-menu'); if (sh) sh.hidden = true; if (m) m.hidden = true } })
   document.addEventListener('tem8:study-changed', () => { if (!document.querySelector('#intensive-view.active') || view !== 'read') return; const before = book.size; loadBook(); if (book.size !== before) host()?.querySelectorAll('[data-ix-w]').forEach(s => s.classList.toggle('nb', inBook(s.dataset.ixW))) })
-  document.addEventListener('tem8:view', e => { if (e.detail !== 'intensive') document.body.classList.remove('ix-on') })
+  document.addEventListener('tem8:view', e => { if (e.detail !== 'intensive') document.body.classList.remove('ix-on', 'ix-play') })
   window.TEM8_INTENSIVE = {
     open() { if (opening) return; opening = true; render(); opening = false },
-    close() { savePos(); if (raf) cancelAnimationFrame(raf); raf = 0; document.body.classList.remove('ix-on'); A()?.stop() }
+    close() { savePos(); if (raf) cancelAnimationFrame(raf); raf = 0; mode = 'list'; document.body.classList.remove('ix-on', 'ix-play'); A()?.stop() }
   }
 })()
