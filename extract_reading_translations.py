@@ -25,7 +25,7 @@ translations = {}
 def strip_annotations(text):
     # Question-location marks appear inside the printed translations, and
     # several OCR files have a damaged closing bracket (for example [30]).
-    return re.sub(r'[\[【「『]\s*\d{1,2}(?:\s*[A-D])?(?:\s*/\s*\d{1,3})?\s*[\]】〗）)]?', '', text)
+    return re.sub(r'[\[【「『丨]\s*\d{1,3}(?:\s*[A-D])?(?:\s*/\s*\d{1,3})?\s*[\]】〗）)]?', '', text)
 
 for year in YEARS:
     source = EXTRA_DOCX.get(year) or next((p for p in SOURCE.glob('*.docx') if str(year) in p.name and '解析' in p.name), None)
@@ -72,7 +72,8 @@ for year in [2017, 2018, 2019, 2021, 2023]:
     # pypdf interleaves parts of adjacent paragraphs in the 2023 answer PDF.
     with pdfplumber.open(source) as pdf:
         text = '\n'.join(page.extract_text() or '' for page in pdf.pages)
-    headings = list(re.finditer('全文翻译画线点评', text))
+    # The 2021 PDF OCR renders 画 as 圓 in the second passage heading.
+    headings = list(re.finditer(r'全文翻译[^\n]{0,4}线点评', text))
     for passage, heading in enumerate(headings, 1):
         article_id = f'{year}-{passage}'
         size = article_sizes.get(article_id, 0)
@@ -95,7 +96,7 @@ for year in [2017, 2018, 2019, 2021, 2023]:
             raw = re.sub(r'专八2021\s*-\s*\d+\s*微信公众号：本初学社', '', raw)
             raw = re.sub(r'(?<=[\u3400-\u9fff])\n(?=[\u3400-\u9fff])', '', raw)
             raw = ' '.join(raw.split())
-            if len(raw) >= 20 and re.search(r'[\u3400-\u9fff]', raw):
+            if raw and re.search(r'[\u3400-\u9fff]', raw):
                 values[number - 1] = raw
         if any(values):
             translations[article_id] = values
@@ -117,6 +118,8 @@ for article_id in ('2022-1', '2022-2', '2022-3'):
         if article_id == '2022-1':
             paragraph = re.sub(r'注：译文选自.*$', '', paragraph).strip()
         translations[article_id][i] = paragraph
+
+translations['2021-2'][0] = translations['2021-2'][0].replace('有雨个哑巴', '有两个哑巴').replace('速迷糊糊', '迷迷糊糊')
 
 out = 'window.TEM8_ZH = {...(window.TEM8_ZH || {}), ...' + json.dumps(translations, ensure_ascii=False, separators=(',', ':')) + '};\n'
 (ROOT / 'readingTranslations.js').write_text(out, encoding='utf-8')
