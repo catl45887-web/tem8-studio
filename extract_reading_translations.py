@@ -41,13 +41,20 @@ for year in YEARS:
         if not size:
             continue
         values = [''] * size
+        section = []
         for line in paragraphs[index + 1:]:
             if line.startswith('答案与详解') or line.startswith('PASSAGE ') or line.startswith('PART III'):
                 break
+            section.append(line)
+        first_number = next((int(m.group(1)) for line in section if (m := re.match(r'^[（(\[]\s*(\d+)\s*[）)\]]', line))), None)
+        # The 2009–2014 converted DOCX files number their first translated
+        # paragraph (2), while the source PDFs and site articles start at (1).
+        offset = 1 if year <= 2014 and first_number == 2 else 0
+        for line in section:
             numbered = re.match(r'^[（(\[]\s*(\d+)\s*[）)\]]\s*', line)
             if not numbered:
                 continue
-            number = int(numbered.group(1))
+            number = int(numbered.group(1)) - offset
             if not 1 <= number <= size or values[number - 1]:
                 continue
             text = line[numbered.end():].strip()
