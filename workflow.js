@@ -255,7 +255,6 @@
     if(!cfg.minutesTouched)cfg.minutes=minutes
     const single=cfg.years.length===1
     const objective=['reading-group','lecture','interview'].includes(type)
-    const typeCards=GROUPS.map(G=>`<button type="button" class="pq-type ${G.id===group?'on':''}" data-pq-group="${G.id}" aria-pressed="${G.id===group}"><b>${G.name}</b><small>${G.id==='listen'?'填空 · 访谈':G.id==='read'?'选择 · 简答':G.id==='lang'?'改错':G.id==='trans'?'汉译英':'摘要＋观点'}</small></button>`).join('')
     const sub=group==='listen'?`<div class="pq-seg" role="group" aria-label="听力部分">${['lecture','interview'].map(t=>`<button type="button" data-pq-type="${t}" class="${t===type?'on':''}" aria-pressed="${t===type}">${t==='lecture'?'Section A · 讲座填空':'Section B · 访谈选择'}</button>`).join('')}</div>`:''
     const chips=years.map(y=>{const on=cfg.years.includes(y),ans=hasAnswers(type,y)
       return `<button type="button" class="pq-chip ${on?'on':''} ${ans?'':'dim'}" data-pq-year="${y}" aria-pressed="${on}" title="${ans?'':'这一年暂无参考答案，可以做，但不能自动判分'}">${on?'<i aria-hidden="true">✓</i>':''}${y}${ans?'':'<small>无答案</small>'}</button>`}).join('')
@@ -270,14 +269,11 @@
     const noAudio=isListening(type)&&cfg.years.some(y=>!listening[y]?.audio)
     $('#workflow-config-content').innerHTML=`
       <button class="back-link" data-workflow-back="papers">← 返回题库</button>
-      <div class="page-head pq-head"><h1>练习设置</h1></div>
+      <div class="page-head pq-head"><h1>${escape(GROUPS.find(G=>G.id===group)?.name||'')}专项</h1>${sub}</div>
       ${resumeBanner()}
       <div class="pq-config">
-        <section class="pq-step"><h2><span>1</span>题型</h2><div class="pq-types">${typeCards}</div>${sub}</section>
-        <section class="pq-step"><h2><span>2</span>年份<em>可多选</em><span class="pq-step-act"><button type="button" class="pq-link" data-pq-years="all">全选</button><button type="button" class="pq-link" data-pq-years="latest">只选最新</button></span></h2><div class="pq-chips">${chips}</div>${passages}${noAudio?'<p class="pq-note">所选年份中有的没有录音，只能按纸面作答。</p>':''}</section>
-        <section class="pq-step"><h2><span>3</span>模式</h2><div class="pq-modes">
-          <button type="button" class="pq-mode ${cfg.mode==='practice'?'on':''}" data-pq-mode="practice" aria-pressed="${cfg.mode==='practice'}"><b>练习</b><small>不限时，正计时可暂停；做完看答案</small></button>
-          <button type="button" class="pq-mode ${cfg.mode==='exam'?'on':''}" data-pq-mode="exam" aria-pressed="${cfg.mode==='exam'}"><b>计时</b><small>倒计时，时间到自动交卷</small></button></div>
+        <section class="pq-step"><h2>年份<em>可多选</em><span class="pq-step-act"><button type="button" class="pq-link" data-pq-years="all">全选</button><button type="button" class="pq-link" data-pq-years="latest">只选最新</button></span></h2><div class="pq-chips pq-years">${chips}</div>${passages}${noAudio?'<p class="pq-note">所选年份中有的没有录音，只能按纸面作答。</p>':''}</section>
+        <section class="pq-step pq-step-mode"><h2>模式<span class="pq-seg pq-modeseg" role="group" aria-label="作答模式"><button type="button" class="${cfg.mode==='practice'?'on':''}" data-pq-mode="practice" aria-pressed="${cfg.mode==='practice'}">练习</button><button type="button" class="${cfg.mode==='exam'?'on':''}" data-pq-mode="exam" aria-pressed="${cfg.mode==='exam'}">计时</button></span></h2><p class="pq-modehint">${cfg.mode==='exam'?'倒计时，时间到自动交卷':'不限时，可暂停，做完看答案'}</p>
           ${cfg.mode==='exam'?`<div class="pq-stepper"><span>倒计时</span><button type="button" data-pq-min="-5" aria-label="减少 5 分钟">−</button><output>${cfg.minutes} 分钟</output><button type="button" data-pq-min="5" aria-label="增加 5 分钟">＋</button>${cfg.minutesTouched?'<button type="button" class="pq-link" data-pq-min="reset">按题量重算</button>':''}</div>`:''}
           ${switches?`<div class="pq-switches">${switches}</div>`:''}
         </section>

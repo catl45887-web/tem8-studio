@@ -17,7 +17,7 @@
     my: 'my', settings: 'my'
   }
   var SEG = { practice: ['papers', 'mock', 'intensive'], review: ['mistakes', 'words', 'bookmarks', 'notes'], my: ['my', 'settings'] }
-  var IMMERSIVE = { reader: 1, 'workflow-session': 1, exam: 1 }
+  var IMMERSIVE = { reader: 1, 'workflow-session': 1, 'workflow-config': 1, exam: 1 }
   var WIDE = { 'workflow-session': 1, exam: 1, 'workflow-report': 1, 'paper-archive': 1 }
 
   function get(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : v } catch (e) { return d } }
