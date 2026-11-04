@@ -569,3 +569,38 @@ html[data-theme=xmas] .rd-progress{display:none}
 
 html:not([data-theme=xmas]) .t-home .h-cont{background:var(--paper)!important;border:1px solid var(--line)!important;border-radius:16px!important;padding:20px!important;box-shadow:none}
 html:not([data-theme=xmas]) .backup-reminder{position:static!important;transform:none!important;margin:16px 0 0!important;width:auto!important;max-width:none!important}
+
+/* ================= impeccable audit 修正（浅色 / 深色） ================= */
+/* 对比度：深色主题次要文字提到 4.5:1 以上；做题页段号 */
+html[data-theme=dark]{--muted:#a39e96}
+html:not([data-theme=xmas]) .workflow-article p>b{color:var(--muted)}
+/* 浏览器自带部分也跟主题走 */
+html:not([data-theme=xmas]) ::selection{background:var(--pq-flag-bg);color:var(--ink)}
+html:not([data-theme=xmas]) body{caret-color:var(--ink);accent-color:var(--ink)}
+html:not([data-theme=xmas]) *{scrollbar-color:var(--line) transparent}
+html:not([data-theme=xmas]) :focus-visible{outline:2px solid var(--ink)!important;outline-offset:2px}
+/* 阅读页手机横向溢出：笔记按钮收回段内 */
+html:not([data-theme=xmas]) #reader-view .continuous-paragraph>.anno-tools{position:static;grid-column:2;margin:4px 0 0}
+.anno-pbtn:not(.has){display:none!important}
+.anno-tools .anno-pbtn.has{opacity:1!important;font-size:13px!important;color:var(--muted)!important;border:1px solid var(--line)!important;border-radius:999px!important;padding:2px 10px!important}
+/* 最小字号 12.5–13 */
+.pq-type small,.pq-step h2 em,.mx-status small,.pq-title span,.pq-pane-head span,.pq-legend,.pc-sub,.rv-meta,.rv-foot,.wv-src,.ix-hint,.ix-part,.workflow-sticky-head span{font-size:13px!important}
+.ix-no,.pq-saved,.pq-qhead>span,.pq-cgroup>span{font-size:12.5px!important}
+.mx-row small{font-size:13px}
+/* 触控：文字链接与小按钮至少 44px 高 */
+.pq-link{min-height:44px;padding:0 8px}
+.pq-step-act .pq-link{min-height:40px}
+.pq-timer button{min-height:40px;padding:0 12px}
+.pq-timer button+button{font-size:12.5px;color:var(--ink)}
+.pq-flag{min-height:36px;padding:4px 12px;font-size:13px}
+.pq-strike{width:48px;font-size:12px;font-weight:600}
+.ix-no{min-height:32px}
+/* 去掉彩色左边框：解析、例句改成整块底色 */
+.pq-an-sec{border-left:0!important;padding:0!important}
+.pq-an-sec:first-child{border-left:0!important}
+.pq-an-sec h5{font-size:13px}
+.pq-an-sec blockquote,.wv-back blockquote{border-left:0!important;background:var(--soft);border-radius:12px;padding:12px 14px}
+html:not([data-theme=xmas]) .wf-audio-foot,html:not([data-theme=xmas]) [data-audio-time]{font-size:12.5px!important;color:var(--muted)!important;opacity:1!important}
+.pq-chip small{font-size:12px}
+html:not([data-theme=xmas]) .back-link{color:var(--muted)!important;font-size:14px;min-height:44px;display:inline-flex;align-items:center}
+html:not([data-theme=xmas]) .workflow-article p>b{font-size:12.5px}

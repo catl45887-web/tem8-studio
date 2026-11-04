@@ -503,7 +503,7 @@
     return `<div class="continuous-article" data-anno-scope data-anno-article="${activeArticle.id}" data-anno-word="1" data-anno-word-attr="data-word" data-anno-seg="1">${activeArticle.segments.map((s,i) => {
       const n=A?A.noteCount(activeArticle.id,i):0
       const body=A?A.textHTML(activeArticle.id,i,s.en,{word:true,attr:'data-word',segAttr:'data-segment'}):esc(s.en)
-      return `<p class="continuous-paragraph" id="reading-segment-${i}" data-anno-p="${i}"><button class="paragraph-number ${state.progress > i ? 'done' : ''}" data-mark-read="${i+1}" title="标记读到第 ${i+1} 段" aria-label="标记读到第 ${i+1} 段">${String(i+1).padStart(2,'0')}</button><span class="reader-english anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span>${paragraphExtras(i)}</p>`
+      return `<p class="continuous-paragraph" id="reading-segment-${i}" data-anno-p="${i}"><button class="paragraph-number ${state.progress > i ? 'done' : ''}" data-mark-read="${i+1}" title="标记读到第 ${i+1} 段" aria-label="标记读到第 ${i+1} 段">${String(i+1).padStart(2,'0')}</button><span class="reader-english anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">${n?`笔记 ${n}`:''}</button></span>${paragraphExtras(i)}</p>`
     }).join('')}</div>`
   }
   function practiceQuestions() { return allRealQuestions.filter(q => q.articleId === activeArticle.id) }

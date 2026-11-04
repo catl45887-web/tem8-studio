@@ -236,7 +236,7 @@ html[data-theme=xmas] #reader-view .reader-title{font-weight:400!important}
 .rd-ln{display:inline-block;margin:0 0 0 6px;padding:2px 9px;border:0;border-radius:99px;background:rgba(194,96,58,.14);color:#b4532f;font:inherit;font-size:12px;font-style:normal;line-height:1.7;vertical-align:2px;cursor:pointer;white-space:nowrap}
 html[data-theme=dark] .rd-ln{background:rgba(232,146,95,.18);color:#f0a674}
 html[data-theme=xmas] .rd-ln{background:rgba(230,199,154,.16);color:var(--gold)}
-.rd-ln-body{display:block;margin:12px 0 4px;padding:14px 16px;border-left:3px solid rgba(194,96,58,.5);background:var(--soft);border-radius:0 10px 10px 0;font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;font-size:14px;line-height:1.75;color:var(--ink)}
+.rd-ln-body{display:block;margin:12px 0 4px;padding:14px 16px;background:var(--soft);border-radius:12px;font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;font-size:14px;line-height:1.75;color:var(--ink)}
 .rd-ln-ex{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;margin-bottom:8px}
 .rd-ln-row{display:block;font-size:13px;color:var(--muted)}
 .rd-ln-row b{display:inline-block;min-width:72px;color:var(--ink);font-weight:600;margin-right:8px}

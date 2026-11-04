@@ -344,7 +344,7 @@
     toggle = document.createElement('button')
     toggle.className = 'anno-toggle'
     toggle.type = 'button'
-    toggle.innerHTML = '✎<span>笔记</span><b data-anno-count hidden></b>'
+    toggle.innerHTML = '<span>笔记</span><b data-anno-count hidden></b>'
     toggle.title = '打开标记与笔记'
     document.body.appendChild(toggle)
     drawer.querySelectorAll('[data-anno-tab]').forEach(b => b.addEventListener('click', () => {

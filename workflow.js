@@ -270,7 +270,7 @@
     const noAudio=isListening(type)&&cfg.years.some(y=>!listening[y]?.audio)
     $('#workflow-config-content').innerHTML=`
       <button class="back-link" data-workflow-back="papers">← 返回题库</button>
-      <div class="page-head pq-head"><span class="eyebrow">PRACTICE SETUP</span><h1>练习设置</h1></div>
+      <div class="page-head pq-head"><h1>练习设置</h1></div>
       ${resumeBanner()}
       <div class="pq-config">
         <section class="pq-step"><h2><span>1</span>题型</h2><div class="pq-types">${typeCards}</div>${sub}</section>
@@ -356,7 +356,7 @@
   }
   document.addEventListener('tem8:view',()=>{document.body.classList.remove('pq-in-session');closeDrawer()})
 
-  function flagBtn(key){const on=!!session.marks[key];return `<button type="button" class="pq-flag ${on?'on':''}" data-workflow-mark="${key}" aria-pressed="${on}" title="标记存疑（F）">${on?'⚑ 已存疑':'⚐ 存疑'}</button>`}
+  function flagBtn(key){const on=!!session.marks[key];return `<button type="button" class="pq-flag ${on?'on':''}" data-workflow-mark="${key}" aria-pressed="${on}" title="标记存疑（F）">${on?'已存疑':'存疑'}</button>`}
   function feedback(it){
     if(!session.instant||it.kind!=='choice'||it.answer===undefined)return ''
     const v=session.answers[it.key];if(v===undefined||v==='')return ''
@@ -367,7 +367,7 @@
     const v=session.answers[it.key],strikes=session.strikes[it.key]||[],showFb=session.instant&&it.answer!==undefined&&v!==undefined&&v!==''
     return `<div class="pq-opts" role="radiogroup" aria-label="选项">${(it.options||[]).map((o,i)=>{
       const sel=v===i,cls=[sel?'sel':'',strikes.includes(i)?'struck':'',showFb&&i===it.answer?'right':'',showFb&&sel&&i!==it.answer?'wrong':''].filter(Boolean).join(' ')
-      return `<div class="pq-opt ${cls}"><label><input type="radio" name="o-${it.key}" data-workflow-choice="${it.key}" value="${i}" ${sel?'checked':''}><b>${LETTERS[i]}</b><span>${escape(o)}</span><i class="pq-check" aria-hidden="true">✓</i></label><button type="button" class="pq-strike" data-pq-strike="${it.key}" data-i="${i}" aria-pressed="${strikes.includes(i)}" title="${strikes.includes(i)?'恢复':'划掉'}选项 ${LETTERS[i]}">${strikes.includes(i)?'↺':'×'}</button></div>`}).join('')}</div>`
+      return `<div class="pq-opt ${cls}"><label><input type="radio" name="o-${it.key}" data-workflow-choice="${it.key}" value="${i}" ${sel?'checked':''}><b>${LETTERS[i]}</b><span>${escape(o)}</span><i class="pq-check" aria-hidden="true">✓</i></label><button type="button" class="pq-strike" data-pq-strike="${it.key}" data-i="${i}" aria-pressed="${strikes.includes(i)}" title="${strikes.includes(i)?'恢复':'划掉'}选项 ${LETTERS[i]}">${strikes.includes(i)?'恢复':'排除'}</button></div>`}).join('')}</div>`
   }
   function readingItems(){
     const items=gItems(group()),choice=items.filter(i=>i.kind==='choice'),short=items.filter(i=>i.kind==='short')
@@ -383,7 +383,7 @@
     return `<div class="workflow-article" data-anno-scope data-anno-article="${a.id}" data-anno-word="${allow?1:0}" data-anno-word-attr="data-workflow-word">${a.segments.map((s,i)=>{
       const n=A?A.noteCount(a.id,i):0
       const body=A?A.textHTML(a.id,i,s.en,{word:allow,attr:'data-workflow-word'}):escape(s.en)
-      return `<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">✎${n||''}</button></span></p>`}).join('')}</div>`
+      return `<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">${n?`笔记 ${n}`:''}</button></span></p>`}).join('')}</div>`
   }
   function renderReading(){
     const a=article(),n=gItems(group()).length
@@ -450,7 +450,7 @@
     const exam=!!session.deadline
     const secs=exam?Math.max(0,Math.ceil((session.deadline-Date.now())/1000)):Math.floor(elapsedMs()/1000)
     const hidden=session.hideTimer,paused=!!session.pausedAt
-    return `<div class="pq-timer ${exam?'down':'up'} ${exam&&secs<=600?'warn':''} ${paused?'paused':''}"><button type="button" data-pq-timer="hide" title="${hidden?'显示':'隐藏'}计时" aria-label="${exam?'剩余时间':'已用时间'}"><time id="workflow-time">${hidden?'··:··':mmss(secs)}</time></button>${exam?'':`<button type="button" data-pq-timer="pause" title="${paused?'继续':'暂停'}计时" aria-label="${paused?'继续':'暂停'}计时">${paused?'▶':'❚❚'}</button>`}</div>`
+    return `<div class="pq-timer ${exam?'down':'up'} ${exam&&secs<=600?'warn':''} ${paused?'paused':''}"><button type="button" data-pq-timer="hide" title="${hidden?'显示':'隐藏'}计时" aria-label="${exam?'剩余时间':'已用时间'}"><time id="workflow-time">${hidden?'··:··':mmss(secs)}</time></button>${exam?'':`<button type="button" data-pq-timer="pause" title="${paused?'继续':'暂停'}计时" aria-label="${paused?'继续':'暂停'}计时">${paused?'继续':'暂停'}</button>`}</div>`
   }
   function renderSession(){
     const g=group(),kind=g.kind
@@ -675,7 +675,7 @@
       if(!its.length)return ''
       return `<div class="workflow-report-card"><h3>${escape(groupLabel(g))}</h3><div class="wf-answer-list">${its.map(it=>reportRow(it,run)).join('')}</div></div>`}).join('')
     const name=run.type==='review'?(run.label||'错题复习'):title(run.type)
-    $('#workflow-report-content').innerHTML=`<div class="page-head pq-head"><span class="eyebrow">RESULT</span><h1>${escape(name)} · 已交卷</h1></div>
+    $('#workflow-report-content').innerHTML=`<div class="page-head pq-head"><h1>${escape(name)} · 已交卷</h1></div>
       ${objective?`<div class="pq-hero">${ring(st.pct)}<div class="pq-hero-stats"><div><b>${st.ok}</b><span>答对</span></div><div><b>${st.wrong.length}</b><span>答错</span></div><div><b>${st.none.length}</b><span>未答</span></div><div><b>${st.gradable.length-st.none.length}/${st.gradable.length}</b><span>完成</span></div><div><b>${m}′${String(s).padStart(2,'0')}″</b><span>用时</span></div>${diff!=null?`<div class="pq-diff ${diff>0?'up':diff<0?'down':''}"><b>${diff>0?'+':''}${diff}%</b><span>比上次 ${prevPct}%</span></div>`:''}</div></div>
       ${bars?`<div class="pq-bars">${bars}</div>`:''}
       ${st.gradable.length<st.items.filter(it=>it.kind!=='long').length?`<p class="workflow-hint">简答、改错和部分填空需要对照答案自查，不计入正确率。</p>`:''}
@@ -777,7 +777,7 @@
     if(d.workflowReturn!==undefined){e.stopPropagation();t.hidden=true;renderSession();show('workflow-session-view',title(session.type));return}
     if(d.workflowNext!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current<session.groups.length-1){session.current++;cur='';persist();renderSession();window.scrollTo(0,0)}return}
     if(d.workflowPrev!==undefined){e.stopPropagation();if(isListening(group().kind))window.TEM8_AUDIO?.stop();if(session.current>0){session.current--;cur='';persist();renderSession();window.scrollTo(0,0)}return}
-    if(d.workflowMark){e.stopPropagation();const k=d.workflowMark;session.marks[k]=!session.marks[k];persist();t.classList.toggle('on',session.marks[k]);t.setAttribute('aria-pressed',String(session.marks[k]));t.textContent=session.marks[k]?'⚑ 已存疑':'⚐ 存疑';setCur(k);return}
+    if(d.workflowMark){e.stopPropagation();const k=d.workflowMark;session.marks[k]=!session.marks[k];persist();t.classList.toggle('on',session.marks[k]);t.setAttribute('aria-pressed',String(session.marks[k]));t.textContent=session.marks[k]?'已存疑':'存疑';setCur(k);return}
     if(d.workflowLocate){e.stopPropagation();const q=qByKey.get(d.workflowLocate),m=q?.prompt.match(/Para\.\s*(\d+)/i),n=q?.locatorParagraph||Number(m?.[1]);if(n){if(matchMedia('(max-width:760px)').matches)setTab('p');const p=document.getElementById(`wf-p-${n}`);p?.scrollIntoView({behavior:'smooth',block:'center'});p?.classList.add('anno-flash');setTimeout(()=>p?.classList.remove('anno-flash'),1400)}return}
     if(d.workflowWord){e.stopPropagation();const sel=window.getSelection();if(sel&&!sel.isCollapsed&&String(sel).trim())return;wordPopup(d.workflowWord,t);return}
   },true)
