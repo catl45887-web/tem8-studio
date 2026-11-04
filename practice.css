@@ -691,5 +691,5 @@ body.ix-play #intensive-view{padding-bottom:0!important}
 .ix-cal{margin:0 0 calc(130px + env(safe-area-inset-bottom))!important}
 .ix-list+.ix-cal{margin-top:-130px!important}
 /* 阅读只管读：去掉做题入口（做题在「练习」里） */
-html:not([data-theme=xmas]) #article-mode-switch{display:none!important}
+#article-mode-switch{display:none!important}
 .rac2 .rac-main{padding-right:16px}

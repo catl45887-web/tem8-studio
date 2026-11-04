@@ -385,7 +385,7 @@
     $('real-article-list').innerHTML = yearArticles.map(a => {
       const s=articleState(a.id), total=a.segments.length, n=Math.min(total,s.progress)
       const qn=allRealQuestions.filter(q=>q.articleId===a.id).length
-      if (document.documentElement.dataset.theme === 'xmas') return `<article class="real-article-card"><h3>${esc(a.label)}</h3><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n && !s.completed ? '继续精读' : '精读'}</button>${qn ? `<button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题</button>` : ''}</div></article>`
+      if (document.documentElement.dataset.theme === 'xmas') return `<article class="real-article-card"><h3>${esc(a.label)}</h3><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n && !s.completed ? '继续精读' : '精读'}</button></div></article>`
       let last=''; try { last=localStorage.getItem('tem8_last_article')||'' } catch {}
       const pct=s.completed?100:Math.round(n/total*100)
       const words=a.segments.reduce((k,x)=>k+String(x.en||'').split(/\s+/).filter(Boolean).length,0)
@@ -526,7 +526,7 @@
     const notes=extras.notes[activeArticle.id] || []
     let html = ''
     if (readerTab === 'translate') {
-      html = articleText() + (readerMode === 'free' && document.documentElement.dataset.theme === 'xmas' ? (window.TEM8_WORKFLOW?.readerActions(activeArticle) || '') : '')
+      html = articleText() + ''
     } else if (readerTab === 'parse') {
       html = readerIntro('长难句解析',notes.length ? '精选句子，人工整理主干与修饰关系。' : '本篇暂无人工长难句解析。') + notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p><div class="note-label">拆解</div><p>${esc(n.note)}</p></article>`).join('')
     } else if (readerTab === 'syntax') {
