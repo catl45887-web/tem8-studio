@@ -490,7 +490,7 @@
     const el=document.getElementById('it-'+key)
     if(el){el.classList.add('cur');if(scroll){
       if(group().kind==='reading'&&mobileTab!=='q'&&matchMedia('(max-width:760px)').matches)setTab('q')
-      el.scrollIntoView({behavior:'smooth',block:'center'})}}
+      el.scrollIntoView({behavior:scroll==='key'?'auto':'smooth',block:'center'})}}
     paintCard()
   }
   function setTab(t){mobileTab=t;const r=$('.pq-read');if(r)r.dataset.tab=t;document.querySelectorAll('[data-pq-tab]').forEach(b=>{b.classList.toggle('on',b.dataset.pqTab===t);b.setAttribute('aria-selected',String(b.dataset.pqTab===t))});window.scrollTo({top:0})}
@@ -503,7 +503,7 @@
     const items=gItems(group());if(!items.length)return
     let i=items.findIndex(it=>it.key===cur)
     i=i<0?(dir>0?0:items.length-1):Math.max(0,Math.min(items.length-1,i+dir))
-    setCur(items[i].key,true)
+    setCur(items[i].key,'key')
   }
   function openDrawer(){const d=$('#pq-drawer');if(d){d.hidden=false;requestAnimationFrame(()=>d.classList.add('open'))}}
   function closeDrawer(){const d=$('#pq-drawer');if(d&&!d.hidden){d.classList.remove('open');setTimeout(()=>{d.hidden=true},200)}}
@@ -519,7 +519,7 @@
     const flagged=all.filter(it=>session.marks[it.key])
     const byG=new Map();for(const it of missing){if(!byG.has(it.gi))byG.set(it.gi,[]);byG.get(it.gi).push(it)}
     const list=missing.length?`<p>还有 <b>${missing.length}</b> 题未作答${byG.size===1&&missing.length<=12?'：'+missing.map(it=>it.no).join('、'):''}</p><div class="pq-missing">${[...byG].map(([gi,its])=>`${byG.size>1?`<span class="pq-mg">${escape(groupLabel(session.groups[gi]))}</span>`:''}${its.map(it=>`<button type="button" data-pq-dlg-jump="${it.key}" data-g="${it.gi}" aria-label="跳到第 ${it.no} 题">${it.no}</button>`).join('')}`).join('')}</div>`:'<p>全部题目都已作答。</p>'
-    dialog(`<h3>${missing.length?'还有题没做完':'确认交卷？'}</h3>${list}${flagged.length?`<p class="pq-dlg-note">另有 ${flagged.length} 题标了存疑。</p>`:''}<div class="pq-dlg-actions"><button type="button" class="secondary-btn" data-pq-dlg="close">回去检查</button><button type="button" class="primary-btn" data-pq-dlg="submit">${missing.length?'仍然提交':'交卷'}</button></div>`)
+    dialog(`<h3>${missing.length?'还有题没做完':'确认交卷？'}</h3>${list}${flagged.length?`<p class="pq-dlg-note">另有 ${flagged.length} 题标了存疑。</p>`:''}<div class="pq-dlg-actions"><button type="button" class="secondary-btn" data-pq-dlg="close" autofocus>回去检查</button><button type="button" class="primary-btn" data-pq-dlg="submit">${missing.length?'仍然提交':'交卷'}</button></div>`)
   }
   let pendingLeave=null
   function confirmLeave(target){

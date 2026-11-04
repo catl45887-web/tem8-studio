@@ -604,3 +604,51 @@ html:not([data-theme=xmas]) .wf-audio-foot,html:not([data-theme=xmas]) [data-aud
 .pq-chip small{font-size:12px}
 html:not([data-theme=xmas]) .back-link{color:var(--muted)!important;font-size:14px;min-height:44px;display:inline-flex;align-items:center}
 html:not([data-theme=xmas]) .workflow-article p>b{font-size:12.5px}
+
+/* ================= 交互动效（emil-design-eng 审查；浅色 / 深色） ================= */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-drawer:cubic-bezier(.32,.72,0,1)}
+/* 切 tab 一天几十次：去掉位移，只留极短的淡入 */
+html:not([data-theme=xmas]) .view{animation:pq-viewin 120ms ease-out}
+@keyframes pq-viewin{from{opacity:.4}to{opacity:1}}
+/* 按下反馈：可按的东西按下时轻微缩小 */
+html:not([data-theme=xmas]) :is(.primary-btn,.secondary-btn,.pc-card,.mt-tile,.rac-do,.h-cont,.pq-type,.pq-mode,.pq-chip,.pq-cell,.pq-tool,.ix-tool,.ix-ctrl>button,.ixd-btn,.wv-grade button,.mx-row,.pq-submit,.pq-cardbtn,.pc-btn,.tabbar button,.seg-tabs button,.pq-seg button,.wf-audio-play,.rv-card .pq-link){transition:transform 160ms var(--ease-out),background-color 150ms ease,border-color 150ms ease,color 150ms ease;-webkit-tap-highlight-color:transparent}
+html:not([data-theme=xmas]) :is(.primary-btn,.secondary-btn,.rac-do,.pq-chip,.pq-cell,.ix-tool,.ix-ctrl>button,.ixd-btn,.wv-grade button,.pq-submit,.pq-cardbtn,.pc-btn,.tabbar button,.seg-tabs button,.pq-seg button,.wf-audio-play):active:not(:disabled){transform:scale(.97)}
+html:not([data-theme=xmas]) :is(.pc-card,.mt-tile,.h-cont,.pq-type,.pq-mode,.mx-row):active:not(:disabled){transform:scale(.985)}
+html:not([data-theme=xmas]) .pq-opt label:active{background:var(--soft)}
+/* 触屏没有悬停：iPad 点一下不再留下“悬停”底色 */
+@media (hover:none){
+  .pq-opt:hover{border-color:var(--line)}.pq-opt.sel:hover{border-color:var(--green)}
+  .pc-card:hover,button.pc-card:hover,.mt-tile:hover,.t-home .h-cont:hover,.pq-chip:hover{border-color:var(--line)}
+  .ix-line:hover:not(.playing),.mx-row:hover,.ix-menu button:hover,.ix-ctrl>button:hover,.ix-no:hover,.pq-strike:hover,.pq-flag:hover,.ix-w:hover{background:transparent}
+  .pq-chip.on:hover{border-color:var(--green)}
+}
+/* 浮层：从触发它的按钮方向出现，进来 160ms，ease-out */
+.ix-sheet,.ix-menu,.rd-panel{transition:opacity 160ms var(--ease-out),transform 160ms var(--ease-out)}
+.ix-sheet{transform-origin:top right}.ix-menu{transform-origin:bottom right}.rd-panel{transform-origin:top center}
+@starting-style{.ix-sheet,.ix-menu{opacity:0;transform:scale(.96)}.rd-panel{opacity:0;transform:translateY(-6px)}}
+/* 底部答题卡抽屉：iOS 抽屉曲线，进慢出快 */
+@media(max-width:1099px){
+  .pq-sheet{transition:transform 320ms var(--ease-drawer)}
+  .pq-drawer-bg{transition:opacity 240ms ease}
+  .pq-drawer:not(.open) .pq-sheet{transition-duration:200ms}
+}
+/* 对话框：从中间轻微放大淡入 */
+.pq-dialog[open],#confirm-dialog[open]{animation:pq-pop 200ms var(--ease-out)}
+.pq-dialog[open]::backdrop{animation:pq-fade 200ms ease}
+@keyframes pq-pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes pq-fade{from{opacity:0}}
+/* 倒计时最后 10 分钟：只在变红那一刻提醒一次，不一直闪 */
+.pq-timer.warn{animation:pq-pulse 600ms var(--ease-out) 2}
+/* 结果页圆环 */
+.pq-ring .fg{transition:stroke-dashoffset 700ms var(--ease-out)}
+/* 听写卡片、翻卡：换题时轻微淡入 */
+.ixd-card,.wv-card{animation:pq-viewin 160ms ease-out}
+@media (prefers-reduced-motion:reduce){
+  html:not([data-theme=xmas]) .view,.ixd-card,.wv-card{animation:none}
+  .ix-sheet,.ix-menu,.rd-panel,.pq-sheet{transition:opacity 160ms ease!important;transform:none!important}
+  .pq-dialog[open],#confirm-dialog[open]{animation:pq-fade 160ms ease}
+  html:not([data-theme=xmas]) :is(button,.pc-card,.mt-tile,.h-cont):active{transform:none!important}
+  .pq-timer.warn,.pq-flash{animation:none}
+}
+body:has(.pq-drawer.open) .anno-toggle,body:has(dialog[open]) .anno-toggle{display:none!important}
+.pq-missing:focus,.pq-missing:focus-visible,.pq-dialog-inner:focus-visible{outline:none!important}
