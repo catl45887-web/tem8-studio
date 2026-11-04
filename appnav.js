@@ -94,4 +94,27 @@
     if (current === 'reader') setTimeout(updateCount, 50)
   })
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel() })
+
+  // ---------- 屏幕键盘弹出时：把正在输入的框挪到键盘上方，并在上面留出几行原文 ----------
+  var vv = window.visualViewport, touch = window.matchMedia && matchMedia('(pointer: coarse)').matches
+  function typing(el) { return el && el.matches && el.matches('input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),textarea') }
+  function reveal() {
+    var el = document.activeElement
+    if (!vv || !typing(el) || el.closest('.anno-panel,.wpop')) return
+    var r = el.getBoundingClientRect(), top = vv.offsetTop, h = vv.height
+    var head = 64, roomAbove = Math.min(h * 0.35, 220)
+    if (r.top < top + head || r.bottom > top + h - 16) {
+      var box = el.closest('.workflow-reading-passage,.pq-pane,.pq-proof-sheet,[data-scroll-box]')
+      if (box && box.scrollHeight > box.clientHeight) el.scrollIntoView({ block: 'nearest' })
+      r = el.getBoundingClientRect()
+      window.scrollBy({ top: r.top - (top + roomAbove), behavior: 'smooth' })
+    }
+  }
+  if (vv && touch) {
+    var t = 0
+    document.addEventListener('focusin', function (e) { if (typing(e.target)) { clearTimeout(t); t = setTimeout(reveal, 320) } })
+    vv.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(reveal, 80) })
+    document.addEventListener('focusin', function (e) { document.body.classList.toggle('kb-open', typing(e.target)) })
+    document.addEventListener('focusout', function () { setTimeout(function () { document.body.classList.toggle('kb-open', typing(document.activeElement)) }, 0) })
+  }
 })();

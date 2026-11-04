@@ -398,7 +398,7 @@
       const html=escape(body).replace(/\((\d+)\)\s*_{2,}/g,(m,num)=>{
         const key=`lecture-${g.year}-${num}`,val=session.answers[key]||''
         if(only&&!only.has(num))return `<span class="wf-blank-no">(${num})</span><span class="pq-blank-off">······</span>`
-        return `<span class="wf-blank-no">(${num})</span><input class="wf-blank${val?' filled':''}${key===cur?' cur':''}" id="it-${key}" data-item="${key}" data-workflow-blank="${key}" value="${escape(val)}" style="width:${blankW(val)}px" autocomplete="off" spellcheck="false" aria-label="第 ${num} 空">`})
+        return `<span class="wf-blank-no">(${num})</span><input class="wf-blank${val?' filled':''}${key===cur?' cur':''}" id="it-${key}" data-item="${key}" data-workflow-blank="${key}" value="${escape(val)}" style="width:${blankW(val)}px" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="next" aria-label="第 ${num} 空">`})
       return `<p class="wf-ol lv${lv}">${html}</p>`}).join('')
     const items=gItems(g),filled=items.filter(it=>isAnswered(it,session.answers)).length
     return `<div class="workflow-card"><div class="wf-lecture-head"><h2>${bad?'Mini-lecture':escape(raw)}</h2><span class="wf-lecture-count" id="wf-lecture-count">已填 ${filled} / ${items.length}</span></div><p class="workflow-hint">边听边填${x.blanks[0]?.wordLimit?`，每空不超过 ${x.blanks[0].wordLimit} 词`:''}。${g.only?'灰色的空本次不用填。':''}</p><div class="workflow-prompt wf-outline wf-lecture-outline">${rows}</div></div>`
@@ -408,12 +408,21 @@
     return `<div class="workflow-card"><p class="workflow-hint">Section B · Interview。原卷只印选项，题干在录音里。</p><div class="pq-intv">${gItems(g).map(it=>`<article class="pq-q ${it.key===cur?'cur':''}" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>${it.no}</span>${flagBtn(it.key)}</div>${optionsHTML(it)}${feedback(it)}</article>`).join('')}</div>${src?.audio?'':'<p class="workflow-hint">本年录音暂缺，可按纸面作答。</p>'}</div>`
   }
   function renderLanguage(){
-    const y=group().year,rows=papers[y]?.languageLines||[]
-    return `<div class="workflow-card"><h2>Language Usage · 改错</h2><p class="workflow-hint">有题号的行有错。选择操作，再写“原词 → 改后”。</p><div class="workflow-language">${rows.map((row,i)=>{
+    const y=group().year,src=papers[y]||{},rows=src.languageLines||[]
+    const para=rows.some(r=>String(r[0]).length>140)
+    const ttl=String(src.languageTitle||'').trim()
+    return `<div class="workflow-card pq-proof${para?' pq-proof-para':''}"><h2 class="pq-proof-h">Part III · Language Usage</h2><p class="pq-proof-rule">标了题号的行各有一处错误。错词：写出正确的词；缺词：写 ∧ 和缺的词；多余：写 / 和多余的词。</p>${ttl?`<p class="pq-proof-title">${escape(ttl)}</p>`:''}<div class="pq-proof-sheet" data-pq-sheet>${rows.map((row,i)=>{
       const key=`language-${y}-${i+1}`,n=gapNo(row),ans=session.answers[key]||{}
-      if(!n)return `<div class="workflow-language-row pq-lang-plain"><b></b><p>${escape(row[0])}</p></div>`
-      return `<div class="workflow-language-row pq-lang ${key===cur?'cur':''}" id="it-${key}" data-item="${key}"><b>${n}</b><p>${escape(row[0])}</p><div class="workflow-language-input"><select data-workflow-error-kind="${key}" aria-label="第 ${n} 行操作"><option value="">操作</option><option value="replace" ${ans.kind==='replace'?'selected':''}>改词</option><option value="insert" ${ans.kind==='insert'?'selected':''}>缺词 ∧</option><option value="delete" ${ans.kind==='delete'?'selected':''}>多余 /</option></select><input data-workflow-error-text="${key}" value="${escape(ans.text||'')}" placeholder="原词 → 改后" aria-label="第 ${n} 行修改"></div>${flagBtn(key)}</div>`}).join('')}</div></div>`
+      if(!n)return `<div class="pq-pl"><span class="pq-pl-t">${escape(row[0])}</span><span class="pq-pl-a"></span></div>`
+      return `<div class="pq-pl gap ${key===cur?'cur':''}" id="it-${key}" data-item="${key}"><span class="pq-pl-t">${escape(row[0])}</span><span class="pq-pl-a"><label><span class="pq-pl-n">(${n})</span><input class="pq-pl-in" data-workflow-error-text="${key}" value="${escape(ans.text||'')}" enterkeyhint="next" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="第 ${n} 题"></label><span class="pq-pl-keys" aria-hidden="true"><button type="button" tabindex="-1" data-pq-ins="∧">∧</button><button type="button" tabindex="-1" data-pq-ins="/">/</button></span></span></div>`}).join('')}</div></div>`
   }
+  // 改错答题纸：整行不拆开；放不下时先缩小字号（最小 12px），再不行就左右滑动
+  function fitSheet(){
+    const sh=document.querySelector('[data-pq-sheet]');if(!sh||sh.closest('.pq-proof-para')||innerWidth<=700){if(sh)sh.style.fontSize='';return}
+    sh.style.fontSize='';let fs=parseFloat(getComputedStyle(sh).fontSize)||16
+    while(sh.scrollWidth>sh.clientWidth+1&&fs>12){fs-=.5;sh.style.fontSize=fs+'px'}
+  }
+  addEventListener('resize',()=>{clearTimeout(fitSheet.t);fitSheet.t=setTimeout(fitSheet,120)})
   function translationSource(y){
     const src=papers[y],full=(src.translation||[]).join('\n'),target=src.translationTarget
     return target&&full.includes(target)?escape(full.slice(0,full.indexOf(target)))+`<mark>${escape(target)}</mark>`+escape(full.slice(full.indexOf(target)+target.length)):escape(full)
@@ -463,6 +472,7 @@
       <div class="pq-shell ${kind==='reading'?'is-reading':''}"><div class="pq-main">${slot}${showTr?'<div id="wf-transcript"></div>':''}${body}<div class="pq-main-nav">${nav}</div></div><aside class="pq-aside" aria-label="答题卡"><div class="pq-cardwrap">${cardHTML()}</div><button type="button" class="pq-submit" data-pq-submit>交卷</button></aside></div>
       <div class="pq-bottom"><button type="button" class="pq-cardbtn" data-pq-drawer aria-haspopup="dialog"><b>答题卡</b><span>${done}/${all.length}</span></button>${nav}</div>
       <div class="pq-drawer" id="pq-drawer" hidden><button type="button" class="pq-drawer-bg" data-pq-drawer-close aria-label="关闭答题卡"></button><div class="pq-sheet" role="dialog" aria-label="答题卡"><div class="pq-grip"></div><div class="pq-cardwrap">${cardHTML()}</div><div class="pq-sheet-actions"><button type="button" class="secondary-btn" data-pq-drawer-close>关闭</button><button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button></div></div></div>`
+    if(kind==='language')requestAnimationFrame(fitSheet)
     if(slot){
       const bStart=Number(track.sectionBStart)||0,aEnd=Number(track.sectionAEnd)||0
       const start=kind==='interview'?bStart:0
@@ -799,10 +809,28 @@
     if(t.dataset.workflowBlank){const k=t.dataset.workflowBlank;session.answers[k]=t.value;persist();t.classList.toggle('filled',!!t.value.trim());t.style.width=blankW(t.value)+'px'
       const items=gItems(group()),n=items.filter(it=>isAnswered(it,session.answers)).length,el=$('#wf-lecture-count');if(el)el.textContent=`已填 ${n} / ${items.length}`;paintCard();return}
     if(t.dataset.workflowShort){const k=t.dataset.workflowShort;session.answers[k]=t.value;persist();const it=gItems(group()).find(x=>x.key===k),limit=it?.limit,n=words(t.value),el=document.querySelector(`[data-count-for="${k}"]`);if(el){el.textContent=limit?`${n} / ${limit} 词${n>limit?' · 超出':''}`:`${n} 词`;el.classList.toggle('over',!!limit&&n>limit)}paintCard();return}
-    if(t.dataset.workflowErrorText){const k=t.dataset.workflowErrorText;session.answers[k]||={};session.answers[k].text=t.value;persist();paintCard();return}
+    if(t.dataset.workflowErrorText){const k=t.dataset.workflowErrorText,v=t.value;session.answers[k]||={};session.answers[k].text=v;session.answers[k].kind=/^\s*[∧^]/.test(v)?'insert':/^\s*[\/／]/.test(v)?'delete':v.trim()?'replace':'';persist();paintCard();return}
     if(t.dataset.workflowText){const k=t.dataset.workflowText;session.answers[k]=t.value;persist()
       if(k.startsWith('writing')){const c=$('#pq-wcount');if(c)c.innerHTML=writingCount(Number(k.split('-')[1]),t.value)}else{const el=$('#wf-long-count');if(el)el.textContent=`${words(t.value)} 词 · 自动保存`}
       paintCard();return}
+  })
+  // 填空、改错：回车跳到下一个空；最后一个空按回车收起键盘
+  document.addEventListener('keydown',e=>{
+    const t=e.target;if(e.key!=='Enter'||e.isComposing||e.shiftKey)return
+    if(!t?.matches?.('[data-workflow-blank],[data-workflow-error-text]'))return
+    e.preventDefault()
+    const sel=t.matches('[data-workflow-blank]')?'[data-workflow-blank]':'[data-workflow-error-text]'
+    const all=[...document.querySelectorAll('#workflow-session-view '+sel)],nx=all[all.indexOf(t)+1]
+    if(nx){nx.focus();nx.select?.()}else t.blur()
+  },true)
+  // 改错：∧ 和 / 两个快捷键（手机键盘不好打这两个符号）
+  document.addEventListener('pointerdown',e=>{
+    const b=e.target.closest?.('[data-pq-ins]');if(!b)return
+    e.preventDefault()
+    const inp=b.closest('.pq-pl-a')?.querySelector('input');if(!inp)return
+    const ch=b.dataset.pqIns,v=inp.value.replace(/^\s*[∧^\/／]\s*/,'')
+    inp.value=ch+' '+v;inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length)
+    inp.dispatchEvent(new Event('input',{bubbles:true}))
   })
   // 键盘：A–D 选项，←/→ 切题，F 标记存疑
   document.addEventListener('keydown',e=>{

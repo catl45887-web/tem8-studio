@@ -158,3 +158,73 @@ body.app-v-workflow-config .pq-startbar{padding-left:max(20px,calc(50% - 340px))
 @media (hover:hover) and (pointer:fine){
   .pq-years{flex-wrap:wrap!important;overflow:visible!important;margin:0!important;padding:0!important;-webkit-mask-image:none!important;mask-image:none!important}
 }
+
+/* =====================================================================
+   做题输入（三套主题通用）
+   ===================================================================== */
+/* 触屏上输入框至少 16px：iPhone 点开小于 16px 的输入框会自动放大页面 */
+@media (pointer:coarse){
+  input[type=text],input:not([type]),input[type=number],input[type=search],textarea,select{font-size:16px!important}
+}
+
+/* ---------- 改错：和真题答题纸一样——左边原文按原行排，右边对应行写答案 ---------- */
+.pq-proof .pq-proof-h{font-size:16px;letter-spacing:.5px;margin:0 0 6px}
+.pq-proof-rule{margin:0 0 16px;font-size:13px;line-height:1.7;color:var(--muted)}
+.pq-proof-title{margin:0 0 10px;text-align:center;font-family:Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:1px}
+.pq-proof-sheet{display:grid;grid-template-columns:max-content minmax(128px,1fr);column-gap:22px;overflow-x:auto;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:2.2;scrollbar-width:thin;padding-bottom:4px}
+.pq-pl{display:contents}
+.pq-pl-t{white-space:pre;color:var(--ink)}
+.pq-pl-a{position:sticky;right:0;display:flex;align-items:baseline;gap:6px;min-width:128px;background:var(--card,var(--paper));padding-left:6px}
+.pq-pl-a label{display:flex;align-items:baseline;gap:6px;flex:1;min-width:0}
+.pq-pl-n{font-variant-numeric:tabular-nums;color:var(--ink);flex:none}
+.pq-pl-in{flex:1;min-width:0;width:100%;border:0!important;border-bottom:1px solid var(--ink)!important;border-radius:0!important;background:transparent!important;padding:0 2px 1px!important;font:inherit!important;font-size:1em!important;color:var(--ink)!important;box-shadow:none!important;outline:none}
+.pq-pl-in:focus{border-bottom:2px solid var(--wine,var(--ink))!important}
+.pq-pl.cur .pq-pl-t{background:linear-gradient(transparent 70%,rgba(194,96,58,.12) 0)}
+.pq-pl-keys{display:none;gap:4px;flex:none}
+.pq-pl-a:focus-within .pq-pl-keys{display:flex}
+.pq-pl-keys button{min-width:30px;height:30px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;font-size:15px;line-height:1;padding:0 6px}
+/* 段落式数据（2021–2023、2026）：原文没有分行，只能按段换行 */
+.pq-proof-para .pq-proof-sheet{grid-template-columns:minmax(0,1fr) minmax(128px,170px);line-height:1.9;overflow:visible}
+.pq-proof-para .pq-pl-t{white-space:normal;padding:6px 0}
+.pq-proof-para .pq-pl-a{align-self:end;padding-bottom:6px}
+@media(max-width:600px){
+  .pq-proof-sheet{column-gap:12px;grid-template-columns:max-content minmax(112px,1fr)}
+  .pq-pl-a{min-width:112px}
+  .pq-proof-para .pq-proof-sheet{grid-template-columns:minmax(0,1fr) 112px}
+}
+
+/* ---------- 精听：纸笔听写 ---------- */
+.ixd-head .ixd-mode{margin-left:auto;flex:none}
+.ixd-mode button{padding:5px 14px!important;font-size:13px}
+.ixd-paper{justify-items:center;text-align:center;padding:36px 22px!important}
+.ixd-big-play{width:88px;height:88px;border-radius:50%;border:0;background:var(--wine,var(--ink));color:var(--wine-on,var(--bg));display:grid;place-items:center;box-shadow:0 8px 22px rgba(140,47,42,.22)}
+.ixd-big-play svg{width:34px;height:34px;fill:currentColor;margin-left:4px}
+.ixd-big-play:active{transform:scale(.96)}
+html[data-theme=xmas] .ixd-big-play{background:var(--gold);color:#2b1e17}
+.ixd-tip{margin:0;font-size:13px;color:var(--muted)}
+.ixd-orig{margin:4px 0 0;max-width:620px;font-family:Georgia,'Times New Roman',serif;font-size:calc(21px*var(--fs,1));line-height:1.7;color:var(--ink);text-align:left;animation:t-fade .3s ease}
+.ixd-orig [data-ix-w]{cursor:pointer}
+.ixd-paper .ixd-acts{justify-content:center;width:100%}
+
+/* ---------- 翻译、写作：宽屏左原文右作答（原文自己滚动）；手机打字时原文钉在顶部 ---------- */
+@media(min-width:901px){
+  .pq-trans>.workflow-card:first-child{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto}
+}
+@media(max-width:900px){
+  body.kb-open .pq-trans>.workflow-card:first-child{position:sticky;top:0;z-index:5;max-height:34vh;overflow:auto;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+  body.kb-open .pq-trans>.workflow-card:first-child h2{display:none}
+  body.kb-open #workflow-session-view details[open] .workflow-prompt{position:sticky;top:0;z-index:5;max-height:30vh;overflow:auto;background:var(--card,var(--paper));box-shadow:0 6px 16px rgba(0,0,0,.08)}
+  body.kb-open .pq-bottom{display:none!important}
+}
+/* 改错：编号和横线始终在同一行 */
+.pq-proof .pq-pl-a>label{display:flex!important;flex-direction:row!important;align-items:baseline!important;gap:6px!important;margin:0!important;flex:1 1 auto;min-width:0}
+.pq-proof .pq-pl-in{display:block;height:auto!important;min-height:0!important;line-height:1.5!important}
+/* 窄屏：每一行仍是独立的一行，答案跟在这一行右边；放不下时只在这一行里折行（缩进表示是同一行） */
+@media(max-width:700px){
+  .pq-proof:not(.pq-proof-para) .pq-proof-sheet{grid-template-columns:minmax(0,1fr) 104px;column-gap:10px;overflow:visible;font-size:15px!important;line-height:1.65}
+  .pq-proof:not(.pq-proof-para) .pq-pl-t{white-space:normal;padding:5px 0 5px 1em;text-indent:-1em}
+  .pq-pl-a{position:static;min-width:0;align-self:end;padding:0 0 5px}
+  .pq-pl-keys{position:absolute;margin-top:34px;right:0}
+  .pq-pl-a{position:relative}
+}
+.pq-proof .pq-pl-in:focus,.pq-proof .pq-pl-in:focus-visible{outline:none!important;box-shadow:none!important}

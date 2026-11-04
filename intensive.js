@@ -229,8 +229,19 @@
       return
     }
     const row = data[dIdx], k = key(dIdx), v = saved.dict?.[k] || ''
+    const paper = (saved.dmode || 'paper') === 'paper'
+    const modeSeg = `<div class="pq-seg ixd-mode" role="group" aria-label="听写方式"><button type="button" class="${paper ? 'on' : ''}" data-ixd-mode="paper" aria-pressed="${paper}">纸笔</button><button type="button" class="${paper ? '' : 'on'}" data-ixd-mode="type" aria-pressed="${!paper}">打字</button></div>`
+    if (paper) {
+      box.innerHTML = `<div class="ixd-head"><span>第 ${dIdx + 1} / ${n} 句</span><div class="ixd-prog"><i style="width:${Math.round(dIdx / n * 100)}%"></i></div>${modeSeg}</div>
+      <div class="ixd-card ixd-paper"><button type="button" class="ixd-big-play" data-ixd-play aria-label="播放这句"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+        <button type="button" class="ixd-slow ${(saved.rate || 1) < 1 ? 'on' : ''}" data-ixd-slow>慢放 0.75×</button>
+        <p class="ixd-tip">${dChecked ? '对照你纸上写的；点单词可以查词' : '在纸上写下听到的内容，写完再看原句'}</p>
+        ${dChecked ? `<p class="ixd-orig">${textHTML(row.en)}</p>` : ''}
+        <div class="ixd-acts"><button type="button" class="secondary-btn" data-ixd-prev ${dIdx ? '' : 'disabled'}>上一句</button>${dChecked ? '<button type="button" class="primary-btn" data-ixd-next>下一句 <span>→</span></button>' : '<button type="button" class="primary-btn" data-ixd-reveal>看原句</button>'}</div></div>`
+      return
+    }
     const res = dChecked ? diff(row.en, v) : null
-    box.innerHTML = `<div class="ixd-head"><span>第 ${dIdx + 1} / ${n} 句</span><div class="ixd-prog"><i style="width:${Math.round(dIdx / n * 100)}%"></i></div></div>
+    box.innerHTML = `<div class="ixd-head"><span>第 ${dIdx + 1} / ${n} 句</span><div class="ixd-prog"><i style="width:${Math.round(dIdx / n * 100)}%"></i></div>${modeSeg}</div>
       <div class="ixd-card"><div class="ixd-play"><button type="button" class="ixd-btn" data-ixd-play aria-label="播放这句"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><button type="button" class="ixd-slow ${(saved.rate || 1) < 1 ? 'on' : ''}" data-ixd-slow>慢放 0.75×</button>${row.sp ? `<span class="ix-sp ${row.sp === 'W' ? 'w' : 'm'}">${row.sp === 'W' ? '主持人' : '嘉宾'}</span>` : ''}</div>
       <textarea class="ixd-in" rows="2" data-ixd-in placeholder="听到什么写什么，回车核对" spellcheck="false" autocapitalize="off" autocomplete="off">${esc(v)}</textarea>
       ${res ? `<div class="ixd-res"><span class="ix-score ${res.score >= 90 ? 'good' : res.score >= 60 ? 'mid' : 'low'}">${res.score}%</span><p class="ix-diff">${res.html}</p>${res.extra.length ? `<p class="ix-extra">多写或听错：${res.extra.map(esc).join('、')}</p>` : ''}</div>` : ''}
@@ -249,6 +260,7 @@
   /* ---------- 事件 ---------- */
   host()?.addEventListener('click', e => {
     const w = e.target.closest('[data-ix-w]')
+    if (w && w.closest('.ixd-orig')) { e.stopPropagation(); window.TEM8_SHOW_WORD?.(w.dataset.ixW, null, w); return }
     const lineEl = e.target.closest('[data-ix-line]')
     if (w && lineEl && !lineEl.className.includes('m-')) { e.stopPropagation(); window.TEM8_SHOW_WORD?.(w.dataset.ixW, null, w); return }
     const b = e.target.closest('button')
@@ -280,6 +292,8 @@
     if (d.ixdPlay !== undefined) { playLine(dIdx); return }
     if (d.ixdSlow !== undefined) { saved.rate = (saved.rate || 1) < 1 ? 1 : 0.75; applyRate(); save(); paintCtrl(); b.classList.toggle('on', saved.rate < 1); return }
     if (d.ixdCheck !== undefined) { dCheck(); return }
+    if (d.ixdReveal !== undefined) { dChecked = true; renderDict(); host().querySelector('[data-ixd-next]')?.focus({ preventScroll: true }); return }
+    if (d.ixdMode) { saved.dmode = d.ixdMode; dChecked = false; save(); renderDict(); return }
     if (d.ixdNext !== undefined) { dGo(dIdx + 1); return }
     if (d.ixdPrev !== undefined) { dGo(dIdx - 1); return }
     if (d.ixdJump !== undefined) { dGo(Number(d.ixdJump)); return }
@@ -297,6 +311,7 @@
     if (mode !== 'play' || !document.querySelector('#intensive-view')?.classList.contains('active') || e.metaKey || e.ctrlKey || e.altKey) return
     const tag = (e.target.tagName || '').toLowerCase(); if (['input', 'textarea', 'select'].includes(tag) || document.querySelector('dialog[open]')) return
     if (view === 'dict' && e.key === 'Enter' && dChecked) { e.preventDefault(); dGo(dIdx + 1); return }
+    if (view === 'dict' && e.key === 'Enter' && !dChecked && (saved.dmode || 'paper') === 'paper') { e.preventDefault(); dChecked = true; renderDict(); return }
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { if (!rows().length) return; e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1) }
     else if (e.key === ' ') { if (e.target.closest?.('button')) return; e.preventDefault(); const a = A()?.element; if (a) { if (view === 'dict') playLine(dIdx); else a.paused ? A().play() : A().pause() } }
     else if (e.key.toLowerCase() === 'l' && rows().length) { e.preventDefault(); setLoop(!loopOn) }
