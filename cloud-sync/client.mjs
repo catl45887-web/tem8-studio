@@ -166,7 +166,7 @@ async function sync() {
     saveMeta(updated)
     status(pending.length ? '学习记录已同步。' : '已是最新记录。')
   } catch (error) {
-    status(`暂时无法同步，做题记录仍保存在本机。${error.message}`)
+    status('暂时连不上云端，做题记录都在本机，不受影响。')
   } finally {
     window.TEM8_SYNC_FLUSHING = false
     busy = false

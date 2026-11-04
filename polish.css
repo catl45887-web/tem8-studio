@@ -1,0 +1,87 @@
+/* =====================================================================
+   拾页 · 质感微调（浅色 / 深色；圣诞主题不变）
+   - 底栏纯文字：去掉灰色底块，选中项加粗 + 下方一条短线
+   - 页面大标题用宋体（只取标题用到的几个字，约 10 KB）
+   - 唯一点缀色：深酒红，只用在主按钮、进度、倒计时数字
+   - 练习 / 复习 / 我的：去掉白底卡片，改成细线列表
+   ===================================================================== */
+@font-face{font-family:'TS Title Serif';src:url('winter/fonts/title-serif.woff') format('woff');font-weight:300 700;font-display:swap}
+
+html[data-theme=light]{--accent:#8c2f2a;--wine:#8c2f2a;--wine-on:#fff;--wine-soft:rgba(140,47,42,.1)}
+html[data-theme=dark]{--accent:#e0958a;--wine:#e0958a;--wine-on:#1c1b19;--wine-soft:rgba(224,149,138,.14)}
+
+/* ---------- 底栏 ---------- */
+html:not([data-theme=xmas]) .tabbar{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+html:not([data-theme=xmas]) .tabbar button{min-height:52px}
+html:not([data-theme=xmas]) .tabbar span,
+html:not([data-theme=xmas]) .tabbar button.on span{position:relative;background:none!important;padding:6px 6px 10px!important;border-radius:0!important;font-size:15px;letter-spacing:1px}
+html:not([data-theme=xmas]) .tabbar span{color:var(--muted);font-weight:400}
+html:not([data-theme=xmas]) .tabbar button.on span{color:var(--ink);font-weight:700}
+html:not([data-theme=xmas]) .tabbar button.on span::after{content:'';position:absolute;left:50%;bottom:2px;width:14px;height:2px;margin-left:-7px;border-radius:2px;background:var(--ink)}
+@media(min-width:900px){html:not([data-theme=xmas]) .tabbar{box-shadow:0 8px 24px rgba(0,0,0,.08)}}
+
+/* ---------- 页面大标题：宋体 ---------- */
+html:not([data-theme=xmas]) .app-head h1{font-family:'TS Title Serif','Songti SC','STSong','Noto Serif SC',serif;font-weight:400;font-size:32px;letter-spacing:3px}
+
+/* ---------- 点缀色：主按钮、进度、倒计时 ---------- */
+html:not([data-theme=xmas]) .primary-btn,
+html:not([data-theme=xmas]) .submit-btn,
+html:not([data-theme=xmas]) .pc-btn.strong,
+html:not([data-theme=xmas]) .h-cont-row b{background:var(--wine)!important;border-color:var(--wine)!important;color:var(--wine-on)!important;border-radius:999px!important;box-shadow:0 4px 12px rgba(140,47,42,.18)}
+html[data-theme=dark] .primary-btn,html[data-theme=dark] .submit-btn,html[data-theme=dark] .pc-btn.strong,html[data-theme=dark] .h-cont-row b{box-shadow:none}
+html:not([data-theme=xmas]) .primary-btn:hover{opacity:.92}
+html:not([data-theme=xmas]) .h-count-line b{color:var(--wine)}
+
+/* 阅读列表：没读不画圈；读了一半是粗环；读完是实心 */
+html:not([data-theme=xmas]) .rac2 .rac-ring{background:conic-gradient(var(--wine) calc(var(--p)*1%),var(--line) 0)}
+html:not([data-theme=xmas]) .rac2 .rac-ring::before{inset:6px}
+html:not([data-theme=xmas]) .rac2 .rac-ring.none{background:none}
+html:not([data-theme=xmas]) .rac2 .rac-ring.none::before{display:none}
+html:not([data-theme=xmas]) .rac2 .rac-ring.none b{font-size:12px;font-weight:400;color:var(--muted)}
+html:not([data-theme=xmas]) .rac2 .rac-ring.full{background:var(--wine)}
+html:not([data-theme=xmas]) .rac2 .rac-ring.full::before{display:none}
+html:not([data-theme=xmas]) .rac2 .rac-ring.full b{color:var(--wine-on);font-size:18px}
+.rac2 .rac-title{display:flex;align-items:center;gap:8px;font-size:17px}
+.rac2 .rac-tag{font-weight:500;background:var(--wine-soft);color:var(--wine)}
+.rac-chev{flex:none;font-size:22px;line-height:1;color:var(--muted);padding:0 4px}
+
+/* 精听进度条：粗一点、用点缀色 */
+html:not([data-theme=xmas]) .ixl-bar{height:6px;border-radius:6px;margin-top:6px}
+html:not([data-theme=xmas]) .ixl-bar i{background:var(--wine);border-radius:6px}
+
+/* ---------- 去卡片：练习 / 复习 / 我的 改成细线列表 ---------- */
+html:not([data-theme=xmas]) #paper-cards .pc-grid{display:block!important;border-top:1px solid var(--line)}
+html:not([data-theme=xmas]) .pc-card{display:grid!important;width:100%;min-height:0!important;padding:18px 2px!important;background:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important;text-align:left}
+html:not([data-theme=xmas]) .pc-card .pc-top b{font-size:17px}
+html:not([data-theme=xmas]) .pc-card .pc-stat{color:var(--wine);font-weight:600}
+html:not([data-theme=xmas]) .pc-resume{background:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding:16px 2px!important;box-shadow:none!important}
+
+html:not([data-theme=xmas]) .mt-info{margin-bottom:6px}
+html:not([data-theme=xmas]) .mt-grid{display:block!important;border-top:1px solid var(--line)}
+html:not([data-theme=xmas]) .mt-row{display:grid!important;grid-template-columns:1fr auto 18px;align-items:center;gap:12px;width:100%;min-height:56px!important;padding:0 2px!important;background:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important;text-align:left;color:var(--ink)}
+html:not([data-theme=xmas]) .mt-row b{font-size:17px;font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+html:not([data-theme=xmas]) .mt-row small{font-size:14px;color:var(--muted)}
+html:not([data-theme=xmas]) .mt-row.going small{color:var(--wine);font-weight:600}
+html:not([data-theme=xmas]) .mt-row.done small{color:var(--ink)}
+html:not([data-theme=xmas]) .mt-row:disabled{opacity:.5}
+.mt-chev{font-size:20px;color:var(--muted);text-align:right}
+
+html:not([data-theme=xmas]) .wk{background:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding:4px 2px 18px!important}
+html:not([data-theme=xmas]) .wk-bar{height:10px;border-radius:10px}
+html:not([data-theme=xmas]) .wk-bar i{border-radius:10px}
+.wk-wait{margin:2px 0 14px;font-size:13px;color:var(--muted)}
+html:not([data-theme=xmas]) .rv-empty{background:none!important;border:0!important;border-radius:0!important;padding:36px 12px!important}
+html:not([data-theme=xmas]) .rv-summary{background:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding:14px 2px!important}
+
+html:not([data-theme=xmas]) .mx-status{background:none!important;border:0!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;border-radius:0!important}
+html:not([data-theme=xmas]) .mx-status>div{padding:12px 4px 12px 14px}
+html:not([data-theme=xmas]) .mx-status>div:first-child{padding-left:2px}
+html:not([data-theme=xmas]) .mx-status b.warn{color:var(--ink)}
+html:not([data-theme=xmas]) .mx-group{background:none!important;border:0!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;border-radius:0!important}
+html:not([data-theme=xmas]) .mx-row{padding-left:2px!important;padding-right:2px!important}
+html:not([data-theme=xmas]) .mx-warn{background:var(--soft)!important;color:var(--ink)!important}
+
+/* 精听列表 */
+html:not([data-theme=xmas]) .ixl-list{gap:0!important;border-top:1px solid var(--line)}
+html:not([data-theme=xmas]) .ixl-card{background:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding-right:0!important}
+html:not([data-theme=xmas]) .ixl-main{padding:18px 2px!important}

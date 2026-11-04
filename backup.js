@@ -68,7 +68,7 @@
       refresh()
       message('备份文件已开始下载。请确认文件已保存在设备上。')
     } catch (error) {
-      message(`导出失败：${error.message}`)
+      message(/[\u4e00-\u9fff]/.test(error?.message||'') ? `导出失败：${error.message}` : '导出没有成功，请再试一次。')
     }
   }
   function validateBackup(data) {
@@ -116,7 +116,7 @@
       window.TEM8_IMPORTING_BACKUP = true
       location.reload()
     } catch (error) {
-      message(`导入失败：${error.message}`)
+      message(/[\u4e00-\u9fff]/.test(error?.message||'') ? `导入失败：${error.message}` : '这个文件读不出来，请确认选的是从这里导出的备份。')
     }
   }
   async function persistence(request = false) {

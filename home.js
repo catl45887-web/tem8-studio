@@ -112,7 +112,7 @@
         var line = fresh || !n ? '从这里开始' : st.completed ? '已读完，可以做题或重读' : '读到第 ' + n + ' 段，共 ' + total + ' 段'
         card.dataset.article = a.id
         card.hidden = false
-        card.innerHTML = '<span class="h-cont-meta">' + esc(a.year + ' · ' + a.label) + '</span><span class="h-cont-title">' + esc(opening(a, 60)) + '</span><span class="h-cont-row"><span>' + line + '</span><b>' + (fresh || !n ? '开始' : '继续') + '</b></span>'
+        card.innerHTML = '<span class="h-cont-meta">' + esc(String(a.year)) + ' 真题</span><span class="h-cont-title">' + esc(a.label) + '</span><span class="h-cont-row"><span>' + line + '</span><b>' + (fresh || !n ? '开始' : '继续') + '</b></span>'
       }
     }
     // 只说做到了的

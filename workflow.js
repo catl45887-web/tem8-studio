@@ -237,7 +237,7 @@
     const mis=window.TEM8_REVIEW?.count?.()||0
     box.innerHTML=resume+`<div class="pc-grid">${CARD_GROUPS.map(G=>{
       const stat=cardStat(G.types)
-      return `<button type="button" class="pc-card" data-workflow-type="${G.type}"><span class="pc-top"><b>${G.name}</b>${stat?'':'<span class="pc-new">新</span>'}</span><span class="pc-sub">${G.sub}</span>${stat?`<span class="pc-stat">${escape(stat)}</span>`:''}</button>`}).join('')}
+      return `<button type="button" class="pc-card" data-workflow-type="${G.type}"><span class="pc-top"><b>${G.name}</b></span><span class="pc-sub">${G.sub}</span>${stat?`<span class="pc-stat">${escape(stat)}</span>`:''}</button>`}).join('')}
       <button type="button" class="pc-card" data-pc-mistakes><span class="pc-top"><b>错题重练</b></span><span class="pc-sub">${mis?`${mis} 道待掌握 · 按间隔复习`:'答错的题会自动收进来'}</span>${mis?'<span class="pc-stat">开始复习</span>':''}</button></div>`
   }
   function sessionSummary(s){

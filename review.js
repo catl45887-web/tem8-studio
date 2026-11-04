@@ -67,6 +67,7 @@
     const rows = Object.entries(names).map(([k, [n, t]]) => ({ k, n, t, ok: acc[k].ok, cnt: acc[k].n, p: acc[k].n ? Math.round(acc[k].ok / acc[k].n * 100) : null }))
     const enough = rows.filter(r => r.cnt >= 5)
     const weak = enough.length ? enough.reduce((a, b) => b.p < a.p ? b : a) : null
+    if (!rows.some(r => r.cnt >= 5)) return `<p class="wk-wait">薄弱项：每类做满 5 题后显示${rows.some(r=>r.cnt)?`（已做 ${rows.map(r=>r.n+' '+r.cnt).join(' · ')}）`:''}</p>`
     return `<section class="wk"><div class="wk-head"><b>薄弱项</b><span>按做过的题自动统计</span></div><div class="wk-rows">${rows.map(r => `<div class="wk-row"><span>${r.n}</span><div class="wk-bar"><i style="width:${r.p ?? 0}%" class="${r.p == null ? '' : r.p < 60 ? 'low' : r.p < 80 ? 'mid' : ''}"></i></div><b>${r.cnt >= 5 ? r.p + '%' : r.cnt ? r.cnt + ' 题' : '—'}</b></div>`).join('')}</div>${weak ? `<div class="wk-foot"><span>${weak.n}最需要练</span><button type="button" class="pq-link" data-workflow-type="${weak.t}">去练</button></div>` : '<p class="wk-tip">再多练几题，这里会更准确。每类至少做 5 题才给结论。</p>'}</section>`
   }
   let legacyItems = []
@@ -79,7 +80,7 @@
     const dueN = all.filter(e => e.s !== 'mastered' && (e.due || 0) <= now).length
     const legacyHTML = legacyItems.length ? `<div class="section-heading"><div><span class="section-index">例</span><h2>示例题错题</h2></div></div><div class="review-list">${legacyItems.map(q => `<div class="review-item"><div><small>${esc(q.typeName)}</small><h3>${esc(q.prompt)}</h3></div><button data-start-one="${esc(q.id)}">重做</button></div>`).join('')}</div>` : ''
     if (!all.length) {
-      box.innerHTML = weakHTML() + `<div class="rv-empty"><div class="rv-empty-ico" aria-hidden="true">◇</div><strong>还没有错题，去练一套吧</strong><p>交卷后答错的选择题和听力填空会自动收进来；做题时标了“存疑”的题也会在这里。</p><button type="button" class="primary-btn" data-view="papers">去练习 <span>→</span></button></div>${legacyHTML}`
+      box.innerHTML = weakHTML() + `<div class="rv-empty"><strong>还没有错题，去练一套吧</strong><p>交卷后答错的选择题和听力填空会自动收进来；做题时标了“存疑”的题也会在这里。</p><button type="button" class="primary-btn" data-view="papers">去练习 <span>→</span></button></div>${legacyHTML}`
       return
     }
     const years = [...new Set(all.map(e => e.info.p.year))].sort((a, b) => b - a)
@@ -255,14 +256,14 @@
   function sync() {
     const last = $('backup-last')?.textContent || ''
     const m = last.match(/上次导出：(.+)$/)
-    $('mx-last').textContent = m ? m[1].replace(/:\d\d$/, '') : '从未'
+    $('mx-last').textContent = m ? m[1].replace(/:\d\d$/, '') : '还没有'
     $('mx-last').classList.toggle('warn', !m)
     const st = $('sync-status')?.textContent || ''
     const on = !$('sync-connected')?.hidden
-    $('mx-sync').textContent = on ? (/失败|错误|无法/.test(st) ? '连接异常' : '已开启') : /未配置|不可用|暂不可用/.test(st) ? '不可用' : '未开启'
+    $('mx-sync').textContent = on ? (/失败|错误|无法|暂时/.test(st) ? '稍后重试' : '已开启') : /未配置|不可用|暂不可用/.test(st) ? '不可用' : '未开启'
     const p = $('backup-persistence')?.textContent || ''
     const granted = /已授予/.test(p)
-    $('mx-store').textContent = granted ? '已受保护' : /不支持|无法|不可用/.test(p) ? '未受保护' : /尚未/.test(p) ? '未受保护' : '检查中'
+    $('mx-store').textContent = granted ? '已开启保护' : /不支持|无法|不可用|尚未/.test(p) ? '建议备份' : '检查中'
     $('mx-persist').hidden = granted
     $('mx-warn').hidden = !/无法写入/.test($('backup-summary')?.textContent || '')
   }
