@@ -113,13 +113,15 @@ html:not([data-theme=xmas]) .t-row+.t-row{border-top:0!important}
 html:not([data-theme=xmas]) .real-article-card.rac,html:not([data-theme=xmas]) .t-home .h-cont{background:var(--card)!important;border:0!important;border-radius:18px!important}
 html:not([data-theme=xmas]) .mt-info,html:not([data-theme=xmas]) #mock-tiles{border:0!important;box-shadow:none!important}
 
-/* ---------- 字体：界面用系统黑体、字重放轻；列表里的名称用和大标题同一套思源宋体 ----------
-   原来界面字体指向 DM Sans / Noto Sans SC，Windows 上落到粗重的思源黑体 Bold，显得笨重 */
-html:not([data-theme=xmas]) body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Noto Sans SC','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased}
+/* ---------- 字体：全站统一思源宋体（serif.css 按字分片加载）----------
+   英文正文仍用 Georgia；页面大标题用细体（TS Title Serif） */
+html:not([data-theme=xmas]) body{font-family:'Shiye Song Serif','Songti SC','STSong',Georgia,serif;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums}
+html:not([data-theme=xmas]) :is(button,input,select,textarea){font-family:inherit}
 html:not([data-theme=xmas]) :is(b,strong,h2,h3,h4){font-weight:600}
-html:not([data-theme=xmas]) :is(.pc-card .pc-top b,.mt-row b,.ixl-main b,.mx-row b,.t-row b,.rac2 .rac-title,.pc-resume b,.rv-empty strong,.h-cont-title){font-family:'TS Title Serif','Songti SC','STSong',Georgia,serif;font-weight:400!important;font-size:18px;letter-spacing:.5px;color:var(--ink)}
-html:not([data-theme=xmas]) :is(.mx-h,.t-h2){font-family:'TS Title Serif','Songti SC','STSong',Georgia,serif;font-weight:400!important;font-size:19px;letter-spacing:1px}
-html:not([data-theme=xmas]) .mt-row b{font-size:19px;font-variant-numeric:lining-nums}
-html:not([data-theme=xmas]) :is(.pc-sub,.mt-row small,.ixl-main>span,.mx-row small,.t-row small,.rac-words){font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.2px}
+html:not([data-theme=xmas]) :is(.pc-card .pc-top b,.mt-row b,.ixl-main b,.mx-row b,.t-row b,.rac2 .rac-title,.pc-resume b,.rv-empty strong,.h-cont-title){font-weight:500!important;font-size:18px;letter-spacing:.5px;color:var(--ink)}
+html:not([data-theme=xmas]) :is(.mx-h,.t-h2){font-weight:600!important;font-size:18px;letter-spacing:1px}
+html:not([data-theme=xmas]) .mt-row b{font-size:19px}
+html:not([data-theme=xmas]) :is(.pc-sub,.mt-row small,.ixl-main>span,.mx-row small,.t-row small,.rac-words){font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.3px}
 html:not([data-theme=xmas]) .seg-tabs button{font-weight:400}
 html:not([data-theme=xmas]) .seg-tabs button.active{font-weight:600}
+html:not([data-theme=xmas]) .tabbar span{letter-spacing:2px}
