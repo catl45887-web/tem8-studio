@@ -67,7 +67,7 @@
     const rows = Object.entries(names).map(([k, [n, t]]) => ({ k, n, t, ok: acc[k].ok, cnt: acc[k].n, p: acc[k].n ? Math.round(acc[k].ok / acc[k].n * 100) : null }))
     const enough = rows.filter(r => r.cnt >= 5)
     const weak = enough.length ? enough.reduce((a, b) => b.p < a.p ? b : a) : null
-    if (!rows.some(r => r.cnt >= 5)) return `<p class="wk-wait">薄弱项：每类做满 5 题后显示${rows.some(r=>r.cnt)?`（已做 ${rows.map(r=>r.n+' '+r.cnt).join(' · ')}）`:''}</p>`
+    if (!rows.some(r => r.cnt >= 5)) return ''
     return `<section class="wk"><div class="wk-head"><b>薄弱项</b><span>按做过的题自动统计</span></div><div class="wk-rows">${rows.map(r => `<div class="wk-row"><span>${r.n}</span><div class="wk-bar"><i style="width:${r.p ?? 0}%" class="${r.p == null ? '' : r.p < 60 ? 'low' : r.p < 80 ? 'mid' : ''}"></i></div><b>${r.cnt >= 5 ? r.p + '%' : r.cnt ? r.cnt + ' 题' : '—'}</b></div>`).join('')}</div>${weak ? `<div class="wk-foot"><span>${weak.n}最需要练</span><button type="button" class="pq-link" data-workflow-type="${weak.t}">去练</button></div>` : '<p class="wk-tip">再多练几题，这里会更准确。每类至少做 5 题才给结论。</p>'}</section>`
   }
   let legacyItems = []
