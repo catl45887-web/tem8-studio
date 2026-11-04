@@ -9,8 +9,9 @@ import pdfplumber
 
 ROOT = Path(__file__).parent
 SOURCE = Path(r'path/to/source')
+EXTRA_DOCX = {2022: Path(r'path/to/source')}
 PDF_SOURCE = Path(r'path/to/source')
-YEARS = [*range(2009, 2017), 2024, 2025, 2026]
+YEARS = [*range(2009, 2017), 2022, 2024, 2025, 2026]
 PASSAGE = {'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4}
 
 js = """const fs=require('fs'),vm=require('vm'),c={window:{}};
@@ -27,7 +28,7 @@ def strip_annotations(text):
     return re.sub(r'[\[【「『]\s*\d{1,2}(?:\s*[A-D])?(?:\s*/\s*\d{1,3})?\s*[\]】〗）)]?', '', text)
 
 for year in YEARS:
-    source = next((p for p in SOURCE.glob('*.docx') if str(year) in p.name and '解析' in p.name), None)
+    source = EXTRA_DOCX.get(year) or next((p for p in SOURCE.glob('*.docx') if str(year) in p.name and '解析' in p.name), None)
     if not source:
         continue
     paragraphs = [p.text.strip() for p in Document(source).paragraphs]
@@ -91,6 +92,24 @@ for year in [2017, 2018, 2019, 2021, 2023]:
                 values[number - 1] = raw
         if any(values):
             translations[article_id] = values
+
+translations['2014-1'] = json.loads((ROOT / 'reading-2014-1.json').read_text(encoding='utf-8'))
+assert len(translations['2014-1']) == article_sizes['2014-1']
+
+# Correct clearly misrecognized words in the supplied 2022 DOCX against the
+# scanned answer PDF, page 6, and omit its source credit from the last segment.
+fixes_2022 = {
+    '果米勒地': '果园地',
+    '圣伯纳德德犬': '圣伯纳德大犬',
+    '捕捉小狗中间': '捕狐猎犬中间',
+}
+for article_id in ('2022-1', '2022-2', '2022-3'):
+    for i, paragraph in enumerate(translations.get(article_id, [])):
+        for wrong, right in fixes_2022.items():
+            paragraph = paragraph.replace(wrong, right)
+        if article_id == '2022-1':
+            paragraph = re.sub(r'注：译文选自.*$', '', paragraph).strip()
+        translations[article_id][i] = paragraph
 
 out = 'window.TEM8_ZH = {...(window.TEM8_ZH || {}), ...' + json.dumps(translations, ensure_ascii=False, separators=(',', ':')) + '};\n'
 (ROOT / 'readingTranslations.js').write_text(out, encoding='utf-8')
