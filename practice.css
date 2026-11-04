@@ -529,7 +529,7 @@ html:not([data-theme=xmas]) .library-year-nav{-webkit-mask-image:linear-gradient
 .rac-words{font-size:13px;color:var(--muted)}
 .rac2 .rac-do{border-radius:999px;min-height:40px;padding:0 16px;margin-right:12px;font-size:14px}
 /* 阅读详情 */
-html:not([data-theme=xmas]) #reader-view .rd-tabs{display:none!important}
+#reader-view .rd-tabs{display:none!important}
 html:not([data-theme=xmas]) #reader-content{max-width:680px;margin:0 auto}
 html:not([data-theme=xmas]) #reader-view .continuous-paragraph{display:grid;grid-template-columns:32px minmax(0,1fr);column-gap:4px;line-height:var(--reader-lh,1.8)!important}
 html:not([data-theme=xmas]) #reader-view .continuous-paragraph>*:not(.paragraph-number){grid-column:2}
