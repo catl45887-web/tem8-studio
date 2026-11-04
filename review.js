@@ -61,6 +61,14 @@
       <h4>${title}</h4>
       <div class="rv-foot"><span>${e.n ? `错 ${e.n} 次 · 上次 ${day(e.l)}` : `标记于 ${day(e.f || e.l)}`}</span>${due ? `<span>${due}</span>` : ''}${e.r ? `<span class="rv-reason">${esc(e.r)}</span>` : ''}<span class="rv-acts"><button type="button" class="pq-link" data-rv-open="${esc(e.k)}" aria-expanded="${isOpen}">${isOpen ? '收起' : '看解析'}</button><button type="button" class="pq-link" data-rv-redo="${esc(e.k)}">重做</button></span></div>${detail}</div></article>`
   }
+  function weakHTML() {
+    const acc = W()?.accuracyByKind?.(); if (!acc) return ''
+    const names = { listen: ['听力', 'lecture'], read: ['阅读', 'reading-group'], lang: ['语言运用', 'language'] }
+    const rows = Object.entries(names).map(([k, [n, t]]) => ({ k, n, t, ok: acc[k].ok, cnt: acc[k].n, p: acc[k].n ? Math.round(acc[k].ok / acc[k].n * 100) : null }))
+    const enough = rows.filter(r => r.cnt >= 5)
+    const weak = enough.length ? enough.reduce((a, b) => b.p < a.p ? b : a) : null
+    return `<section class="wk"><div class="wk-head"><b>薄弱项</b><span>按做过的题自动统计</span></div><div class="wk-rows">${rows.map(r => `<div class="wk-row"><span>${r.n}</span><div class="wk-bar"><i style="width:${r.p ?? 0}%" class="${r.p == null ? '' : r.p < 60 ? 'low' : r.p < 80 ? 'mid' : ''}"></i></div><b>${r.cnt >= 5 ? r.p + '%' : r.cnt ? r.cnt + ' 题' : '—'}</b></div>`).join('')}</div>${weak ? `<div class="wk-foot"><span>${weak.n}最需要练</span><button type="button" class="pq-link" data-workflow-type="${weak.t}">去练</button></div>` : '<p class="wk-tip">再多练几题，这里会更准确。每类至少做 5 题才给结论。</p>'}</section>`
+  }
   let legacyItems = []
   function renderMistakes(legacy) {
     if (legacy) legacyItems = legacy
@@ -71,7 +79,7 @@
     const dueN = all.filter(e => e.s !== 'mastered' && (e.due || 0) <= now).length
     const legacyHTML = legacyItems.length ? `<div class="section-heading"><div><span class="section-index">例</span><h2>示例题错题</h2></div></div><div class="review-list">${legacyItems.map(q => `<div class="review-item"><div><small>${esc(q.typeName)}</small><h3>${esc(q.prompt)}</h3></div><button data-start-one="${esc(q.id)}">重做</button></div>`).join('')}</div>` : ''
     if (!all.length) {
-      box.innerHTML = `<div class="rv-empty"><div class="rv-empty-ico" aria-hidden="true">◇</div><strong>还没有错题，去练一套吧</strong><p>交卷后答错的选择题和听力填空会自动收进来；做题时标了“存疑”的题也会在这里。</p><button type="button" class="primary-btn" data-view="papers">去练习 <span>→</span></button></div>${legacyHTML}`
+      box.innerHTML = weakHTML() + `<div class="rv-empty"><div class="rv-empty-ico" aria-hidden="true">◇</div><strong>还没有错题，去练一套吧</strong><p>交卷后答错的选择题和听力填空会自动收进来；做题时标了“存疑”的题也会在这里。</p><button type="button" class="primary-btn" data-view="papers">去练习 <span>→</span></button></div>${legacyHTML}`
       return
     }
     const years = [...new Set(all.map(e => e.info.p.year))].sort((a, b) => b - a)
@@ -79,7 +87,7 @@
     const reasonsUsed = REASONS.filter(r => all.some(e => e.r === r))
     const startPool = list.filter(e => e.s !== 'mastered')
     const pool = (startPool.some(e => (e.due || 0) <= now) ? startPool.filter(e => (e.due || 0) <= now) : startPool.length ? startPool : list).slice(0, 20)
-    box.innerHTML = `<div class="rv-summary"><div><b>${all.filter(e => e.s !== 'mastered').length}</b><span>待掌握</span></div><div><b>${dueN}</b><span>今天该复习</span></div><div><b>${all.filter(e => e.s === 'mastered').length}</b><span>已掌握</span></div><button type="button" class="primary-btn" data-rv-start ${pool.length ? '' : 'disabled'}>开始复习 <span>${pool.length} 题</span></button></div>
+    box.innerHTML = weakHTML() + `<div class="rv-summary"><div><b>${all.filter(e => e.s !== 'mastered').length}</b><span>待掌握</span></div><div><b>${dueN}</b><span>今天该复习</span></div><div><b>${all.filter(e => e.s === 'mastered').length}</b><span>已掌握</span></div><button type="button" class="primary-btn" data-rv-start ${pool.length ? '' : 'disabled'}>开始复习 <span>${pool.length} 题</span></button></div>
       <p class="rv-tip">复习时连续答对 2 次自动标为“已掌握”；答对后按 1 / 3 / 7 / 14 天安排下次复习。</p>
       <div class="rv-filters">
         <div><span>题型</span>${types.map(([v, l]) => chip('data-rv-f-type', v, l, mf.type === v)).join('')}</div>

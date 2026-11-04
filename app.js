@@ -322,14 +322,14 @@
     if (!tiles) { tiles = document.createElement('div'); tiles.id = 'mock-tiles'; el.before(tiles) }
     const W = window.TEM8_WORKFLOW, live = W?.session?.(), hist = W?.history?.() || []
     const mins = Math.max(...years.map(y => Number(L[y]?.timeLimitMinutes) || 0)) || 150
-    tiles.innerHTML = `<div class="mt-info"><span>听力 → 阅读 → 改错 → 翻译 → 写作</span><span>约 ${mins} 分钟 · 按考试顺序计时</span></div><div class="mt-grid">${years.map(y => {
+    tiles.innerHTML = `<div class="mt-info"><p>听力 → 阅读 → 改错 → 翻译 → 写作</p><p>约 ${mins} 分钟 · 按考试顺序计时</p></div><div class="mt-grid">${years.map(y => {
       const it = L[y] || {}, source = paperExtras[y], hasReading = allArticles.some(a=>Number(a.year)===y)
       const ready = !!(it.audio&&it.miniLecture?.blanks?.length&&it.interview?.questions?.length&&hasReading&&source?.languageLines?.length&&source?.translation?.length&&source?.writing?.length)
       const going = live?.type === 'mock' && Number(live.year) === y
       const runs = hist.filter(r => r.type === 'mock' && Number(r.year) === y), sc = runs.length ? W.runScore(runs.at(-1)) : null
-      const st = !ready ? (it.audio ? '资料待补' : '无录音') : going ? `做到第 ${(live.current||0)+1} 部分` : runs.length ? (sc != null ? `得分 ${sc}%` : '已完成') : '未做'
+      const st = !ready ? (it.audio ? '资料待补' : '无录音') : going ? `做到第 ${(live.current||0)+1} 部分 · 继续` : runs.length ? (sc != null ? `${sc} 分` : '已完成') : ''
       const cls = !ready ? 'off' : going ? 'going' : runs.length ? 'done' : ''
-      return `<button type="button" class="mt-tile ${cls}" data-mock-year="${y}" ${ready?'':'disabled'}><b>${y}</b><small>${st}</small></button>`
+      return `<button type="button" class="mt-tile ${cls}" data-mock-year="${y}" ${ready?'':'disabled'}><b>${y}</b>${st?`<small>${st}</small>`:''}</button>`
     }).join('')}</div>`
   }
   function paperState() { store.paperWork ||= {};store.paperWork[paperYear] ||= {language:{},translation:'',writing:''};return store.paperWork[paperYear] }
@@ -359,9 +359,28 @@
     const first=(t.match(/^.+?[.!?]["”’]?(?=\s|$)/)||[t])[0]
     return first.length>140 ? first.slice(0,first.lastIndexOf(' ',136))+'…' : first
   }
+  // 没有主题标题时，用首句前几个词
+  function titleOf(a) {
+    if (a.topic) return a.topic
+    const w=String(a.segments?.[0]?.en||'').replace(/\s+/g,' ').trim().split(' ')
+    const t=w.slice(0,8).join(' ').replace(/[,;:]$/,'')
+    return w.length>8 ? t+'…' : t
+  }
+  // 最近一次做这篇的选择题成绩
+  function quizScore(id) {
+    let h=[]; try { h=JSON.parse(localStorage.getItem('tem8_workflow_v2')||'{}').history||[] } catch {}
+    for (let k=h.length-1;k>=0;k--) {
+      const r=h[k]; if (!(r.groups||[]).some(g=>g.kind==='reading'&&g.articleId===id)) continue
+      const qs=allRealQuestions.filter(q=>q.articleId===id&&typeof q.answer==='number')
+      if (!qs.length) return null
+      return { ok:qs.filter(q=>r.answers?.[`${q.articleId}-${q.number}`]===q.answer).length, n:qs.length }
+    }
+    return null
+  }
   function renderLibrary() {
     const yearArticles=allArticles.filter(a => a.year === selectedLibraryYear)
     $('library-year-nav').innerHTML=[...new Set(allArticles.map(a=>a.year))].sort((a,b)=>b-a).map(year=>{ const read=allArticles.some(a=>a.year===year && articleState(a.id).progress>0); return `<button data-library-year="${year}" class="${year===selectedLibraryYear?'active':''}${read?' has-read':''}">${year}</button>` }).join('')
+    requestAnimationFrame(()=>{ const nav=$('library-year-nav'), on=nav?.querySelector('.active'); if (nav&&on) nav.scrollLeft=Math.max(0,on.offsetLeft-nav.clientWidth/2+on.offsetWidth/2) })
     const sum=$('library-summary'); if (sum) { const done=yearArticles.filter(a=>articleState(a.id).completed).length; sum.textContent=`${selectedLibraryYear} · ${yearArticles.length} 篇${done?` · 已读 ${done} 篇`:''}` }
     $('real-article-list').innerHTML = yearArticles.map(a => {
       const s=articleState(a.id), total=a.segments.length, n=Math.min(total,s.progress)
@@ -369,9 +388,10 @@
       if (document.documentElement.dataset.theme === 'xmas') return `<article class="real-article-card"><h3>${esc(a.label)}</h3><div class="article-entry-actions"><button class="primary-btn" data-open-reader data-mode="free" data-article="${esc(a.id)}">${n && !s.completed ? '继续精读' : '精读'}</button>${qn ? `<button class="secondary-btn" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题</button>` : ''}</div></article>`
       let last=''; try { last=localStorage.getItem('tem8_last_article')||'' } catch {}
       const pct=s.completed?100:Math.round(n/total*100)
-      const ring=s.completed ? '<span class="rac-ring done" aria-hidden="true">✓</span>' : n ? `<span class="rac-ring" style="--p:${pct}" aria-hidden="true"><b>${n}/${total}</b></span>` : `<span class="rac-ring empty" aria-hidden="true"><b>${total}段</b></span>`
-      const tag = a.id===last && !s.completed ? '<span class="rac-tag">上次学习</span>' : s.completed ? '<span class="rac-tag ok">已读完</span>' : ''
-      return `<article class="real-article-card rac"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="${esc(a.label)}，${s.completed?'已读完':n?`读到第 ${n} 段，共 ${total} 段`:`${total} 段`}">${ring}<span class="rac-label">${esc(a.label)}</span>${tag}</button>${qn ? `<button class="rac-do" data-open-reader data-mode="practice" data-article="${esc(a.id)}">做题 · ${qn}</button>` : ''}<button class="rac-go" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="打开 ${esc(a.label)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></article>`
+      const words=a.segments.reduce((k,x)=>k+String(x.en||'').split(/\s+/).filter(Boolean).length,0)
+      const tag = a.id===last && !s.completed ? '<span class="rac-tag">上次学习</span>' : ''
+      const sc=quizScore(a.id)
+      return `<article class="real-article-card rac rac2"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="${esc(a.label)}，已读 ${pct}%"><span class="rac-ring ${pct>=100?'full':''}" style="--p:${pct}" aria-hidden="true"><b>${pct}%</b></span><span class="rac-text"><span class="rac-meta">${esc(a.year+' · '+a.label)}${tag}</span><span class="rac-title">${esc(titleOf(a))}</span><span class="rac-words">${words.toLocaleString('en-US')} 词</span></span></button>${qn ? `<button class="rac-do" data-open-reader data-mode="practice" data-article="${esc(a.id)}">${sc?`做题 ${sc.ok}/${sc.n}`:'做题'}</button>` : ''}</article>`
     }).join('')
   }
   function renderReview(kind) {
@@ -443,9 +463,12 @@
     readerTab='translate'; zhOpen=new Set(); lnOpen=new Set()
     updateReaderChrome()
     $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px')
+    $('reader-view').style.setProperty('--reader-lh',store.readingLine||1.8)
     renderReader(); page('reader')
     const state=articleState(activeArticle.id)
-    if (readerMode === 'free' && state.progress > 0 && state.progress < activeArticle.segments.length) setTimeout(() => document.getElementById('reading-segment-'+(state.progress-1))?.scrollIntoView({behavior:'smooth',block:'start'}),200)
+    if (readerMode === 'free' && state.y > 0 && !state.completed) setTimeout(() => scrollTo({top:state.y,behavior:'smooth'}),200)
+    else if (readerMode === 'free' && state.progress > 0 && state.progress < activeArticle.segments.length) setTimeout(() => document.getElementById('reading-segment-'+(state.progress-1))?.scrollIntoView({behavior:'smooth',block:'start'}),200)
+    setTimeout(readerScroll,260)
   }
   function updateReaderChrome() {
     const state=articleState(activeArticle.id)
@@ -514,7 +537,27 @@
       html = readerIntro('我的单词本','点击文章中的单词，再点击“加入单词本”。') + ((store.wordbook || []).length ? store.wordbook.map(w => `<button class="word-list-row" data-word="${esc(w)}" data-segment="${Math.max(0,segments.findIndex(s => tokenize(s.en).some(t => t.key === w)))}"><strong>${esc(w)}</strong><span>查看释义 →</span></button>`).join('') : '<div class="review-empty"><strong>还没有生词</strong>回到文章点击想记住的词。</div>')
     }
     $('reader-content').innerHTML = html
+    markBookWords()
   }
+  function markBookWords() {
+    const set=new Set((store.wordbook||[]).map(w=>String(w).toLowerCase()))
+    document.querySelectorAll('#reader-content [data-word]').forEach(el=>{ const k=String(el.dataset.word||'').toLowerCase(); el.classList.toggle('in-book', set.has(k)||set.has(dictionaryForm(k))) })
+  }
+  // 阅读进度：顶部细线 = 滚动比例；段落读过（滚出屏幕上半）就记进度；记住滚动位置
+  let rdTick=0
+  function readerScroll() {
+    if (view!=='reader' || !activeArticle || readerMode!=='free') return
+    const h=document.documentElement, max=h.scrollHeight-innerHeight, f=max>0?Math.min(1,scrollY/max):1
+    const bar=$('rd-progress'); if (bar) bar.style.width=(f*100)+'%'
+    clearTimeout(rdTick); rdTick=setTimeout(()=>{
+      const st=articleState(activeArticle.id), segs=activeArticle.segments.length
+      let n=0; document.querySelectorAll('#reader-content .continuous-paragraph').forEach((p,i)=>{ if (p.getBoundingClientRect().bottom < innerHeight*0.6) n=i+1 })
+      if (f>0.985) n=segs
+      const y=Math.round(scrollY)
+      if (n>(st.progress||0) || st.y!==y) { setArticleState(activeArticle.id,{...st,progress:Math.max(st.progress||0,n),completed:st.completed||n>=segs,y}) }
+    },400)
+  }
+  addEventListener('scroll',readerScroll,{passive:true})
   function showWord(key,index,anchor) {
     if (Number.isFinite(index)) wordSeg = index
     const request = ++wordLookupRequest
@@ -634,6 +677,7 @@
     }
     store.wordbook = [...set]; save()
     if (readerTab==='words' && view==='reader') renderReader()
+    if (view==='reader') markBookWords()
     if (view==='words') renderWordbook()
     return added
   }
@@ -692,6 +736,7 @@
     if (target.dataset.zhAll !== undefined) { const all=activeArticle.segments.map((_,i)=>i).filter(i=>zhOf(activeArticle.id,i)); zhOpen = zhOpen.size===all.length ? new Set() : new Set(all); renderReader(); updateReaderChrome(); return }
     if (target.dataset.ln !== undefined) { const k=Number(target.dataset.ln); lnOpen.has(k)?lnOpen.delete(k):lnOpen.add(k); renderReader(); return }
     if (target.dataset.readerTab) { readerTab=target.dataset.readerTab; renderReader(); return }
+    if (target.dataset.lineH) { const L=[1.6,1.8,2,2.2]; const i=Math.max(0,Math.min(L.length-1,L.indexOf(store.readingLine||1.8)+Number(target.dataset.lineH))); store.readingLine=L[i<0?1:i]; save(); $('reader-view').style.setProperty('--reader-lh',store.readingLine); return }
     if (target.dataset.font) { store.readingFont=Math.max(14,Math.min(24,store.readingFont+Number(target.dataset.font))); save(); $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px'); return }
     if (target.dataset.readingBackground !== undefined) { store.readingBackground=store.readingBackground==='sepia'?'paper':'sepia'; save(); updateReaderChrome(); return }
     if (target.dataset.markRead) { const state=articleState(activeArticle.id); state.progress=Math.max(state.progress,Number(target.dataset.markRead)); setArticleState(activeArticle.id,state); renderReader(); return }

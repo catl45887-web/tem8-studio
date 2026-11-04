@@ -21,6 +21,7 @@
   var articles = [].concat(W.TEM8_2026_ARTICLES || [], W.TEM8_2025_ARTICLES || [], W.TEM8_MID_ARTICLES || [], W.TEM8_ARCHIVE_ARTICLES || [], W.TEM8_ARCHIVE_ARTICLES2 || [])
     .filter(function (a) { return a && a.id && a.segments && a.segments.length })
   var questions = [].concat(W.TEM8_2026_QUESTIONS || [], W.TEM8_2025_QUESTIONS || [], W.TEM8_MID_QUESTIONS || [], W.TEM8_ARCHIVE_QUESTIONS || [], W.TEM8_ARCHIVE_QUESTIONS2 || [])
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] }) }
   function store() { return json('tem8_studio_web_v1', {}) }
   function stateOf(id) { var s = store().readingStates || {}; return s[id] || { progress: 0, completed: false } }
   function words(a) { return a.segments.reduce(function (n, s) { return n + String(s.en || '').split(/\s+/).filter(Boolean).length }, 0) }
@@ -97,6 +98,30 @@
     else line.textContent = exam ? '考试日期已过' : '距离专八'
     $('h-date-btn').textContent = exam && left >= 0 ? '改日期' : '设定考试日期'
     if (input && exam) input.value = ymd(exam)
+
+    // 继续：上次读的那篇；没读过就从最新一篇开始
+    var card = $('h-cont')
+    if (card) {
+      var lastId = get('tem8_last_article', '')
+      var a = articles.filter(function (x) { return x.id === lastId })[0]
+      if (!a) a = articles.filter(function (x) { var s = stateOf(x.id); return s.progress > 0 && !s.completed })[0]
+      var fresh = !a
+      if (!a) a = articles[0]
+      if (a) {
+        var st = stateOf(a.id), total = a.segments.length, n = Math.min(total, st.progress || 0)
+        var line = fresh || !n ? '从这里开始' : st.completed ? '已读完，可以做题或重读' : '读到第 ' + n + ' 段，共 ' + total + ' 段'
+        card.dataset.article = a.id
+        card.hidden = false
+        card.innerHTML = '<span class="h-cont-meta">' + esc(a.year + ' · ' + a.label) + '</span><span class="h-cont-title">' + esc(opening(a, 60)) + '</span><span class="h-cont-row"><span>' + line + '</span><b>' + (fresh || !n ? '开始' : '继续') + '</b></span>'
+      }
+    }
+    // 只说做到了的
+    var week = $('h-week')
+    if (week) {
+      var since = dayNo(today) - 6, n7 = days().filter(function (k) { var d = parse(k); return d && dayNo(d) >= since }).length
+      week.hidden = !n7
+      week.textContent = n7 ? '这一周学了 ' + n7 + ' 天' : ''
+    }
 
   }
 

@@ -197,19 +197,34 @@
     const keepMode=cfg.mode
     openConfig(type);cfg.mode=keepMode;if(!cfg.minutesTouched)cfg.minutes=estimate().minutes;renderConfig()
   }
-  function typeStat(type){
-    const runs=(load().history||[]).filter(r=>r.type===type&&Array.isArray(r.groups))
-    if(!runs.length)return ''
-    const last=stats(runs.at(-1)).pct
-    return `练过 ${runs.length} 次${last!=null?` · 上次正确率 ${last}%`:''}`
+  const ago=t=>{const d=Math.floor((new Date().setHours(0,0,0,0)-new Date(t).setHours(0,0,0,0))/864e5);return d<=0?'今天':d===1?'昨天':`${d} 天前`}
+  function lastRunOf(types){const runs=(load().history||[]).filter(r=>types.includes(r.type)&&Array.isArray(r.groups));return runs.at(-1)}
+  function cardStat(types){
+    const r=lastRunOf(types);if(!r)return ''
+    const st=stats(r),g=st.gradable.length
+    return `上次 ${g?`${st.ok}/${g}`:'已完成'} · ${ago(r.finishedAt)}`
   }
   const CARD_GROUPS=[
-    {name:'听力',icon:'♫',sub:'讲座填空 · 访谈选择',types:['lecture','interview'],chips:[['lecture','A 讲座填空'],['interview','B 访谈']]},
-    {name:'阅读',icon:'▧',sub:'选择题 · 简答题',types:['reading-group']},
-    {name:'语言运用',icon:'⌁',sub:'改错 · 每套 10 处',types:['language']},
-    {name:'翻译',icon:'↗︎',sub:'汉译英 · 约 30 分钟',types:['translation']},
-    {name:'写作',icon:'✒',sub:'摘要＋观点 · 300 词',types:['writing']}
+    {name:'听力',type:'lecture',sub:'讲座填空 · 访谈 · 约 25 分钟',types:['lecture','interview']},
+    {name:'阅读',type:'reading-group',sub:'选择 + 简答 · 约 45 分钟',types:['reading-group']},
+    {name:'语言运用',type:'language',sub:'改错 10 处 · 约 15 分钟',types:['language']},
+    {name:'翻译',type:'translation',sub:'汉译英 · 约 20 分钟',types:['translation']},
+    {name:'写作',type:'writing',sub:'摘要 + 观点 · 约 45 分钟',types:['writing']}
   ]
+  // 各题型客观题正确率（薄弱项分析用）
+  function accuracyByKind(){
+    const out={listen:{ok:0,n:0},read:{ok:0,n:0},lang:{ok:0,n:0}}
+    for(const r of load().history||[]){if(!Array.isArray(r.groups))continue
+      for(const it of allItems(r.groups)){
+        const k=it.kind==='blank'||it.key.startsWith('interview')?'listen':it.kind==='choice'||it.kind==='short'?'read':it.kind==='line'?'lang':null
+        if(!k)continue
+        if(it.kind==='line'){const fix=String(it.fix||''),v=String(r.answers?.[it.key]?.text||'');if(!v.trim()||!/→/.test(fix))continue;const want=fix.split('→').pop().replace(/[^a-z]/gi,'').toLowerCase();if(!want)continue;out.lang.n++;if(v.toLowerCase().replace(/[^a-z]/g,' ').split(/\s+/).includes(want))out.lang.ok++;continue}
+        if(!gradable(it))continue
+        const g=grade(it,r.answers||{});if(g==='none')continue
+        out[k].n++;if(g==='ok')out[k].ok++
+      }}
+    return out
+  }
   function renderCards(){
     const html=TYPES.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">配置练习 <b>↗︎</b></span></button>`).join('')
     const home=$('#home-categories');if(home)home.innerHTML=html
@@ -218,12 +233,12 @@
     if(!box&&grid){box=document.createElement('div');box.id='paper-cards';grid.before(box)}
     if(!box)return
     const live=load().session
-    const resume=live?.groups?.length&&live.type!=='mock'?`<div class="pc-resume"><span class="pc-ico">▶</span><div><b>继续：${escape(live.type==='review'?(live.label||'错题复习'):title(live.type))}</b><small>${sessionSummary(live)}</small></div><button type="button" class="pc-btn" data-pq-discard>放弃</button><button type="button" class="pc-btn" data-workflow-resume>继续</button></div>`:''
+    const resume=live?.groups?.length&&live.type!=='mock'?`<div class="pc-resume"><div><b>继续：${escape(live.type==='review'?(live.label||'错题复习'):title(live.type))}</b><small>${sessionSummary(live)}</small></div><button type="button" class="pc-btn" data-pq-discard>放弃</button><button type="button" class="pc-btn strong" data-workflow-resume>继续</button></div>`:''
+    const mis=window.TEM8_REVIEW?.count?.()||0
     box.innerHTML=resume+`<div class="pc-grid">${CARD_GROUPS.map(G=>{
-      const stat=G.types.map(typeStat).filter(Boolean).join('；')
-      const foot=`<span class="pc-stat ${stat?'':'none'}">${escape(stat||'还没练过')}</span>`
-      if(G.chips)return `<div class="pc-card"><div class="pc-top"><b>${G.name}</b><span class="pc-ico">${G.icon}</span></div><div class="pc-chips">${G.chips.map(([t,l])=>`<button type="button" data-workflow-type="${t}">${l}</button>`).join('')}</div>${foot}</div>`
-      return `<button type="button" class="pc-card" data-workflow-type="${G.types[0]}"><span class="pc-top"><b>${G.name}</b><span class="pc-ico">${G.icon}</span></span><span class="pc-sub">${G.sub}</span>${foot}</button>`}).join('')}</div>`
+      const stat=cardStat(G.types)
+      return `<button type="button" class="pc-card" data-workflow-type="${G.type}"><span class="pc-top"><b>${G.name}</b>${stat?'':'<span class="pc-new">新</span>'}</span><span class="pc-sub">${G.sub}</span>${stat?`<span class="pc-stat">${escape(stat)}</span>`:''}</button>`}).join('')}
+      <button type="button" class="pc-card" data-pc-mistakes><span class="pc-top"><b>错题重练</b></span><span class="pc-sub">${mis?`${mis} 道待掌握 · 按间隔复习`:'答错的题会自动收进来'}</span>${mis?'<span class="pc-stat">开始复习</span>':''}</button></div>`
   }
   function sessionSummary(s){
     const items=allItems(s.groups),done=items.filter(it=>isAnswered(it,s.answers||{})).length
@@ -294,6 +309,7 @@
     newSession(groups,'review',{mode:'practice',instant:false,allowWord:true});session.label=label||'错题复习';persist();renderSession();return true
   }
 
+  let pendingMock=null
   function openMock(year){
     const y=Number(year),L=listening[y]||{},p=papers[y]||{},groups=[]
     if(L.miniLecture?.blanks?.length)groups.push({kind:'lecture',year:y})
@@ -305,8 +321,9 @@
     if(!groups.length)return
     const live=load().session
     if(live?.type==='mock'&&Number(live.year)===y){resume();return}
-    if(live?.groups?.length&&!confirm('还有一份练习没交卷，开始模考会替换它。继续吗？'))return
-    newSession(groups,'mock',{mode:'exam',minutes:Number(L.timeLimitMinutes)||Number(p.timeLimitMinutes)||150,replay:false})
+    const mins=Number(L.timeLimitMinutes)||Number(p.timeLimitMinutes)||150
+    pendingMock=()=>newSession(groups,'mock',{mode:'exam',minutes:mins,replay:false})
+    dialog(`<h3>${y} 年整卷模考</h3><p>将按考试顺序计时，共约 ${mins} 分钟；中途可以保存退出，下次接着做。</p>${live?.groups?.length?'<p class="pq-dlg-note">你还有一份练习没交卷，开始模考会替换它。</p>':''}<div class="pq-dlg-actions"><button type="button" class="secondary-btn" data-pq-dlg="close">取消</button><button type="button" class="primary-btn" data-pq-dlg="mock">开始</button></div>`)
   }
   /* ---------- 做题页 ---------- */
   const group=()=>session.groups[session.current]
@@ -708,6 +725,7 @@
     const d=t.dataset
     if(d.pqDlg){e.stopPropagation()
       if(d.pqDlg==='close'){pendingLeave=null;$('#pq-dialog')?.close()}
+      else if(d.pqDlg==='mock'){$('#pq-dialog')?.close();const f=pendingMock;pendingMock=null;f?.()}
       else if(d.pqDlg==='submit'){$('#pq-dialog')?.close();submit()}
       else if(d.pqDlg==='keep')leave(false)
       else if(d.pqDlg==='discard')leave(true)
@@ -722,6 +740,7 @@
       const sel=articles.find(x=>x.year===Number(yr?.[1])&&x.title===$('.reader-title').textContent)
       if(sel){e.stopPropagation();openConfig('reading-group',sel.id);start();return}
     }
+    if(d.pcMistakes!==undefined){e.stopPropagation();const b=document.querySelector('.tabbar [data-tab="review"]');confirmBypass=true;(document.querySelector('.seg-tabs [data-view="mistakes"]')||b)?.click();b?.click();confirmBypass=false;setTimeout(()=>document.querySelector('[data-rv-start]:not([disabled])')?.click(),80);return}
     if(d.pqGroup){e.stopPropagation();const G=GROUPS.find(x=>x.id===d.pqGroup);if(G&&!G.types.includes(cfg.type))setType(G.types[0]);return}
     if(d.pqType){e.stopPropagation();if(d.pqType!==cfg.type)setType(d.pqType);return}
     if(d.pqYear){e.stopPropagation();const y=Number(d.pqYear);cfg.years=cfg.years.includes(y)?cfg.years.filter(x=>x!==y):[...cfg.years,y];cfg.passages=[];if(!cfg.minutesTouched)cfg.minutes=0;renderConfig();return}
@@ -819,5 +838,5 @@
     const live=s.session;if(live?.marks&&Array.isArray(live.groups)){try{mistakeUpdate({groups:live.groups,answers:{},marks:live.marks,finishedAt:Date.now()})}catch{}}
     writeStore(x=>{x.mzv=1})
   })()
-  window.TEM8_WORKFLOW={renderCards,readerActions,openConfig,openMock,runScore:r=>stats(r).pct,history:()=>load().history||[],session:()=>load().session,itemInfo,startKeys,analysisHTML,parseKey,REASONS}
+  window.TEM8_WORKFLOW={renderCards,readerActions,openConfig,openMock,accuracyByKind,runScore:r=>stats(r).pct,history:()=>load().history||[],session:()=>load().session,itemInfo,startKeys,analysisHTML,parseKey,REASONS}
 })()

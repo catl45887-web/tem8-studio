@@ -6,22 +6,22 @@
   <meta name="theme-color" content="#2b1e17">
   <meta name="description" content="专八真题阅读与题组练习。">
   <title>拾页 · 专八练习</title>
-  <link rel="stylesheet" href="styles.css?v=202611032018">
-  <link rel="stylesheet" href="reader.css?v=202611032018">
-  <link rel="stylesheet" href="workflow.css?v=202611032018">
-  <link rel="stylesheet" href="annotate.css?v=202611032018">
-  <link rel="stylesheet" href="intensive.css?v=202611032018">
+  <link rel="stylesheet" href="styles.css?v=202611032046">
+  <link rel="stylesheet" href="reader.css?v=202611032046">
+  <link rel="stylesheet" href="workflow.css?v=202611032046">
+  <link rel="stylesheet" href="annotate.css?v=202611032046">
+  <link rel="stylesheet" href="intensive.css?v=202611032046">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css?v=202611032018" id="css-winter-base">
-  <link rel="stylesheet" href="winter.css?v=202611032018" id="css-winter">
-  <link rel="stylesheet" href="wordpop.css?v=202611032018">
-  <link rel="stylesheet" href="backup.css?v=202611032018">
+  <link rel="stylesheet" href="winter-base.css?v=202611032046" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css?v=202611032046" id="css-winter">
+  <link rel="stylesheet" href="wordpop.css?v=202611032046">
+  <link rel="stylesheet" href="backup.css?v=202611032046">
   <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
-  <link rel="stylesheet" href="theme-light.css?v=202611032018">
-  <link rel="stylesheet" href="theme-dark.css?v=202611032018">
-  <link rel="stylesheet" href="themes.css?v=202611032018">
-  <link rel="stylesheet" href="app.css?v=202611032018">
-  <link rel="stylesheet" href="practice.css?v=202611032018">
+  <link rel="stylesheet" href="theme-light.css?v=202611032046">
+  <link rel="stylesheet" href="theme-dark.css?v=202611032046">
+  <link rel="stylesheet" href="themes.css?v=202611032046">
+  <link rel="stylesheet" href="app.css?v=202611032046">
+  <link rel="stylesheet" href="practice.css?v=202611032046">
   <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
   <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}[t]})()</script>
 </head>
@@ -55,6 +55,8 @@
             <p class="h-count-line" id="h-count-line">距离专八</p>
             <label class="h-date-edit"><span id="h-date-btn">设定考试日期</span><input type="date" id="h-exam-date" aria-label="考试日期"></label>
           </section>
+          <button type="button" class="h-cont" id="h-cont" data-open-reader data-mode="free" data-article="" hidden></button>
+          <p class="h-week" id="h-week" hidden></p>
 
         </div>
       </section>
@@ -65,10 +67,10 @@
         <div id="library-year-nav" class="library-year-nav" aria-label="选择真题年份"></div>
         <div id="real-article-list" class="real-article-list"></div>
       </section>
-      <section id="papers-view" class="view"><header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><div id="paper-categories" class="category-grid"></div><p class="app-note">进入题型后再选真题年份。听力可按 Section A、B 分开练。</p></section>
+      <section id="papers-view" class="view"><header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><div id="paper-categories" class="category-grid"></div></section>
 
       <section id="mock-view" class="view">
-        <header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header><p class="app-sub">按考试顺序连续完成 Part I—V，计时作答。</p>
+        <header class="app-head"><h1>练习</h1><nav class="seg-tabs" aria-label="练习分类"><button type="button" data-view="papers">按题型</button><button type="button" data-view="mock">整卷模考</button><button type="button" data-view="intensive">精听</button></nav></header>
         <div id="mock-list" class="mock-grid"></div>
       </section>
       <section id="intensive-view" class="view">
@@ -134,47 +136,47 @@
 
       <section id="exam-view" class="view"><div class="exam-header"><button class="back-link" id="exit-exam">← 返回练习</button><div class="exam-meta"><span id="exam-title"></span><span class="timer" id="timer">00:00</span></div></div><div class="exam-layout"><div class="exam-main"><div class="exam-progress"><span id="question-counter"></span><span id="answer-status"></span></div><div id="question-area"></div><div class="exam-actions"><button class="secondary-btn" id="prev-question">上一题</button><button class="primary-btn" id="next-question">下一题 <span>→</span></button></div></div><aside class="exam-side"><div class="side-card"><h3>答题卡</h3><p>点击题号快速跳转</p><div id="answer-grid" class="answer-grid"></div><div class="legend"><span><i></i> 未作答</span><span><i></i> 已作答</span></div><button class="submit-btn" id="submit-exam">提交练习</button></div><p class="save-note">✳︎ 记录保存在当前浏览器，换设备或清理缓存前，请先在「我的」中导出备份</p></aside></div></section>
       <section id="result-view" class="view"><div class="page-head"><h1>练习完成</h1><p>先看结果，再看每道题为什么对或错。</p></div><div id="result-content"></div></section>
-      <section id="reader-view" class="view"><header class="rd-bar"><button class="rd-ic" id="reader-back" type="button" aria-label="返回"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div id="article-mode-switch" class="rd-mode" role="group" aria-label="文章模式"><button type="button" data-article-mode="free">精读</button><button type="button" data-article-mode="practice">做题</button></div><button class="rd-ic rd-aa" type="button" data-rd-panel aria-label="字号与背景" aria-expanded="false">Aa</button><button class="rd-ic" type="button" data-rd-notes aria-label="笔记"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l6 6L9 21H3v-6zM12 6l6 6"/></svg><b class="rd-count" data-rd-count hidden></b></button></header><div class="rd-panel" id="rd-panel" hidden><div class="rd-panel-row"><span>字号</span><button type="button" data-font="-1" aria-label="缩小字号">A−</button><button type="button" data-font="1" aria-label="放大字号">A＋</button></div><div class="rd-panel-row" id="rd-zh-row" hidden><span>译文</span><button type="button" data-zh-all>全部展开</button></div><div class="rd-panel-row"><span>背景</span><button type="button" data-reading-background aria-label="切换阅读背景">切换纸色</button></div></div><button class="rd-return" data-workflow-return hidden>← 返回题组</button><span class="reader-badge" id="reader-mode-badge"></span><h1 class="reader-title"></h1><p class="reader-subtitle" id="reader-subtitle"></p><div id="reader-content"></div><div class="rd-done"><button type="button" id="reading-done" data-action="reading-done">标记读完</button></div><nav class="reader-tabs rd-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文</button><button data-reader-tab="parse">长难句</button><button data-reader-tab="syntax">句法</button><button data-reader-tab="knowledge">知识点</button><button data-reader-tab="words">单词本</button></nav></section>
+      <section id="reader-view" class="view"><header class="rd-bar"><button class="rd-ic" id="reader-back" type="button" aria-label="返回"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div id="article-mode-switch" class="rd-mode" role="group" aria-label="文章模式"><button type="button" data-article-mode="free">精读</button><button type="button" data-article-mode="practice">做题</button></div><button class="rd-ic rd-aa" type="button" data-rd-panel aria-label="字号与背景" aria-expanded="false">Aa</button><button class="rd-ic rd-notes-txt" type="button" data-rd-notes aria-label="笔记">笔记<b class="rd-count" data-rd-count hidden></b></button></header><div class="rd-progress" aria-hidden="true"><i id="rd-progress"></i></div><div class="rd-panel" id="rd-panel" hidden><div class="rd-panel-row"><span>字号</span><button type="button" data-font="-1" aria-label="缩小字号">A−</button><button type="button" data-font="1" aria-label="放大字号">A＋</button></div><div class="rd-panel-row" id="rd-zh-row" hidden><span>译文</span><button type="button" data-zh-all>全部展开</button></div><div class="rd-panel-row"><span>行距</span><button type="button" data-line-h="-1" aria-label="行距变小">紧</button><button type="button" data-line-h="1" aria-label="行距变大">松</button></div><div class="rd-panel-row"><span>背景</span><button type="button" data-reading-background aria-label="切换阅读背景">切换纸色</button></div></div><button class="rd-return" data-workflow-return hidden>← 返回题组</button><span class="reader-badge" id="reader-mode-badge"></span><h1 class="reader-title"></h1><p class="reader-subtitle" id="reader-subtitle"></p><div id="reader-content"></div><div class="rd-done"><button type="button" id="reading-done" data-action="reading-done">标记读完</button></div><nav class="reader-tabs rd-tabs" role="tablist" aria-label="阅读工具"><button data-reader-tab="translate" class="active">原文</button><button data-reader-tab="parse">长难句</button><button data-reader-tab="syntax">句法</button><button data-reader-tab="knowledge">知识点</button><button data-reader-tab="words">单词本</button></nav></section>
     </main>
   </div>
 <nav class="tabbar" aria-label="主导航"><button type="button" data-tab="home" data-view="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4z"/></svg><span>首页</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="library" data-view="library"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5h6a2 2 0 0 1 2 2V20a1.5 1.5 0 0 0-1.5-1.5H4zM20 4.5h-6a2 2 0 0 0-2 2V20a1.5 1.5 0 0 1 1.5-1.5H20z"/></svg><span>阅读</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="practice" data-view="papers"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l6 6L9 21H3v-6zM12 6l6 6"/></svg><span>练习</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="review" data-view="mistakes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5M4 4v4.5h4.5"/></svg><span>复习</span><b class="tab-dot" data-tab-dot hidden></b></button><button type="button" data-tab="my" data-view="my"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.5a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg><span>我的</span><b class="tab-dot" data-tab-dot hidden></b></button></nav>
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶︎ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
-  <script src="data.js?v=202611032018"></script>
-  <script src="articles2026.js?v=202611032018"></script>
-  <script src="questions2026.js?v=202611032018"></script>
-  <script src="paperExtras2026.js?v=202611032018"></script>
-  <script src="listening2026.js?v=202611032018"></script>
-  <script src="paperExtras2025.js?v=202611032018"></script>
-  <script src="papers2021_2024.js?v=202611032018"></script>
-  <script src="listeningArchive.js?v=202611032018"></script>
-  <script src="audioArchive.js?v=202611032018"></script>
-  <script src="articles2025.js?v=202611032018"></script>
-  <script src="articles2025-extras.js?v=202611032018"></script>
-  <script src="questions2025.js?v=202611032018"></script>
-  <script src="articlesArchive.js?v=202611032018"></script>
-  <script src="questionsArchive.js?v=202611032018"></script>
-  <script src="articlesArchive2.js?v=202611032018"></script>
-  <script src="questionsArchive2.js?v=202611032018"></script>
-  <script src="paperExtras.js?v=202611032018"></script>
-  <script src="paperExtras2.js?v=202611032018"></script>
-  <script src="annotations.js?v=202611032018"></script>
-  <script src="player.js?v=202611032018"></script>
-  <script src="transcripts.js?v=202611032018"></script>
-  <script src="intensive.js?v=202611032018"></script>
-  <script src="workflow.js?v=202611032018"></script>
-  <script src="dictionary/prefixes.js?v=202611032018"></script>
-  <script src="app.js?v=202611032018"></script>
-  <script src="review.js?v=202611032018"></script>
-  <script src="winter.js?v=202611032018"></script>
-  <script src="wordpop.js?v=202611032018"></script>
-  <script src="backup.js?v=202611032018"></script>
-  <script src="cloud-sync/config.js?v=202611032018"></script>
-  <script type="module" src="cloud-sync/client.mjs?v=202611032018"></script>
-  <script src="themes.js?v=202611032018"></script>
-  <script src="home.js?v=202611032018"></script>
-  <script src="splash.js?v=202611032018"></script>
-  <script src="appnav.js?v=202611032018"></script>
+  <script src="data.js?v=202611032046"></script>
+  <script src="articles2026.js?v=202611032046"></script>
+  <script src="questions2026.js?v=202611032046"></script>
+  <script src="paperExtras2026.js?v=202611032046"></script>
+  <script src="listening2026.js?v=202611032046"></script>
+  <script src="paperExtras2025.js?v=202611032046"></script>
+  <script src="papers2021_2024.js?v=202611032046"></script>
+  <script src="listeningArchive.js?v=202611032046"></script>
+  <script src="audioArchive.js?v=202611032046"></script>
+  <script src="articles2025.js?v=202611032046"></script>
+  <script src="articles2025-extras.js?v=202611032046"></script>
+  <script src="questions2025.js?v=202611032046"></script>
+  <script src="articlesArchive.js?v=202611032046"></script>
+  <script src="questionsArchive.js?v=202611032046"></script>
+  <script src="articlesArchive2.js?v=202611032046"></script>
+  <script src="questionsArchive2.js?v=202611032046"></script>
+  <script src="paperExtras.js?v=202611032046"></script>
+  <script src="paperExtras2.js?v=202611032046"></script>
+  <script src="annotations.js?v=202611032046"></script>
+  <script src="player.js?v=202611032046"></script>
+  <script src="transcripts.js?v=202611032046"></script>
+  <script src="intensive.js?v=202611032046"></script>
+  <script src="workflow.js?v=202611032046"></script>
+  <script src="dictionary/prefixes.js?v=202611032046"></script>
+  <script src="app.js?v=202611032046"></script>
+  <script src="review.js?v=202611032046"></script>
+  <script src="winter.js?v=202611032046"></script>
+  <script src="wordpop.js?v=202611032046"></script>
+  <script src="backup.js?v=202611032046"></script>
+  <script src="cloud-sync/config.js?v=202611032046"></script>
+  <script type="module" src="cloud-sync/client.mjs?v=202611032046"></script>
+  <script src="themes.js?v=202611032046"></script>
+  <script src="home.js?v=202611032046"></script>
+  <script src="splash.js?v=202611032046"></script>
+  <script src="appnav.js?v=202611032046"></script>
 </body>
 </html>
