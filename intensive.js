@@ -28,7 +28,7 @@
   let show = SHOWS.some(s => s[0] === saved.show) ? saved.show : (saved.mode === 'hide' ? 'tap' : 'normal')
   let view = 'read', dIdx = 0, dChecked = false
   let selected = -1, active = -1, loopOn = false, loopIdx = -1, ab = { a: null, b: null }, stopAt = null, raf = 0, opening = false, lastPosSave = 0
-  let revealed = new Set(), book = new Set()
+  let revealed = new Set(), book = new Set(), zhOpen = new Set()
   const host = () => document.querySelector('#intensive-content')
   const rows = () => scripts[year]?.[section] || []
   const track = () => listening[year] || {}
@@ -80,7 +80,9 @@
     const sp = row.sp ? `<span class="ix-sp ${row.sp === 'W' ? 'w' : 'm'}">${row.sp === 'W' ? '主持人' : '嘉宾'}</span>` : ''
     const masked = (show === 'tap' || show === 'cover') && !revealed.has(i)
     const body = show === 'hide' && !revealed.has(i) ? `<span class="ix-slot">第 ${i + 1} 句 · 点击播放</span>` : `<span class="ix-text">${textHTML(row.en)}</span>`
-    return `${part}<div class="ix-line ${masked ? 'm-' + show : ''} ${i === active ? 'playing' : ''} ${i === selected ? 'selected' : ''}" data-ix-line="${i}"><button type="button" class="ix-no" data-ix-seek="${i}" aria-label="从第 ${i + 1} 句播放">${String(i + 1).padStart(2, '0')}</button><div class="ix-copy">${sp}${body}</div><time class="ix-t" data-intensive-time="${i}">${fmt(time(i))}</time></div>`
+    const zh = (window.TEM8_LISTENING_ZH || {})[year]?.[section]?.[i] || row.zh
+    const translation = zh ? `<button type="button" class="ix-zh-toggle" data-ix-zh="${i}" aria-expanded="${zhOpen.has(i)}">${zhOpen.has(i) ? '收起译文' : '查看译文'}</button>${zhOpen.has(i) ? `<p class="ix-zh">${esc(zh)}</p>` : ''}` : ''
+    return `${part}<div class="ix-line ${masked ? 'm-' + show : ''} ${i === active ? 'playing' : ''} ${i === selected ? 'selected' : ''}" data-ix-line="${i}"><button type="button" class="ix-no" data-ix-seek="${i}" aria-label="从第 ${i + 1} 句播放">${String(i + 1).padStart(2, '0')}</button><div class="ix-copy">${sp}${body}${translation}</div><time class="ix-t" data-intensive-time="${i}">${fmt(time(i))}</time></div>`
   }
   function header() {
     const main = allYears.filter(y => hasAudio(y) && anyScript(y))
@@ -234,8 +236,9 @@
     const d = b.dataset
     if (!b.closest('#ix-sheet') && d.ixAa === undefined) { const sh = host().querySelector('#ix-sheet'); if (sh) sh.hidden = true }
     if (!b.closest('#ix-menu') && d.ixMenu === undefined) { const m = host().querySelector('#ix-menu'); if (m) m.hidden = true }
-    if (d.intensiveYear) { savePos(); year = Number(d.intensiveYear); if (!hasScript(year, section) && hasScript(year, section === 'A' ? 'B' : 'A')) section = section === 'A' ? 'B' : 'A'; render(); return }
-    if (d.intensiveSection) { savePos(); section = d.intensiveSection; render(); return }
+    if (d.intensiveYear) { savePos(); year = Number(d.intensiveYear); zhOpen = new Set(); if (!hasScript(year, section) && hasScript(year, section === 'A' ? 'B' : 'A')) section = section === 'A' ? 'B' : 'A'; render(); return }
+    if (d.intensiveSection) { savePos(); section = d.intensiveSection; zhOpen = new Set(); render(); return }
+    if (d.ixZh !== undefined) { const i = Number(d.ixZh); zhOpen.has(i) ? zhOpen.delete(i) : zhOpen.add(i); rerenderLine(i); return }
     if (d.ixAa !== undefined) { const sh = host().querySelector('#ix-sheet'); sh.hidden = !sh.hidden; return }
     if (d.ixShow) { show = d.ixShow; revealed = new Set(); save(); host().querySelectorAll('[data-ix-show]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)) }); if (view === 'read') { const l = host().querySelector('#intensive-lines'); if (l) { l.innerHTML = rows().map(lineHTML).join(''); paintActive(active) } } return }
     if (d.ixFs) { saved.fs = Number(d.ixFs); save(); host().style.setProperty('--ix-fs', saved.fs); host().querySelectorAll('[data-ix-fs]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)) }); return }

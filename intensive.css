@@ -29,3 +29,5 @@
 .intensive-calibration input.invalid{border-color:#cb6857}
 .intensive-empty{padding:20px;background:#fff;border-radius:12px}
 @media(max-width:700px){.intensive-studybar{display:block}.intensive-study-actions{justify-content:flex-start;margin-top:12px}.intensive-line{grid-template-columns:25px minmax(0,1fr) 44px;gap:8px;padding:12px 10px}.intensive-line-copy{font-size:15px}.intensive-years button,.intensive-sections button{padding:8px 10px;font-size:12px}}
+.ix-zh-toggle{display:block;margin:7px 0 0;padding:0;border:0;background:none;color:var(--green,#607e63);font:inherit;font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.ix-zh{margin:7px 0 2px;color:inherit;opacity:.82;font-size:14px;line-height:1.75}
