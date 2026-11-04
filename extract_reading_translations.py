@@ -21,6 +21,11 @@ process.stdout.write(JSON.stringify(Object.fromEntries(a.map(x=>[x.id,x.segments
 article_sizes = json.loads(subprocess.check_output(['node', '-e', js], cwd=ROOT, text=True, encoding='utf-8'))
 translations = {}
 
+def strip_annotations(text):
+    # Question-location marks appear inside the printed translations, and
+    # several OCR files have a damaged closing bracket (for example [30]).
+    return re.sub(r'[\[【「『]\s*\d{1,2}(?:\s*[A-D])?(?:\s*/\s*\d{1,3})?\s*[\]】〗）)]?', '', text)
+
 for year in YEARS:
     source = next((p for p in SOURCE.glob('*.docx') if str(year) in p.name and '解析' in p.name), None)
     if not source:
@@ -45,7 +50,7 @@ for year in YEARS:
             if not 1 <= number <= size or values[number - 1]:
                 continue
             text = line[numbered.end():].strip()
-            text = re.sub(r'\[(?:\d{1,2}[A-D]?)(?:/\d{1,2}[A-D]?)*\]', '', text).strip()
+            text = strip_annotations(text).strip()
             if re.search(r'[\u3400-\u9fff]', text):
                 values[number - 1] = text
         if any(values):
@@ -78,9 +83,8 @@ for year in [2017, 2018, 2019, 2021, 2023]:
             raw = re.split(r'(?m)^\s*\d{1,2}\s*\.\s*\[[A-D]\]', raw, maxsplit=1)[0]
             raw = re.split(r'(?m)^\s*(?:答案|重点词汇|难句分析)', raw, maxsplit=1)[0]
             raw = re.sub(r'(?m)^\s*华研外语[^\n]*\n', '', raw)
-            raw = re.sub(r'\[\d{1,2}[A-D]?\]', '', raw)
+            raw = strip_annotations(raw)
             raw = re.sub(r'专八2021\s*-\s*\d+\s*微信公众号：本初学社', '', raw)
-            raw = re.sub(r'[「\[]\s*\d+(?:/\d+)?[〗\]]', '', raw)
             raw = re.sub(r'(?<=[\u3400-\u9fff])\n(?=[\u3400-\u9fff])', '', raw)
             raw = ' '.join(raw.split())
             if len(raw) >= 20 and re.search(r'[\u3400-\u9fff]', raw):
