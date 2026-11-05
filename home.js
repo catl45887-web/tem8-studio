@@ -113,6 +113,7 @@
         card.dataset.article = a.id
         card.hidden = false
         card.innerHTML = '<span class="h-cont-meta">' + esc(String(a.year)) + ' 真题</span><span class="h-cont-title">' + esc(a.label) + '</span><span class="h-cont-row"><span>' + line + '</span><b>' + (fresh || !n ? '开始' : '继续') + '</b></span>'
+          + '<span class="hc-line"><span class="hc-tag">' + (fresh || !n ? '开始读' : '继续读') + '</span><span class="hc-title">' + esc(String(a.year)) + ' ' + esc(a.label) + '</span><span class="hc-state">' + (st.completed ? '已读完' : n ? n + '/' + total + ' 段' : '') + '</span><span class="hc-arrow" aria-hidden="true">›</span></span>'
       }
     }
     // 只说做到了的
@@ -132,7 +133,7 @@
   }
 
   render()
-  document.addEventListener('tem8:view', function (e) { if (e.detail === 'home') render() })
+  document.addEventListener('tem8:view', function (e) { if ({ home: 1, library: 1, papers: 1, mock: 1, intensive: 1 }[e.detail]) render() })
   document.addEventListener('tem8:theme', render)
   var sm = $('stat-mistakes')
   if (sm && window.MutationObserver) new MutationObserver(render).observe(sm, { childList: true, characterData: true, subtree: true })

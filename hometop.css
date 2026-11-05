@@ -1,0 +1,53 @@
+/* 首页顶部（浅色 / 深色）：倒计时 + 继续条 + 精读|题型练习|模考|精听
+   圣诞主题保持原样：只隐藏新加的东西 */
+
+/* ---------- 圣诞：不显示新元素 ---------- */
+html[data-theme=xmas] .home-tabs,
+html[data-theme=xmas] .h-date-ico,
+html[data-theme=xmas] .hc-line{display:none}
+
+/* ---------- 浅色 / 深色 ---------- */
+html:not([data-theme=xmas]) .tabbar .tab-xmas{display:none!important}
+html:not([data-theme=xmas]) #home-view .t-home{display:none}
+
+/* 顶部块放进分段页时，原来的页头（"阅读""练习"标题和分段）不再需要 */
+html:not([data-theme=xmas]) body.app-home-seg .view.active > .app-head{display:none}
+html:not([data-theme=xmas]) .home-top{padding-top:22px}
+
+/* 倒计时：字大一号，数字是重心 */
+html:not([data-theme=xmas]) .home-top .h-count{display:flex;align-items:center;justify-content:flex-start;gap:6px;min-height:44px;flex-wrap:wrap}
+html:not([data-theme=xmas]) .home-top .h-count-line{font-size:18px;color:var(--ink);letter-spacing:.5px}
+html:not([data-theme=xmas]) .home-top .h-count-line b{font-size:32px;font-weight:600;color:var(--wine);margin:0 4px;letter-spacing:0;line-height:1;vertical-align:-3px;font-variant-numeric:lining-nums}
+html:not([data-theme=xmas]) .home-top .h-date-edit{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;margin:0;border-radius:10px;color:var(--muted);cursor:pointer;position:relative;flex:none}
+html:not([data-theme=xmas]) .home-top .h-date-edit:active{background:var(--soft)}
+html:not([data-theme=xmas]) .h-date-ico{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+html:not([data-theme=xmas]) .home-top #h-date-btn{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html:not([data-theme=xmas]) .home-top .h-date-edit input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+html:not([data-theme=xmas]) .home-top .h-week{margin:0 0 0 auto;font-size:13px;color:var(--muted)}
+
+/* 继续条：一行，像一条提示，不再是大卡片 */
+html:not([data-theme=xmas]) .home-top .h-cont{display:block!important;margin:14px 0 6px!important;padding:0 16px!important;min-height:48px;border:0!important;border-radius:12px!important;background:var(--card,var(--paper))!important;box-shadow:none!important}
+html:not([data-theme=xmas]) .home-top .h-cont[hidden]{display:none!important}
+html:not([data-theme=xmas]) .home-top .h-cont > .h-cont-meta,
+html:not([data-theme=xmas]) .home-top .h-cont > .h-cont-title,
+html:not([data-theme=xmas]) .home-top .h-cont > .h-cont-row{display:none!important}
+.hc-line{display:flex;align-items:center;gap:10px;min-height:48px;font-size:15px;color:var(--ink)}
+.hc-tag{flex:none;font-size:13px;color:var(--wine)}
+.hc-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hc-state{flex:none;font-size:13px;color:var(--muted)}
+.hc-arrow{flex:none;font-size:20px;line-height:1;color:var(--muted);margin-left:2px}
+html:not([data-theme=xmas]) .home-top .h-cont:active{background:var(--soft)!important}
+
+/* 四个分段：等距排开；选中加粗变深、下面一根短横线 */
+.home-tabs{display:flex;justify-content:space-between;margin:14px 0 0;border-bottom:1px solid var(--line)}
+.home-tabs button{flex:1;position:relative;border:0;background:none;border-radius:0;padding:12px 0 13px;font:inherit;font-size:16px;font-weight:400;letter-spacing:1px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.home-tabs button.active{color:var(--ink);font-weight:600}
+.home-tabs button.active::after{content:"";position:absolute;left:50%;bottom:-1px;width:20px;height:3px;margin-left:-10px;border-radius:2px;background:var(--ink)}
+@media (min-width:600px){.home-tabs{justify-content:flex-start;gap:40px}.home-tabs button{flex:none}}
+
+/* 分段页内容和顶部块之间留一点空 */
+html:not([data-theme=xmas]) body.app-home-seg .view.active > .home-top + *{margin-top:18px}
+
+/* 底栏只剩 3 栏 */
+html:not([data-theme=xmas]) .tabbar{grid-template-columns:repeat(3,1fr)}
+@media (min-width:900px){html:not([data-theme=xmas]) .tabbar{width:340px}}

@@ -1,5 +1,6 @@
 /* 拾页 · App 式导航
-   - 底部 5 栏：首页 / 阅读 / 练习 / 复习 / 我的（所有主题、所有屏幕宽度）
+   - 浅色/深色：底部 3 栏 首页 / 复习 / 我的；首页顶部是倒计时、继续条和 精读|题型练习|模考|精听 四个分段
+   - 圣诞主题：底部 5 栏 首页 / 阅读 / 练习 / 复习 / 我的（保持原样）
    - 练习、复习、我的 各有顶部分段切换；底栏记住上次停在哪一段
    - 阅读页、做题页是沉浸页：隐藏底栏
    - 阅读页顶栏：字号与背景面板、笔记按钮
@@ -17,6 +18,25 @@
     my: 'my', settings: 'my'
   }
   var SEG = { practice: ['papers', 'mock', 'intensive'], review: ['mistakes', 'words', 'bookmarks', 'notes'], my: ['my', 'settings'] }
+  // 浅色/深色：阅读和练习并进首页
+  var HOME_SEG = ['library', 'papers', 'mock', 'intensive']
+  function xmas() { return document.documentElement.dataset.theme === 'xmas' }
+  function tabOf(view) {
+    if (!xmas() && (TAB[view] === 'library' || TAB[view] === 'practice')) return 'home'
+    return TAB[view] || ''
+  }
+  function lastHomeSeg() { var v = get('tem8_tab_home', 'library'); return HOME_SEG.indexOf(v) >= 0 ? v : 'library' }
+  var homeTop = $('home-top'), homeTopHome = homeTop && homeTop.parentNode
+  function placeHomeTop(view) {
+    if (!homeTop) return
+    var target = !xmas() && HOME_SEG.indexOf(view) >= 0 ? $(view + '-view') : homeTopHome
+    if (target && homeTop.parentNode !== target) target.insertBefore(homeTop, target.firstChild)
+    document.body.classList.toggle('app-home-seg', target !== homeTopHome)
+  }
+  function homeBtn() {
+    var b = document.querySelector('.tabbar [data-tab="home"]')
+    if (b) b.dataset.view = xmas() ? 'home' : lastHomeSeg()
+  }
   var IMMERSIVE = { reader: 1, 'workflow-session': 1, 'workflow-config': 1, exam: 1 }
   var WIDE = { 'workflow-session': 1, exam: 1, 'workflow-report': 1, 'paper-archive': 1 }
 
@@ -30,6 +50,7 @@
     if (btn && SEG[tab].indexOf(last) >= 0) btn.dataset.view = last
   })
 
+  homeBtn()
   var current = ''
   function activeView() {
     var v = document.querySelector('.view.active')
@@ -38,8 +59,15 @@
   function sync() {
     var view = activeView()
     if (!view || view === current) return
+    // 浅色/深色没有单独的首页：直接进上次停留的分段
+    if (view === 'home' && !xmas()) {
+      var go = document.querySelector('.home-tabs [data-view="' + lastHomeSeg() + '"]')
+      if (go) { go.click(); return }
+    }
     current = view
-    var tab = TAB[view] || ''
+    var tab = tabOf(view)
+    placeHomeTop(view)
+    if (!xmas() && HOME_SEG.indexOf(view) >= 0) { set('tem8_tab_home', view); homeBtn() }
     var body = document.body
     body.className = body.className.replace(/\bapp-v-[\w-]+/g, '').trim()
     body.classList.add('app-v-' + view)
@@ -67,6 +95,8 @@
     views.forEach(function (v) { mo.observe(v, { attributes: true, attributeFilter: ['class'] }) })
   }
   sync()
+  // 切换主题时重新安排
+  document.addEventListener('tem8:theme', function () { var v = current; current = ''; homeBtn(); if (xmas() && v !== 'home') placeHomeTop(''); sync() })
 
   // ---------- 阅读页顶栏 ----------
   var panel = $('rd-panel'), aa = document.querySelector('[data-rd-panel]')
