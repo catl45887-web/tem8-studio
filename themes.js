@@ -5,7 +5,7 @@
 (function(){
   var root=document.documentElement
   var THEMES={xmas:'圣诞主题',dark:'深色主题',light:'浅色主题'}
-  var META={xmas:'#2b1e17',dark:'#1c1b19',light:'#faf6ee'}
+  var META={xmas:'#2b1e17',dark:'#1c1b19',light:'#f0f7f6'}
   var SCALES=[[0.9,'小'],[1,'标准'],[1.12,'大'],[1.25,'特大']]
   var sysDark=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null
   function $(id){return document.getElementById(id)}

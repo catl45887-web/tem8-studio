@@ -19,8 +19,9 @@ COLOR = re.compile(r'#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\)')
 COLOR_PROPS = re.compile(r'color|background|border|outline|shadow|fill|stroke|caret|decoration')
 
 EXACT = {
-    'light': {'#f6f3ec': '#faf6ee', '#273630': '#2a2118', '#fffefa': '#fffdf8', '#f9f7f1': '#f5efe3',
-              '#284c3d': '#2a2118', '#e7e7dc': '#e8e0d2', '#e9b678': '#c23b22', '#7b857e': '#6b6156'},
+    # 浅色 = 雾蓝：底 #F0F7F6 / 浅 #D1E3EB / 主 #AFD1DB / 深 #93A5AB；强调色用深色加深后的 #4E6670
+    'light': {'#f6f3ec': '#f0f7f6', '#273630': '#22303a', '#fffefa': '#ffffff', '#f9f7f1': '#e6f0f1',
+              '#284c3d': '#22303a', '#e7e7dc': '#d8e5ea', '#e9b678': '#4e6670', '#7b857e': '#5f6e75'},
     'dark':  {'#f6f3ec': '#1c1b19', '#273630': '#e6e1d8', '#fffefa': '#252320', '#f9f7f1': '#211f1d',
               '#284c3d': '#e6e1d8', '#e7e7dc': '#34312d', '#e9b678': '#ec6a52'},
 }
@@ -58,10 +59,10 @@ def map_light(r, g, b, a, semantic):
     if semantic:
         return r, g, b, a
     if is_green(h, s) or s < 0.12:
-        if l < 0.45 and s > 0.2 and is_green(h, s):   # 深绿：原品牌色 → 墨色
-            h, s = 30 / 360, 0.22
-        else:                                     # 浅绿、灰绿 → 暖米色
-            h, s = 36 / 360, s * 0.75
+        if l < 0.45 and s > 0.2 and is_green(h, s):   # 深绿：原品牌色 → 墨蓝
+            h, s = 205 / 360, 0.26
+        else:                                     # 浅绿、灰绿、灰 → 雾蓝灰
+            h, s = 196 / 360, min(0.28, s * 0.9 + 0.04)
     r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
     return r2 * 255, g2 * 255, b2 * 255, a
 

@@ -1,0 +1,38 @@
+/* 浅色主题 · 雾蓝（手写层，最后加载）
+   色卡：底 #F0F7F6 / 浅 #D1E3EB / 主 #AFD1DB / 深 #93A5AB
+   色卡外必须有的：卡片白 #FFFFFF、正文 #22303A、强调 #4E6670（深色加深，给倒计时数字、按钮用）
+   用法规则见 design/DESIGN.md「2. Color」 */
+
+html[data-theme=light]{
+  --fog-bg:#F0F7F6;--fog-light:#D1E3EB;--fog-main:#AFD1DB;--fog-dark:#93A5AB;--fog-strong:#4E6670;--fog-ink:#22303A;
+  --bg:var(--fog-bg);--page:var(--fog-bg);--paper:#fff;--card:#fff;
+  --ink:var(--fog-ink);--muted:#5F6E75;--line:var(--fog-light);--soft:#E6F0F1;
+  --green:var(--fog-ink);--green2:#4E6670;
+  --accent:var(--fog-strong);--wine:var(--fog-strong);--wine-on:#fff;--wine-soft:rgba(175,209,219,.35);
+  --app-on:var(--fog-ink);--tab-bg:var(--fog-bg);
+  --cream:var(--fog-ink);--cream-2:#4E6670;--dim:#5F6E75;--gold:var(--fog-strong);--hair-2:var(--fog-light);--room-2:#E6F0F1
+}
+html[data-theme=light] body{background:var(--fog-bg)}
+html[data-theme=light] button:focus-visible,html[data-theme=light] a:focus-visible{outline-color:var(--fog-dark)}
+html[data-theme=light] select{background:#fff;color:var(--fog-ink)}
+html[data-theme=light] .wpop{--wp-bg:#fff;--wp-bg2:#E6F0F1;--wp-line:var(--fog-light);--wp-ink:var(--fog-ink);--wp-ink2:#4E6670;--wp-ink3:#7A8A90;--wp-gold:var(--fog-strong);background:#fff!important;color:var(--fog-ink)!important;border-color:var(--fog-light)!important;box-shadow:0 18px 48px rgba(34,48,58,.14),0 2px 6px rgba(34,48,58,.06)!important}
+html[data-theme=light] :is(.h-cont-row b,.ixd-big-play){box-shadow:none!important}
+
+/* ② 浅色：继续条、标签、分段下细线 */
+html[data-theme=light] .home-top .h-cont{background:var(--fog-light)!important}
+html[data-theme=light] .home-top .h-cont:active{background:var(--fog-main)!important}
+html[data-theme=light] .home-tabs{border-bottom-color:var(--fog-light)}
+html[data-theme=light] [class*=rac-tag]{background:var(--fog-light)!important;color:var(--fog-ink)!important}
+
+/* ③ 主色：所有"选中" —— 年份、筛选胶囊、分段短横线 */
+html[data-theme=light] .home-tabs button.active::after{background:var(--fog-main);width:28px;margin-left:-14px;height:4px}
+html[data-theme=light] .seg-tabs button.active{border-bottom-color:var(--fog-main)}
+html[data-theme=light] :is(.library-year-nav button.active,.pq-chip.on,.pq-chip[aria-pressed=true]){background:var(--fog-main)!important;border-color:var(--fog-main)!important;color:var(--fog-ink)!important}
+html[data-theme=light] .tabbar button.on::after,html[data-theme=light] .tabbar [aria-current=page]::after{background:var(--fog-ink)}
+
+/* ④ 深色：箭头、图标 */
+html[data-theme=light] :is(.rac-chev,.hc-arrow,.mt-chev,.h-date-edit),html[data-theme=light] .pc-card::after{color:var(--fog-dark)!important}
+
+/* ⑤ 强调：倒计时数字、主按钮 */
+html[data-theme=light] .home-top .h-count-line b{color:var(--fog-strong)}
+html[data-theme=light] .hc-tag{color:var(--fog-strong)}
