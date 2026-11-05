@@ -8,9 +8,14 @@ from docx import Document
 import pdfplumber
 
 ROOT = Path(__file__).parent
-SOURCE = Path(r'path/to/source')
-EXTRA_DOCX = {2022: Path(r'path/to/source')}
-PDF_SOURCE = Path(r'path/to/source')
+# 资料放在本机，路径不写进仓库。运行前设置环境变量：
+#   TEM8_SRC        解析 docx 所在文件夹
+#   TEM8_SRC_2022   2022 年解析 docx 的完整路径（可选）
+#   TEM8_SRC_PDF    PDF 解析所在文件夹（可选）
+import os
+SOURCE = Path(os.environ.get('TEM8_SRC', 'sources/output'))
+EXTRA_DOCX = {2022: Path(os.environ['TEM8_SRC_2022'])} if os.environ.get('TEM8_SRC_2022') else {}
+PDF_SOURCE = Path(os.environ.get('TEM8_SRC_PDF', 'sources/pdf'))
 YEARS = [*range(2009, 2017), 2022, 2024, 2025, 2026]
 PASSAGE = {'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4}
 

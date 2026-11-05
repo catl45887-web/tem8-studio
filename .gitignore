@@ -4,3 +4,8 @@ dictionary.test.js
 site_missing_words.txt
 cloud-sync/node_modules/
 cloud-sync/.wrangler/
+
+# 本机资料和密钥
+.env
+.env.*
+sources/
