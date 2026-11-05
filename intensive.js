@@ -97,8 +97,8 @@
       const k = `${year}-${s}`, pos = saved.pos?.[k], st = s === 'B' ? Number(listening[year]?.sectionBStart) || 0 : 0, len = secLen(year, s)
       const heard = pos ? Math.max(0, pos - st) : 0, n = scripts[year]?.[s]?.length || 0
       const dn = n ? Object.keys(saved.dscore || {}).filter(x => x.startsWith(k + '-')).length : 0
-      const meta = heard > 3 ? `听到 ${fmt(heard)}` : '未开始'
-      return `<div class="ixl-card"><button type="button" class="ixl-main" data-ix-open="${s}"><b>${year} · Section ${s}</b><span>${meta}</span>${len ? `<i class="ixl-bar"><i style="width:${Math.min(100, Math.round(heard / len * 100))}%"></i></i>` : ''}</button>${heard > 3 ? `<button type="button" class="pq-link" data-ix-open="${s}" data-ix-restart>重播</button>` : ''}</div>`
+      const meta = heard > 3 ? `听到 ${fmt(heard)}` : ''
+      return `<div class="ixl-card"><button type="button" class="ixl-main" data-ix-open="${s}"><b>${year} · Section ${s}</b>${meta ? `<span>${meta}</span>` : ''}${len && heard > 3 ? `<i class="ixl-bar"><i style="width:${Math.min(100, Math.round(heard / len * 100))}%"></i></i>` : ''}</button>${heard > 3 ? `<button type="button" class="pq-link" data-ix-open="${s}" data-ix-restart>重播</button>` : ''}</div>`
     }
     host().innerHTML = `<div class="ix-years" role="group" aria-label="真题年份">${main.map(y => `<button type="button" class="pq-chip sm ${y === year ? 'on' : ''}" data-intensive-year="${y}" aria-pressed="${y === year}">${y}</button>`).join('')}${more.length ? `<label class="ix-more ${moreSel ? 'on' : ''}"><select data-ix-more aria-label="更多年份（只有音频）"><option value="">${moreSel ? year : '更多年份'}</option>${more.map(y => `<option value="${y}">${y} · 只有音频</option>`).join('')}</select></label>` : ''}</div>
       <div class="ixl-list">${['A', 'B'].map(card).join('')}</div>`

@@ -99,22 +99,35 @@
     $('h-date-btn').textContent = exam && left >= 0 ? '改日期' : '设定考试日期'
     if (input && exam) input.value = ymd(exam)
 
-    // 继续：上次读的那篇；没读过就从最新一篇开始
+    // 继续条：只在有没做完的东西时出现。没交卷的练习优先（继续做…），其次没读完的文章（继续读…）
     var card = $('h-cont')
     if (card) {
-      var lastId = get('tem8_last_article', '')
-      var a = articles.filter(function (x) { return x.id === lastId })[0]
-      if (!a) a = articles.filter(function (x) { var s = stateOf(x.id); return s.progress > 0 && !s.completed })[0]
-      var fresh = !a
-      if (!a) a = articles[0]
-      if (a) {
-        var st = stateOf(a.id), total = a.segments.length, n = Math.min(total, st.progress || 0)
-        var line = fresh || !n ? '从这里开始' : st.completed ? '已读完，可以做题或重读' : '读到第 ' + n + ' 段，共 ' + total + ' 段'
-        card.dataset.article = a.id
-        card.hidden = false
-        card.innerHTML = '<span class="h-cont-meta">' + esc(String(a.year)) + ' 真题</span><span class="h-cont-title">' + esc(a.label) + '</span><span class="h-cont-row"><span>' + line + '</span><b>' + (fresh || !n ? '开始' : '继续') + '</b></span>'
-          + '<span class="hc-line"><span class="hc-tag">' + (fresh || !n ? '开始读' : '继续读') + '</span><span class="hc-title">' + esc(String(a.year)) + ' ' + esc(a.label) + '</span><span class="hc-state">' + (st.completed ? '已读完' : n ? n + '/' + total + ' 段' : '') + '</span><span class="hc-arrow" aria-hidden="true">›</span></span>'
+      var W = window.TEM8_WORKFLOW, live = W && W.session && W.session()
+      var NAME = { lecture: '听力 Section A', interview: '听力 Section B', 'reading-group': '阅读', language: '改错', translation: '翻译', writing: '写作' }
+      ;['data-open-reader', 'data-mode', 'data-article', 'data-workflow-resume', 'data-mock-year'].forEach(function (k) { card.removeAttribute(k) })
+      var label = '', title = '', state = ''
+      if (live && live.groups && live.groups.length) {
+        var ys = []; live.groups.forEach(function (g) { if (g.year && ys.indexOf(g.year) < 0) ys.push(g.year) })
+        label = '继续做'
+        if (live.type === 'mock') { title = live.year + ' 整卷模考'; card.setAttribute('data-mock-year', String(live.year)) }
+        else {
+          title = (ys.length === 1 ? ys[0] + ' ' : '') + (live.type === 'review' ? (live.label || '错题复习') : (NAME[live.type] || '练习'))
+          card.setAttribute('data-workflow-resume', '')
+        }
+        var answered = Object.keys(live.answers || {}).length
+        state = answered ? '已答 ' + answered + ' 题' : ''
+      } else {
+        var lastId = get('tem8_last_article', '')
+        var a = articles.filter(function (x) { return x.id === lastId })[0]
+        if (!a || stateOf(a.id).completed || !(stateOf(a.id).progress > 0)) a = articles.filter(function (x) { var s = stateOf(x.id); return s.progress > 0 && !s.completed })[0]
+        if (a) {
+          var st = stateOf(a.id), total = a.segments.length, n = Math.min(total, st.progress || 0)
+          label = '继续读'; title = a.year + ' ' + a.label; state = n + '/' + total + ' 段'
+          card.setAttribute('data-open-reader', ''); card.setAttribute('data-mode', 'free'); card.setAttribute('data-article', a.id)
+        }
       }
+      card.hidden = !label
+      card.innerHTML = label ? '<span class="hc-line"><span class="hc-tag">' + label + '</span><span class="hc-title">' + esc(title) + '</span><span class="hc-state">' + esc(state) + '</span><span class="hc-arrow" aria-hidden="true">›</span></span>' : ''
     }
     // 只说做到了的
     var week = $('h-week')

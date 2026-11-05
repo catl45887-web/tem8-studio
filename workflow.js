@@ -234,11 +234,9 @@
     if(!box)return
     const live=load().session
     const resume=live?.groups?.length&&live.type!=='mock'?`<div class="pc-resume"><div><b>继续：${escape(live.type==='review'?(live.label||'错题复习'):title(live.type))}</b><small>${sessionSummary(live)}</small></div><button type="button" class="pc-btn" data-pq-discard>放弃</button><button type="button" class="pc-btn strong" data-workflow-resume>继续</button></div>`:''
-    const mis=window.TEM8_REVIEW?.count?.()||0
     box.innerHTML=resume+`<div class="pc-grid">${CARD_GROUPS.map(G=>{
       const stat=cardStat(G.types)
-      return `<button type="button" class="pc-card" data-workflow-type="${G.type}"><span class="pc-top"><b>${G.name}</b></span><span class="pc-sub">${G.sub}</span>${stat?`<span class="pc-stat">${escape(stat)}</span>`:''}</button>`}).join('')}
-      <button type="button" class="pc-card" data-pc-mistakes><span class="pc-top"><b>错题重练</b></span><span class="pc-sub">${mis?`${mis} 道待掌握 · 按间隔复习`:'答错的题会自动收进来'}</span>${mis?'<span class="pc-stat">开始复习</span>':''}</button></div>`
+      return `<button type="button" class="pc-card" data-workflow-type="${G.type}"><span class="pc-top"><b>${G.name}</b></span>${stat?`<span class="pc-stat">${escape(stat)}</span>`:''}</button>`}).join('')}</div>`
   }
   function sessionSummary(s){
     const items=allItems(s.groups),done=items.filter(it=>isAnswered(it,s.answers||{})).length
@@ -268,7 +266,7 @@
     ].filter(Boolean).join('')
     const noAudio=isListening(type)&&cfg.years.some(y=>!listening[y]?.audio)
     $('#workflow-config-content').innerHTML=`
-      <button class="back-link" data-workflow-back="papers">← 返回题库</button>
+      <button class="back-link" data-workflow-back="papers">← 返回</button>
       <div class="page-head pq-head"><h1>${escape(GROUPS.find(G=>G.id===group)?.name||'')}专项</h1>${sub}</div>
       ${resumeBanner()}
       <div class="pq-config">
@@ -807,7 +805,7 @@
       <header class="rp-head"><h1>${escape(name)} · 已交卷</h1><p>${escape([...new Set(run.groups.map(g=>g.year))].join('、'))} · ${day(run.finishedAt)} ${clock(run.finishedAt)}</p></header>
       ${hero}${table}${grid}${acts}
       ${detail?`<h2 class="rp-h2">解析</h2>${detail}`:''}
-      <div class="pq-res-foot"><button class="secondary-btn" data-workflow-back="${run.type==='mock'?'mock':'papers'}">${run.type==='mock'?'返回模考':'返回题库'}</button>${run.type!=='review'&&run.type!=='mock'?'<button class="primary-btn" data-pq-again>再练一次 <span>→</span></button>':''}</div></div>`
+      <div class="pq-res-foot"><button class="secondary-btn" data-workflow-back="${run.type==='mock'?'mock':'papers'}">${run.type==='mock'?'返回模考':'返回'}</button>${run.type!=='review'&&run.type!=='mock'?'<button class="primary-btn" data-pq-again>再练一次 <span>→</span></button>':''}</div></div>`
   }
   function saveEval(key,i,on){
     const run=lastRun;if(!run)return

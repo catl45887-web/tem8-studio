@@ -3,8 +3,8 @@
 
 /* ---------- 圣诞：不显示新元素 ---------- */
 html[data-theme=xmas] .home-tabs,
-html[data-theme=xmas] .h-date-ico,
-html[data-theme=xmas] .hc-line{display:none}
+html[data-theme=xmas] .h-date-ico{display:none}
+
 
 /* ---------- 浅色 / 深色 ---------- */
 html:not([data-theme=xmas]) .tabbar .tab-xmas{display:none!important}
@@ -51,3 +51,19 @@ html:not([data-theme=xmas]) body.app-home-seg .view.active > .home-top + *{margi
 /* 底栏只剩 3 栏 */
 html:not([data-theme=xmas]) .tabbar{grid-template-columns:repeat(3,1fr)}
 @media (min-width:900px){html:not([data-theme=xmas]) .tabbar{width:340px}}
+
+/* 精读列表：不画进度圈，读过的在右边写一句 */
+html:not([data-theme=xmas]) .rac-ring{display:none}
+html[data-theme=xmas] .rac-state{display:none}
+.rac-state{flex:none;font-size:13px;color:var(--muted);margin-left:auto;padding-left:10px;white-space:nowrap}
+html:not([data-theme=xmas]) .rac-main{padding-left:20px}
+
+/* 题型练习：没交卷的提示已经在顶部继续条里，这里不重复 */
+html:not([data-theme=xmas]) .pc-resume{display:none}
+
+/* 模考：没做过的年份不写字 */
+.mt-row small:empty{display:none}
+html:not([data-theme=xmas]) .pc-card{min-height:58px!important}
+html:not([data-theme=xmas]) .pc-card{row-gap:0}
+html:not([data-theme=xmas]) .pc-card .pc-stat,html:not([data-theme=xmas]) .pc-card::after{grid-row:1!important}
+html:not([data-theme=xmas]) .pc-card .pc-stat{color:var(--muted)!important;font-weight:400!important}

@@ -329,7 +329,7 @@
       const runs = hist.filter(r => r.type === 'mock' && Number(r.year) === y), sc = runs.length ? W.runScore(runs.at(-1)) : null
       const st = !ready ? (it.audio ? '资料待补' : '无录音') : going ? `做到第 ${(live.current||0)+1} 部分 · 继续` : runs.length ? (sc != null ? `${sc} 分` : '已完成') : ''
       const cls = !ready ? 'off' : going ? 'going' : runs.length ? 'done' : ''
-      return `<button type="button" class="mt-tile mt-row ${cls}" data-mock-year="${y}" ${ready?'':'disabled'}><b>${y}</b><small>${st||'未开始'}</small><span class="mt-chev" aria-hidden="true">${ready?'›':''}</span></button>`
+      return `<button type="button" class="mt-tile mt-row ${cls}" data-mock-year="${y}" ${ready?'':'disabled'}><b>${y}</b>${st?`<small>${st}</small>`:'<small></small>'}<span class="mt-chev" aria-hidden="true">${ready?'›':''}</span></button>`
     }).join('')}</div>`
   }
   function paperState() { store.paperWork ||= {};store.paperWork[paperYear] ||= {language:{},translation:'',writing:''};return store.paperWork[paperYear] }
@@ -392,7 +392,7 @@
       const tag = a.id===last && !s.completed ? '<span class="rac-tag">上次学习</span>' : ''
       const sc=quizScore(a.id)
       const ring = pct>=100 ? '<span class="rac-ring full" aria-hidden="true"><b>✓</b></span>' : pct>0 ? `<span class="rac-ring" style="--p:${pct}" aria-hidden="true"><b>${pct}%</b></span>` : '<span class="rac-ring none" aria-hidden="true"><b>未读</b></span>'
-      return `<article class="real-article-card rac rac2"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="${esc(a.label)}，${pct>=100?'已读完':pct?`已读 ${pct}%`:'未读'}">${ring}<span class="rac-text"><span class="rac-title">${esc(a.label)}${tag}</span><span class="rac-words">${words.toLocaleString('en-US')} 词 · ${total} 段</span></span><span class="rac-chev" aria-hidden="true">›</span></button></article>`
+      return `<article class="real-article-card rac rac2"><button class="rac-main" data-open-reader data-mode="free" data-article="${esc(a.id)}" aria-label="${esc(a.label)}，${pct>=100?'已读完':pct?`已读 ${pct}%`:'未读'}">${ring}<span class="rac-text"><span class="rac-title">${esc(a.label)}${tag}</span><span class="rac-words">${words.toLocaleString('en-US')} 词 · ${total} 段</span></span>${pct>0?`<span class="rac-state${pct>=100?' full':''}">${pct>=100?'已读完':`已读 ${pct}%`}</span>`:''}<span class="rac-chev" aria-hidden="true">›</span></button></article>`
     }).join('')
   }
   function renderReview(kind) {
