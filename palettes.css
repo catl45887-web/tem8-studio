@@ -1,0 +1,101 @@
+/* 浅色 / 深色主题的配色（手写层，最后加载）
+   浅色 html[data-theme=light][data-palette=…]：fog 雾蓝（默认）/ mint 薄荷 / cream 奶霜 / winter 冬日
+   深色 html[data-theme=dark][data-palette=…]： ink 墨黑（默认）/ graphite 石墨 / navy 深蓝 / coffee 咖啡
+
+   每套的角色：
+   bg 底色（面积最大）  card 卡片  light 浅色（继续条、标签）  main 主色（所有"选中"）
+   dark 深色（箭头、图标） strong 强调（倒计时数字、主按钮） ink 正文  muted 次要文字
+   line 细线  soft 抬起的浅面  on 选中块上的字  h / s 生成的灰阶跟随的色相、饱和度系数（tools/gen-themes.py） */
+
+/* ---------- 浅色 ---------- */
+html[data-theme=light]{
+  --p-bg:#F0F7F6;--p-card:#FFFFFF;--p-light:#D1E3EB;--p-main:#AFD1DB;--p-dark:#93A5AB;--p-strong:#4E6670;
+  --p-ink:#22303A;--p-muted:#5F6E75;--p-line:#D8E5EA;--p-soft:#E6F0F1;--p-on:#22303A;--p-h:196;--p-s:1
+}
+html[data-theme=light][data-palette=mint]{
+  --p-bg:#EEF4EC;--p-light:#CEE0D8;--p-main:#A6CCBB;--p-dark:#859E97;--p-strong:#4B675F;
+  --p-ink:#22302B;--p-muted:#5C6E67;--p-line:#D6E3DC;--p-soft:#E4EEE8;--p-on:#22302B;--p-h:150;--p-s:.9
+}
+/* 奶霜：素色奶霜 #FFF6E6 / #FCE6C8 / #EED2C8 / #A68874 */
+html[data-theme=light][data-palette=cream]{
+  --p-bg:#F7EFE3;--p-light:#FCE6C8;--p-main:#EED2C8;--p-dark:#A68874;--p-strong:#7A5D4C;
+  --p-ink:#3A2E27;--p-muted:#7A6A60;--p-line:#EBDFCF;--p-soft:#F2E8DA;--p-on:#3A2E27;--p-h:30;--p-s:.8
+}
+/* 冬日：冬日恋曲 #EDE6EE / #FEFEFE / #DEEBF4 / #A5ACBF */
+html[data-theme=light][data-palette=winter]{
+  --p-bg:#F1EFF4;--p-light:#DEEBF4;--p-main:#CFC8DE;--p-dark:#A5ACBF;--p-strong:#5B6280;
+  --p-ink:#2A2D3A;--p-muted:#666B7D;--p-line:#E2E1EA;--p-soft:#E9E8F0;--p-on:#2A2D3A;--p-h:240;--p-s:.7
+}
+
+/* ---------- 深色 ---------- */
+/* 墨黑：原来的深色主题 */
+html[data-theme=dark]{
+  --p-bg:#1C1B19;--p-card:#252320;--p-light:#2F2C29;--p-main:#4A4540;--p-dark:#8A847B;--p-strong:#E0958A;
+  --p-ink:#E6E1D8;--p-muted:#9A948B;--p-line:#34312D;--p-soft:#211F1D;--p-on:#E6E1D8;--p-h:36;--p-s:1
+}
+/* 石墨：Cover of Night #484E50 / Westchester Grey #787A78 / Concrete #D1D1CD / Navy Black #262F34 / City Tower #ADABA4 */
+html[data-theme=dark][data-palette=graphite]{
+  --p-bg:#1F272B;--p-card:#283135;--p-light:#353D41;--p-main:#5A5F5F;--p-dark:#8E908C;--p-strong:#D1D1CD;
+  --p-ink:#E4E4E0;--p-muted:#A3A49F;--p-line:#353E42;--p-soft:#232C30;--p-on:#F0F0EC;--p-h:200;--p-s:.6
+}
+/* 深蓝：Washed Black #1E2528 / Blue Fantastic #2B3A4C / Chambray #485A74 / Stone #AEA488 */
+html[data-theme=dark][data-palette=navy]{
+  --p-bg:#151C20;--p-card:#1E2528;--p-light:#2B3A4C;--p-main:#485A74;--p-dark:#7F8EA3;--p-strong:#C9BE9E;
+  --p-ink:#E2E5E8;--p-muted:#9AA3AD;--p-line:#2A3338;--p-soft:#1A2125;--p-on:#F0F2F4;--p-h:210;--p-s:1.4
+}
+/* 咖啡：Burnt Coffee #241A0E / Chocolate #5B3915 / Copper #88551F / Durian #B17638 / Pottery Wheel #CAAC8F */
+html[data-theme=dark][data-palette=coffee]{
+  --p-bg:#1D160F;--p-card:#281F16;--p-light:#3A2B1C;--p-main:#5B3915;--p-dark:#9A6A3A;--p-strong:#D29A5C;
+  --p-ink:#EEE4D7;--p-muted:#B3A08B;--p-line:#3A2E21;--p-soft:#221A12;--p-on:#F3E9DC;--p-h:32;--p-s:2.2
+}
+
+/* ---------- 其他样式文件里的颜色变量，统一接到配色上 ---------- */
+html:not([data-theme=xmas]){
+  --bg:var(--p-bg);--page:var(--p-bg);--paper:var(--p-card);--card:var(--p-card);
+  --ink:var(--p-ink);--muted:var(--p-muted);--line:var(--p-line);--soft:var(--p-soft);
+  --green:var(--p-ink);--green2:var(--p-strong);
+  --accent:var(--p-strong);--wine:var(--p-strong);--wine-soft:var(--p-light);
+  --app-on:var(--p-ink);--tab-bg:var(--p-bg);
+  --cream:var(--p-ink);--cream-2:var(--p-muted);--dim:var(--p-muted);--gold:var(--p-strong);--hair-2:var(--p-line);--room-2:var(--p-soft)
+}
+html[data-theme=light]{--wine-on:#fff}
+html[data-theme=dark]{--wine-on:var(--p-bg)}
+html:not([data-theme=xmas]) body{background:var(--p-bg)}
+html:not([data-theme=xmas]) button:focus-visible,html:not([data-theme=xmas]) a:focus-visible{outline-color:var(--p-dark)}
+html:not([data-theme=xmas]) select{background:var(--p-card);color:var(--p-ink)}
+html:not([data-theme=xmas]) .wpop{--wp-bg:var(--p-card);--wp-bg2:var(--p-soft);--wp-line:var(--p-line);--wp-ink:var(--p-ink);--wp-ink2:var(--p-muted);--wp-ink3:var(--p-muted);--wp-gold:var(--p-strong);background:var(--p-card)!important;color:var(--p-ink)!important;border-color:var(--p-line)!important}
+html[data-theme=light] .wpop{box-shadow:0 18px 48px rgba(30,40,50,.14),0 2px 6px rgba(30,40,50,.06)!important}
+html:not([data-theme=xmas]) :is(.h-cont-row b,.ixd-big-play){box-shadow:none!important}
+html[data-theme=dark] ::selection{background:var(--p-main)}
+
+/* 浅色角色：继续条、标签、分段下细线 */
+html:not([data-theme=xmas]) .home-top .h-cont{background:var(--p-light)!important}
+html:not([data-theme=xmas]) .home-top .h-cont:active{background:var(--p-main)!important}
+html:not([data-theme=xmas]) .home-tabs{border-bottom-color:var(--p-line)}
+html:not([data-theme=xmas]) [class*=rac-tag]{background:var(--p-light)!important;color:var(--p-ink)!important}
+
+/* 主色：所有"选中" */
+html:not([data-theme=xmas]) .home-tabs button.active::after{background:var(--p-main);width:28px;margin-left:-14px;height:4px}
+html[data-theme=dark] .home-tabs button.active::after{background:var(--p-ink)}
+html:not([data-theme=xmas]) .seg-tabs button.active{border-bottom-color:var(--p-main)}
+html[data-theme=dark] .seg-tabs button.active{border-bottom-color:var(--p-ink)}
+html:not([data-theme=xmas]) :is(.library-year-nav button.active,.pq-chip.on,.pq-chip[aria-pressed=true]){background:var(--p-main)!important;border-color:var(--p-main)!important;color:var(--p-on)!important}
+
+/* 深色角色：箭头、图标 */
+html:not([data-theme=xmas]) :is(.rac-chev,.hc-arrow,.mt-chev,.h-date-edit),html:not([data-theme=xmas]) .pc-card::after{color:var(--p-dark)!important}
+
+/* 强调：倒计时数字 */
+html:not([data-theme=xmas]) .home-top .h-count-line b,html:not([data-theme=xmas]) .hc-tag{color:var(--p-strong)}
+
+/* ---------- 设置页：先选浅色 / 深色，再选色块；没选中的那组收起 ---------- */
+.t-pal{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:2px 18px 16px}
+.t-pal[hidden]{display:none}
+.t-pal button{display:grid;gap:7px;justify-items:center;border:0;background:none;padding:0;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}
+.t-pal i{position:relative;display:block;width:100%;max-width:64px;aspect-ratio:1/1.15;border-radius:14px;overflow:hidden;background:var(--b);box-shadow:inset 0 0 0 1px rgba(128,128,128,.18)}
+.t-pal i::before{content:"";position:absolute;left:18%;right:18%;top:22%;height:14%;border-radius:6px;background:var(--l)}
+.t-pal i::after{content:"";position:absolute;left:18%;width:34%;top:48%;height:14%;border-radius:99px;background:var(--m)}
+.t-pal i b{position:absolute;left:18%;width:22%;bottom:16%;height:9%;border-radius:4px;background:var(--s)}
+.t-pal button[aria-checked=true]{color:var(--ink);font-weight:600}
+.t-pal button[aria-checked=true] i{box-shadow:0 0 0 2px var(--card),0 0 0 3.5px var(--ink)}
+.t-follow-note{margin:0;padding:0 18px 14px;font-size:12px;color:var(--muted)}
+.t-follow-note[hidden]{display:none}

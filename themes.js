@@ -6,6 +6,15 @@
   var root=document.documentElement
   var THEMES={xmas:'圣诞主题',dark:'深色主题',light:'浅色主题'}
   var META={xmas:'#2b1e17',dark:'#1c1b19',light:'#f0f7f6'}
+  // 浅色、深色各四套配色；每种各记一份（tem8_palette_light / tem8_palette_dark），跟随系统时白天夜里各用各的
+  var PAL={light:{fog:'#f0f7f6',mint:'#eef4ec',cream:'#f7efe3',winter:'#f1eff4'},dark:{ink:'#1c1b19',graphite:'#1f272b',navy:'#151c20',coffee:'#1d160f'}}
+  var PAL_DEFAULT={light:'fog',dark:'ink'}
+  function palette(t){if(!PAL[t])return '';var p=get('tem8_palette_'+t,PAL_DEFAULT[t]);return PAL[t][p]?p:PAL_DEFAULT[t]}
+  function applyPalette(){
+    var t=root.dataset.theme,p=palette(t)
+    if(!p||p===PAL_DEFAULT[t])delete root.dataset.palette;else root.dataset.palette=p
+    var m=document.querySelector('meta[name=theme-color]');if(m)m.content=p?PAL[t][p]:META[t]
+  }
   var SCALES=[[0.9,'小'],[1,'标准'],[1.12,'大'],[1.25,'特大']]
   var sysDark=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null
   function $(id){return document.getElementById(id)}
@@ -22,7 +31,7 @@
     if(animate){root.classList.add('t-switching');setTimeout(function(){root.classList.remove('t-switching')},360)}
     root.dataset.theme=t
     ;['css-winter-base','css-winter'].forEach(function(id){var l=$(id);if(l)l.disabled=t!=='xmas'})
-    var m=document.querySelector('meta[name=theme-color]');if(m)m.content=META[t]
+    applyPalette()
     if(t!=='xmas')stopSound()
     document.dispatchEvent(new CustomEvent('tem8:theme',{detail:t}))
     syncUI()
@@ -51,6 +60,9 @@
     document.querySelectorAll('input[name=t-theme]').forEach(function(r){r.checked=r.value===(f?t:c);r.disabled=f})
     document.querySelectorAll('[data-theme-pick]').forEach(function(b){b.setAttribute('aria-checked',String(b.dataset.themePick===t))})
     var note=$('t-pop-note');if(note)note.hidden=!f
+    // 选中哪种，就展开哪组色块，另一组收起；跟随系统时两组都展开
+    ;['light','dark'].forEach(function(k){var el=$('t-pal-'+k);if(el)el.hidden=f?false:(c!==k)})
+    document.querySelectorAll('[data-palette-pick]').forEach(function(b){b.setAttribute('aria-checked',String(b.dataset.palettePick===palette(b.dataset.paletteTheme)))})
     var s=String(parseFloat(get('tem8_font_scale','1'))||1)
     document.querySelectorAll('[data-font-scale]').forEach(function(b){b.setAttribute('aria-checked',String(b.dataset.fontScale===s))})
     var snow=$('t-snow');if(snow)snow.checked=get('tem8_snow','on')!=='off'
@@ -72,6 +84,15 @@
   // 顶栏按钮：点开三套主题的快捷选择
   var quick=$('t-quick'),pop=$('t-pop')
   function closePop(){if(pop&&!pop.hidden){pop.hidden=true;quick.setAttribute('aria-expanded','false')}}
+  // 选配色：存下来，并切到浅色主题
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('[data-palette-pick]');if(!b)return
+    var t=b.dataset.paletteTheme
+    set('tem8_palette_'+t,b.dataset.palettePick)
+    if(!following())set('tem8_theme',t)
+    apply(true);applyPalette();syncUI()
+  })
+  applyPalette()
   document.addEventListener('click',function(e){
     var b=e.target.closest&&e.target.closest('[data-theme-pick],[data-font-scale],#t-quick')
     if(!b){if(pop&&!pop.hidden&&!e.target.closest('#t-pop'))closePop();return}

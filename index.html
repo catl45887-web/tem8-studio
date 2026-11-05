@@ -6,29 +6,29 @@
   <meta name="theme-color" content="#2b1e17">
   <meta name="description" content="专八真题阅读与题组练习。">
   <title>拾页 · 专八练习</title>
-  <link rel="stylesheet" href="styles.css?v=202611051000">
-  <link rel="stylesheet" href="reader.css?v=202611051000">
-  <link rel="stylesheet" href="workflow.css?v=202611051000">
-  <link rel="stylesheet" href="annotate.css?v=202611051000">
-  <link rel="stylesheet" href="intensive.css?v=202611051000">
+  <link rel="stylesheet" href="styles.css?v=202611051200">
+  <link rel="stylesheet" href="reader.css?v=202611051200">
+  <link rel="stylesheet" href="workflow.css?v=202611051200">
+  <link rel="stylesheet" href="annotate.css?v=202611051200">
+  <link rel="stylesheet" href="intensive.css?v=202611051200">
   <!-- 冬日主题（原版备份：index.html.bak_winter） -->
-  <link rel="stylesheet" href="winter-base.css?v=202611051000" id="css-winter-base">
-  <link rel="stylesheet" href="winter.css?v=202611051000" id="css-winter">
-  <link rel="stylesheet" href="wordpop.css?v=202611051000">
-  <link rel="stylesheet" href="backup.css?v=202611051000">
+  <link rel="stylesheet" href="winter-base.css?v=202611051200" id="css-winter-base">
+  <link rel="stylesheet" href="winter.css?v=202611051200" id="css-winter">
+  <link rel="stylesheet" href="wordpop.css?v=202611051200">
+  <link rel="stylesheet" href="backup.css?v=202611051200">
   <!-- 浅色 / 深色主题（配色自动生成：tools/gen-themes.py）与主题手写部分 -->
-  <link rel="stylesheet" href="theme-light.css?v=202611051000">
-  <link rel="stylesheet" href="theme-dark.css?v=202611051000">
-  <link rel="stylesheet" href="themes.css?v=202611051000">
-  <link rel="stylesheet" href="app.css?v=202611051000">
-  <link rel="stylesheet" href="practice.css?v=202611051000">
-  <link rel="stylesheet" href="serif.css?v=202611051000">
-  <link rel="stylesheet" href="polish.css?v=202611051000">
-  <link rel="stylesheet" href="exam.css?v=202611051000">
-  <link rel="stylesheet" href="hometop.css?v=202611051000">
-  <link rel="stylesheet" href="fog.css?v=202611051000">
+  <link rel="stylesheet" href="theme-light.css?v=202611051200">
+  <link rel="stylesheet" href="theme-dark.css?v=202611051200">
+  <link rel="stylesheet" href="themes.css?v=202611051200">
+  <link rel="stylesheet" href="app.css?v=202611051200">
+  <link rel="stylesheet" href="practice.css?v=202611051200">
+  <link rel="stylesheet" href="serif.css?v=202611051200">
+  <link rel="stylesheet" href="polish.css?v=202611051200">
+  <link rel="stylesheet" href="exam.css?v=202611051200">
+  <link rel="stylesheet" href="hometop.css?v=202611051200">
+  <link rel="stylesheet" href="palettes.css?v=202611051200">
   <!-- 在页面显示前套上主题，避免先闪一下别的主题 -->
-  <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content={xmas:'#2b1e17',dark:'#1c1b19',light:'#f0f7f6'}[t]})()</script>
+  <script>(function(){var d=document.documentElement,t='light',f=0,s=1;try{t=localStorage.getItem('tem8_theme')||'light';f=localStorage.getItem('tem8_theme_follow')==='1';s=parseFloat(localStorage.getItem('tem8_font_scale'))||1;if(localStorage.getItem('tem8_snow')==='off')d.className+=' t-no-snow'}catch(e){}if(f&&window.matchMedia)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(!{xmas:1,dark:1,light:1}[t])t='light';d.dataset.theme=t;var P={light:{fog:'#f0f7f6',mint:'#eef4ec',cream:'#f7efe3',winter:'#f1eff4'},dark:{ink:'#1c1b19',graphite:'#1f272b',navy:'#151c20',coffee:'#1d160f'}}[t],pc;try{var pl=localStorage.getItem('tem8_palette_'+t);if(P&&P[pl]){d.dataset.palette=pl;pc=P[pl]}}catch(e){}d.style.setProperty('--fs',s);var x=t==='xmas';['css-winter-base','css-winter'].forEach(function(i){var l=document.getElementById(i);if(l)l.disabled=!x});var m=document.querySelector('meta[name=theme-color]');if(m)m.content=pc||{xmas:'#2b1e17',dark:'#1c1b19',light:'#f0f7f6'}[t]})()</script>
 </head>
 <body>
   <div class="app-shell">
@@ -96,11 +96,13 @@
         <header class="app-head"><h1>我的</h1><nav class="seg-tabs" aria-label="我的分类"><button type="button" data-view="my">学习记录</button><button type="button" data-view="settings">外观</button></nav></header>
         <div class="t-settings">
           <div class="t-group"><label class="t-row" for="t-follow"><span><b>跟随系统</b></span><input type="checkbox" class="t-switch" id="t-follow" role="switch"></label></div>
-          <p class="t-hint">开启后，将根据系统设置自动切换深色或浅色主题。</p>
+          <p class="t-hint">开启后，系统是白天就用选中的浅色配色，夜间就用选中的深色配色。</p>
           <div class="t-group" id="t-theme-group" role="radiogroup" aria-label="主题">
+            <label class="t-row"><span class="t-swatch t-sw-light"></span><span><b>浅色</b><small>低饱和配色，适合长时间阅读</small></span><input type="radio" class="t-radio" name="t-theme" value="light"></label>
+            <div class="t-pal" id="t-pal-light" role="radiogroup" aria-label="浅色配色"><button type="button" role="radio" data-palette-pick="fog" data-palette-theme="light" style="--b:#F0F7F6;--l:#D1E3EB;--m:#AFD1DB;--s:#4E6670"><i><b></b></i>雾蓝</button><button type="button" role="radio" data-palette-pick="mint" data-palette-theme="light" style="--b:#EEF4EC;--l:#CEE0D8;--m:#A6CCBB;--s:#4B675F"><i><b></b></i>薄荷</button><button type="button" role="radio" data-palette-pick="cream" data-palette-theme="light" style="--b:#F7EFE3;--l:#FCE6C8;--m:#EED2C8;--s:#7A5D4C"><i><b></b></i>奶霜</button><button type="button" role="radio" data-palette-pick="winter" data-palette-theme="light" style="--b:#F1EFF4;--l:#DEEBF4;--m:#CFC8DE;--s:#5B6280"><i><b></b></i>冬日</button></div>
+            <label class="t-row"><span class="t-swatch t-sw-dark"></span><span><b>深色</b><small>适合夜间刷题</small></span><input type="radio" class="t-radio" name="t-theme" value="dark"></label>
+            <div class="t-pal" id="t-pal-dark" role="radiogroup" aria-label="深色配色"><button type="button" role="radio" data-palette-pick="ink" data-palette-theme="dark" style="--b:#1C1B19;--l:#2F2C29;--m:#4A4540;--s:#E0958A"><i><b></b></i>墨黑</button><button type="button" role="radio" data-palette-pick="graphite" data-palette-theme="dark" style="--b:#1F272B;--l:#353D41;--m:#5A5F5F;--s:#D1D1CD"><i><b></b></i>石墨</button><button type="button" role="radio" data-palette-pick="navy" data-palette-theme="dark" style="--b:#151C20;--l:#2B3A4C;--m:#485A74;--s:#C9BE9E"><i><b></b></i>深蓝</button><button type="button" role="radio" data-palette-pick="coffee" data-palette-theme="dark" style="--b:#1D160F;--l:#3A2B1C;--m:#5B3915;--s:#D29A5C"><i><b></b></i>咖啡</button></div>
             <label class="t-row"><span class="t-swatch t-sw-xmas"></span><span><b>圣诞主题</b><small>冬夜书房、窗外飘雪</small></span><input type="radio" class="t-radio" name="t-theme" value="xmas"></label>
-            <label class="t-row"><span class="t-swatch t-sw-dark"></span><span><b>深色主题</b><small>适合夜间刷题，没有装饰</small></span><input type="radio" class="t-radio" name="t-theme" value="dark"></label>
-            <label class="t-row"><span class="t-swatch t-sw-light"></span><span><b>浅色主题</b><small>雾蓝底色，适合长时间阅读</small></span><input type="radio" class="t-radio" name="t-theme" value="light"></label>
           </div>
           <h2 class="t-h2">阅读</h2>
           <div class="t-group">
@@ -151,42 +153,42 @@
   <dialog id="confirm-dialog"><div class="dialog-inner"><h3 id="dialog-title">确认提交？</h3><p id="dialog-message"></p><div class="dialog-actions"><button class="secondary-btn" id="dialog-cancel">继续作答</button><button class="primary-btn" id="dialog-confirm">确认提交</button></div></div></dialog>
   <dialog id="word-dialog"><div class="dialog-inner word-dialog-inner"><div class="word-head"><div class="word-head-main"><h3 id="word-title"></h3><p id="word-detail" class="word-subline"></p></div><button id="word-close" aria-label="关闭">×</button></div><p id="word-meaning" class="word-primary"></p><div class="word-scroll"><div id="word-dictionary"></div></div><div class="word-actions"><button class="secondary-btn" id="word-speak">▶︎ 朗读单词</button><button class="secondary-btn" id="word-save">☆ 加入单词本</button></div></div></dialog>
   <dialog id="workflow-word-dialog"></dialog>
-  <script src="data.js?v=202611051000"></script>
-  <script src="articles2026.js?v=202611051000"></script>
-  <script src="questions2026.js?v=202611051000"></script>
-  <script src="paperExtras2026.js?v=202611051000"></script>
-  <script src="listening2026.js?v=202611051000"></script>
-  <script src="paperExtras2025.js?v=202611051000"></script>
-  <script src="papers2021_2024.js?v=202611051000"></script>
-  <script src="listeningArchive.js?v=202611051000"></script>
-  <script src="audioArchive.js?v=202611051000"></script>
-  <script src="articles2025.js?v=202611051000"></script>
-  <script src="articles2025-extras.js?v=202611051000"></script>
-  <script src="questions2025.js?v=202611051000"></script>
-  <script src="articlesArchive.js?v=202611051000"></script>
-  <script src="questionsArchive.js?v=202611051000"></script>
-  <script src="articlesArchive2.js?v=202611051000"></script>
-  <script src="readingTranslations.js?v=202611051000"></script>
-  <script src="questionsArchive2.js?v=202611051000"></script>
-  <script src="paperExtras.js?v=202611051000"></script>
-  <script src="paperExtras2.js?v=202611051000"></script>
-  <script src="annotations.js?v=202611051000"></script>
-  <script src="player.js?v=202611051000"></script>
-  <script src="exam.js?v=202611051000"></script>
-  <script src="transcripts.js?v=202611051000"></script>
-  <script src="intensive.js?v=202611051000"></script>
-  <script src="workflow.js?v=202611051000"></script>
-  <script src="dictionary/prefixes.js?v=202611051000"></script>
-  <script src="app.js?v=202611051000"></script>
-  <script src="review.js?v=202611051000"></script>
-  <script src="winter.js?v=202611051000"></script>
-  <script src="wordpop.js?v=202611051000"></script>
-  <script src="backup.js?v=202611051000"></script>
-  <script src="cloud-sync/config.js?v=202611051000"></script>
-  <script type="module" src="cloud-sync/client.mjs?v=202611051000"></script>
-  <script src="themes.js?v=202611051000"></script>
-  <script src="home.js?v=202611051000"></script>
-  <script src="splash.js?v=202611051000"></script>
-  <script src="appnav.js?v=202611051000"></script>
+  <script src="data.js?v=202611051200"></script>
+  <script src="articles2026.js?v=202611051200"></script>
+  <script src="questions2026.js?v=202611051200"></script>
+  <script src="paperExtras2026.js?v=202611051200"></script>
+  <script src="listening2026.js?v=202611051200"></script>
+  <script src="paperExtras2025.js?v=202611051200"></script>
+  <script src="papers2021_2024.js?v=202611051200"></script>
+  <script src="listeningArchive.js?v=202611051200"></script>
+  <script src="audioArchive.js?v=202611051200"></script>
+  <script src="articles2025.js?v=202611051200"></script>
+  <script src="articles2025-extras.js?v=202611051200"></script>
+  <script src="questions2025.js?v=202611051200"></script>
+  <script src="articlesArchive.js?v=202611051200"></script>
+  <script src="questionsArchive.js?v=202611051200"></script>
+  <script src="articlesArchive2.js?v=202611051200"></script>
+  <script src="readingTranslations.js?v=202611051200"></script>
+  <script src="questionsArchive2.js?v=202611051200"></script>
+  <script src="paperExtras.js?v=202611051200"></script>
+  <script src="paperExtras2.js?v=202611051200"></script>
+  <script src="annotations.js?v=202611051200"></script>
+  <script src="player.js?v=202611051200"></script>
+  <script src="exam.js?v=202611051200"></script>
+  <script src="transcripts.js?v=202611051200"></script>
+  <script src="intensive.js?v=202611051200"></script>
+  <script src="workflow.js?v=202611051200"></script>
+  <script src="dictionary/prefixes.js?v=202611051200"></script>
+  <script src="app.js?v=202611051200"></script>
+  <script src="review.js?v=202611051200"></script>
+  <script src="winter.js?v=202611051200"></script>
+  <script src="wordpop.js?v=202611051200"></script>
+  <script src="backup.js?v=202611051200"></script>
+  <script src="cloud-sync/config.js?v=202611051200"></script>
+  <script type="module" src="cloud-sync/client.mjs?v=202611051200"></script>
+  <script src="themes.js?v=202611051200"></script>
+  <script src="home.js?v=202611051200"></script>
+  <script src="splash.js?v=202611051200"></script>
+  <script src="appnav.js?v=202611051200"></script>
 </body>
 </html>

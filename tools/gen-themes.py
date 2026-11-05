@@ -20,10 +20,12 @@ COLOR_PROPS = re.compile(r'color|background|border|outline|shadow|fill|stroke|ca
 
 EXACT = {
     # 浅色 = 雾蓝：底 #F0F7F6 / 浅 #D1E3EB / 主 #AFD1DB / 深 #93A5AB；强调色用深色加深后的 #4E6670
-    'light': {'#f6f3ec': '#f0f7f6', '#273630': '#22303a', '#fffefa': '#ffffff', '#f9f7f1': '#e6f0f1',
-              '#284c3d': '#22303a', '#e7e7dc': '#d8e5ea', '#e9b678': '#4e6670', '#7b857e': '#5f6e75'},
-    'dark':  {'#f6f3ec': '#1c1b19', '#273630': '#e6e1d8', '#fffefa': '#252320', '#f9f7f1': '#211f1d',
-              '#284c3d': '#e6e1d8', '#e7e7dc': '#34312d', '#e9b678': '#ec6a52'},
+    # 浅色主题有四套配色（雾蓝 / 薄荷 / 奶油 / 灰紫），具体色值在 palettes.css 的 --p-* 变量里
+    'light': {'#f6f3ec': 'var(--p-bg)', '#273630': 'var(--p-ink)', '#fffefa': 'var(--p-card)', '#f9f7f1': 'var(--p-soft)',
+              '#284c3d': 'var(--p-ink)', '#e7e7dc': 'var(--p-line)', '#e9b678': 'var(--p-strong)', '#7b857e': 'var(--p-muted)'},
+    # 深色主题同样有四套配色（墨黑 / 石墨 / 深蓝 / 咖啡），色值在 palettes.css
+    'dark':  {'#f6f3ec': 'var(--p-bg)', '#273630': 'var(--p-ink)', '#fffefa': 'var(--p-card)', '#f9f7f1': 'var(--p-soft)',
+              '#284c3d': 'var(--p-ink)', '#e7e7dc': 'var(--p-line)', '#e9b678': 'var(--p-strong)'},
 }
 
 
@@ -54,15 +56,20 @@ def is_green(h, s):
     return s > 0.04 and 60 <= deg <= 200
 
 
+def hsl_var(s, l, a):
+    """灰阶输出成 hsl(var(--p-h) …)：色相、饱和度系数由当前配色决定（palettes.css）"""
+    alpha = '' if a >= 0.999 else ' / %s' % ('%.3f' % a).rstrip('0').rstrip('.')
+    return 'hsl(var(--p-h) calc(%.1f%% * var(--p-s)) %.1f%%%s)' % (s * 100, l * 100, alpha)
+
+
 def map_light(r, g, b, a, semantic):
     h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
     if semantic:
         return r, g, b, a
     if is_green(h, s) or s < 0.12:
-        if l < 0.45 and s > 0.2 and is_green(h, s):   # 深绿：原品牌色 → 墨蓝
-            h, s = 205 / 360, 0.26
-        else:                                     # 浅绿、灰绿、灰 → 雾蓝灰
-            h, s = 196 / 360, min(0.28, s * 0.9 + 0.04)
+        # 灰、灰绿 → 跟随当前配色的色相（--p-h）和饱和度系数（--p-s）
+        s2 = 0.26 if (l < 0.45 and s > 0.2 and is_green(h, s)) else min(0.28, s * 0.9 + 0.04)
+        return hsl_var(s2, l, a)
     r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
     return r2 * 255, g2 * 255, b2 * 255, a
 
@@ -84,11 +91,10 @@ def map_dark(r, g, b, a, semantic, prop):
     l2 = dark_l(l)
     if is_green(h, s) and l >= 0.85:    # 浅绿底：原来的悬停 / 选中底色 → 比卡片略亮的抬起面
         l2 = 0.19 + (0.97 - min(l, 0.97)) * 0.4
-    if is_green(h, s) and l < 0.45 and s > 0.2:   # 深绿：品牌色 → 象牙白
-        h, s = 38 / 360, 0.16
-        l2 = max(l2, 0.80)
-    elif is_green(h, s) or s < 0.15:    # 其他绿 / 灰 → 中性略暖
-        h, s = 36 / 360, min(s, 0.10)
+    if is_green(h, s) and l < 0.45 and s > 0.2:   # 深绿：品牌色 → 浅色正文，跟随配色色相
+        return hsl_var(0.16, max(l2, 0.80), a)
+    elif is_green(h, s) or s < 0.15:    # 其他绿 / 灰 → 跟随配色色相
+        return hsl_var(min(s, 0.10), l2, a)
     elif s > 0.35 and 0.45 < l < 0.85:  # 金色、琥珀这类强调色：深色底上原样保留
         return r, g, b, a
     else:
@@ -110,8 +116,10 @@ def recolor(value, theme, semantic, prop):
         except Exception:
             return raw
         if theme == 'light':
-            return fmt(*map_light(r, g, b, a, semantic))
-        return fmt(*map_dark(r, g, b, a, semantic, prop))
+            out = map_light(r, g, b, a, semantic)
+            return out if isinstance(out, str) else fmt(*out)
+        out = map_dark(r, g, b, a, semantic, prop)
+        return out if isinstance(out, str) else fmt(*out)
     return COLOR.sub(sub, value)
 
 
