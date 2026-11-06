@@ -272,3 +272,10 @@ body.ink-on.ink-finger .ink-pane{touch-action:none}
 .ink-dlg-btns .danger{background:#E5483B;color:#fff;font-weight:600}
 .ink-toast{position:absolute;left:50%;top:calc(100% + 8px);transform:translate(-50%,-4px);padding:7px 14px;border-radius:99px;background:var(--ib-bg);color:var(--ib-fg);font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
 .ink-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* 拖动把手（精读页的手写工具条可以拖到别处） */
+.ib-grip{display:grid;place-items:center;width:18px;height:38px;margin-right:2px;cursor:grab;touch-action:none}
+.ib-grip i{width:6px;height:18px;background:radial-gradient(circle,rgba(255,255,255,.55) 1.3px,transparent 1.6px) 0 0/6px 6px}
+.ink-bar2.folded .ib-grip{display:none!important}
+.ink-bar2.dragging,.ink-bar2.dragging *{cursor:grabbing!important}
+.ink-bar2 .ib-unfold{touch-action:none}

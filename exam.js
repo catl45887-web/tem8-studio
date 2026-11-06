@@ -472,6 +472,7 @@
       const sizes = f => [0, 1, 2].map(n => `<button type="button" class="ib-s" data-ink-size="${n}" data-for="${f}" aria-label="${['细', '中', '粗'][n]}"><i style="--w:${f === 'hl' ? [6, 9, 12][n] : [2.5, 4, 6][n]}px"></i></button>`).join('')
       return `<div class="ink-bar2" data-ink-scope="${scope}" data-clear-text="${opt.clearText || '确定要清除这一页的所有笔迹吗？'}" role="toolbar" aria-label="手写工具">
         <div class="ib-main">
+          ${opt.grip ? '<span class="ib-grip" data-ink-grip title="按住拖动" aria-hidden="true"><i></i></span>' : ''}
           <button type="button" class="ib ib-unfold" data-ink-fold aria-label="展开手写工具" title="展开"><span class="uf-ico">${ICO.pen}${ICO.hl}${ICO.eraser}</span><svg class="uf-chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></svg></button>
           ${tool('pen', '笔')}${tool('hl', '荧光笔')}${tool('eraser', '橡皮：划过笔迹即擦除')}
           <span class="ib-sep"></span>

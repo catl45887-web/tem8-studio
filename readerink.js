@@ -16,11 +16,67 @@
     bar = document.createElement('div')
     bar.className = 'rp-inkbar'
     bar.innerHTML = I().barHTML({
-      scope: 'reader', zoom: false, clearText: '确定要清除这篇文章上的所有笔迹吗？',
+      scope: 'reader', zoom: false, grip: true, clearText: '确定要清除这篇文章上的所有笔迹吗？',
       note: '笔迹挂在旁边的单词上，改字号、换排版都会跟着走。'
     })
-    document.body.appendChild(bar)   // 同 readerprefs：不放进带动画的阅读页里
+    document.body.appendChild(bar)   // 不放进带动画的阅读页里，否则「固定在屏幕上」会失效
     I().sync()
+    bindDrag()
+    placeBar()
+  }
+
+  /* ---------- 拖动工具条：按住把手拖；收起成小胶囊时按住胶囊拖，轻点仍是展开。位置记在本机 ---------- */
+  var POS = 'tem8_inkbar_pos'
+  function readPos() { try { return JSON.parse(localStorage.getItem(POS) || 'null') } catch (e) { return null } }
+  function placeBar(pos) {
+    if (!bar) return
+    pos = pos || readPos()
+    if (!pos) { bar.style.left = bar.style.top = bar.style.right = bar.style.transform = ''; return }
+    var w = bar.offsetWidth || 300, h = bar.offsetHeight || 50
+    var x = Math.max(6, Math.min(window.innerWidth - w - 6, pos.x * window.innerWidth))
+    var y = Math.max(6, Math.min(window.innerHeight - h - 6, pos.y * window.innerHeight))
+    bar.style.left = x + 'px'; bar.style.top = y + 'px'; bar.style.right = 'auto'; bar.style.transform = 'none'
+  }
+  function bindDrag() {
+    var d = null
+    bar.addEventListener('pointerdown', function (e) {
+      var inner = bar.querySelector('.ink-bar2')
+      var grip = e.target.closest('[data-ink-grip]'), pill = inner && inner.classList.contains('folded') && e.target.closest('.ib-unfold')
+      if (!grip && !pill) return
+      var r = bar.getBoundingClientRect()
+      d = { id: e.pointerId, x0: e.clientX, y0: e.clientY, l: r.left, t: r.top, moved: false }
+      if (grip) e.preventDefault()
+    })
+    // 真正开始移动才接管指针：只是轻点时，点击照常落到按钮上
+    window.addEventListener('pointermove', function (e) {
+      if (!d || e.pointerId !== d.id) return
+      var dx = e.clientX - d.x0, dy = e.clientY - d.y0
+      if (!d.moved && Math.hypot(dx, dy) < 6) return
+      if (!d.moved) { try { bar.setPointerCapture(e.pointerId) } catch (err) {} }
+      d.moved = true; e.preventDefault()
+      bar.querySelector('.ink-bar2').classList.add('dragging')
+      placeBar({ x: (d.l + dx) / window.innerWidth, y: (d.t + dy) / window.innerHeight })
+    })
+    function end(e) {
+      if (!d || e.pointerId !== d.id) return
+      var moved = d.moved; d = null
+      bar.querySelector('.ink-bar2').classList.remove('dragging')
+      if (!moved) return
+      var r = bar.getBoundingClientRect()
+      try { localStorage.setItem(POS, JSON.stringify({ x: r.left / window.innerWidth, y: r.top / window.innerHeight })) } catch (err) {}
+      // 拖完松手不算点击（不然收起的小胶囊一拖就展开）
+      function stop(ev) { ev.stopPropagation(); ev.preventDefault(); window.removeEventListener('click', stop, true) }
+      window.addEventListener('click', stop, true)
+      setTimeout(function () { window.removeEventListener('click', stop, true) }, 300)
+    }
+    window.addEventListener('pointerup', end)
+    window.addEventListener('pointercancel', end)
+    // 双击把手：回到默认位置
+    bar.addEventListener('dblclick', function (e) { if (e.target.closest('[data-ink-grip]')) { try { localStorage.removeItem(POS) } catch (err) {} placeBar() } })
+    window.addEventListener('resize', function () { placeBar() })
+    // 展开 / 收起后宽度变了：重新卡回屏幕内
+    var inner = bar.querySelector('.ink-bar2')
+    if (inner) new MutationObserver(function () { if (!d) requestAnimationFrame(function () { if (!d) placeBar() }) }).observe(inner, { attributes: true, attributeFilter: ['class'] })
   }
   function mountArticle() {
     var ink = I(); if (!ink) return

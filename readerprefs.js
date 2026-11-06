@@ -210,8 +210,8 @@
       '<button type="button" class="rp-rb" data-rp-marks aria-label="显示或隐藏标注">' + ICON.mark + '</button>' +
       '<button type="button" class="rp-rb" data-ink-toggle aria-label="手写" title="手写">' + ICON.ink + '</button>' +
       '<button type="button" class="rp-rb rp-rb-note" data-rd-notes aria-label="笔记">' + ICON.note + '<b class="rp-badge" data-rd-count hidden></b></button>'
-    // 挂在 <body> 上：阅读页打开时有上浮动画（transform），放在里面会让「固定在屏幕上」失效
-    document.body.appendChild(rail)
+    // 放在阅读页顶栏右边（跟着顶栏吸顶，不浮在文字上）
+    var top = v.querySelector('.rd-bar'); (top || v).appendChild(rail)
     // 顶栏原来的 Aa / 笔记按钮交给工具栏
     v.querySelectorAll('.rd-bar .rd-aa,.rd-bar .rd-notes-txt').forEach(function (b) { b.hidden = true; b.removeAttribute('data-rd-count'); var c = b.querySelector('[data-rd-count]'); if (c) c.removeAttribute('data-rd-count') })
   }
@@ -223,16 +223,17 @@
     var panel = $('rd-panel'), aa = rail.querySelector('[data-rd-panel]')
     if (aa && panel) aa.setAttribute('aria-expanded', String(!panel.hidden))
   }
-  // 往下滚时工具栏淡出，停下或往上滚时回来
-  var lastY = 0, idle = 0
-  window.addEventListener('scroll', function () {
-    if (!rail) return
-    var y = window.scrollY, panel = $('rd-panel')
-    if (y > lastY + 6 && y > 120 && (!panel || panel.hidden)) rail.classList.add('rp-away')
-    else if (y < lastY - 6) rail.classList.remove('rp-away')
-    lastY = y
-    clearTimeout(idle); idle = setTimeout(function () { rail && rail.classList.remove('rp-away') }, 900)
-  }, { passive: true })
+  // 面板在宽屏上从 Aa 按钮正下方弹出（手机上从底部升起，见 CSS）
+  function placePanel() {
+    var p = $('rd-panel'), aa = rail && rail.querySelector('[data-rd-panel]')
+    if (!p || p.hidden || !aa) return
+    if (window.innerWidth <= 640) { p.style.top = p.style.right = ''; return }
+    var r = aa.getBoundingClientRect()
+    p.style.top = Math.round(r.bottom + 8) + 'px'
+    p.style.right = Math.max(12, Math.round(window.innerWidth - r.right - 6)) + 'px'
+  }
+  window.addEventListener('resize', placePanel)
+  window.addEventListener('scroll', placePanel, { passive: true })
 
   /* ---------- 宽屏：笔记抽屉停靠在右侧，和正文同屏 ---------- */
   function watchDrawer() {
@@ -263,7 +264,7 @@
   window.addEventListener('resize', function () { updateDock(); apply() })
   // 打开 / 收起面板时同步 Aa 按钮状态；面板里点的东西不冒泡关掉面板
   var panelEl = $('rd-panel')
-  if (panelEl) new MutationObserver(function () { syncRail(); if (!panelEl.hidden) { syncPanel(); endPeek() } }).observe(panelEl, { attributes: true, attributeFilter: ['hidden'] })
+  if (panelEl) new MutationObserver(function () { syncRail(); if (!panelEl.hidden) { syncPanel(); endPeek(); placePanel() } }).observe(panelEl, { attributes: true, attributeFilter: ['hidden'] })
 
   window.TEM8_RP = {
     zhAll: function () { return P.zh === 'all' },
