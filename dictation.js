@@ -103,13 +103,16 @@
     var text = String(w).replace(/\.{2,}|…+/g, ' ').replace(/\bsb'?s?\b|\bsth\b/g, ' ').replace(/\s+/g, ' ').trim()
     return new Promise(function (done) {
       var single = /^[a-z][a-z'-]*$/i.test(text)
-      var go = function () {
-        var e = single && entry(text), src = e && (e.media[st.accent] || e.media.uk || e.media.us)
-        if (!src) { speak(); return }
+      var mapped = (window.TEM8_AUDIOMAP || {})[w]
+      var play = function (src) {
         audio = new Audio(src); audio.playbackRate = slow ? 0.7 : 1
         audio.onended = function () { done() }
         audio.onerror = function () { speak() }
         audio.play().catch(function () { speak() })
+      }
+      var go = function () {
+        var e = single && entry(text), src = e && (e.media[st.accent] || e.media.uk || e.media.us)
+        if (src) play(src); else speak()
       }
       var speak = function () {
         if (!('speechSynthesis' in window)) { done(); return }
@@ -119,7 +122,8 @@
         speechSynthesis.speak(u)
         setTimeout(done, 4000)
       }
-      if (single) loadDict(text).then(go); else speak()
+      if (mapped) play(mapped[st.accent === 'us' ? 1 : 0])
+      else if (single) loadDict(text).then(go); else speak()
     })
   }
 
@@ -137,6 +141,7 @@
     var toks = String(w).replace(/\(.*?\)|（.*?）/g, ' ').split(/\s+/).filter(Boolean), out = ['']
     toks.forEach(function (t) {
       var alts = t.split('/'), next = []
+      alts = alts.map(function (a, i) { return i && a[0] === '-' ? alts[0].slice(0, -(a.length - 1)) + a.slice(1) : a })
       out.forEach(function (o) { alts.forEach(function (a) { next.push((o + ' ' + a).trim()) }) })
       out = next.slice(0, 16)
     })
