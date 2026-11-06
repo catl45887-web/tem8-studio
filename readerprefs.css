@@ -27,9 +27,9 @@ html #reader-view.rp-side .continuous-paragraph > .paragraph-number{grid-column:
 html #reader-view.rp-side .continuous-paragraph > .rd-zh-all{grid-column:3;grid-row:1 / span 6;margin:0 0 0 28px;padding:4px 0 0 24px;background:none;border-radius:0;border-left:1px solid var(--line)}
 
 /* ---------- 排版面板 ---------- */
-#reader-view .rd-panel.rp-panel{position:fixed;z-index:60;top:68px;right:66px;width:372px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 92px);overflow:auto;margin:0;padding:6px 20px 18px;display:block;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px rgba(20,28,36,.16),0 2px 8px rgba(20,28,36,.06);transition:background .15s,box-shadow .15s,border-color .15s;overscroll-behavior:contain;animation:rp-in .18s ease}
-html[data-theme=dark] #reader-view .rd-panel.rp-panel{box-shadow:0 24px 60px rgba(0,0,0,.5)}
-#reader-view .rd-panel.rp-panel[hidden]{display:none}
+.rd-panel.rp-panel{position:fixed;z-index:60;top:68px;right:66px;width:372px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 92px);overflow:auto;margin:0;padding:6px 20px 18px;display:block;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px rgba(20,28,36,.16),0 2px 8px rgba(20,28,36,.06);transition:background .15s,box-shadow .15s,border-color .15s;overscroll-behavior:contain;animation:rp-in .18s ease}
+html[data-theme=dark] .rd-panel.rp-panel{box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.rd-panel.rp-panel[hidden]{display:none}
 @keyframes rp-in{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
 .rp-grab{display:none}
 .rp-head{display:flex;align-items:center;justify-content:space-between;height:48px}
@@ -81,14 +81,14 @@ html[data-theme=dark] .rp-seg [aria-checked=true]{background:var(--p-main)}
 .rp-fonts small{font-size:11px;color:var(--muted)}
 .rp-fonts [aria-checked=true]{border-color:var(--ink);box-shadow:inset 0 0 0 .5px var(--ink)}
 /* 拖动滑块时：只留正在拖的那一行，其他变透明，能看见正文的变化 */
-#reader-view .rd-panel.rp-panel.rp-peeking{background:transparent;border-color:transparent;box-shadow:none}
+.rd-panel.rp-panel.rp-peeking{background:transparent;border-color:transparent;box-shadow:none}
 .rp-peeking > *:not(.rp-adv):not(.rp-peek-row),.rp-peeking .rp-adv > *:not(.rp-peek-row){opacity:0;pointer-events:none}
 .rp-peeking .rp-peek-row{background:var(--card);border-radius:14px;padding:0 10px;margin:0 -10px;box-shadow:0 6px 24px rgba(0,0,0,.14)}
 .rp-panel button:focus-visible,.rp-panel input:focus-visible{outline:2px solid var(--p-dark,var(--muted));outline-offset:2px}
 
 /* 手机：面板从底部升起，上半屏还能看到正文 */
 @media (max-width:640px){
-  #reader-view .rd-panel.rp-panel{top:auto;left:0;right:0;bottom:0;width:auto;max-width:none;max-height:72dvh;border-radius:22px 22px 0 0;border-bottom:0;padding:0 20px calc(16px + env(safe-area-inset-bottom));animation:rp-up .22s ease}
+  .rd-panel.rp-panel{top:auto;left:0;right:0;bottom:0;width:auto;max-width:none;max-height:72dvh;border-radius:22px 22px 0 0;border-bottom:0;padding:0 20px calc(16px + env(safe-area-inset-bottom));animation:rp-up .22s ease}
   .rp-grab{display:block;width:36px;height:4px;margin:8px auto 0;border-radius:4px;background:var(--line)}
   .rp-head{height:44px}
   @keyframes rp-up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
@@ -100,7 +100,7 @@ html[data-theme=dark] .rp-seg [aria-checked=true]{background:var(--p-main)}
 html[data-theme=dark] .rp-rail{box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .rp-rail.rp-away{opacity:0;transform:translate(70px,-50%);pointer-events:none}
 body.real-practice .rp-rail{display:none}
-#reader-view:not(.active) .rp-rail{display:none}
+body:not(.app-v-reader) .rp-rail,body:not(.app-v-reader) .rd-panel.rp-panel,body:not(.app-v-reader) .rp-inkbar{display:none!important}
 .rp-rb{position:relative;display:grid;place-items:center;width:42px;height:42px;padding:0;border:0;border-radius:18px;background:none;color:var(--ink);cursor:pointer;font-family:Georgia,serif;font-size:17px}
 .rp-rb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .rp-rb:active,.rp-rb[aria-expanded=true]{background:color-mix(in srgb,var(--ink) 10%,transparent)}
@@ -119,7 +119,7 @@ body.rp-docked #reader-view{padding-right:340px}
 body.rp-docked .anno-panel{box-shadow:none!important;animation:none!important}
 body.rp-docked .rp-rail{right:352px}
 body.rp-docked .anno-backdrop,body.rp-docked .anno-scrim{display:none!important}
-body.rp-docked #reader-view .rd-panel.rp-panel{right:406px}
+body.rp-docked .rd-panel.rp-panel{right:406px}
 #reader-view .rd-zh-all{display:block}
 html #reader-view.rp-side #reader-content{max-width:1060px}
 html #reader-view.rp-side .reader-title,html #reader-view.rp-side .reader-subtitle{max-width:1060px;margin-left:auto;margin-right:auto}
@@ -128,7 +128,7 @@ body.rp-docked #reader-view .reader-title,body.rp-docked #reader-view .reader-su
 
 /* ---------- 精读手写（readerink.js） ---------- */
 .rp-inkbar{display:none;position:fixed;z-index:58;top:66px;left:50%;transform:translateX(-50%);text-align:center}
-body.ink-on #reader-view.active .rp-inkbar{display:block}
+body.ink-on.app-v-reader .rp-inkbar{display:block}
 body.real-practice .rp-inkbar{display:none!important}
 body.rp-docked .rp-inkbar{left:calc((100% - 340px) / 2)}
 .rp-ink-hint{margin:8px auto 0;width:max-content;max-width:86vw;padding:6px 12px;border-radius:99px;background:var(--card);color:var(--muted);font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.1)}

@@ -383,7 +383,10 @@
     pick('[data-ink-size]', b => prefs.size[b.dataset.for || 'pen'] === Number(b.dataset.inkSize))
     pick('[data-ink-toggle]', () => prefs.on)
     pick('[data-ink-input]', b => prefs.input === b.dataset.inkInput)
-    document.querySelectorAll('.ink-fold-ico').forEach(i => { i.className = 'ink-fold-ico t-' + prefs.tool + (prefs.tool === 'pen' ? ' c-' + prefs.color : prefs.tool === 'hl' ? ' h-' + prefs.hl : '') })
+    // 收起时的小胶囊：当前工具的图标，用当前颜色画（墨色在深色工具条上看不见，改用白色）
+    const h = HL[prefs.hl] || HL.y
+    const cur = prefs.tool === 'pen' ? (PEN[prefs.color] || '#fff') : prefs.tool === 'hl' ? `rgb(${h[0]},${h[1]},${h[2]})` : '#fff'
+    document.querySelectorAll('.ink-bar2').forEach(bar => bar.style.setProperty('--cur', cur))
   }
   function undoOne(from, to, scope) {
     for (let i = from.length - 1; i >= 0; i--) {
@@ -469,7 +472,7 @@
       const sizes = f => [0, 1, 2].map(n => `<button type="button" class="ib-s" data-ink-size="${n}" data-for="${f}" aria-label="${['细', '中', '粗'][n]}"><i style="--w:${f === 'hl' ? [6, 9, 12][n] : [2.5, 4, 6][n]}px"></i></button>`).join('')
       return `<div class="ink-bar2" data-ink-scope="${scope}" data-clear-text="${opt.clearText || '确定要清除这一页的所有笔迹吗？'}" role="toolbar" aria-label="手写工具">
         <div class="ib-main">
-          <button type="button" class="ib ib-unfold" data-ink-fold aria-label="展开手写工具"><i class="ink-fold-ico"></i></button>
+          <button type="button" class="ib ib-unfold" data-ink-fold aria-label="展开手写工具" title="展开"><span class="uf-ico">${ICO.pen}${ICO.hl}${ICO.eraser}</span><svg class="uf-chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></svg></button>
           ${tool('pen', '笔')}${tool('hl', '荧光笔')}${tool('eraser', '橡皮：划过笔迹即擦除')}
           <span class="ib-sep"></span>
           <button type="button" class="ib" data-ink-undo aria-label="撤销" title="撤销">${ICO.undo}</button>

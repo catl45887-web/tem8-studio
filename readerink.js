@@ -19,7 +19,7 @@
       scope: 'reader', zoom: false, clearText: '确定要清除这篇文章上的所有笔迹吗？',
       note: '笔迹挂在旁边的单词上，改字号、换排版都会跟着走。'
     })
-    v.appendChild(bar)
+    document.body.appendChild(bar)   // 同 readerprefs：不放进带动画的阅读页里
     I().sync()
   }
   function mountArticle() {

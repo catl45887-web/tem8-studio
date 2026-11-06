@@ -237,14 +237,15 @@ body.kb-open.vv-short .px-foot,body.kb-open.vv-short .px-handle{display:none}
 .h-y{background:rgba(245,205,40,.85)}.h-g{background:rgba(120,205,120,.85)}.h-b{background:rgba(110,170,240,.85)}.h-p{background:rgba(240,130,180,.85)}.h-o{background:rgba(250,160,80,.85)}
 .ib-s i{display:block;width:var(--w);height:var(--w);border-radius:50%;background:var(--ib-dim)}
 .ib-s.on i{background:#fff}
-/* 收起：只剩一个圆按钮，显示当前工具的颜色 */
+/* 收起：缩成一个小胶囊——当前工具（用当前颜色）+ 向下箭头，点一下展开 */
 .ib-unfold{display:none}
-.ink-bar2.folded{padding:4px;border-radius:50%}
-.ink-bar2.folded .ib-main > :not(.ib-unfold),.ink-bar2.folded .ib-sub{display:none!important}
-.ink-bar2.folded .ib-unfold{display:grid}
-.ink-fold-ico{display:block;width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1.5px #fff}
-.ink-fold-ico.t-hl{border-radius:4px}
-.ink-fold-ico.t-eraser{background:none}
+.ink-bar2.folded{padding:4px;border-radius:16px}
+.ink-bar2.folded .ib-main > :not(.ib-unfold),.ink-bar2.folded .ib-sub,.ink-bar2.folded .ink-menu{display:none!important}
+.ink-bar2.folded .ib-unfold{display:flex;align-items:center;gap:2px;width:auto;padding:0 8px 0 10px}
+.uf-ico{display:grid;color:var(--cur,#fff)}
+.uf-ico svg{display:none;grid-area:1/1;stroke-width:1.9}
+.ink-bar2[data-tool=pen] .uf-ico svg:nth-child(1),.ink-bar2[data-tool=hl] .uf-ico svg:nth-child(2),.ink-bar2[data-tool=eraser] .uf-ico svg:nth-child(3){display:block}
+.ib .uf-chev{width:16px;height:16px;opacity:.7}
 /* 齿轮菜单 */
 .ink-menu{position:absolute;z-index:5;top:calc(100% + 8px);right:0;width:250px;padding:6px;border-radius:16px;background:var(--ib-bg);box-shadow:0 14px 40px rgba(0,0,0,.25)}
 .ink-menu[hidden]{display:none}

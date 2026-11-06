@@ -210,7 +210,8 @@
       '<button type="button" class="rp-rb" data-rp-marks aria-label="显示或隐藏标注">' + ICON.mark + '</button>' +
       '<button type="button" class="rp-rb" data-ink-toggle aria-label="手写" title="手写">' + ICON.ink + '</button>' +
       '<button type="button" class="rp-rb rp-rb-note" data-rd-notes aria-label="笔记">' + ICON.note + '<b class="rp-badge" data-rd-count hidden></b></button>'
-    v.appendChild(rail)
+    // 挂在 <body> 上：阅读页打开时有上浮动画（transform），放在里面会让「固定在屏幕上」失效
+    document.body.appendChild(rail)
     // 顶栏原来的 Aa / 笔记按钮交给工具栏
     v.querySelectorAll('.rd-bar .rd-aa,.rd-bar .rd-notes-txt').forEach(function (b) { b.hidden = true; b.removeAttribute('data-rd-count'); var c = b.querySelector('[data-rd-count]'); if (c) c.removeAttribute('data-rd-count') })
   }
@@ -251,6 +252,7 @@
 
   /* ---------- 面板跟着阅读页的打开/关闭 ---------- */
   function onReader() {
+    var pn = $('rd-panel'); if (pn && pn.parentNode !== document.body) document.body.appendChild(pn)
     buildRail(); render(); apply(); watchDrawer()
   }
   document.addEventListener('tem8:view', function (e) {
