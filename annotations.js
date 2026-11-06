@@ -337,9 +337,10 @@
     drawer.className = 'anno-panel'
     drawer.hidden = true
     drawer.innerHTML = `<header class="anno-head"><div><strong>标记与笔记</strong><small>选中原文即可标记，笔记自动保存</small></div><button class="anno-x" data-anno-close aria-label="收起">×</button></header>
-      <div class="anno-tabs"><button data-anno-tab="this" class="active">本篇</button><button data-anno-tab="all">全部笔记</button></div>
+      <div class="anno-tabs"><button data-anno-tab="this" class="active">本篇</button><button data-anno-tab="ink">手写</button><button data-anno-tab="all">全部笔记</button></div>
       <div class="anno-compose"><div class="anno-where" data-anno-where>全篇</div><textarea data-anno-input rows="3" placeholder="写笔记：生词、结构、出题点…"></textarea><button class="anno-save" data-anno-save>保存笔记</button></div>
-      <div class="anno-list" data-anno-list></div>`
+      <div class="anno-list" data-anno-list></div>
+      <div class="anno-sheet" data-anno-sheet hidden><div class="anno-sheet-bar" data-anno-sheet-bar></div><div class="anno-paper-wrap"><div class="anno-paper" data-anno-paper></div></div></div>`
     document.body.appendChild(drawer)
     toggle = document.createElement('button')
     toggle.className = 'anno-toggle'
@@ -422,6 +423,14 @@
     const target = composeArticle || id
     const where = composeAnchor == null ? '全篇' : `第 ${composeAnchor + 1} 段`
     if (whereEl) whereEl.innerHTML = target ? `<b>${esc(srcText(target))}</b> · ${where}` : '打开一篇文章后再记笔记'
+    // 手写页：收起文字笔记，露出手写纸（画布由 readerink.js 挂上）
+    const ink = drawerTab === 'ink', sheetEl = drawer.querySelector('[data-anno-sheet]'), composeEl = drawer.querySelector('.anno-compose')
+    if (composeEl) composeEl.hidden = ink
+    if (listEl) listEl.hidden = ink
+    if (sheetEl) sheetEl.hidden = !ink
+    drawer.classList.toggle('anno-ink', ink)
+    document.dispatchEvent(new CustomEvent('tem8:anno-sheet', { detail: { id: ink ? target : '' } }))
+    if (ink) return
     if (listEl) listEl.innerHTML = drawerTab === 'this' ? (target ? thisHTML(target) : '<p class="anno-empty">打开一篇文章后，这里会列出它的标记与笔记。</p>') : allHTML()
   }
   function addNote() {

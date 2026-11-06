@@ -84,14 +84,19 @@
   window.TEM8_PRELOAD = { load, url: src => urls.get(src) || '', has: src => urls.has(src) }
 
   /* ---------------- 手写批注层 ---------------- */
+  // 每块画布（Pane）有自己的归属 sid（做题 = 会话 id；精读原文 = read:文章；笔记手写纸 = note:文章）和范围 scope，
+  // 撤销 / 清除只作用于同一范围。笔迹存在 localStorage['tem8_ink_v1'][sid][key]。
   const INK_KEY = 'tem8_ink_v1', PREF_KEY = 'tem8_ink_prefs'
-  const COLORS = { k: null, b: '#2c5aa8', r: '#c23a2b', y: 'rgba(240,200,40,.42)' }
+  const PEN = { k: null, r: '#E5483B', o: '#EE8A2E', y: '#E2B21F', g: '#3E9F57', b: '#2F6FDB', p: '#8E52D6', gr: '#8A8F93' }
+  const HL = { y: [245, 205, 40], g: [120, 205, 120], b: [110, 170, 240], p: [240, 130, 180], o: [250, 160, 80] }
   const WIDTHS = { pen: [1.4, 2.2, 3.4], hl: [12, 16, 22] }
   const readJSON = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d } catch { return d } }
-  const prefs = Object.assign({ on: false, tool: 'pen', color: 'k', size: 1 }, readJSON(PREF_KEY, {}))
+  const prefs = Object.assign({ on: false, tool: 'pen', color: 'k', hl: 'y', size: { pen: 1, hl: 1 }, input: 'pen', fold: false }, readJSON(PREF_KEY, {}))
+  if (typeof prefs.size !== 'object') prefs.size = { pen: Number(prefs.size) || 1, hl: 1 }
+  if (!['pen', 'hl', 'eraser'].includes(prefs.tool)) prefs.tool = 'pen'
+  if (!(prefs.color in PEN)) prefs.color = 'k'
   const savePrefs = () => { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)) } catch {} }
-  let db = readJSON(INK_KEY, {}), sid = '', saveT = 0
-  const strokes = key => ((db[sid] ||= {})[key] ||= [])
+  let db = readJSON(INK_KEY, {}), saveT = 0
   function save() {
     clearTimeout(saveT)
     saveT = setTimeout(() => { try { localStorage.setItem(INK_KEY, JSON.stringify(db)) } catch {} }, 400)
@@ -99,14 +104,18 @@
   const history = [], redo = []
   const panes = new Set()
   const inkColor = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#2a2118'
+  const darkBg = () => document.documentElement.dataset.theme !== 'light'
 
   function drawStroke(ctx, s) {
     const p = s.p; if (!p || p.length < 2) return
     ctx.save()
     ctx.lineCap = 'round'; ctx.lineJoin = 'round'
-    ctx.strokeStyle = s.c === 'k' ? inkColor() : COLORS[s.c] || inkColor()
+    if (s.t === 'hl') {
+      const c = HL[s.c] || HL.y
+      ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${darkBg() ? .34 : .42})`
+      ctx.lineCap = 'butt'; ctx.globalCompositeOperation = darkBg() ? 'source-over' : 'multiply'
+    } else ctx.strokeStyle = PEN[s.c] || inkColor()
     ctx.lineWidth = s.w
-    if (s.t === 'hl') { ctx.lineCap = 'butt'; ctx.globalCompositeOperation = 'multiply' }
     ctx.beginPath(); ctx.moveTo(p[0], p[1])
     if (p.length === 2) ctx.lineTo(p[0] + .01, p[1])
     for (let i = 2; i < p.length - 2; i += 2) {
@@ -116,22 +125,45 @@
     if (p.length >= 4) ctx.lineTo(p[p.length - 2], p[p.length - 1])
     ctx.stroke(); ctx.restore()
   }
+  // 两指滑动时要滚的那个容器
+  function scrollerOf(el) {
+    for (let n = el; n && n !== document.body; n = n.parentElement) {
+      const o = getComputedStyle(n).overflowY
+      if ((o === 'auto' || o === 'scroll') && n.scrollHeight > n.clientHeight + 2) return n
+    }
+    return document.scrollingElement || document.documentElement
+  }
 
   class Pane {
-    constructor(el, key) {
-      this.el = el; this.key = key; this.z = 1
+    constructor(el, sid, key, opt = {}) {
+      this.el = el; this.sid = String(sid); this.key = key; this.z = 1
+      this.scope = opt.scope || 'main'; this.always = !!opt.always; this.zoomable = opt.zoom !== false
+      // anchor：让笔迹跟着文字走。{ prepare(pane), pick(pane,x,y) -> {ref,x,y,u}, locate(pane,ref) -> {x,y,u} }
+      // 有 anchor 时，一笔写完就换成「相对最近那个词的位置，按字号 u 计」存下来，重新排版后按词的新位置画
+      this.anchor = opt.anchor || null
       // 结构：pane(滚动) > sizer(按缩放后的尺寸撑开) > inner(内容 + 画布，整体 scale)
       const sizer = document.createElement('div'), inner = document.createElement('div')
       sizer.className = 'ink-sizer'; inner.className = 'ink-inner'
       while (el.firstChild) inner.appendChild(el.firstChild)
       const cv = document.createElement('canvas'); cv.className = 'ink-canvas'; cv.setAttribute('aria-hidden', 'true')
       inner.appendChild(cv); sizer.appendChild(inner); el.appendChild(sizer)
+      el.classList.add('ink-pane')
       Object.assign(this, { sizer, inner, cv, ctx: cv.getContext('2d') })
       this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(inner)
       this.bind()
       this.resize()
+      panes.add(this)
     }
-    get list() { return strokes(this.key) }
+    get list() { return ((db[this.sid] ||= {})[this.key] ||= []) }
+    get active() { return prefs.on || this.always }
+    destroy() {
+      this.ro.disconnect(); this.ac.abort(); panes.delete(this)
+      if (!this.el.isConnected) return
+      this.applyZoom(1)
+      this.cv.remove()
+      while (this.inner.firstChild) this.el.appendChild(this.inner.firstChild)
+      this.sizer.remove(); this.el.classList.remove('ink-pane')
+    }
     resize() {
       const w = this.inner.offsetWidth, h = this.inner.offsetHeight
       if (!w || !h) return
@@ -144,11 +176,34 @@
       this.applyZoom(this.z)
       this.redraw()
     }
+    // 一笔在当前排版下的实际样子（相对存的笔迹换算回画布坐标）
+    view(s) {
+      if (!s.a || !this.anchor) return s
+      if (this._v && this._v.has(s)) return this._v.get(s)
+      const L = this.anchor.locate(this, s.a)
+      const v = L ? { t: s.t, c: s.c, w: s.w * L.u, p: s.p.map((n, i) => i % 2 ? L.y + n * L.u : L.x + n * L.u) } : null
+      if (this._v) this._v.set(s, v)
+      return v
+    }
+    // 写完一笔：挂到最近的词上
+    anchorStroke(s) {
+      if (!this.anchor) return
+      const p = s.p; let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+      for (let i = 0; i < p.length; i += 2) { x0 = Math.min(x0, p[i]); x1 = Math.max(x1, p[i]); y0 = Math.min(y0, p[i + 1]); y1 = Math.max(y1, p[i + 1]) }
+      // 以整笔的中心找最近的词（下划线的中心正好在被划的词下面）
+      const A = this.anchor.pick(this, (x0 + x1) / 2, (y0 + y1) / 2)
+      if (!A || !A.u) return
+      s.p = p.map((n, i) => Math.round((n - (i % 2 ? A.y : A.x)) / A.u * 1000) / 1000)
+      s.w = Math.round(s.w / A.u * 1000) / 1000
+      s.a = A.ref
+    }
     redraw() {
-      const { ctx, dpr } = this; if (!ctx) return
+      const { ctx, dpr } = this; if (!ctx || !dpr) return
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, this.cv.width, this.cv.height)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      for (const s of this.list) drawStroke(ctx, s)
+      this._v = new Map()
+      if (this.anchor && this.anchor.prepare) this.anchor.prepare(this)
+      for (const s of this.list) { const v = this.view(s); if (v) drawStroke(ctx, v) }
     }
     point(e) {
       const r = this.inner.getBoundingClientRect(), z = this.z
@@ -156,7 +211,7 @@
     }
     applyZoom(z, ax, ay) {
       const el = this.el, old = this.z
-      z = Math.max(1, Math.min(3, z))
+      z = this.zoomable ? Math.max(1, Math.min(3, z)) : 1
       // 以手指中点为锚：缩放前后这个点在屏幕上不动
       const r = el.getBoundingClientRect()
       const cx = ax === undefined ? 0 : ax - r.left, cy = ay === undefined ? el.clientHeight / 2 : ay - r.top
@@ -176,46 +231,59 @@
       document.dispatchEvent(new CustomEvent('tem8:ink-zoom', { detail: { z } }))
     }
     bind() {
-      const el = this.el
+      const el = this.el, ac = this.ac = new AbortController(), o = { signal: ac.signal }
       const isField = t => t?.closest?.('input,textarea,select,[contenteditable="true"]')
-      let pinch = null
-      // 触摸：笔的触摸一律拦下（不滚动、不触发点击）；双指在手写模式下缩放
+      const finger = () => prefs.input === 'finger' && prefs.tool !== 'none'
+      let two = null, cur = null
+      const cancelStroke = () => {
+        if (!cur) return
+        if (cur.s) { const l = this.list, k = l.lastIndexOf(cur.s); if (k >= 0) l.splice(k, 1); this.redraw() }
+        cur = null
+      }
+      // 触摸：笔一律拦下（不滚动、不触发点击）。
+      // 「仅笔书写」：手指照常滚动、点击，双指缩放；「笔和单指书写」：单指写字，双指滑动（并可缩放）
       el.addEventListener('touchstart', e => {
-        if (!prefs.on) return
+        if (!this.active || isField(e.target)) return
         const stylus = [...e.touches].some(t => t.touchType === 'stylus')
-        if (stylus && !isField(e.target) && prefs.tool !== 'none') { e.preventDefault(); return }
-        if (e.touches.length === 2 && !stylus) {
+        if (stylus) { e.preventDefault(); return }
+        if (e.touches.length === 2) {
+          cancelStroke()
           const [a, b] = e.touches
-          pinch = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), z: this.z }
-          e.preventDefault()
+          two = { x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2, d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), z: this.z, sc: scrollerOf(el) }
+          e.preventDefault(); return
         }
-      }, { passive: false })
+        if (finger() && e.touches.length === 1) e.preventDefault()
+      }, { passive: false, ...o })
       el.addEventListener('touchmove', e => {
-        if (!prefs.on) return
-        if ([...e.touches].some(t => t.touchType === 'stylus') && prefs.tool !== 'none' && !isField(e.target)) { e.preventDefault(); return }
-        if (pinch && e.touches.length === 2) {
+        if (!this.active || isField(e.target)) return
+        if ([...e.touches].some(t => t.touchType === 'stylus')) { e.preventDefault(); return }
+        if (two && e.touches.length === 2) {
           e.preventDefault()
           const [a, b] = e.touches, d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
-          this.applyZoom(pinch.z * d / pinch.d, (a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2)
+          const x = (a.clientX + b.clientX) / 2, y = (a.clientY + b.clientY) / 2
+          if (Math.abs(d / two.d - 1) > .08 && this.zoomable) this.applyZoom(two.z * d / two.d, x, y)
+          else if (finger()) { two.sc.scrollBy(two.x - x, two.y - y); two.x = x; two.y = y }
+          return
         }
-      }, { passive: false })
-      el.addEventListener('touchend', e => { if (e.touches.length < 2) pinch = null })
+        if (finger() && e.touches.length === 1) e.preventDefault()
+      }, { passive: false, ...o })
+      el.addEventListener('touchend', e => { if (e.touches.length < 2) two = null }, o)
 
-      let cur = null
       el.addEventListener('pointerdown', e => {
-        if (!prefs.on || prefs.tool === 'none') return
-        if (e.pointerType === 'touch' || (e.pointerType === 'mouse' && e.button !== 0)) return
+        if (!this.active) return
+        if (e.pointerType === 'touch' && !(finger() && e.isPrimary)) return
+        if (e.pointerType === 'mouse' && e.button !== 0) return
         if (isField(e.target)) return
         e.preventDefault(); e.stopPropagation()
         try { el.setPointerCapture(e.pointerId) } catch {}
         const [x, y] = this.point(e)
-        cur = { id: e.pointerId, t0: Date.now(), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, erased: [] }
+        cur = { id: e.pointerId, t0: Date.now(), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, erased: [], type: e.pointerType }
         if (prefs.tool === 'eraser') { this.erase(x, y, cur); return }
         const hl = prefs.tool === 'hl'
-        cur.s = { t: hl ? 'hl' : 'pen', c: hl ? 'y' : prefs.color, w: (hl ? WIDTHS.hl : WIDTHS.pen)[prefs.size] || 2, p: [x, y] }
+        cur.s = { t: hl ? 'hl' : 'pen', c: hl ? prefs.hl : prefs.color, w: (hl ? WIDTHS.hl : WIDTHS.pen)[prefs.size[hl ? 'hl' : 'pen']] || 2, p: [x, y] }
         this.list.push(cur.s)
         this.redraw()
-      }, true)
+      }, { capture: true, ...o })
       el.addEventListener('pointermove', e => {
         if (!cur || e.pointerId !== cur.id) return
         e.preventDefault()
@@ -232,30 +300,32 @@
           ctx.save(); ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0)
           drawStroke(ctx, { ...cur.s, p: p.slice(-6) }); ctx.restore()
         }
-      }, true)
+      }, { capture: true, ...o })
       const end = e => {
         if (!cur || e.pointerId !== cur.id) return
         const c = cur; cur = null
         if (c.s) {
           const tap = Date.now() - c.t0 < 260 && Math.hypot(c.cx - c.x0, c.cy - c.y0) < 6
           if (tap) {
-            // 笔尖轻点 = 点击（选选项、点按钮），不留墨点
+            // 轻点 = 点击（选选项、点单词），不留墨点
             this.list.pop(); this.redraw()
-            if (e.pointerType === 'pen') tapAt(c.x0, c.y0)
+            if (c.type !== 'mouse') tapAt(c.x0, c.y0)
             return
           }
+          this.anchorStroke(c.s)
           history.push({ pane: this, op: 'add', s: c.s }); redo.length = 0
           this.redraw()
         } else if (c.erased.length) { history.push({ pane: this, op: 'erase', list: c.erased }); redo.length = 0 }
         save(); sync()
       }
-      el.addEventListener('pointerup', end, true)
-      el.addEventListener('pointercancel', end, true)
+      el.addEventListener('pointerup', end, { capture: true, ...o })
+      el.addEventListener('pointercancel', e => { if (cur && e.pointerId === cur.id) { cancelStroke(); sync() } }, { capture: true, ...o })
     }
     erase(x, y, c) {
       const r = 10 / this.z, list = this.list
       for (let i = list.length - 1; i >= 0; i--) {
-        const p = list[i].p, rr = r + list[i].w / 2
+        const v = this.view(list[i]); if (!v) continue
+        const p = v.p, rr = r + v.w / 2
         for (let j = 0; j < p.length; j += 2) {
           if (Math.abs(p[j] - x) < rr && Math.abs(p[j + 1] - y) < rr) { c.erased.push({ s: list[i], i }); list.splice(i, 1); this.redraw(); break }
         }
@@ -270,23 +340,47 @@
     el.click()
   }
 
-  let bar = null
+  /* ---- 清除确认：网站自己的弹窗 ---- */
+  function confirmClear(text, ok) {
+    const d = document.createElement('div')
+    d.className = 'ink-dlg'
+    d.innerHTML = `<div class="ink-dlg-box" role="alertdialog" aria-modal="true" aria-label="清除笔迹"><b>清除笔迹</b><p>${text}</p><div class="ink-dlg-btns"><button type="button" data-k="no">取消</button><button type="button" class="danger" data-k="yes">全部清除</button></div></div>`
+    document.body.appendChild(d)
+    const close = () => d.remove()
+    d.addEventListener('click', e => {
+      const k = e.target.closest('[data-k]')?.dataset.k
+      if (k === 'yes') ok()
+      if (k || e.target === d) close()
+    })
+    d.querySelector('[data-k=no]').focus()
+  }
+
+  const scopeOf = el => el?.closest?.('[data-ink-scope]')?.dataset.inkScope || 'main'
+  const inScope = s => [...panes].filter(p => p.scope === s)
   function sync() {
     document.body.classList.toggle('ink-on', prefs.on)
-    document.querySelectorAll('[data-ink-tool]').forEach(b => {
-      const t = b.dataset.inkTool, on = t === 'pen' ? prefs.tool === 'pen' && prefs.color === b.dataset.c : prefs.tool === t
-      b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on))
+    document.body.classList.toggle('ink-finger', prefs.input === 'finger')
+    document.querySelectorAll('.ink-bar2').forEach(bar => {
+      bar.dataset.tool = prefs.tool
+      bar.classList.toggle('folded', !!prefs.fold)
+      const s = bar.dataset.inkScope || 'main', ps = inScope(s)
+      bar.querySelectorAll('[data-ink-undo]').forEach(b => { b.disabled = !history.some(h => ps.includes(h.pane)) })
+      bar.querySelectorAll('[data-ink-redo]').forEach(b => { b.disabled = !redo.some(h => ps.includes(h.pane)) })
+      bar.querySelectorAll('[data-ink-clear]').forEach(b => { b.disabled = !ps.some(p => p.list.length) })
+      const z = Math.max(1, ...ps.map(p => p.z))
+      bar.querySelectorAll('[data-ink-zoomval]').forEach(b => { b.textContent = Math.round(z * 100) + '%' })
     })
-    document.querySelectorAll('[data-ink-size]').forEach(b => { const on = Number(b.dataset.inkSize) === prefs.size; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)) })
-    document.querySelectorAll('[data-ink-toggle]').forEach(b => { b.classList.toggle('on', prefs.on); b.setAttribute('aria-pressed', String(prefs.on)) })
-    document.querySelectorAll('[data-ink-undo]').forEach(b => { b.disabled = !history.some(h => panes.has(h.pane)) })
-    document.querySelectorAll('[data-ink-redo]').forEach(b => { b.disabled = !redo.some(h => panes.has(h.pane)) })
-    const z = Math.max(1, ...[...panes].map(p => p.z))
-    document.querySelectorAll('[data-ink-zoomval]').forEach(b => { b.textContent = Math.round(z * 100) + '%' })
+    const pick = (sel, on) => document.querySelectorAll(sel).forEach(b => { const v = on(b); b.classList.toggle('on', v); b.setAttribute('aria-pressed', String(v)) })
+    pick('[data-ink-tool]', b => prefs.tool === b.dataset.inkTool)
+    pick('[data-ink-color]', b => (b.dataset.for === 'hl' ? prefs.hl : prefs.color) === b.dataset.inkColor)
+    pick('[data-ink-size]', b => prefs.size[b.dataset.for || 'pen'] === Number(b.dataset.inkSize))
+    pick('[data-ink-toggle]', () => prefs.on)
+    pick('[data-ink-input]', b => prefs.input === b.dataset.inkInput)
+    document.querySelectorAll('.ink-fold-ico').forEach(i => { i.className = 'ink-fold-ico t-' + prefs.tool + (prefs.tool === 'pen' ? ' c-' + prefs.color : prefs.tool === 'hl' ? ' h-' + prefs.hl : '') })
   }
-  function undoOne(from, to) {
+  function undoOne(from, to, scope) {
     for (let i = from.length - 1; i >= 0; i--) {
-      const h = from[i]; if (!panes.has(h.pane)) continue
+      const h = from[i]; if (!panes.has(h.pane) || h.pane.scope !== scope) continue
       from.splice(i, 1)
       const l = h.pane.list
       const forward = to === redo
@@ -298,63 +392,93 @@
     sync()
   }
   document.addEventListener('click', e => {
-    const b = e.target.closest?.('[data-ink-tool],[data-ink-size],[data-ink-toggle],[data-ink-undo],[data-ink-redo],[data-ink-clear],[data-ink-zoom]')
+    const b = e.target.closest?.('[data-ink-tool],[data-ink-color],[data-ink-size],[data-ink-toggle],[data-ink-undo],[data-ink-redo],[data-ink-clear],[data-ink-zoom],[data-ink-menu],[data-ink-input],[data-ink-fold]')
+    const bar = e.target.closest?.('.ink-bar2')
+    // 点工具条以外的地方收起设置菜单
+    document.querySelectorAll('.ink-menu:not([hidden])').forEach(m => { if (!m.contains(e.target) && !e.target.closest?.('[data-ink-menu]')) m.hidden = true })
     if (!b) return
     e.preventDefault(); e.stopPropagation()
-    const d = b.dataset
+    const d = b.dataset, scope = scopeOf(b)
     if (d.inkToggle !== undefined) {
       prefs.on = !prefs.on
-      if (!prefs.on) panes.forEach(p => p.applyZoom(1))
+      if (!prefs.on) panes.forEach(p => { if (!p.always) p.applyZoom(1) })
     }
-    if (d.inkTool) { prefs.tool = d.inkTool; if (d.c) prefs.color = d.c }
-    if (d.inkSize) prefs.size = Number(d.inkSize)
-    if (d.inkUndo !== undefined) undoOne(history, redo)
-    if (d.inkRedo !== undefined) undoOne(redo, history)
+    if (d.inkTool) { prefs.tool = d.inkTool; prefs.fold = false }
+    if (d.inkColor) { if (d.for === 'hl') { prefs.hl = d.inkColor; prefs.tool = 'hl' } else { prefs.color = d.inkColor; prefs.tool = 'pen' } }
+    if (d.inkSize) prefs.size[d.for || 'pen'] = Number(d.inkSize)
+    if (d.inkInput) prefs.input = d.inkInput
+    if (d.inkFold !== undefined) prefs.fold = !prefs.fold
+    if (d.inkMenu !== undefined && bar) { const m = bar.querySelector('.ink-menu'); if (m) m.hidden = !m.hidden }
+    if (d.inkUndo !== undefined) undoOne(history, redo, scope)
+    if (d.inkRedo !== undefined) undoOne(redo, history, scope)
     if (d.inkClear !== undefined) {
-      const has = [...panes].some(p => p.list.length)
-      if (has && confirm('清空这一组的手写笔迹？')) panes.forEach(p => { if (p.list.length) { history.push({ pane: p, op: 'clear', list: [...p.list] }); p.list.length = 0; p.redraw() } })
-      save()
+      const ps = inScope(scope).filter(p => p.list.length)
+      if (ps.length) confirmClear(bar?.dataset.clearText || '确定要清除这一页的所有笔迹吗？', () => {
+        ps.forEach(p => { history.push({ pane: p, op: 'clear', list: [...p.list] }); p.list.length = 0; p.redraw() })
+        save(); sync()
+      })
     }
     if (d.inkZoom) {
       const step = d.inkZoom === 'in' ? 1.25 : d.inkZoom === 'out' ? 0.8 : 0
-      panes.forEach(p => p.applyZoom(step ? p.z * step : 1))
+      inScope(scope).forEach(p => p.applyZoom(step ? p.z * step : 1))
     }
     savePrefs(); sync()
   }, true)
 
+  const ICO = {
+    pen: '<svg viewBox="0 0 24 24"><path d="M4 20l1.2-4.6L15.6 5a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.6 18.8z"/><path d="M13.8 6.8l3.4 3.4"/></svg>',
+    hl: '<svg viewBox="0 0 24 24"><path d="M9.5 14.5l-3 3 0 2.5h4l2-2"/><path d="M8 13l6.5-8.5 5 5L11 16z"/><path d="M4 20.5h16"/></svg>',
+    eraser: '<svg viewBox="0 0 24 24"><path d="M8.5 19.5h11"/><path d="M5.3 15.3l9.4-9.4a2 2 0 0 1 2.8 0l2.6 2.6a2 2 0 0 1 0 2.8l-7.6 7.6H8.7z"/><path d="M10 10.6l5.4 5.4"/></svg>',
+    undo: '<svg viewBox="0 0 24 24"><path d="M9 7L5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-2"/></svg>',
+    redo: '<svg viewBox="0 0 24 24"><path d="M15 7l4 4-4 4"/><path d="M19 11h-9a5 5 0 0 0 0 10h2"/></svg>',
+    clear: '<svg viewBox="0 0 24 24"><path d="M9 3.5h6v4.5H9z"/><path d="M6 8h12v3.5H6z"/><path d="M7 11.5l-1 9h12l-1-9"/><path d="M10 15v5.5M14 15v5.5"/></svg>',
+    gear: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8l2 2.3 3-.4.6 3 2.6 1.6-1.2 2.7 1.2 2.7-2.6 1.6-.6 3-3-.4-2 2.3-2-2.3-3 .4-.6-3L2.8 14.7 4 12 2.8 9.3l2.6-1.6.6-3 3 .4z"/></svg>',
+    fold: '<svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>'
+  }
+
   window.TEM8_INK = {
-    // 每次重绘做题页后调用：给 [data-ink] 面板挂上画布
+    // 做题页：每次重绘后调用，给 [data-ink] 面板挂上画布（替换掉上一组做题画布）
     attach(root, sessionId, groupIndex) {
-      sid = String(sessionId || 'x')
-      panes.forEach(p => p.ro.disconnect()); panes.clear()
-      root.querySelectorAll('[data-ink]').forEach(el => panes.add(new Pane(el, `${groupIndex}:${el.dataset.ink}`)))
+      ;[...panes].filter(p => p.scope === 'main').forEach(p => p.destroy())
+      root.querySelectorAll('[data-ink]').forEach(el => new Pane(el, sessionId || 'x', `${groupIndex}:${el.dataset.ink}`, { scope: 'main' }))
       sync()
     },
+    // 其他页面：单独挂一块画布，返回它（之后用 unmount 拆掉）
+    mount(el, sid, key, opt) { const p = new Pane(el, sid, key, opt); sync(); return p },
+    unmount(p) { if (p) p.destroy(); sync() },
+    has(sid) { const r = db[sid]; return !!r && Object.values(r).some(l => l && l.length) },
     drop(sessionId) { if (db[sessionId]) { delete db[sessionId]; save() } },
-    // 只保留还在进行中的那份
-    prune(keep) { for (const k of Object.keys(db)) if (k !== String(keep)) delete db[k]; save() },
+    // 做题会话只保留进行中的那份；精读原文、笔记手写纸的笔迹不动
+    prune(keep) { for (const k of Object.keys(db)) if (k !== String(keep) && !/^(read|note):/.test(k)) delete db[k]; save() },
     sync,
     get on() { return prefs.on },
-    barHTML() {
-      const pen = (c, label) => `<button type="button" class="ink-b ink-pen" data-ink-tool="pen" data-c="${c}" title="${label}" aria-label="${label}"><i class="ink-dot c-${c}"></i></button>`
-      return `<div class="ink-bar" role="toolbar" aria-label="手写工具">
-        <button type="button" class="ink-b" data-ink-tool="none" title="不写字，只点选和滚动">点选</button>
-        <span class="ink-sep"></span>${pen('k', '黑笔')}${pen('b', '蓝笔')}${pen('r', '红笔')}
-        <button type="button" class="ink-b ink-hl" data-ink-tool="hl" title="荧光笔" aria-label="荧光笔"><i></i></button>
-        <button type="button" class="ink-b" data-ink-tool="eraser" title="橡皮：划过笔迹即擦除">橡皮</button>
-        <span class="ink-sep"></span>
-        <button type="button" class="ink-b ink-size" data-ink-size="0" aria-label="细"><i style="--s:3px"></i></button>
-        <button type="button" class="ink-b ink-size" data-ink-size="1" aria-label="中"><i style="--s:5px"></i></button>
-        <button type="button" class="ink-b ink-size" data-ink-size="2" aria-label="粗"><i style="--s:8px"></i></button>
-        <span class="ink-sep"></span>
-        <button type="button" class="ink-b" data-ink-undo title="撤销" aria-label="撤销">↶</button>
-        <button type="button" class="ink-b" data-ink-redo title="重做" aria-label="重做">↷</button>
-        <span class="ink-sep"></span>
-        <button type="button" class="ink-b" data-ink-zoom="out" aria-label="缩小">−</button>
-        <button type="button" class="ink-b ink-zv" data-ink-zoom="reset" data-ink-zoomval title="恢复原大小">100%</button>
-        <button type="button" class="ink-b" data-ink-zoom="in" aria-label="放大">＋</button>
-        <span class="ink-grow"></span>
-        <button type="button" class="ink-b" data-ink-clear>清空本组</button>
+    // 工具条：上面一排工具，下面一排随工具变化的颜色和粗细；齿轮里是输入方式（和缩放）
+    barHTML(opt = {}) {
+      const scope = opt.scope || 'main', zoom = opt.zoom !== false
+      const tool = (t, label) => `<button type="button" class="ib" data-ink-tool="${t}" aria-label="${label}" title="${label}">${ICO[t]}</button>`
+      const pens = Object.keys(PEN).map(c => `<button type="button" class="ib-c" data-ink-color="${c}" data-for="pen" aria-label="笔的颜色"><i class="c-${c}"></i></button>`).join('')
+      const hls = Object.keys(HL).map(c => `<button type="button" class="ib-c" data-ink-color="${c}" data-for="hl" aria-label="荧光笔颜色"><i class="h-${c}"></i></button>`).join('')
+      const sizes = f => [0, 1, 2].map(n => `<button type="button" class="ib-s" data-ink-size="${n}" data-for="${f}" aria-label="${['细', '中', '粗'][n]}"><i style="--w:${f === 'hl' ? [6, 9, 12][n] : [2.5, 4, 6][n]}px"></i></button>`).join('')
+      return `<div class="ink-bar2" data-ink-scope="${scope}" data-clear-text="${opt.clearText || '确定要清除这一页的所有笔迹吗？'}" role="toolbar" aria-label="手写工具">
+        <div class="ib-main">
+          <button type="button" class="ib ib-unfold" data-ink-fold aria-label="展开手写工具"><i class="ink-fold-ico"></i></button>
+          ${tool('pen', '笔')}${tool('hl', '荧光笔')}${tool('eraser', '橡皮：划过笔迹即擦除')}
+          <span class="ib-sep"></span>
+          <button type="button" class="ib" data-ink-undo aria-label="撤销" title="撤销">${ICO.undo}</button>
+          <button type="button" class="ib" data-ink-redo aria-label="重做" title="重做">${ICO.redo}</button>
+          <button type="button" class="ib" data-ink-clear aria-label="清除笔迹" title="清除笔迹">${ICO.clear}</button>
+          <span class="ib-sep"></span>
+          <button type="button" class="ib" data-ink-menu aria-label="手写设置" title="手写设置">${ICO.gear}</button>
+          <button type="button" class="ib ib-fold" data-ink-fold aria-label="收起" title="收起">${ICO.fold}</button>
+        </div>
+        <div class="ib-sub ib-for-pen">${pens}<span class="ib-sep"></span>${sizes('pen')}</div>
+        <div class="ib-sub ib-for-hl">${hls}<span class="ib-sep"></span>${sizes('hl')}</div>
+        <div class="ink-menu" hidden>
+          <button type="button" class="im-row" data-ink-input="pen"><span>仅笔书写，手指滑动</span><i>✓</i></button>
+          <button type="button" class="im-row" data-ink-input="finger"><span>笔和单指书写，双指滑动</span><i>✓</i></button>
+          ${zoom ? `<div class="im-zoom"><span>缩放</span><button type="button" data-ink-zoom="out" aria-label="缩小">−</button><button type="button" data-ink-zoom="reset" data-ink-zoomval>100%</button><button type="button" data-ink-zoom="in" aria-label="放大">＋</button></div>` : ''}
+          ${opt.note ? `<p class="im-note">${opt.note}</p>` : ''}
+        </div>
       </div>`
     }
   }

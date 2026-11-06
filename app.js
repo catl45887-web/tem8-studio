@@ -524,12 +524,12 @@
     if (readerTab === 'words') syncWordbook()
     document.querySelectorAll('[data-reader-tab]').forEach(b => b.classList.toggle('active',b.dataset.readerTab === readerTab))
     window.TEM8_ANNO?.refresh(activeArticle.id)
-    if (readerMode === 'practice') { $('reader-content').innerHTML=renderPractice(); return }
+    if (readerMode === 'practice') { $('reader-content').innerHTML=renderPractice(); document.dispatchEvent(new CustomEvent('tem8:reader-render', { detail: { id: activeArticle.id, mode: readerMode, tab: readerTab } })); return }
     const segments=activeArticle.segments
     const notes=extras.notes[activeArticle.id] || []
     let html = ''
     if (readerTab === 'translate') {
-      html = articleText() + ''
+      html = `<div class="rd-ink" data-ink="a">${articleText()}</div>`
     } else if (readerTab === 'parse') {
       html = readerIntro('长难句解析',notes.length ? '精选句子，人工整理主干与修饰关系。' : '本篇暂无人工长难句解析。') + notes.map(n => `<article class="reader-note"><span class="reader-number">第 ${n.paragraph} 段 · 精选句</span><p>${esc(n.excerpt)}</p><div class="note-label">拆解</div><p>${esc(n.note)}</p></article>`).join('')
     } else if (readerTab === 'syntax') {
@@ -541,6 +541,7 @@
     }
     $('reader-content').innerHTML = html
     markBookWords()
+    document.dispatchEvent(new CustomEvent('tem8:reader-render', { detail: { id: activeArticle.id, mode: readerMode, tab: readerTab } }))
   }
   function markBookWords() {
     const set=new Set((store.wordbook||[]).map(w=>String(w).toLowerCase()))

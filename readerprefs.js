@@ -61,6 +61,15 @@
     v.classList.toggle('rp-side', P.zh === 'all' && layoutNow() === 'side')
     v.classList.toggle('rp-marks-off', !P.marks)
     syncPanel(); syncRail()
+    // 排版一变，手写笔迹换一层（tem8:reader-layout，readerink.js 接）
+    var sg = sig()
+    if (sg !== lastSig) { lastSig = sg; document.dispatchEvent(new CustomEvent('tem8:reader-layout', { detail: sg })) }
+  }
+  var lastSig = ''
+  // 当前排版的指纹：字号、行距、字体、边距、词距、译文、对照、正文宽度（取整到 20px）
+  function sig() {
+    var c = $('reader-content'), w = c ? Math.round(c.clientWidth / 20) * 20 : 0
+    return [P.size, P.lh, P.font, P.margin, P.ws, P.zh, P.zh === 'all' ? layoutNow() : '-', w].join('_')
   }
 
   /* ---------- 面板 ---------- */
@@ -186,7 +195,8 @@
   var ICON = {
     moon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.9 7.9 0 1 0 10.1 10.1z"/></svg>',
     sun: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>',
-    mark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19.5h14"/><path d="M14.6 4.6l4.8 4.8-7.7 7.7H6.9v-4.8z"/></svg>',
+    mark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16"/><path d="M7 16l5-11 5 11"/><path d="M8.8 12h6.4"/></svg>',
+    ink: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-4.6L15.6 5a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.6 18.8z"/><path d="M13.8 6.8l3.4 3.4"/></svg>',
     note: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></svg>'
   }
   var rail = null
@@ -198,6 +208,7 @@
       '<button type="button" class="rp-rb rp-rb-aa" data-rd-panel aria-label="阅读设置" aria-expanded="false">Aa</button>' +
       '<button type="button" class="rp-rb" data-rp-tone aria-label="切换深浅色"></button>' +
       '<button type="button" class="rp-rb" data-rp-marks aria-label="显示或隐藏标注">' + ICON.mark + '</button>' +
+      '<button type="button" class="rp-rb" data-ink-toggle aria-label="手写" title="手写">' + ICON.ink + '</button>' +
       '<button type="button" class="rp-rb rp-rb-note" data-rd-notes aria-label="笔记">' + ICON.note + '<b class="rp-badge" data-rd-count hidden></b></button>'
     v.appendChild(rail)
     // 顶栏原来的 Aa / 笔记按钮交给工具栏
@@ -255,7 +266,8 @@
   window.TEM8_RP = {
     zhAll: function () { return P.zh === 'all' },
     apply: apply,
-    prefs: function () { return Object.assign({}, P) }
+    prefs: function () { return Object.assign({}, P) },
+    sig: sig
   }
   if ($('reader-view') && $('reader-view').classList.contains('active')) onReader()
 })()
