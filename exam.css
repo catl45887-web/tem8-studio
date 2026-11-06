@@ -269,3 +269,5 @@ body.ink-on.ink-finger .ink-pane{touch-action:none}
 .ink-dlg-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ink-dlg-btns button{height:46px;border:0;border-radius:14px;background:var(--soft);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
 .ink-dlg-btns .danger{background:#E5483B;color:#fff;font-weight:600}
+.ink-toast{position:absolute;left:50%;top:calc(100% + 8px);transform:translate(-50%,-4px);padding:7px 14px;border-radius:99px;background:var(--ib-bg);color:var(--ib-fg);font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.ink-toast.show{opacity:1;transform:translate(-50%,0)}

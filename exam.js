@@ -355,6 +355,14 @@
     d.querySelector('[data-k=no]').focus()
   }
 
+  // 工具条下方的一句小提示
+  function inkToast(from, text) {
+    const bar = from.closest('.ink-bar2'); if (!bar) return
+    let t = bar.querySelector('.ink-toast')
+    if (!t) { t = document.createElement('div'); t.className = 'ink-toast'; t.setAttribute('role', 'status'); bar.appendChild(t) }
+    t.textContent = text; t.classList.add('show')
+    clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 1600)
+  }
   const scopeOf = el => el?.closest?.('[data-ink-scope]')?.dataset.inkScope || 'main'
   const inScope = s => [...panes].filter(p => p.scope === s)
   function sync() {
@@ -366,7 +374,6 @@
       const s = bar.dataset.inkScope || 'main', ps = inScope(s)
       bar.querySelectorAll('[data-ink-undo]').forEach(b => { b.disabled = !history.some(h => ps.includes(h.pane)) })
       bar.querySelectorAll('[data-ink-redo]').forEach(b => { b.disabled = !redo.some(h => ps.includes(h.pane)) })
-      bar.querySelectorAll('[data-ink-clear]').forEach(b => { b.disabled = !ps.some(p => p.list.length) })
       const z = Math.max(1, ...ps.map(p => p.z))
       bar.querySelectorAll('[data-ink-zoomval]').forEach(b => { b.textContent = Math.round(z * 100) + '%' })
     })
@@ -413,7 +420,8 @@
     if (d.inkRedo !== undefined) undoOne(redo, history, scope)
     if (d.inkClear !== undefined) {
       const ps = inScope(scope).filter(p => p.list.length)
-      if (ps.length) confirmClear(bar?.dataset.clearText || '确定要清除这一页的所有笔迹吗？', () => {
+      if (!ps.length) inkToast(b, '这一页还没有笔迹')
+      else confirmClear(bar?.dataset.clearText || '确定要清除这一页的所有笔迹吗？', () => {
         ps.forEach(p => { history.push({ pane: p, op: 'clear', list: [...p.list] }); p.list.length = 0; p.redraw() })
         save(); sync()
       })
@@ -431,7 +439,7 @@
     eraser: '<svg viewBox="0 0 24 24"><path d="M8.5 19.5h11"/><path d="M5.3 15.3l9.4-9.4a2 2 0 0 1 2.8 0l2.6 2.6a2 2 0 0 1 0 2.8l-7.6 7.6H8.7z"/><path d="M10 10.6l5.4 5.4"/></svg>',
     undo: '<svg viewBox="0 0 24 24"><path d="M9 7L5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-2"/></svg>',
     redo: '<svg viewBox="0 0 24 24"><path d="M15 7l4 4-4 4"/><path d="M19 11h-9a5 5 0 0 0 0 10h2"/></svg>',
-    clear: '<svg viewBox="0 0 24 24"><path d="M9 3.5h6v4.5H9z"/><path d="M6 8h12v3.5H6z"/><path d="M7 11.5l-1 9h12l-1-9"/><path d="M10 15v5.5M14 15v5.5"/></svg>',
+    clear: '<svg viewBox="0 0 24 24"><path d="M4.5 6.5h15"/><path d="M9.5 6.5V4.5h5v2"/><path d="M6.6 6.5l.9 12.4a1.6 1.6 0 0 0 1.6 1.5h5.8a1.6 1.6 0 0 0 1.6-1.5l.9-12.4"/><path d="M10.2 10.5v6M13.8 10.5v6"/></svg>',
     gear: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8l2 2.3 3-.4.6 3 2.6 1.6-1.2 2.7 1.2 2.7-2.6 1.6-.6 3-3-.4-2 2.3-2-2.3-3 .4-.6-3L2.8 14.7 4 12 2.8 9.3l2.6-1.6.6-3 3 .4z"/></svg>',
     fold: '<svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>'
   }
@@ -466,7 +474,7 @@
           <span class="ib-sep"></span>
           <button type="button" class="ib" data-ink-undo aria-label="撤销" title="撤销">${ICO.undo}</button>
           <button type="button" class="ib" data-ink-redo aria-label="重做" title="重做">${ICO.redo}</button>
-          <button type="button" class="ib" data-ink-clear aria-label="清除笔迹" title="清除笔迹">${ICO.clear}</button>
+          <button type="button" class="ib" data-ink-clear aria-label="清除这一页的全部笔迹" title="清除全部笔迹">${ICO.clear}</button>
           <span class="ib-sep"></span>
           <button type="button" class="ib" data-ink-menu aria-label="手写设置" title="手写设置">${ICO.gear}</button>
           <button type="button" class="ib ib-fold" data-ink-fold aria-label="收起" title="收起">${ICO.fold}</button>
