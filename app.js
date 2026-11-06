@@ -463,8 +463,8 @@
     readerMode = mode === 'free' ? 'free' : 'practice'
     readerTab='translate'; zhOpen=new Set(); lnOpen=new Set()
     updateReaderChrome()
-    $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px')
-    $('reader-view').style.setProperty('--reader-lh',store.readingLine||1.8)
+    if (window.TEM8_RP) window.TEM8_RP.apply()
+    else { $('reader-view').style.setProperty('--reader-font-size',store.readingFont+'px'); $('reader-view').style.setProperty('--reader-lh',store.readingLine||1.8) }
     renderReader(); page('reader')
     const state=articleState(activeArticle.id)
     if (readerMode === 'free' && state.y > 0 && !state.completed) setTimeout(() => scrollTo({top:state.y,behavior:'smooth'}),200)
@@ -476,7 +476,7 @@
     document.body.classList.toggle('free-reader', readerMode === 'free')
     document.body.classList.toggle('real-practice', readerMode === 'practice')
     $('reader-mode-badge').textContent = `${activeArticle.year} 专八真题 · ${readerMode === 'free' ? '精读' : '做题'}`
-    $('reader-view').classList.toggle('reader-sepia',store.readingBackground==='sepia')
+    // 背景、字号等由 readerprefs.js 管
     document.querySelector('.reader-title').textContent=activeArticle.title
     $('reader-subtitle').textContent = (readerMode === 'free' ? `选中想记的词句点“标记”，笔记收在右侧抽屉里。点击单词查词。${activeArticle.year===2025?'精选句有人工句法讲解。':'本年尚无人工句法讲解。'}` : '左侧原文、右侧真题。选中原文即可标记，笔记在右侧抽屉。记录保存在当前浏览器；换设备前请在「我的」导出备份。')
     $('article-mode-switch').hidden=false
@@ -495,7 +495,8 @@
       if (open) html+=`<span class="rd-ln-body"><span class="rd-ln-ex">${esc(n.excerpt)}</span>${(n.syntax||[]).map(([l,v])=>`<span class="rd-ln-row"><b>${esc(l)}</b>${esc(v)}</span>`).join('')}<span class="rd-ln-note">${esc(n.note)}</span></span>`
     })
     const zh=zhOf(activeArticle.id,i)
-    if (zh) html+=zhOpen.has(i) ? `<button type="button" class="rd-zh open" data-zh="${i}"><span class="rd-zh-text">${esc(zh)}</span><span class="rd-zh-hint">收起翻译</span></button>` : `<button type="button" class="rd-zh" data-zh="${i}">点击查看翻译</button>`
+    if (zh && window.TEM8_RP?.zhAll()) html+=`<span class="rd-zh rd-zh-all" lang="zh"><span class="rd-zh-text">${esc(zh)}</span></span>`
+    else if (zh) html+=zhOpen.has(i) ? `<button type="button" class="rd-zh open" data-zh="${i}"><span class="rd-zh-text">${esc(zh)}</span><span class="rd-zh-hint">收起翻译</span></button>` : `<button type="button" class="rd-zh" data-zh="${i}">点击查看翻译</button>`
     return html
   }
   function readerIntro(title, desc) { return `<div class="reader-intro"><strong>${esc(title)}</strong><span>${esc(desc)}</span></div>` }
@@ -518,6 +519,7 @@
     const answerBox=q.type === 'choice' ? `<div class="practice-options">${q.options.map((option,i) => `<button class="practice-option ${selected === i ? 'selected' : ''}" data-practice-answer="${q.number}" data-choice="${i}"><b>${letters[i]}</b><span>${esc(option)}</span></button>`).join('')}</div>` : `<textarea id="practice-short-answer" data-practice-short="${q.number}" placeholder="在此输入简答（试卷要求不超过 10 词）">${esc(selected || '')}</textarea><div class="word-count">${String(selected || '').trim().split(/\s+/).filter(Boolean).length} / 10 词</div>`
     return `<div class="practice-layout"><div class="practice-passage"><div class="practice-pane-head"><strong>文章原文</strong><span>点击段号记进度 · 点击单词查词</span></div>${articleText()}</div><aside class="practice-panel"><div class="practice-pane-head"><strong>${activeArticle.year} 真题</strong><span>已答 ${count} / ${qs.length} · 自动保存</span></div><div class="practice-question"><span class="quiz-type">${q.type === 'choice' ? '选择题' : '简答题'} · Q${q.number}</span><h2>${esc(q.prompt)}</h2>${answerBox}${(q.analysis||q.referenceAnswer||Number.isInteger(q.answer))?`<details class="practice-review"><summary>查看答案与解析</summary><p><strong>参考答案：</strong>${q.type==='choice'?letters[q.answer]:esc(q.referenceAnswer||'暂无参考答案')}</p>${q.analysis?`<p>${esc(q.analysis).replace(/\n/g,'<br>')}</p>`:''}</details>`:''}</div><div class="practice-bottom"><div class="practice-number-grid">${qs.map((item,i) => `<button class="${i === index ? 'current' : ''} ${practiceAnswer(item) !== undefined && practiceAnswer(item) !== '' ? 'answered' : ''}" data-practice-jump="${i}">${item.number}</button>`).join('')}</div><div class="practice-step"><button data-practice-step="-1" ${index === 0 ? 'disabled' : ''}>← 上一题</button><button data-practice-step="1" ${index === qs.length-1 ? 'disabled' : ''}>下一题 →</button></div></div></aside></div>`
   }
+  window.TEM8_RERENDER_READER = () => { if (activeArticle && document.getElementById('reader-view')?.classList.contains('active')) renderReader() }
   function renderReader() {
     if (readerTab === 'words') syncWordbook()
     document.querySelectorAll('[data-reader-tab]').forEach(b => b.classList.toggle('active',b.dataset.readerTab === readerTab))
