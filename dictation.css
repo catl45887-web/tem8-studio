@@ -1,0 +1,155 @@
+/* 听写与背诵（dictation.js）。只用主题变量，浅色 / 深色 / 各配色 / 圣诞通用 */
+.dk{--dk-card:var(--card,var(--paper));--dk-ok:#3d7a57;--dk-ok-soft:rgba(61,122,87,.12);--dk-bad:#b0453c;--dk-bad-soft:rgba(176,69,60,.1)}
+html[data-theme=dark] .dk{--dk-ok:#8cc9a1;--dk-ok-soft:rgba(140,201,161,.14);--dk-bad:#e59a90;--dk-bad-soft:rgba(229,154,144,.14)}
+
+/* 首页分段：五个放不下就横着滑 */
+.home-tabs{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.home-tabs::-webkit-scrollbar{display:none}
+@media (max-width:599px){
+  .home-tabs{justify-content:flex-start;gap:26px;margin-right:-20px;padding-right:20px;scroll-padding:0 20px}
+  .home-tabs button{flex:none}
+}
+
+/* ---------- 词书首页 ---------- */
+.dk-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 14px}
+.dk-q{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:14px 16px;border:0;border-radius:16px;background:var(--wine-soft,var(--soft));color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.dk-q b{font-weight:500;font-size:16px;color:var(--wine,var(--ink))}
+.dk-q span{font-size:13px;color:var(--muted)}
+.dk-q:active{opacity:.7}
+.dk-opts{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin:4px 0 4px}
+.dk-gap{flex:1}
+.dk-seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--soft,rgba(0,0,0,.05))}
+.dk-seg button{min-width:44px;min-height:32px;padding:0 10px;border:0;border-radius:8px;background:none;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
+.dk-seg button.on{background:var(--dk-card);color:var(--ink);font-weight:500;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.dk-books{display:grid;gap:12px;margin-top:14px}
+@media (min-width:700px){.dk-books{grid-template-columns:1fr 1fr}}
+.dk-bk{display:flex;align-items:center;gap:10px;min-height:78px;padding:14px 12px 14px 20px;border:0;border-radius:18px;background:var(--dk-card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.dk-bk:active{opacity:.7}
+.dk-bk-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.dk-bk-t b{font-weight:500;font-size:18px;letter-spacing:.5px}
+.dk-bk-t span{font-size:13px;color:var(--muted);letter-spacing:.3px}
+.dk-bk em{flex:none;font-style:normal;font-size:13px;color:var(--muted)}
+.dk-bk i{flex:none;font-style:normal;font-size:22px;line-height:1;color:var(--muted);padding:0 4px}
+
+/* ---------- 一本词书里面 ---------- */
+.dk-bookhead{display:flex;align-items:center;gap:6px;margin:0 0 6px}
+.dk-bookhead h2{margin:0;font-size:21px;font-weight:600;letter-spacing:.5px;color:var(--ink)}
+.dk-bookhead p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.dk-back{flex:none;width:40px;height:40px;margin-left:-10px;border:0;border-radius:10px;background:none;color:var(--ink);font-size:30px;line-height:1;cursor:pointer;font-family:inherit}
+.dk-back:active{background:var(--soft)}
+.dk-sec{margin:22px 4px 8px;font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+.dk-sec small{display:block;margin-top:3px;font-size:12px;font-weight:400;color:var(--muted);letter-spacing:.2px;line-height:1.5}
+.dk-group{background:var(--dk-card);border-radius:16px;overflow:hidden}
+.dk-sec:first-of-type,.dk-bookhead + .dk-group{margin-top:14px}
+.dk-row{display:flex;align-items:center;gap:8px;padding:12px 12px 12px 16px;min-height:60px}
+.dk-row + .dk-row{border-top:1px solid var(--line)}
+.dk-row-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.dk-row-t b{font-weight:500;font-size:16px;color:var(--ink)}
+.dk-row-t b small{margin-left:8px;font-size:12px;font-weight:400;color:var(--muted)}
+.dk-row-t span{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dk-row-t em{font-style:normal;font-size:12px;color:var(--wine,var(--muted))}
+.dk-act{flex:none;min-height:36px;padding:0 14px;border:0;border-radius:18px;background:var(--wine,var(--ink));color:var(--wine-on,#fff);font:inherit;font-size:14px;cursor:pointer}
+.dk-act-2{background:var(--soft,rgba(0,0,0,.06));color:var(--ink)}
+.dk-act:active{opacity:.7}
+
+/* ---------- 练习页 ---------- */
+#dictation-session-view{padding-bottom:40px}
+.dk-s{max-width:620px;margin:0 auto}
+.dk-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;min-height:52px;padding:4px 0;background:var(--page,var(--bg))}
+.dk-bar-t{flex:1;min-width:0;font-size:14px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dk-prog{flex:none;width:64px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.dk-prog i{display:block;height:100%;background:var(--wine,var(--ink));border-radius:2px;transition:width .25s}
+.dk-count{flex:none;min-width:44px;text-align:right;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dk-card{display:flex;flex-direction:column;align-items:stretch;padding:18px 0 0}
+.dk-word{position:relative;text-align:center;padding:26px 44px 6px}
+.dk-word h2{margin:0;font-size:38px;font-weight:600;letter-spacing:.5px;color:var(--ink);line-height:1.15;word-break:break-word}
+.dk-phon{margin:10px 0 0;font-size:16px;color:var(--muted);font-family:"Lucida Sans Unicode","Segoe UI",system-ui,sans-serif}
+.dk-say{display:inline-grid;place-items:center;width:44px;height:44px;margin-top:8px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}
+.dk-say svg,.dk-big-play svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.dk-say svg path:first-child,.dk-big-play svg path:first-child{fill:currentColor;stroke:none}
+.dk-say:active{background:var(--soft)}
+.dk-say-s{width:36px;height:36px;margin:0 0 0 4px;vertical-align:middle}
+.dk-ex{margin:14px 4px 0;font-size:16px;line-height:1.65;color:var(--ink)}
+.dk-ex span{display:block;margin-top:4px;font-size:14px;color:var(--muted)}
+.dk-ex-q{text-align:center;color:var(--muted);font-size:15px;margin:6px 8px 0}
+.dk-opts-list{display:flex;flex-direction:column;gap:10px;margin:26px 0 0}
+.dk-opt{min-height:54px;padding:12px 18px;border:0;border-radius:14px;background:var(--dk-card);color:var(--ink);font:inherit;font-size:16px;text-align:left;line-height:1.45;cursor:pointer;transition:background .15s,color .15s}
+.dk-opt:active{opacity:.75}
+.dk-opt.right{background:var(--dk-ok-soft);color:var(--dk-ok);font-weight:500}
+.dk-opt.wrong{background:var(--dk-bad-soft);color:var(--dk-bad)}
+.dk-opt:disabled{cursor:default;opacity:1}
+.dk-opts-list .dk-opt:disabled:not(.right):not(.wrong){opacity:.5}
+.dk-dunno{align-self:center;margin:18px 0 0;min-height:44px;padding:0 20px;border:0;background:none;color:var(--muted);font:inherit;font-size:15px;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
+.dk-detail{margin:18px 0 0;padding:16px 18px;border-radius:16px;background:var(--dk-card)}
+.dk-mean{margin:0;font-size:16px;line-height:1.6;color:var(--ink)}
+.dk-detail .dk-ex{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
+.dk-sibs{margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+.dk-sib{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:10px;background:var(--soft,rgba(0,0,0,.04))}
+.dk-sib b{font-weight:600;font-size:16px;color:var(--ink)}
+.dk-sib span{font-size:14px;color:var(--muted);line-height:1.5}
+.dk-sib.on{background:var(--wine-soft,var(--soft))}
+.dk-sib.on b{color:var(--wine,var(--ink))}
+.dk-next{align-self:stretch;min-height:52px;margin:22px 0 0;border:0;border-radius:14px;background:var(--wine,var(--ink));color:var(--wine-on,#fff);font:inherit;font-size:17px;letter-spacing:1px;cursor:pointer}
+.dk-next:active{opacity:.8}
+.dk-next-2{margin-top:10px;background:var(--dk-card);color:var(--ink)}
+
+/* 听写 */
+.dk-card-d{padding-top:8px}
+.dk-modesw{display:flex;justify-content:center;min-height:0;margin:0 0 6px}
+.dk-big-play{align-self:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:132px;height:132px;margin:22px 0 10px;border:0;border-radius:50%;background:var(--dk-card);color:var(--wine,var(--ink));font:inherit;font-size:13px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.dk-big-play svg{width:34px;height:34px}
+.dk-big-play span{color:var(--muted)}
+.dk-big-play:active{transform:scale(.97)}
+.dk-tools{display:flex;justify-content:center;gap:10px;margin:4px 0 0}
+.dk-tools button{min-height:36px;padding:0 14px;border:0;border-radius:18px;background:var(--soft,rgba(0,0,0,.05));color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
+.dk-tools button.on{color:var(--ink);background:var(--wine-soft,var(--soft))}
+.dk-cn{margin:16px 6px 0;text-align:center;font-size:17px;line-height:1.6;color:var(--ink)}
+.dk-in{display:block;width:100%;box-sizing:border-box;margin:18px 0 0;min-height:56px;padding:0 16px;border:1.5px solid transparent;border-radius:14px;background:var(--dk-card);color:var(--ink);font:inherit;font-size:22px;text-align:center;letter-spacing:.5px;outline:none}
+.dk-in:focus,.dk-in:focus-visible{border-color:var(--wine,var(--ink));outline:none;box-shadow:none}
+.dk-in::placeholder{color:var(--muted);opacity:.6;font-size:16px;letter-spacing:0}
+.dk-in:disabled{opacity:1;-webkit-text-fill-color:currentColor}
+.dk-in[data-ok="1"]{color:var(--dk-ok);background:var(--dk-ok-soft)}
+.dk-in[data-ok="0"]{color:var(--dk-bad);background:var(--dk-bad-soft);text-decoration:line-through;text-decoration-thickness:1px}
+.dk-verdict{margin:14px 0 0;text-align:center;font-size:16px}
+.dk-verdict.ok{color:var(--dk-ok)}
+.dk-verdict.bad{color:var(--muted)}
+.dk-verdict b{font-size:22px;font-weight:600;color:var(--ink);margin:0 4px}
+.dk-verdict span{color:var(--muted)}
+/* 固定搭配：一行里挖空 */
+.dk-fill{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:8px;margin:26px 0 0;font-size:24px;color:var(--ink)}
+.dk-in-s{display:inline-block;width:auto;min-width:4.5em;max-width:100%;min-height:46px;margin:0;padding:0 10px;font-size:22px;border-radius:10px}
+.dk-full{margin:12px 0 0;text-align:center;font-size:17px;color:var(--muted)}
+/* 形近词：听音选词 */
+.dk-pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:18px 0 0}
+.dk-opt-w{text-align:center;font-size:20px;font-weight:500;min-height:60px}
+/* 纸笔连播 */
+.dk-papern{margin:40px 0 0;text-align:center;font-size:18px;color:var(--muted)}
+.dk-papern b{font-size:56px;font-weight:600;color:var(--ink);margin:0 6px;vertical-align:-8px;font-variant-numeric:lining-nums}
+.dk-tip{margin:12px 0 0;text-align:center;font-size:14px;color:var(--muted);line-height:1.6}
+.dk-gaps{display:flex;justify-content:center;align-items:center;gap:8px;margin:18px 0 0;font-size:14px;color:var(--muted)}
+.dk-gaps:empty{display:none}
+.dk-marks{display:flex;flex-direction:column;margin:16px 0 0;background:var(--dk-card);border-radius:16px;overflow:hidden}
+.dk-mark{display:flex;align-items:baseline;gap:10px;min-height:52px;padding:12px 16px;border:0;background:none;font:inherit;text-align:left;color:var(--ink);cursor:pointer}
+.dk-mark + .dk-mark{border-top:1px solid var(--line)}
+.dk-mark .n{flex:none;width:22px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dk-mark b{font-weight:500;font-size:17px}
+.dk-mark small{flex:1;min-width:0;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dk-mark i{flex:none;font-style:normal;font-size:13px;color:var(--dk-bad)}
+.dk-mark.bad{background:var(--dk-bad-soft)}
+.dk-mark.bad b{color:var(--dk-bad);text-decoration:line-through;text-decoration-thickness:1px}
+/* 结果 */
+.dk-result h2{margin:24px 0 0;text-align:center;font-size:28px;font-weight:600;color:var(--ink)}
+.dk-result > p{margin:8px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.dk-res{margin:22px 0 0}
+.dk-res .dk-row{min-height:54px}
+.dk-res-acts{display:flex;flex-direction:column;margin-top:6px}
+
+@media (min-width:700px){
+  .dk-word h2{font-size:44px}
+  .dk-opts-list{display:grid;grid-template-columns:1fr 1fr}
+}
+/* 浅色/深色下，练习页不要首页那块顶栏的留白 */
+html:not([data-theme=xmas]) body.app-v-dictation-session .app-main,html:not([data-theme=xmas]) body.app-v-dictation-session main{padding-top:0}
+.dk-detail-sib .dk-sibs{margin:0}
+.dk-sib b i{font-style:normal;font-weight:400;font-size:13px;color:var(--muted);margin-left:4px;font-family:"Lucida Sans Unicode","Segoe UI",system-ui,sans-serif}
+.dk-sib .dk-sib-ex{margin-top:4px;font-size:14px;color:var(--ink);opacity:.8}

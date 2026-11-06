@@ -11,15 +11,15 @@
   var TAB = {
     home: 'home',
     library: 'library', reader: 'library',
-    papers: 'practice', mock: 'practice', intensive: 'practice',
+    papers: 'practice', mock: 'practice', intensive: 'practice', dictation: 'practice', 'dictation-session': 'practice',
     'workflow-config': 'practice', 'workflow-session': 'practice', 'workflow-report': 'practice',
     'paper-archive': 'practice', exam: 'practice', result: 'practice',
     mistakes: 'review', words: 'review', bookmarks: 'review', notes: 'review',
     my: 'my', settings: 'my'
   }
-  var SEG = { practice: ['papers', 'mock', 'intensive'], review: ['mistakes', 'words', 'bookmarks', 'notes'], my: ['my', 'settings'] }
+  var SEG = { practice: ['papers', 'mock', 'intensive', 'dictation'], review: ['mistakes', 'words', 'bookmarks', 'notes'], my: ['my', 'settings'] }
   // 浅色/深色：阅读和练习并进首页
-  var HOME_SEG = ['library', 'papers', 'mock', 'intensive']
+  var HOME_SEG = ['library', 'papers', 'mock', 'intensive', 'dictation']
   function xmas() { return document.documentElement.dataset.theme === 'xmas' }
   function tabOf(view) {
     if (!xmas() && (TAB[view] === 'library' || TAB[view] === 'practice')) return 'home'
@@ -37,7 +37,7 @@
     var b = document.querySelector('.tabbar [data-tab="home"]')
     if (b) b.dataset.view = xmas() ? 'home' : lastHomeSeg()
   }
-  var IMMERSIVE = { reader: 1, 'workflow-session': 1, 'workflow-config': 1, exam: 1 }
+  var IMMERSIVE = { 'dictation-session': 1, reader: 1, 'workflow-session': 1, 'workflow-config': 1, exam: 1 }
   var WIDE = { 'workflow-session': 1, exam: 1, 'workflow-report': 1, 'paper-archive': 1 }
 
   function get(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : v } catch (e) { return d } }
@@ -67,7 +67,13 @@
     current = view
     var tab = tabOf(view)
     placeHomeTop(view)
-    if (!xmas() && HOME_SEG.indexOf(view) >= 0) { set('tem8_tab_home', view); homeBtn() }
+    if (!xmas() && HOME_SEG.indexOf(view) >= 0) {
+      set('tem8_tab_home', view); homeBtn()
+      setTimeout(function () {
+        var row = document.querySelector('.home-tabs'), b = row && row.querySelector('[data-view="' + view + '"]')
+        if (b && row.scrollWidth > row.clientWidth) row.scrollTo({ left: Math.max(0, b.offsetLeft - (row.clientWidth - b.offsetWidth) / 2), behavior: 'smooth' })
+      }, 0)
+    }
     var body = document.body
     body.className = body.className.replace(/\bapp-v-[\w-]+/g, '').trim()
     body.classList.add('app-v-' + view)
