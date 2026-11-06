@@ -22,6 +22,10 @@
     d.accent = d.accent === 'us' ? 'us' : 'uk'
     d.dmode = d.dmode === 'paper' ? 'paper' : 'type'
     d.srs = d.srs || {}; d.wrong = d.wrong || []; d.groups = d.groups || {}
+    // 已经删掉的词书（高频 700）留下的记录一并清掉
+    for (var k in d.srs) if (k.indexOf('h700|') === 0) delete d.srs[k]
+    d.wrong = d.wrong.filter(function (k) { return k.indexOf('h700|') !== 0 })
+    for (var g in d.groups) if (g.indexOf('h700:') === 0) delete d.groups[g]
     return d
   }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(st)) } catch (e) {} }
@@ -50,7 +54,7 @@
   // 返回 [{name, sub, groups:[{id, items}]}]
   function sections(b) {
     var n = st.size, per = b.kind === 'confuse' ? Math.max(1, Math.round(n / 2)) : n
-    var units = b.id === 'h700' ? [{ name: '', sub: '', items: b.units.reduce(function (a, u) { return a.concat(u.items) }, []) }] : b.units
+    var units = b.units
     return units.map(function (u, ui) {
       return { name: u.name, sub: u.rule || u.sub || '', groups: chunk(u.items, per).map(function (g, gi) { return { id: b.id + ':' + n + ':' + ui + ':' + gi, items: g } }) }
     })
@@ -67,7 +71,7 @@
     }
     return null
   }
-  function dueKeys() { var t = today(), out = []; for (var k in st.srs) if (st.srs[k].due <= t) out.push(k); return out }
+  function dueKeys() { var t = today(), out = []; for (var k in st.srs) if (st.srs[k].due <= t && book(k.slice(0, k.indexOf('|')))) out.push(k); return out }
 
   // ---------- 发音 ----------
   var dict = window.TEM8_DICTIONARY || (window.TEM8_DICTIONARY = {}), loading = {}
@@ -152,7 +156,7 @@
 
   // ---------- 列表页 ----------
   var screen = { name: 'home', book: '' }
-  var BOOK_NOTE = { core: '按话题记', h700: '按原书顺序', listen: '听力常考主题', phrase: '看中文补搭配', confuse: '听音辨形近' }
+  var BOOK_NOTE = { core: '按话题记', listen: '听力常考主题', phrase: '看中文补搭配', confuse: '听音辨形近' }
   function seg(name, opts, cur) {
     return '<div class="dk-seg" role="group">' + opts.map(function (o) { return '<button type="button" data-dk-set="' + name + '" data-v="' + o[0] + '" class="' + (String(cur) === String(o[0]) ? 'on' : '') + '">' + o[1] + '</button>' }).join('') + '</div>'
   }
@@ -165,7 +169,7 @@
         (wrong ? '<button type="button" class="dk-q" data-dk-wrong><b>听错的词</b><span>' + wrong + ' 个，再听一遍</span></button>' : '') + '</div>'
     }
     var cards = BOOKS.map(function (b) {
-      var n = countOf(b), learned = learnedIn(b), units = b.id === 'h700' ? '' : ' · ' + b.units.length + (b.kind === 'confuse' ? ' 类' : b.kind === 'phrase' ? ' 个词块' : ' 个主题')
+      var n = countOf(b), learned = learnedIn(b), units = ' · ' + b.units.length + (b.kind === 'confuse' ? ' 类' : b.kind === 'phrase' ? ' 个词块' : ' 个主题')
       return '<button type="button" class="dk-bk" data-dk-book="' + b.id + '"><span class="dk-bk-t"><b>' + esc(b.name) + '</b><span>' + n + (b.kind === 'phrase' ? ' 条' : ' 词') + units + ' · ' + BOOK_NOTE[b.id] + '</span></span>' + (learned ? '<em>已背 ' + learned + '</em>' : '') + '<i aria-hidden="true">›</i></button>'
     }).join('')
     return quick + '<div class="dk-opts"><span>每组</span>' + seg('size', [[10, '10'], [20, '20'], [40, '40']], st.size) + '<span class="dk-gap"></span>' + seg('accent', [['uk', '英音'], ['us', '美音']], st.accent) + '</div>' +

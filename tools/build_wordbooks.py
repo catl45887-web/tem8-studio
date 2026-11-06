@@ -1,4 +1,4 @@
-"""把五份词表整理成 wordbooks.js。先把 docx 每段导出成 core/h700/listen/phrase/confuse.txt。
+"""把五份词表整理成 wordbooks.js。先把 docx 每段导出成 core/listen/phrase/confuse.txt。
 用法：python3 -I build_wordbooks.py <txt目录> <站点目录>
 """
 import sys, re, json, pathlib
@@ -44,18 +44,6 @@ for l in lines('core.txt')[3:]:
         w, p, mean = split_word(m.group(1))
         cur['items'].append([w, p, re.sub(r'([\u3400-\u9fff；）])((?:n|v|vt|vi|a|adj|ad|adv)\.)', r'\1 \2', mean)])
 books.append({'id': 'core', 'name': '专八核心词汇', 'note': '按话题', 'kind': 'word', 'units': units})
-
-# 2. 高频 700（原顺序分组）
-units, cur = [], None
-for l in lines('h700.txt')[2:]:
-    m = re.match(r'^Group\s+(\d+)$', l)
-    if m:
-        cur = {'name': 'Group ' + m.group(1), 'sub': '', 'items': []}; units.append(cur); continue
-    m = re.match(r'^\d+\.\s*(.+)$', l)
-    if m and cur:
-        w, p, mean = split_word(m.group(1))
-        cur['items'].append([w, p, mean])
-books.append({'id': 'h700', 'name': '高频 700 词', 'note': '原书顺序', 'kind': 'word', 'units': units})
 
 # 3. 听力主题词汇
 units, cur = [], None
