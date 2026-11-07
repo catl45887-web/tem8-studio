@@ -1,6 +1,6 @@
 /* 精读阅读设置：排版面板 + 对照排版 + 右侧悬浮工具栏 + 宽屏笔记停靠
  * 偏好存在 localStorage['tem8_reader_prefs']，第一次打开时从旧的 readingFont / readingLine / readingBackground 迁移
- *   size 字号(px)  lh 行距  margin 边距档  ws 词距档  font 英文字体  bg 背景  zh 译文(tap 点开看 / all 全部显示)
+ *   size 字号(px)  lh 行距  margin 边距档  ws 词距档  font 英文字体  bg 背景  zh 译文(tap 点开看 / all 全部显示 / off 不看)
  *   layout 对照排版(auto / side / stack)  more 「更多排版」是否展开  marks 标注是否显示
  * 对照排版：手机上一律上下；平板/电脑「自动」= 左右分栏；笔记停靠在右侧时自动改成上下 */
 ;(function () {
@@ -103,7 +103,7 @@
       '<div class="rp-row" data-row="bg"><span class="rp-k">背景</span><div class="rp-bgs" role="radiogroup">' + bgs.map(function (b) {
         return '<button type="button" role="radio" data-rp-set="bg" data-v="' + b[0] + '" aria-checked="' + (P.bg === b[0]) + '" aria-label="' + b[1] + '"><i' + (b[2] ? ' style="background:' + b[2] + '"' : ' class="auto"') + '></i><small>' + b[1] + '</small></button>'
       }).join('') + '</div></div>' +
-      '<div class="rp-row" data-row="zh" data-need-zh><span class="rp-k">译文</span>' + seg('zh', [['tap', '点开看'], ['all', '对照显示']], P.zh) + '</div>' +
+      '<div class="rp-row" data-row="zh" data-need-zh><span class="rp-k">译文</span>' + seg('zh', [['tap', '点开看'], ['all', '对照显示'], ['off', '不看']], P.zh) + '</div>' +
       '<div class="rp-row" data-row="layout" data-need-zh><span class="rp-k">对照</span>' + seg('layout', [['auto', '自动'], ['side', '左右'], ['stack', '上下']], P.layout) + '</div>' +
       '<p class="rp-note" data-rp-note></p>' +
       '<button type="button" class="rp-more" data-rp-more aria-expanded="' + P.more + '"><span>更多排版</span><small data-rp-more-sum></small><i aria-hidden="true">›</i></button>' +
@@ -270,6 +270,7 @@
 
   window.TEM8_RP = {
     zhAll: function () { return P.zh === 'all' },
+    zhOff: function () { return P.zh === 'off' },
     apply: apply,
     dock: updateDock,
     prefs: function () { return Object.assign({}, P) },

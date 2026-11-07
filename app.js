@@ -495,7 +495,8 @@
       if (open) html+=`<span class="rd-ln-body"><span class="rd-ln-ex">${esc(n.excerpt)}</span>${(n.syntax||[]).map(([l,v])=>`<span class="rd-ln-row"><b>${esc(l)}</b>${esc(v)}</span>`).join('')}<span class="rd-ln-note">${esc(n.note)}</span></span>`
     })
     const zh=zhOf(activeArticle.id,i)
-    if (zh && window.TEM8_RP?.zhAll()) html+=`<span class="rd-zh rd-zh-all" lang="zh"><span class="rd-zh-text">${esc(zh)}</span></span>`
+    if (zh && window.TEM8_RP?.zhOff?.()) html+=`<span class="rd-zh rd-zh-off" hidden></span>`
+    else if (zh && window.TEM8_RP?.zhAll()) html+=`<span class="rd-zh rd-zh-all" lang="zh"><span class="rd-zh-text">${esc(zh)}</span></span>`
     else if (zh) html+=zhOpen.has(i) ? `<button type="button" class="rd-zh open" data-zh="${i}"><span class="rd-zh-text">${esc(zh)}</span><span class="rd-zh-hint">收起翻译</span></button>` : `<button type="button" class="rd-zh" data-zh="${i}">点击查看翻译</button>`
     return html
   }

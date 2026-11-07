@@ -149,3 +149,6 @@ body.rp-docked .rp-inkbar{left:calc((100% - 340px) / 2)}
 .anno-sheet-bar .ink-menu{right:auto;left:50%;transform:translateX(-50%)}
 .anno-paper-wrap{flex:1;min-height:0;overflow:auto;padding:0 14px 24px;overscroll-behavior:contain}
 .anno-paper{height:2400px;border-radius:14px;background-color:var(--card);background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,var(--line) 35px,var(--line) 36px);background-position:0 18px;box-shadow:inset 0 0 0 1px var(--line)}
+
+/* 译文「不看」：只留一个隐藏标记，让设置面板知道这篇有译文 */
+#reader-view .rd-zh-off{display:none!important}
