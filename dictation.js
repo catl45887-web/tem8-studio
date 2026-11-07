@@ -3,7 +3,8 @@
    - 首页「听写」分段：「在背」哪本词书 + 今天复习 / 新词 + 开始；下面是全部词书，点开按组「背诵」或「听写」
    - 生词本（做题、阅读时加入的词）也算一本词书，释义取自词典
    - 背诵：新词当天过三关（看词选义 → 看中文选词 → 拼写），和到期的复习词穿插；复习词自评 不认识 / 模糊 / 认识
-   - 听写：核心词/听力词听音拼写（也可纸笔连播）；形近词听音选词；固定搭配看中文补关键词
+   - 听写：先弹「听写设置」选方式——逐个拼写 / 纸笔连播 / 词表（中文词表写英文、英文词表写释义、听音词表整组连播）
+     形近词逐个拼写时是听音选词；固定搭配是看中文补关键词。首页和背完的结束页可以直接听写今天背的词
    - 每组开始前先把整组音频下载好；下载失败的词用浏览器朗读
    记录单独存在 tem8_dict_v1，不动原来的学习记录。 */
 (function () {
@@ -23,6 +24,11 @@
     d.book = d.book || 'core'; d.log = d.log || {}
     d.accent = d.accent === 'us' ? 'us' : 'uk'
     d.dmode = d.dmode === 'paper' ? 'paper' : 'type'
+    // 听写设置：方式 dtype（type 逐个拼写 / paper 纸笔连播 / table 词表），词表 tbl（cn / en / ear），播放次数 times，自动下一个 auto，打乱顺序 shuf
+    d.dtype = ['type', 'paper', 'table'].indexOf(d.dtype) >= 0 ? d.dtype : d.dmode
+    d.tbl = ['cn', 'en', 'ear'].indexOf(d.tbl) >= 0 ? d.tbl : 'cn'
+    d.times = [1, 2, 3].indexOf(d.times) >= 0 ? d.times : 2
+    d.auto = d.auto !== false; d.shuf = !!d.shuf
     d.srs = d.srs || {}; d.wrong = d.wrong || []; d.groups = d.groups || {}
     // 已经删掉的词书（高频 700）留下的记录一并清掉
     for (var k in d.srs) if (k.indexOf('h700|') === 0) delete d.srs[k]
@@ -157,7 +163,14 @@
     try { audio = audio || new Audio(); audio.src = SILENT; var p = audio.play(); if (p && p.catch) p.catch(function () {}) } catch (e) {}
     try { if ('speechSynthesis' in window) speechSynthesis.speak(new SpeechSynthesisUtterance('')) } catch (e) {}
   }
-  function stop() { try { if (audio) audio.pause() } catch (e) {} ; try { speechSynthesis.cancel() } catch (e) {} }
+  var sayTok = 0
+  function stop() { sayTok++; try { if (audio) audio.pause() } catch (e) {} ; try { speechSynthesis.cancel() } catch (e) {} }
+  // 按设置读 N 遍，中间停一下；换词或停止时作废
+  function sayN(w, n) {
+    n = n || st.times || 1
+    var tok = ++sayTok, k = 0
+    ;(function one() { if (tok !== sayTok) return; var t0 = sayTok; say(w).then(function () { if (sayTok === t0 && ++k < n) setTimeout(one, 900) }) })()
+  }
   function tts(text, slow) {
     if (!('speechSynthesis' in window)) return
     var u = new SpeechSynthesisUtterance(text)
@@ -231,14 +244,15 @@
   function renderHome() {
     var b = book(st.book); if (!b || (b.id === 'mine' && !mineWords().length)) { st.book = 'core'; b = book('core') || BOOKS[0] }
     var due = dueKeys().length, neu = nextNew().length, n = countOf(b), done = learnedIn(b), pct = n ? Math.round(done / n * 100) : 0
-    var mins = Math.round(due * 0.35 + neu * 1.2)
+    var mins = Math.round(due * 0.35 + neu * 1.2), todayN = todayCards().length
     var note = due > 40 ? '<p class="dk-note">有 <b>' + due + '</b> 个词到期，今天一次复习完，最容易忘的排在前面。</p>' : ''
     if (!neu && done >= n) note += '<p class="dk-note">这本已经背完了，可以换一本。</p>'
     var today = '<div class="dk-today">' +
       '<div class="dk-cur"><span>在背</span><b>' + esc(b.name) + '</b><button type="button" data-dk-sheet>换词书</button></div>' +
       '<div class="dk-bprog"><span><i style="width:' + Math.max(pct, done ? 1 : 0) + '%"></i></span>' + done + ' / ' + n + '</div>' +
       '<div class="dk-tn"><div><b>' + due + '</b><span>复习</span></div><div><b>' + neu + '</b><span>新词</span></div>' + (due + neu ? '<em>约 ' + Math.max(1, mins) + ' 分钟</em>' : '') + '</div>' + note +
-      '<button type="button" class="dk-start" data-dk-today' + (due + neu ? '' : ' disabled') + '>' + (due + neu ? '开始' : '今天的都做完了') + '</button></div>'
+      '<button type="button" class="dk-start" data-dk-today' + (due + neu ? '' : ' disabled') + '>' + (due + neu ? '开始' : '今天的都做完了') + '</button>' +
+      (todayN ? '<button type="button" class="dk-tdict" data-dk-tdict><span>今天背的 <b>' + todayN + '</b> 个词</span><em>听写 ›</em></button>' : '') + '</div>'
     var wrong = st.wrong.length ? '<button type="button" class="dk-q dk-q-row" data-dk-wrong><b>听错的词</b><span>' + st.wrong.length + ' 个，再听一遍</span></button>' : ''
     var cards = allBooks().map(function (x) {
       var cnt = countOf(x), learned = learnedIn(x), unit = x.kind === 'phrase' ? ' 条' : ' 词'
@@ -301,11 +315,17 @@
     unlock()
     S = { mode: mode, cards: cards, meta: meta || {}, queue: [], i: 0, phase: 'ask', first: {}, wrong: {}, done: 0, total: cards.length }
     if (mode === 'learn') {
+      S.newCards = cards.slice()
       S.queue = interleave(shuffle(cards), olds); S.cards = cards.concat(olds); S.total = S.cards.length
       S.checks = 0; S.passed = 0; S.newDone = 0; S.revDone = 0; S.t0 = Date.now(); cards = S.cards
     } else if (mode === 'recite') S.queue = shuffle(cards).map(function (c) { return { c: c, tries: 0 } })
-    else S.queue = shuffle(cards).map(function (c) { return { c: c } })
-    if (mode === 'dictate' && cards[0].k === 'word' && st.dmode === 'paper') { S.paper = true }
+    else {
+      // 听写、词表：按设置决定打不打乱
+      var ord = st.shuf ? shuffle(cards) : cards.slice()
+      S.queue = ord.map(function (c) { return { c: c } })
+      if (mode === 'table') { S.cards = ord; S.tbl = st.tbl; S.vals = []; S.pi = 0; S.self = {}; S.res = {} }
+    }
+    if (mode === 'dictate' && st.dtype === 'paper') { S.paper = true }
     showView('dictation-session')
     // 先把这组词的词典分片取回来，发音和例句都靠它
     // 先把这组的音频全部下好再开始
@@ -361,9 +381,11 @@
   function renderSession() {
     var el = $('dictation-session-content'); if (!el || !S) return
     el.classList.toggle('dk-lmode', S.mode === 'learn' && !S.loading)
+    if (S.mode !== 'table') el.classList.remove('dk-twide')
     document.body.classList.toggle('dk-learning', S.mode === 'learn')
     if (S.loading) return renderLoading()
     if (S.mode === 'learn') return renderLearn(el)
+    if (S.mode === 'table') return renderTable(el)
     if (S.i >= S.queue.length) return renderResult(el)
     var q = cur(), c = q.c, title = S.meta.title || ''
     if (S.mode === 'recite') {
@@ -409,11 +431,11 @@
     var foot = S.phase === 'ask'
       ? (c.k === 'confuse' && c.sib.length > 1 ? '' : '<button type="button" class="dk-next" data-dk-check>确定</button>')
       : '<button type="button" class="dk-next" data-dk-next>下一个</button>'
-    var modeSw = c.k === 'word' && S.i === 0 && S.phase === 'ask' && !S.touched ? '<div class="dk-modesw">' + seg('dmode', [['type', '键盘拼写'], ['paper', '纸笔连播']], st.dmode) + '</div>' : ''
+    var modeSw = ''
     el.innerHTML = bar(title) + '<div class="dk-card dk-card-d">' + modeSw + inner + foot + '</div>'
     var input = $('dk-in')
     if (input && S.phase === 'ask') setTimeout(function () { try { input.focus({ preventScroll: true }) } catch (e) {} }, 30)
-    if (S.phase === 'ask' && !q.said && c.k !== 'phrase') { q.said = 1; setTimeout(function () { say(c.w) }, 200) }
+    if (S.phase === 'ask' && !q.said && c.k !== 'phrase') { q.said = 1; setTimeout(function () { sayN(c.w) }, 200) }
   }
   function typeBox(q) {
     return '<input id="dk-in" class="dk-in" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="听到什么写什么"' +
@@ -432,24 +454,26 @@
     }
     S.cards = S.order || (S.order = S.queue.map(function (q) { return q.c }))
     var n = S.pi || 0
-    el.innerHTML = bar(title) + '<div class="dk-card dk-card-d"><div class="dk-modesw">' + (S.started ? '' : seg('dmode', [['type', '键盘拼写'], ['paper', '纸笔连播']], st.dmode)) + '</div>' +
+    var rule = '每个词读 ' + st.times + ' 遍，间隔 ' + st.gap + ' 秒' + (st.auto ? '' : '，每个放完停下')
+    el.innerHTML = bar(title) + '<div class="dk-card dk-card-d">' +
       '<p class="dk-papern">' + (S.started ? '第 <b>' + Math.min(n + 1, S.cards.length) + '</b> 个' : '准备好纸笔') + '</p>' +
-      '<p class="dk-tip">' + (S.started ? '每个词读两遍，' + st.gap + ' 秒后下一个' : '共 ' + S.cards.length + ' 个词，每个读两遍，按序号写下来') + '</p>' +
-      '<div class="dk-gaps">' + (S.started ? '' : '间隔 ' + seg('gap', [[3, '3 秒'], [5, '5 秒'], [8, '8 秒']], st.gap)) + '</div>' +
+      '<p class="dk-tip">' + (S.started ? rule : '共 ' + S.cards.length + ' 个词，' + rule + '，按序号写下来') + '</p>' +
       '<button type="button" class="dk-next" data-dk-paper>' + (S.started ? (S.paused ? '继续' : '暂停') : '开始') + '</button>' +
-      (S.started ? '<button type="button" class="dk-dunno" data-dk-paperend>直接对答案</button>' : '') + '</div>'
+      (S.started ? '<button type="button" class="dk-dunno" data-dk-paperre>重听这个</button><button type="button" class="dk-dunno" data-dk-paperend>直接对答案</button>' : '') + '</div>'
   }
   function paperTick() {
     if (!S || !S.paper || S.paused || S.phase === 'mark') return
     var n = S.pi || 0, token = S.token = (S.token || 0) + 1
     if (n >= S.cards.length) { S.phase = 'mark'; S.done = S.total; renderSession(); return }
     renderSession()
-    var w = S.cards[n].w
-    say(w).then(function () { return wait(1200) }).then(function () { if (S && S.token === token && !S.paused) return say(w) })
-      .then(function () { return wait(st.gap * 1000) }).then(function () {
-        if (!S || S.token !== token || S.paused) return
-        S.pi = n + 1; S.done = S.pi; paperTick()
-      })
+    var w = S.cards[n].w, k = 0
+    function one() { return say(w).then(function () { if (S && S.token === token && !S.paused && ++k < st.times) return wait(1200).then(one) }) }
+    one().then(function () { return wait(st.gap * 1000) }).then(function () {
+      if (!S || S.token !== token || S.paused) return
+      S.pi = n + 1; S.done = S.pi
+      if (!st.auto && S.pi < S.cards.length) { S.paused = true; renderSession(); return }
+      paperTick()
+    })
   }
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms) }) }
 
@@ -476,7 +500,7 @@
   }
 
   // 一轮结束：记 SRS、错词、组状态
-  function renderResult(el) {
+  function saveRound() {
     var t = today(), keys = S.cards.map(keyOf), bad = keys.filter(function (k) { return S.wrong[k] })
     if (!S.saved) {
       S.saved = 1
@@ -489,7 +513,7 @@
         if (S.mode === 'recite') r.seen = 1
         st.srs[k] = r
       })
-      if (S.mode === 'dictate') {
+      if (S.mode === 'dictate' || S.mode === 'table') {
         var set = {}; st.wrong.forEach(function (k) { set[k] = 1 })
         keys.forEach(function (k) { if (S.wrong[k]) set[k] = 1; else if (S.meta.fromWrong) delete set[k] })
         st.wrong = Object.keys(set)
@@ -500,6 +524,10 @@
       }
       save()
     }
+  }
+  function renderResult(el) {
+    saveRound()
+    var keys = S.cards.map(keyOf), bad = keys.filter(function (k) { return S.wrong[k] })
     var right = keys.length - bad.length
     var head = S.mode === 'recite'
       ? '<h2>' + (bad.length ? '一次就认出 ' + right + ' 个' : '全部一次认出') + '</h2><p>这组 ' + keys.length + ' 个' + (bad.length ? '，下面 ' + bad.length + ' 个明天再见' : '') + '</p>'
@@ -733,7 +761,8 @@
       [S.newDone ? S.newDone + ' 个新词各过了三关' : '', S.revDone ? S.revDone + ' 个词复习完' : ''].filter(Boolean).join('，') + '。</p>' +
       '<div class="dk-res-n"><div><b>' + mins + '</b><span>分钟</span></div><div><b>' + (S.cards.length - bad.length) + '</b><span>一次没错</span></div><div><b>' + bad.length + '</b><span>错过</span></div></div>' +
       (bad.length ? '<div class="dk-res-list">' + bad.map(function (c) { return '<div class="dk-res-row"><b>' + esc(c.w) + '</b><span>' + esc(shortMean(c.m)) + '</span><em>错 ' + S.wrong[keyOf(c)] + ' 次</em></div>' }).join('') + '</div>' : '') +
-      '<p class="dk-res-plan">' + (bad.length ? '错过的 ' + bad.length + ' 个明天再见；' : '') + '其余的按记忆间隔排好了，越记得牢隔得越久。</p>'
+      '<p class="dk-res-plan">' + (bad.length ? '错过的 ' + bad.length + ' 个明天再见；' : '') + '其余的按记忆间隔排好了，越记得牢隔得越久。</p>' +
+      (S.newDone && S.newCards && S.newCards.length ? '<button type="button" class="dk-tdict dk-tdict-r" data-dk-tdict data-v="s"><span>听写这 <b>' + S.newCards.length + '</b> 个新词</span><em>听写 ›</em></button>' : '')
     var more = S.meta.today && (dueKeys().length || nextNew().length)
     el.innerHTML = lshell(main, (bad.length ? act('data-dk-lagain', '再练错的', 'quiet') : act('data-dk-exit', '返回', 'quiet')) +
       (S.meta.nextGroup ? act('data-dk-nextgroup', '下一组') : more ? act('data-dk-today', '再来一组') : act('data-dk-exit', '完成')))
@@ -755,6 +784,151 @@
     if (olds.length) { showView('dictation-session'); start('learn', [], { title: '易错词' }, olds) }
   }
 
+  // ---------- 听写设置：逐个拼写 / 纸笔连播 / 词表 ----------
+  var DS = null // { cards, meta }
+  var DMODES = [['type', '逐个拼写', '听一个打一个，写对出释义'], ['paper', '纸笔连播', '只放音频，在纸上写'], ['table', '词表', '一张表整组写完再核对']]
+  var TBLS = [['cn', '中文词表', '给释义，写英文单词。交卷后系统自动判对错。'], ['en', '英文词表', '给单词，写中文释义。交卷后显示参考释义，你自己点 ✓ / ✗（意思对就算对）。'], ['ear', '听音词表', '表里只有序号，连续播放整组，按序号写下听到的词。交卷后系统自动判。']]
+  function askDictate(cards, meta) {
+    if (!cards || !cards.length) return
+    DS = { cards: cards, meta: meta || {} }
+    renderDS()
+  }
+  function dpills(name, opts, cur) {
+    return '<div class="dk-dpills">' + opts.map(function (o) { return '<button type="button" data-dk-dset="' + name + '" data-v="' + o[0] + '" aria-pressed="' + (String(cur) === String(o[0])) + '">' + o[1] + '</button>' }).join('') + '</div>'
+  }
+  function dswitch(name, on, label) {
+    return '<div class="dk-drow"><span>' + label + '</span><button type="button" class="dk-dsw" role="switch" aria-checked="' + !!on + '" aria-label="' + label + '" data-dk-dset="' + name + '" data-v="toggle"><i></i></button></div>'
+  }
+  function renderDS() {
+    var box = $('dk-dsheet')
+    if (!DS) { if (box) box.remove(); document.body.classList.remove('dk-dopen'); return }
+    if (!box) { box = document.createElement('div'); box.id = 'dk-dsheet'; box.className = 'dk dk-dmask'; document.body.appendChild(box) }
+    document.body.classList.add('dk-dopen')
+    var m = st.dtype, tb = st.tbl, n = DS.cards.length
+    var tblInfo = TBLS.filter(function (x) { return x[0] === tb })[0]
+    var opts = ''
+    if (m === 'table') opts += '<div class="dk-dblk"><span class="dk-dk">词表</span><div class="dk-dtabs">' + TBLS.map(function (x) { return '<button type="button" data-dk-dset="tbl" data-v="' + x[0] + '" aria-pressed="' + (tb === x[0]) + '">' + x[1] + '</button>' }).join('') + '</div><p class="dk-dnote">' + tblInfo[2] + '</p></div>'
+    if (m !== 'table' || tb === 'ear') opts += '<div class="dk-drow"><span>播放次数</span>' + dpills('times', [[1, '1 遍'], [2, '2 遍'], [3, '3 遍']], st.times) + '</div>'
+    if (m === 'paper' || (m === 'table' && tb === 'ear')) opts += '<div class="dk-drow"><span>间隔</span>' + dpills('gap', [[2, '2 秒'], [4, '4 秒'], [6, '6 秒'], [8, '8 秒']], st.gap) + '</div>'
+    if (m === 'paper') opts += dswitch('auto', st.auto, '自动播放下一个')
+    opts += dswitch('shuf', st.shuf, '打乱顺序')
+    var go = m === 'type' ? '开始听写' : m === 'paper' ? '准备好纸笔，开始' : '打开' + tblInfo[1]
+    box.innerHTML = '<div class="dk-dsheet" role="dialog" aria-modal="true" aria-label="听写设置">' +
+      '<div class="dk-dhead"><b>听写设置</b><span>' + esc(DS.meta.title || '') + ' · ' + n + ' 个</span><button type="button" class="dk-dx" data-dk-dclose aria-label="关闭">×</button></div>' +
+      '<div class="dk-dmodes">' + DMODES.map(function (x) { return '<button type="button" data-dk-dset="dtype" data-v="' + x[0] + '" aria-pressed="' + (m === x[0]) + '"><b>' + x[1] + '</b><span>' + x[2] + '</span></button>' }).join('') + '</div>' +
+      '<div class="dk-dopts">' + opts + '</div>' +
+      '<button type="button" class="dk-start" data-dk-dgo>' + go + '</button></div>'
+  }
+  function dsetClick(name, v) {
+    if (v === 'toggle') st[name] = !st[name]
+    else st[name] = name === 'times' || name === 'gap' ? Number(v) : v
+    if (name === 'dtype' && v !== 'table') st.dmode = v
+    save(); renderDS()
+  }
+  function dgo() {
+    if (!DS) return
+    var p = DS; DS = null; renderDS()
+    start(st.dtype === 'table' ? 'table' : 'dictate', p.cards, p.meta)
+  }
+
+  // ---------- 词表：中文词表写英文 / 英文词表写释义 / 听音词表整组连播 ----------
+  function tblIs(id) { return TBLS.filter(function (x) { return x[0] === id })[0] }
+  function earLabel() { var n = S.cards.length; return S.playing ? '暂停' : S.pi >= n ? '重放' : S.pi > 0 ? '继续' : '开始播放' }
+  function renderTable(el) {
+    var tb = S.tbl, info = tblIs(tb), n = S.cards.length, sub = !!S.sub
+    var sub2 = { cn: '看释义写英文', en: '看单词写释义', ear: '听写整组' }[tb]
+    var head = '<header class="dk-tbar"><button type="button" class="dk-back" data-dk-exit aria-label="退出">‹</button>' +
+      '<div class="dk-tbar-t"><b>' + info[1] + '</b><span>' + esc(S.meta.title || '') + ' · ' + sub2 + '</span></div>' +
+      '<button type="button" class="dk-tbtn" data-dk-print>打印</button>' +
+      (sub ? '<button type="button" class="dk-tbtn" data-dk-tredo>再写一遍</button>' : '<button type="button" class="dk-tbtn dk-tbtn-p" data-dk-tsub>交卷</button>') + '</header>'
+    var player = tb === 'ear' && !sub ? '<div class="dk-tplay"><button type="button" class="dk-tbtn dk-tbtn-p" data-dk-tplay id="dk-tp-btn">' + earLabel() + '</button>' +
+      '<span id="dk-tp-no">第 ' + Math.min(n, S.pi + 1) + ' / ' + n + ' 个</span><span class="dk-prog"><i id="dk-tp-bar" style="width:' + Math.round(Math.min(n, S.pi) / n * 100) + '%"></i></span>' +
+      '<button type="button" class="dk-tlink" data-dk-treplay>重听</button></div>' : ''
+    var summary = ''
+    if (sub) {
+      var marked = 0, ok = 0
+      S.cards.forEach(function (c, i) { var r = tb === 'en' ? S.self[i] : S.res[i]; if (r) marked++; if (r === 'ok') ok++ })
+      var bad = marked - ok
+      if (tb === 'en' && marked < n) summary = '<div class="dk-tsum">对照参考释义，逐个点 ✓ 或 ✗。已标 ' + marked + ' / ' + n + '，标完自动记录。</div>'
+      else summary = '<div class="dk-tsum"><p><b>对 ' + ok + ' / ' + n + '</b>　' + (bad ? '错的 ' + bad + ' 个已加进「听错的词」，下次复习提前。' : '一个没错。') + '</p>' +
+        '<div class="dk-tsum-acts">' + (bad ? '<button type="button" class="dk-tbtn dk-tbtn-p" data-dk-again="bad">只写错的 ' + bad + ' 个</button>' : '') + '<button type="button" class="dk-tbtn" data-dk-exit>返回</button></div></div>'
+    }
+    var rows = S.cards.map(function (c, i) {
+      var v = S.vals[i] || '', r = tb === 'en' ? (S.self[i] || '') : sub ? S.res[i] : ''
+      var given = tb === 'cn' ? '<span class="dk-tgiv cn">' + esc(shortMean(c.m)) + '</span>' : tb === 'en' ? '<span class="dk-tgiv en">' + esc(c.w) + '</span>' : ''
+      var extra = ''
+      if (sub && tb !== 'en' && r === 'bad') extra = '<p class="dk-tfix">→ ' + esc(c.w) + (tb === 'ear' ? '　<span>' + esc(shortMean(c.m)) + '</span>' : '') + '</p>'
+      if (sub && tb === 'en') extra = '<div class="dk-tref"><span>参考：' + esc(shortMean(c.m)) + '</span>' +
+        '<button type="button" class="dk-tmk ok" data-dk-self="' + i + '" data-v="ok" aria-pressed="' + (r === 'ok') + '" aria-label="写对了"' + (S.saved ? ' disabled' : '') + '>✓</button>' +
+        '<button type="button" class="dk-tmk bad" data-dk-self="' + i + '" data-v="bad" aria-pressed="' + (r === 'bad') + '" aria-label="写错了"' + (S.saved ? ' disabled' : '') + '>✗</button></div>'
+      return '<div class="dk-trow' + (r ? ' ' + r : '') + (tb === 'en' ? ' wide' : '') + '" data-dk-row="' + i + '"><span class="dk-tno">' + (i + 1) + '</span>' + given +
+        '<div class="dk-tcell"><input id="dk-t-' + i + '" class="dk-tin" data-dk-ti="' + i + '" value="' + esc(v) + '" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-label="第 ' + (i + 1) + ' 个"' +
+        ' placeholder="' + (tb === 'en' ? '写中文释义' : '写英文') + '"' + (sub ? ' disabled' : '') + '>' + (tb === 'en' ? '' : extra) + '</div>' + (tb === 'en' ? extra : '') + '</div>'
+    }).join('')
+    var half = Math.ceil(n / 2)
+    el.innerHTML = '<div class="dk-tsheet">' + head + player + summary +
+      '<div class="dk-tgrid" style="--dk-trows:' + half + '">' + rows + '</div>' +
+      '<p class="dk-tfoot">' + (sub ? '' : '写完一格按回车跳到下一格，最后一格按回车就是交卷') + '</p></div>'
+    el.classList.add('dk-twide')
+    if (!sub && tb !== 'ear' && !S.focused) { S.focused = 1; setTimeout(function () { var f = $('dk-t-0'); if (f) try { f.focus({ preventScroll: true }) } catch (e) {} }, 60) }
+    earUI()
+  }
+  function tableSubmit() {
+    if (!S || S.mode !== 'table' || S.sub) return
+    document.querySelectorAll('.dk-tin').forEach(function (x) { S.vals[Number(x.dataset.dkTi)] = x.value })
+    stopEar(); S.sub = 1; S.res = {}; S.self = {}
+    if (S.tbl !== 'en') {
+      S.cards.forEach(function (c, i) { var ok = answers(c.w).indexOf(norm(S.vals[i] || '')) >= 0; S.res[i] = ok ? 'ok' : 'bad'; if (!ok) S.wrong[keyOf(c)] = 1 })
+      tableSave()
+    }
+    renderSession(); window.scrollTo(0, 0)
+  }
+  function tableSave() { S.i = S.queue.length; S.done = S.total; saveRound() }
+  function tableClick(t, d) {
+    if (t.hasAttribute('data-dk-tsub')) { tableSubmit(); return true }
+    if (t.hasAttribute('data-dk-tredo')) { stopEar(); start('table', S.cards, Object.assign({}, S.meta)); return true }
+    if (t.hasAttribute('data-dk-print')) { document.body.classList.add('dk-printing'); setTimeout(function () { window.print() }, 30); return true }
+    if (t.hasAttribute('data-dk-tplay')) { if (S.playing) { stopEar(); earUI() } else earPlay(S.pi >= S.cards.length ? 0 : S.pi); return true }
+    if (t.hasAttribute('data-dk-treplay')) { earPlay(Math.min(S.pi, S.cards.length - 1)); return true }
+    if (d.dkSelf != null && S.sub && !S.saved) {
+      var i = Number(d.dkSelf), k = keyOf(S.cards[i])
+      S.self[i] = d.v
+      if (d.v === 'bad') S.wrong[k] = 1; else delete S.wrong[k]
+      if (Object.keys(S.self).length >= S.cards.length) tableSave()
+      renderSession(); return true
+    }
+    return false
+  }
+  // 听音词表：整组连播，正在读的那一行高亮
+  function stopEar() { if (S) { S.etok = (S.etok || 0) + 1; S.playing = 0 } stop() }
+  function earPlay(from) {
+    stopEar()
+    var tok = S.etok, mine = S
+    S.playing = 1
+    ;(function step(i) {
+      if (S !== mine || S.etok !== tok) return
+      if (i >= S.cards.length) { S.playing = 0; S.pi = S.cards.length; earUI(); return }
+      S.pi = i; earUI()
+      var w = S.cards[i].w, k = 0
+      ;(function one() {
+        say(w).then(function () {
+          if (S !== mine || S.etok !== tok) return
+          if (++k < st.times) setTimeout(one, 1200)
+          else setTimeout(function () { step(i + 1) }, st.gap * 1000)
+        })
+      })()
+    })(from)
+  }
+  function earUI() {
+    if (!S || S.mode !== 'table') return
+    var n = S.cards.length
+    document.querySelectorAll('.dk-trow.hot').forEach(function (x) { x.classList.remove('hot') })
+    if (S.playing) { var r = document.querySelector('[data-dk-row="' + S.pi + '"]'); if (r) r.classList.add('hot') }
+    var b = $('dk-tp-btn'); if (b) b.textContent = earLabel()
+    var no = $('dk-tp-no'); if (no) no.textContent = '第 ' + Math.min(n, S.pi + 1) + ' / ' + n + ' 个'
+    var bar2 = $('dk-tp-bar'); if (bar2) bar2.style.width = Math.round(Math.min(n, S.pi) / n * 100) + '%'
+  }
+
   // ---------- 入口 ----------
   function groupAt(b, si, gi) {
     var secs = sections(b), s = secs[si], g = s && s.groups[gi]
@@ -766,9 +940,17 @@
     var pool = cardsOf(b, b.units.reduce(function (a, u) { return a.concat(u.items) }, []))
     return { cards: cardsOf(b, g.items), meta: { title: b.name + ' · 第 ' + no + ' 组', gid: g.id, book: b.id, si: si, gi: gi, nextGroup: nxt, pool: pool } }
   }
-  function openGroup(mode, bid, si, gi) {
+  function openGroup(mode, bid, si, gi, direct) {
     var b = book(bid), g = b && groupAt(b, si, gi)
-    if (g) start(mode, g.cards, g.meta)
+    if (!g) return
+    if (mode === 'dictate' && !direct) askDictate(g.cards, g.meta)
+    else start(mode, g.cards, g.meta)
+  }
+  // 今天第一次背的词（首页那行和背完的结束页用）
+  function todayCards() {
+    var t = today(), out = []
+    for (var k in st.srs) if (st.srs[k].seen && st.srs[k].first === t) { var c = findCard(k); if (c) out.push(c) }
+    return out
   }
 
   document.addEventListener('click', function (e) {
@@ -784,6 +966,13 @@
       } else render()
       return
     }
+    if (d.dkDset) { dsetClick(d.dkDset, d.v); return }
+    if (t.hasAttribute('data-dk-dclose')) { DS = null; renderDS(); return }
+    if (t.hasAttribute('data-dk-dgo')) { dgo(); return }
+    if (t.hasAttribute('data-dk-tdict')) {
+      var tc = d.v === 's' && S && S.newCards ? S.newCards : todayCards()
+      askDictate(tc, { title: d.v === 's' ? '这组新词' : '今天背的词' }); return
+    }
     if (t.hasAttribute('data-dk-retry')) { render(); return }
     if (d.dkBook) { screen = { name: 'book', book: d.dkBook }; render(); window.scrollTo(0, 0); return }
     if (t.hasAttribute('data-dk-home')) { screen = { name: 'home' }; render(); window.scrollTo(0, 0); return }
@@ -798,11 +987,11 @@
     if (t.hasAttribute('data-dk-wrong')) {
       var cs = st.wrong.map(findCard).filter(Boolean)
       var w = cs.filter(function (c) { return c.k === 'word' }), o = cs.filter(function (c) { return c.k !== 'word' })
-      start('dictate', (w.length ? w : o).slice(0, 40), { title: '听错的词', fromWrong: 1 }); return
+      askDictate((w.length ? w : o).slice(0, 40), { title: '听错的词', fromWrong: 1 }); return
     }
     if (!S) return
     var q = cur()
-    if (t.hasAttribute('data-dk-exit')) { stop(); logSession(); S = null; document.body.classList.remove('dk-learning'); showView('dictation'); render(); return }
+    if (t.hasAttribute('data-dk-exit')) { stopEar(); var sc = $('dictation-session-content'); if (sc) sc.classList.remove('dk-twide'); logSession(); S = null; document.body.classList.remove('dk-learning'); showView('dictation'); render(); return }
     if (S.mode === 'learn') {
       if (d.dkTab) { S.tab = d.dkTab; renderSession(); return }
       if (d.dkLpick != null && S.phase === 'ask') {
@@ -853,16 +1042,18 @@
       if (S.paused) { stop(); S.token++; renderSession() } else paperTick()
       return
     }
+    if (t.hasAttribute('data-dk-paperre')) { stop(); S.token = (S.token || 0) + 1; S.paused = false; paperTick(); return }
+    if (S.mode === 'table' && tableClick(t, d)) return
     if (t.hasAttribute('data-dk-paperend')) { stop(); S.token = (S.token || 0) + 1; S.phase = 'mark'; S.done = S.total; renderSession(); return }
     if (d.dkMark != null) { var c = S.cards[Number(d.dkMark)], k = keyOf(c); if (S.wrong[k]) delete S.wrong[k]; else S.wrong[k] = 1; renderSession(); return }
     if (t.hasAttribute('data-dk-markdone')) { S.i = S.queue.length; renderSession(); return }
     if (d.dkAgain) {
       var src = d.dkAgain === 'bad' ? S.cards.filter(function (c) { return S.wrong[keyOf(c)] }) : S.cards
-      var meta = Object.assign({}, S.meta); if (d.dkAgain === 'bad') { meta.gid = ''; meta.fromWrong = S.mode === 'dictate' }
+      var meta = Object.assign({}, S.meta); if (d.dkAgain === 'bad') { meta.gid = ''; meta.fromWrong = S.mode === 'dictate' || S.mode === 'table' }
       start(S.mode, src, meta); return
     }
-    if (t.hasAttribute('data-dk-switch')) { start('dictate', S.cards, S.meta); return }
-    if (t.hasAttribute('data-dk-nextgroup')) { var m = S.meta; openGroup(S.mode, m.book, m.nextGroup[0], m.nextGroup[1]); return }
+    if (t.hasAttribute('data-dk-switch')) { askDictate(S.cards, S.meta); return }
+    if (t.hasAttribute('data-dk-nextgroup')) { var m = S.meta; openGroup(S.mode, m.book, m.nextGroup[0], m.nextGroup[1], true); return }
   })
   document.addEventListener('keydown', function (e) {
     if (!S || !document.getElementById('dictation-session-view').classList.contains('active')) return
@@ -881,17 +1072,28 @@
       return
     }
     if (e.key !== 'Enter' || e.isComposing) return
+    if (S.mode === 'table') {
+      if (e.target.classList && e.target.classList.contains('dk-tin')) { e.preventDefault(); var ni = Number(e.target.dataset.dkTi) + 1, nx = $('dk-t-' + ni); if (nx) nx.focus(); else tableSubmit() }
+      return
+    }
     var q = cur(); if (!q) return
     if (S.phase === 'ask' && e.target.id === 'dk-in') { e.preventDefault(); judge(q, e.target.value); return }
     if (S.phase === 'show') { e.preventDefault(); next() }
   })
-  st.gap = [3, 5, 8].indexOf(st.gap) >= 0 ? st.gap : 5
+  st.gap = [2, 4, 6, 8].indexOf(st.gap) >= 0 ? st.gap : 4
   document.addEventListener('tem8:view', function (e) {
     if (e.detail !== 'dictation-session') document.body.classList.remove('dk-learning')
     if (e.detail === 'dictation') { if (S) { stop(); logSession(); S = null } screen.sheet = 0; render() }
+    if (DS && e.detail !== 'dictation' && e.detail !== 'dictation-session') { DS = null; renderDS() }
   })
   document.addEventListener('submit', function (e) { if (e.target.matches && e.target.matches('[data-dk-lspell]')) { e.preventDefault(); lcheck() } })
-  document.addEventListener('click', function (e) { if (e.target.hasAttribute && e.target.hasAttribute('data-dk-close')) { screen.sheet = 0; render() } })
+  document.addEventListener('click', function (e) {
+    if (e.target.hasAttribute && e.target.hasAttribute('data-dk-close')) { screen.sheet = 0; render() }
+    if (e.target.id === 'dk-dsheet') { DS = null; renderDS() }
+  })
+  // 词表里打的字随时记下（重画时不丢）
+  document.addEventListener('input', function (e) { var t = e.target; if (S && S.mode === 'table' && t.classList && t.classList.contains('dk-tin')) S.vals[Number(t.dataset.dkTi)] = t.value })
+  window.addEventListener('afterprint', function () { document.body.classList.remove('dk-printing') })
   // 只有听写页正在显示时才去取词书
   var dv = $('dictation-view')
   if (dv && window.MutationObserver) new MutationObserver(function () { if (dv.classList.contains('active') && !BOOKS.length) render() }).observe(dv, { attributes: true, attributeFilter: ['class'] })
