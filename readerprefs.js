@@ -1,7 +1,7 @@
 /* 精读阅读设置：排版面板 + 对照排版 + 右侧悬浮工具栏 + 宽屏笔记停靠
  * 偏好存在 localStorage['tem8_reader_prefs']，第一次打开时从旧的 readingFont / readingLine / readingBackground 迁移
  *   size 字号(px)  lh 行距  margin 边距档  ws 词距档  font 英文字体  bg 背景  zh 译文(tap 点开看 / all 全部显示 / off 不看)
- *   layout 对照排版(auto / side / stack)  more 「更多排版」是否展开  marks 标注是否显示
+ *   layout 对照排版(auto / side / stack)  more 「更多排版」是否展开  marks 标注是否显示（面板里「标注」一行）
  * 对照排版：手机上一律上下；平板/电脑「自动」= 左右分栏；笔记停靠在右侧时自动改成上下 */
 ;(function () {
   'use strict'
@@ -105,6 +105,7 @@
       }).join('') + '</div></div>' +
       '<div class="rp-row" data-row="zh" data-need-zh><span class="rp-k">译文</span>' + seg('zh', [['tap', '点开看'], ['all', '对照显示'], ['off', '不看']], P.zh) + '</div>' +
       '<div class="rp-row" data-row="layout" data-need-zh><span class="rp-k">对照</span>' + seg('layout', [['auto', '自动'], ['side', '左右'], ['stack', '上下']], P.layout) + '</div>' +
+      '<div class="rp-row" data-row="marks"><span class="rp-k">标注</span>' + seg('marks', [['true', '显示'], ['false', '隐藏']], P.marks) + '</div>' +
       '<p class="rp-note" data-rp-note></p>' +
       '<button type="button" class="rp-more" data-rp-more aria-expanded="' + P.more + '"><span>更多排版</span><small data-rp-more-sum></small><i aria-hidden="true">›</i></button>' +
       '<div class="rp-adv"' + (P.more ? '' : ' hidden') + '>' +
@@ -171,6 +172,7 @@
     var t = e.target.closest ? e.target.closest('button') : null; if (!t) return
     if (t.dataset.rpSet) {
       var n = t.dataset.rpSet, v = t.dataset.v
+      if (n === 'marks') v = v === 'true'
       P[n] = v; save(); apply()
       if (n === 'zh') rerender()
       return
@@ -207,7 +209,6 @@
     rail.innerHTML =
       '<button type="button" class="rp-rb rp-rb-aa" data-rd-panel aria-label="阅读设置" aria-expanded="false">Aa</button>' +
       '<button type="button" class="rp-rb" data-rp-tone aria-label="切换深浅色"></button>' +
-      '<button type="button" class="rp-rb" data-rp-marks aria-label="显示或隐藏标注">' + ICON.mark + '</button>' +
       '<button type="button" class="rp-rb" data-ink-toggle aria-label="手写" title="手写">' + ICON.ink + '</button>' +
       '<button type="button" class="rp-rb rp-rb-note" data-rd-notes aria-label="笔记">' + ICON.note + '<b class="rp-badge" data-rd-count hidden></b></button>'
     // 放在阅读页顶栏右边（跟着顶栏吸顶，不浮在文字上）
