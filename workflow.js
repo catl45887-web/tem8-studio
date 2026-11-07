@@ -225,6 +225,22 @@
       }}
     return out
   }
+  // 一次交卷：答了几题、各题型对了几题（学习统计用）
+  function runBreakdown(r){
+    const out={n:0,ok:0,g:0,kinds:{}}
+    if(!r||!Array.isArray(r.groups))return out
+    const ans=r.answers||{},add=(k,ok)=>{const o=out.kinds[k]||(out.kinds[k]={ok:0,n:0});o.n++;out.g++;if(ok){o.ok++;out.ok++}}
+    for(const it of allItems(r.groups)){
+      if(isAnswered(it,ans))out.n++
+      const k=it.key.startsWith('lecture')?'lecture':it.key.startsWith('interview')?'interview':it.kind==='line'?'lang':(it.kind==='choice'||it.kind==='short')?'read':null
+      if(!k)continue
+      if(it.kind==='line'){const fix=String(it.fix||''),v=String(ans[it.key]?.text||'');if(!v.trim()||!/→/.test(fix))continue;const want=fix.split('→').pop().replace(/[^a-z]/gi,'').toLowerCase();if(!want)continue;add('lang',v.toLowerCase().replace(/[^a-z]/g,' ').split(/\s+/).includes(want));continue}
+      if(!gradable(it))continue
+      const g=grade(it,ans);if(g==='none')continue
+      add(k,g==='ok')
+    }
+    return out
+  }
   function renderCards(){
     const html=TYPES.map(t=>`<button class="category-card" data-workflow-type="${t.id}"><span class="category-icon">${t.icon}</span><h3>${escape(t.name)}</h3><p>${escape(t.sub)}</p><span class="card-foot">配置练习 <b>↗︎</b></span></button>`).join('')
     const home=$('#home-categories');if(home)home.innerHTML=html
@@ -988,5 +1004,5 @@
     const live=s.session;if(live?.marks&&Array.isArray(live.groups)){try{mistakeUpdate({groups:live.groups,answers:{},marks:live.marks,finishedAt:Date.now()})}catch{}}
     writeStore(x=>{x.mzv=1})
   })()
-  window.TEM8_WORKFLOW={renderCards,readerActions,openConfig,openMock,accuracyByKind,runScore:r=>stats(r).pct,history:()=>load().history||[],session:()=>load().session,itemInfo,startKeys,analysisHTML,parseKey,REASONS}
+  window.TEM8_WORKFLOW={renderCards,readerActions,openConfig,openMock,accuracyByKind,runBreakdown,runScore:r=>stats(r).pct,history:()=>load().history||[],session:()=>load().session,itemInfo,startKeys,analysisHTML,parseKey,REASONS}
 })()

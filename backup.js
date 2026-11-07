@@ -1,7 +1,7 @@
 (() => {
   'use strict'
 
-  const DATA_KEYS = ['tem8_studio_web_v1', 'tem8_workflow_v2', 'tem8_annotations_v1', 'tem8_intensive_v1', 'tem8_lamp']
+  const DATA_KEYS = ['tem8_studio_web_v1', 'tem8_workflow_v2', 'tem8_annotations_v1', 'tem8_intensive_v1', 'tem8_lamp', 'tem8_dict_v1', 'tem8_time_v1']
   const JSON_KEYS = DATA_KEYS.filter(key => key !== 'tem8_lamp')
   const META_KEY = 'tem8_backup_meta_v1'
   const WEEK = 7 * 24 * 60 * 60 * 1000

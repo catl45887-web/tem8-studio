@@ -15,9 +15,9 @@
     'workflow-config': 'practice', 'workflow-session': 'practice', 'workflow-report': 'practice',
     'paper-archive': 'practice', exam: 'practice', result: 'practice',
     mistakes: 'review', words: 'review', bookmarks: 'review', notes: 'review',
-    my: 'my', settings: 'my'
+    stats: 'my', my: 'my', settings: 'my'
   }
-  var SEG = { practice: ['papers', 'mock', 'intensive', 'dictation'], review: ['mistakes', 'words', 'bookmarks', 'notes'], my: ['my', 'settings'] }
+  var SEG = { practice: ['papers', 'mock', 'intensive', 'dictation'], review: ['mistakes', 'words', 'bookmarks', 'notes'], my: ['stats', 'my', 'settings'] }
   // 浅色/深色：阅读和练习并进首页
   var HOME_SEG = ['library', 'papers', 'mock', 'intensive', 'dictation']
   function xmas() { return document.documentElement.dataset.theme === 'xmas' }
