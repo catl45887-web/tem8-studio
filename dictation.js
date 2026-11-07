@@ -1,13 +1,13 @@
 /* 拾页 · 听写与背诵
-   词书来自 wordbooks.js（window.TEM8_WORDBOOKS）。
+   词书来自 wordbooks.js（window.TEM8_WORDBOOKS），发音路径在 audiomap.js，两个都是进听写页才加载。
    - 首页「听写」分段：词书方块 → 词书内按组列出 → 每组可「背诵」或「听写」
    - 背诵：仿不背单词，看词选释义，不认识就看详情，错的排到后面再来
    - 听写：核心词/听力词听音拼写（也可纸笔连播）；形近词听音选词；固定搭配看中文补关键词
-   - 发音优先用词典里的真人录音，没有就用浏览器朗读
+   - 每组开始前先把整组音频下载好；下载失败的词用浏览器朗读
    记录单独存在 tem8_dict_v1，不动原来的学习记录。 */
 (function () {
   'use strict'
-  var BOOKS = window.TEM8_WORDBOOKS || []
+  var BOOKS = []
   var KEY = 'tem8_dict_v1'
   var $ = function (id) { return document.getElementById(id) }
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] }) }
@@ -40,7 +40,7 @@
       if (b.kind === 'confuse') {
         it.forEach(function (x) { out.push({ b: b.id, k: 'confuse', w: x[0], p: x[1], m: x[2], ex: x[3], exc: x[4], sib: it }) })
       } else if (b.kind === 'phrase') out.push({ b: b.id, k: 'phrase', w: it[0], p: '', m: it[1] })
-      else out.push({ b: b.id, k: 'word', w: it[0], p: it[1], m: it[2] })
+      else out.push({ b: b.id, k: 'word', w: it[0], p: it[1], m: it[2], ex: it[3] || '', exc: it[4] || '' })
     })
     return out
   }
@@ -73,23 +73,56 @@
   }
   function dueKeys() { var t = today(), out = []; for (var k in st.srs) if (st.srs[k].due <= t && book(k.slice(0, k.indexOf('|')))) out.push(k); return out }
 
-  // ---------- 发音 ----------
-  var dict = window.TEM8_DICTIONARY || (window.TEM8_DICTIONARY = {}), loading = {}
-  function loadDict(w) {
-    w = String(w).toLowerCase()
-    if (!/^[a-z]/.test(w)) return Promise.resolve()
-    var P = window.TEM8_DICTIONARY_PREFIXES, b = P ? w.slice(0, 2) : w[0]
-    if (P && !P.has(b)) b = w[0]
-    if (P && !P.has(b)) return Promise.resolve()
-    var src = P ? 'dictionary/prefix/' + b + '.js' : 'dictionary/' + b + '.js'
-    if (document.querySelector('script[src^="' + src + '"]')) return loading[src] || Promise.resolve()
-    if (!loading[src]) loading[src] = new Promise(function (res) {
-      var s = document.createElement('script'); s.src = src; s.onload = s.onerror = function () { res() }; document.head.appendChild(s)
-    })
-    return loading[src]
+  // 词书和发音表有几百 KB，进到听写页才去取
+  var dataP = null
+  function loadScript(src) { return new Promise(function (res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s) }) }
+  function ensureData() {
+    if (!dataP) {
+      var v = (document.querySelector('script[src*="dictation.js"]') || {}).src || '', q = v.indexOf('?') >= 0 ? v.slice(v.indexOf('?')) : ''
+      dataP = Promise.all([window.TEM8_WORDBOOKS ? 0 : loadScript('wordbooks.js' + q), window.TEM8_AUDIOMAP ? 0 : loadScript('audiomap.js' + q)])
+        .then(function () { BOOKS = window.TEM8_WORDBOOKS || [] }, function () { dataP = null; throw new Error('load') })
+    }
+    return dataP
   }
-  function entry(w) { var e = dict[String(w).toLowerCase()]; return e && e.media ? e : null }
+
+  // ---------- 发音 ----------
+  // 音频先整组下载成 blob，播放时不再等网络
+  var blobs = {}, pending = {}
+  function srcOf(w) { var m = (window.TEM8_AUDIOMAP || {})[w]; return m ? m[st.accent === 'us' ? 1 : 0] : '' }
+  function fetchAudio(src) {
+    if (blobs[src]) return Promise.resolve(true)
+    if (pending[src]) return pending[src]
+    var ctl = window.AbortController ? new AbortController() : null, timer = setTimeout(function () { if (ctl) ctl.abort() }, 15000)
+    pending[src] = fetch(src, ctl ? { signal: ctl.signal } : {}).then(function (r) { if (!r.ok) throw 0; return r.blob() })
+      .then(function (b) { blobs[src] = URL.createObjectURL(b); return true }, function () { return false })
+      .then(function (ok) { clearTimeout(timer); delete pending[src]; return ok })
+    return pending[src]
+  }
+  // 一次最多同时下 6 个，onStep 每完成一个回调一次
+  function preload(cards, onStep) {
+    var list = [], seen = {}
+    cards.forEach(function (c) { var s = srcOf(c.w); if (s && !seen[s]) { seen[s] = 1; list.push(s) } })
+    var i = 0, done = 0, failed = 0
+    return new Promise(function (res) {
+      if (!list.length) return res({ total: 0, failed: 0 })
+      function next() {
+        if (i >= list.length) return
+        fetchAudio(list[i++]).then(function (ok) {
+          done++; if (!ok) failed++
+          onStep && onStep(done, list.length)
+          if (done === list.length) res({ total: list.length, failed: failed }); else next()
+        })
+      }
+      for (var k = 0; k < 6; k++) next()
+    })
+  }
   var audio = null
+  // iOS 只允许在点按里第一次出声：开始一组时用同一个 audio 元素先放一段静音，之后自动发音才不会被拦
+  var SILENT = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//OEwAAAAAAAAAAAAEluZm8AAAAPAAAABQAAAqAAbW1tbW1tbW1tbW1tbW1tbW1tbZKSkpKSkpKSkpKSkpKSkpKSkpKStra2tra2tra2tra2tra2tra2trbb29vb29vb29vb29vb29vb29vb2///////////////////////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQEUAAAAAAAAAKgvT9A1gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//NExAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExFMAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKYAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'
+  function unlock() {
+    try { audio = audio || new Audio(); audio.src = SILENT; var p = audio.play(); if (p && p.catch) p.catch(function () {}) } catch (e) {}
+    try { if ('speechSynthesis' in window) speechSynthesis.speak(new SpeechSynthesisUtterance('')) } catch (e) {}
+  }
   function stop() { try { if (audio) audio.pause() } catch (e) {} ; try { speechSynthesis.cancel() } catch (e) {} }
   function tts(text, slow) {
     if (!('speechSynthesis' in window)) return
@@ -102,17 +135,14 @@
     stop()
     var text = String(w).replace(/\.{2,}|…+/g, ' ').replace(/\bsb'?s?\b|\bsth\b/g, ' ').replace(/\s+/g, ' ').trim()
     return new Promise(function (done) {
-      var single = /^[a-z][a-z'-]*$/i.test(text)
-      var mapped = (window.TEM8_AUDIOMAP || {})[w]
+      var src = srcOf(w)
       var play = function (src) {
-        audio = new Audio(src); audio.playbackRate = slow ? 0.7 : 1
+        audio = audio || new Audio()
+        audio.src = blobs[src] || src; audio.playbackRate = slow ? 0.7 : 1
         audio.onended = function () { done() }
         audio.onerror = function () { speak() }
         audio.play().catch(function () { speak() })
-      }
-      var go = function () {
-        var e = single && entry(text), src = e && (e.media[st.accent] || e.media.uk || e.media.us)
-        if (src) play(src); else speak()
+        if (!blobs[src]) fetchAudio(src)
       }
       var speak = function () {
         if (!('speechSynthesis' in window)) { done(); return }
@@ -122,8 +152,7 @@
         speechSynthesis.speak(u)
         setTimeout(done, 4000)
       }
-      if (mapped) play(mapped[st.accent === 'us' ? 1 : 0])
-      else if (single) loadDict(text).then(go); else speak()
+      if (src) play(src); else speak()
     })
   }
 
@@ -205,6 +234,11 @@
   }
   function render() {
     var el = $('dictation-content'); if (!el) return
+    if (!BOOKS.length) {
+      if (!el.innerHTML) el.innerHTML = '<p class="dk-wait">词书加载中…</p>'
+      ensureData().then(render, function () { el.innerHTML = '<p class="dk-wait">词书没加载上，<button type="button" class="dk-retry" data-dk-retry>再试一次</button></p>' })
+      return
+    }
     el.innerHTML = screen.name === 'book' ? renderBook() : renderHome()
   }
 
@@ -216,14 +250,22 @@
   }
   function start(mode, cards, meta) {
     if (!cards.length) return
+    unlock()
     S = { mode: mode, cards: cards, meta: meta || {}, queue: [], i: 0, phase: 'ask', first: {}, wrong: {}, done: 0, total: cards.length }
     if (mode === 'recite') S.queue = shuffle(cards).map(function (c) { return { c: c, tries: 0 } })
     else S.queue = shuffle(cards).map(function (c) { return { c: c } })
     if (mode === 'dictate' && cards[0].k === 'word' && st.dmode === 'paper') { S.paper = true }
     showView('dictation-session')
     // 先把这组词的词典分片取回来，发音和例句都靠它
-    Promise.all(cards.filter(function (c) { return /^[a-z]/i.test(c.w) && c.w.indexOf(' ') < 0 }).map(function (c) { return loadDict(c.w) })).then(function () { if (S && ((S.paper && !S.started) || S.mode === 'recite')) renderSession() })
+    // 先把这组的音频全部下好再开始
+    var mine = S
+    S.loading = { done: 0, total: 0 }
     renderSession()
+    preload(cards, function (d, n) { if (S === mine && S.loading) { S.loading = { done: d, total: n }; renderLoading() } }).then(function (r) {
+      if (S !== mine || !S.loading) return
+      S.loading = null; S.failed = r.failed
+      renderSession()
+    })
   }
   function cur() { return S && S.queue[S.i] }
   function progress() { return '<span class="dk-prog"><i style="width:' + Math.round(S.done / S.total * 100) + '%"></i></span><span class="dk-count">' + S.done + ' / ' + S.total + '</span>' }
@@ -241,8 +283,6 @@
   }
   function example(c) {
     if (c.ex) return { en: c.ex, cn: c.exc }
-    var e = c.k === 'word' && entry(c.w)
-    if (e && e.examples && e.examples[0]) return e.examples[0]
     return null
   }
   function detail(c) {
@@ -251,15 +291,25 @@
     if (sib) return '<div class="dk-detail dk-detail-sib">' + sib + '</div>'
     return '<div class="dk-detail"><p class="dk-mean">' + esc(c.m) + '</p>' + (ex ? '<p class="dk-ex">' + esc(ex.en) + (ex.cn ? '<span>' + esc(ex.cn) + '</span>' : '') + '</p>' : '') + sib + '</div>'
   }
-  function phonOf(c) { if (c.p) return c.p; var e = c.k === 'word' && entry(c.w); return e && e.oxford && e.oxford.phon || '' }
+  function phonOf(c) { return c.p || '' }
   function wordHead(c, hide) {
     var ph = phonOf(c)
     return '<div class="dk-word"><h2' + (hide ? ' class="dk-hidden"' : '') + '>' + esc(c.w) + '</h2>' + (ph ? '<p class="dk-phon">/' + esc(ph) + '/</p>' : '') +
       '<button type="button" class="dk-say" data-dk-say aria-label="发音">' + SPEAK + '</button></div>'
   }
 
+  function renderLoading() {
+    var el = $('dictation-session-content'); if (!el || !S || !S.loading) return
+    var L = S.loading, pct = L.total ? Math.round(L.done / L.total * 100) : 0
+    var box = el.querySelector('.dk-loading')
+    if (box) { box.querySelector('i').style.width = pct + '%'; box.querySelector('b').textContent = L.total ? L.done + ' / ' + L.total : ''; return }
+    el.innerHTML = '<header class="dk-bar"><button type="button" class="dk-back" data-dk-exit aria-label="退出">‹</button><span class="dk-bar-t">' + esc(S.meta.title || '') + '</span></header>' +
+      '<div class="dk-card dk-loading"><p class="dk-load-t">正在准备这组的发音</p><span class="dk-load-bar"><i style="width:' + pct + '%"></i></span><b>' + (L.total ? L.done + ' / ' + L.total : '') + '</b>' +
+      '<button type="button" class="dk-dunno" data-dk-skipload>不等了，先开始</button></div>'
+  }
   function renderSession() {
     var el = $('dictation-session-content'); if (!el || !S) return
+    if (S.loading) return renderLoading()
     if (S.i >= S.queue.length) return renderResult(el)
     var q = cur(), c = q.c, title = S.meta.title || ''
     if (S.mode === 'recite') {
@@ -442,6 +492,7 @@
       } else render()
       return
     }
+    if (t.hasAttribute('data-dk-retry')) { render(); return }
     if (d.dkBook) { screen = { name: 'book', book: d.dkBook }; render(); window.scrollTo(0, 0); return }
     if (t.hasAttribute('data-dk-home')) { screen = { name: 'home' }; render(); window.scrollTo(0, 0); return }
     if (d.dkGo) { openGroup(d.dkGo, screen.book, Number(d.dkSec), Number(d.dkGrp)); return }
@@ -457,6 +508,7 @@
     if (!S) return
     var q = cur()
     if (t.hasAttribute('data-dk-exit')) { stop(); S = null; showView('dictation'); render(); return }
+    if (t.hasAttribute('data-dk-skipload')) { S.loading = null; renderSession(); return }
     if (t.hasAttribute('data-dk-say')) { if (q) say(q.c.w); return }
     if (d.dkSayw) { say(d.dkSayw); return }
     if (t.hasAttribute('data-dk-slow')) { if (q) say(q.c.w, true); return }
@@ -506,6 +558,9 @@
   })
   st.gap = [3, 5, 8].indexOf(st.gap) >= 0 ? st.gap : 5
   document.addEventListener('tem8:view', function (e) { if (e.detail === 'dictation') { if (S) { stop(); S = null } render() } })
-  render()
+  // 只有听写页正在显示时才去取词书
+  var dv = $('dictation-view')
+  if (dv && window.MutationObserver) new MutationObserver(function () { if (dv.classList.contains('active') && !BOOKS.length) render() }).observe(dv, { attributes: true, attributeFilter: ['class'] })
+  if (dv && dv.classList.contains('active')) render()
   window.TEM8_DICTATION = { render: render }
 })();

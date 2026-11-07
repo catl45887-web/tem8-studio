@@ -153,3 +153,12 @@ html:not([data-theme=xmas]) body.app-v-dictation-session .app-main,html:not([dat
 .dk-detail-sib .dk-sibs{margin:0}
 .dk-sib b i{font-style:normal;font-weight:400;font-size:13px;color:var(--muted);margin-left:4px;font-family:"Lucida Sans Unicode","Segoe UI",system-ui,sans-serif}
 .dk-sib .dk-sib-ex{margin-top:4px;font-size:14px;color:var(--ink);opacity:.8}
+/* 开始前下载整组音频 */
+.dk-loading{align-items:center;padding-top:30vh}
+.dk-load-t{margin:0;font-size:16px;color:var(--ink)}
+.dk-load-bar{display:block;width:200px;height:4px;margin:18px 0 0;border-radius:2px;background:var(--line);overflow:hidden}
+.dk-load-bar i{display:block;height:100%;background:var(--wine,var(--ink));border-radius:2px;transition:width .2s}
+.dk-loading b{margin-top:10px;font-weight:400;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-height:1.4em}
+.dk-loading .dk-dunno{margin-top:28px}
+.dk-wait{padding:40px 0;text-align:center;font-size:14px;color:var(--muted)}
+.dk-retry{border:0;background:none;color:var(--wine,var(--ink));font:inherit;text-decoration:underline;cursor:pointer}

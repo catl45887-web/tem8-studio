@@ -123,23 +123,31 @@ for l in raw:
     grp.append([w, p, mean, ex, excn])
 books.append({'id': 'confuse', 'name': '形近词', 'note': '90 组', 'kind': 'confuse', 'units': units})
 
-# 词典里有真人发音的词
-have = set()
-for f in (site / 'dictionary').glob('*.js'):
+# 词典：给单词补音标和第一条例句，这样背诵时不用再去拉几百 KB 的词典分片
+dic = {}
+for f in list((site / 'dictionary').glob('*.js')) + list((site / 'dictionary' / 'prefix').glob('*.js')):
     t = f.read_text(encoding='utf-8')
-    have.update(re.findall(r'"([^"]+)":\{"media"', t))
-media = {f.name.split('__')[0] for f in (site / 'media' / 'uk').glob('*.mp3')}
+    if not t.startswith('Object.assign(window.TEM8_DICTIONARY,'):
+        continue
+    for k, v in json.loads(t[t.index(',') + 1:t.rindex(')')]).items():
+        dic.setdefault(k, v)
 for b in books:
-    flat = []
+    if b['kind'] != 'word':
+        continue
+    n = 0
     for u in b['units']:
         for it in u['items']:
-            flat += [x[0] for x in it] if b['kind'] == 'confuse' else [it[0]]
-    single = [w for w in flat if ' ' not in w]
-    hit = sum(1 for w in single if w.lower() in have or w in have)
-    hm = sum(1 for w in single if w.lower() in media)
-    print(b['id'], len(b['units']), 'units', len(flat), 'items', f'dict {hit} media {hm} /{len(single)} single words')
+            e = dic.get(it[0].lower())
+            if not e:
+                continue
+            if not it[1] and e.get('oxford', {}).get('phon'):
+                it[1] = e['oxford']['phon']
+            ex = (e.get('examples') or [None])[0]
+            if ex and ex.get('en'):
+                it += [ex['en'], ex.get('cn', '')]; n += 1
+    print(b['id'], 'examples added', n)
 
-out = '/* 词书：五份词表整理而来，由 build_wordbooks.py 生成。\n   word 条目 [词, 音标, 释义]；phrase [搭配, 释义]；confuse 每组 [[词, 音标, 释义, 例句, 例句译文], …] */\n'
+out = '/* 词书：五份词表整理而来，由 build_wordbooks.py 生成。\n   word 条目 [词, 音标, 释义, 例句?, 例句译文?]；phrase [搭配, 释义]；confuse 每组 [[词, 音标, 释义, 例句, 例句译文], …] */\n'
 out += 'window.TEM8_WORDBOOKS=' + json.dumps(books, ensure_ascii=False, separators=(',', ':')) + ';\n'
 (site / 'wordbooks.js').write_text(out, encoding='utf-8')
 print('wordbooks.js', round(len(out.encode()) / 1024), 'KB')

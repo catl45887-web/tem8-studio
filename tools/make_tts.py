@@ -54,7 +54,7 @@ def slug(w):
 def real_audio():
     """词典条目里的录音，以及 media 里按文件名能找到的录音"""
     have = {}
-    for f in (ROOT / 'dictionary').glob('*.js'):
+    for f in list((ROOT / 'dictionary').glob('*.js')) + list((ROOT / 'dictionary' / 'prefix').glob('*.js')):
         t = f.read_text(encoding='utf-8')
         for w, uk, us in re.findall(r'"([^"]+)":\{"media":\{"uk":"([^"]*)","us":"([^"]*)"', t):
             have.setdefault(w, (uk, us))
@@ -67,28 +67,28 @@ def real_audio():
 
 def plan():
     have, files = real_audio()
-    in_dict, by_file, need = [], {}, []
+    in_dict, by_file, need = {}, {}, []
     for w in items():
         k = w.lower()
         if re.fullmatch(r"[a-z][a-z'-]*", k) and k in have:
-            in_dict.append(w); continue
+            in_dict[w] = list(have[k]); continue
         if re.fullmatch(r"[a-z][a-z'-]*", k) and k in files and len(files[k]) == 2:
             by_file[w] = [files[k]['uk'], files[k]['us']]; continue
         need.append(w)
     return in_dict, by_file, need
 
 
-def write_map(by_file, need):
-    m = dict(by_file)
+def write_map(in_dict, by_file, need):
+    m = dict(in_dict); m.update(by_file)
     for w in need:
         s = slug(w)
         uk, us = ROOT / 'media/tts/uk' / (s + '.mp3'), ROOT / 'media/tts/us' / (s + '.mp3')
         if uk.exists() and us.exists():
             m[w] = ['media/tts/uk/%s.mp3' % s, 'media/tts/us/%s.mp3' % s]
-    out = '/* 词书发音表：词典里查不到录音的条目 → [英音, 美音]。由 tools/make_tts.py 生成，不要手改。 */\n'
+    out = '/* 词书发音表：每个条目 → [英音, 美音]（词典录音、media 里的录音、合成音）。由 tools/make_tts.py 生成，不要手改。 */\n'
     out += 'window.TEM8_AUDIOMAP=' + json.dumps(m, ensure_ascii=False, separators=(',', ':')) + ';\n'
     (ROOT / 'audiomap.js').write_text(out, encoding='utf-8')
-    print('audiomap.js:', len(m), 'entries;', len(m) - len(by_file), 'synthesized')
+    print('audiomap.js:', len(m), 'entries;', len(m) - len(by_file) - len(in_dict), 'synthesized')
 
 
 def ssml(lang, voice, text):
@@ -156,8 +156,8 @@ if __name__ == '__main__':
         for w in need:
             print(' ', w, '→', spoken(w), '→', slug(w))
     elif cmd == 'azure':
-        run_azure(need); write_map(by_file, need)
+        run_azure(need); write_map(in_dict, by_file, need)
     elif cmd == 'edge':
-        run_edge(need); write_map(by_file, need)
+        run_edge(need); write_map(in_dict, by_file, need)
     elif cmd == 'map':
-        write_map(by_file, need)
+        write_map(in_dict, by_file, need)
