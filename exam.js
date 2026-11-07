@@ -141,6 +141,8 @@
       // anchor：让笔迹跟着文字走。{ prepare(pane), pick(pane,x,y) -> {ref,x,y,u}, locate(pane,ref) -> {x,y,u} }
       // 有 anchor 时，一笔写完就换成「相对最近那个词的位置，按字号 u 计」存下来，重新排版后按词的新位置画
       this.anchor = opt.anchor || null
+      // noTap：写字时只画画，轻点不当作点击（精读原文、题目栏用；做题页仍要靠轻点选选项）
+      this.noTap = !!opt.noTap
       // 结构：pane(滚动) > sizer(按缩放后的尺寸撑开) > inner(内容 + 画布，整体 scale)
       const sizer = document.createElement('div'), inner = document.createElement('div')
       sizer.className = 'ink-sizer'; inner.className = 'ink-inner'
@@ -275,6 +277,7 @@
         if (e.pointerType === 'mouse' && e.button !== 0) return
         if (isField(e.target)) return
         e.preventDefault(); e.stopPropagation()
+        this._downAt = Date.now()
         try { el.setPointerCapture(e.pointerId) } catch {}
         const [x, y] = this.point(e)
         cur = { id: e.pointerId, t0: Date.now(), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, erased: [], type: e.pointerType }
@@ -309,7 +312,7 @@
           if (tap) {
             // 轻点 = 点击（选选项、点单词），不留墨点
             this.list.pop(); this.redraw()
-            if (c.type !== 'mouse') tapAt(c.x0, c.y0)
+            if (c.type !== 'mouse' && !this.noTap) tapAt(c.x0, c.y0)
             return
           }
           this.anchorStroke(c.s)
@@ -319,6 +322,10 @@
         save(); sync()
       }
       el.addEventListener('pointerup', end, { capture: true, ...o })
+      // noTap：鼠标 / 笔刚落下画过，浏览器自己补发的 click 也拦掉（不查词、不弹浮条、不点按钮）
+      el.addEventListener('click', e => {
+        if (this.noTap && this.active && Date.now() - (this._downAt || 0) < 1200) { e.preventDefault(); e.stopPropagation() }
+      }, { capture: true, ...o })
       el.addEventListener('pointercancel', e => { if (cur && e.pointerId === cur.id) { cancelStroke(); sync() } }, { capture: true, ...o })
     }
     erase(x, y, c) {

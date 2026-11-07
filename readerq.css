@@ -8,7 +8,11 @@
 }
 .rq-panel[hidden]{display:none}
 /* 宽屏：停在右侧，和笔记抽屉同一个位置 */
-.rq-panel.rq-as-side{top:0;right:0;bottom:0;width:336px;border-left:1px solid var(--rq-line);animation:rqSide .18s ease}
+.rq-panel.rq-as-side{top:0;bottom:0;right:var(--rq-side,0px);width:var(--rq-w,400px);border-left:1px solid var(--rq-line);border-right:1px solid var(--rq-line);animation:rqSide .18s ease}
+/* 宽屏：原文（最宽约 760）和题目栏并排、整组居中；题目栏宽 400–480，随屏幕变宽 */
+body.rq-open{--rq-w:clamp(400px,38vw,480px);--rq-side:max(0px,calc((100vw - 760px - 40px - var(--rq-w)) / 2))}
+body.rq-open.rp-docked #reader-view{padding-left:var(--rq-side)!important;padding-right:calc(var(--rq-w) + var(--rq-side) + 24px)!important}
+body.rq-open.rp-docked .rp-inkbar{left:calc(var(--rq-side) + (100% - var(--rq-w) - 2 * var(--rq-side)) / 2)}
 @keyframes rqSide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}
 /* 窄屏：底部抽屉，三档高度 */
 .rq-panel.rq-as-sheet{left:0;right:0;bottom:0;z-index:75;border-radius:18px 18px 0 0;box-shadow:0 -8px 28px rgba(30,40,45,.12);padding-bottom:env(safe-area-inset-bottom)}
@@ -24,7 +28,9 @@ body.rq-sheet #reader-view{padding-bottom:58vh}
 .rq-grab i{width:36px;height:4px;border-radius:2px;background:var(--rq-main)}
 .rq-x{width:40px;height:40px;border:0;background:none;color:var(--rq-muted);font-size:24px;line-height:1;border-radius:10px;cursor:pointer}
 .rq-link{height:40px;border:0;background:none;color:var(--rq-strong);font-size:13px;padding:0 6px;cursor:pointer}
-.rq-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 32px;display:flex;flex-direction:column;gap:30px}
+.rq-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 32px}
+.rq-scroll[hidden],.rq-nav[hidden]{display:none}
+.rq-cards{display:flex;flex-direction:column;gap:30px}
 
 .rq-peek{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;border:0;background:none;color:var(--rq-ink);text-align:left;padding:0 20px 14px;font-size:15px;cursor:pointer}
 .rq-peek b{flex-shrink:0;color:var(--rq-strong)}
@@ -53,11 +59,15 @@ body.rq-sheet #reader-view{padding-bottom:58vh}
 .rq-ref,.rq-box,.rq-ev{padding:10px 12px;border-radius:10px;background:var(--rq-soft);font-size:14px;line-height:1.75}
 .rq-ref b,.rq-box b{display:block;font-size:12px;font-weight:400;color:var(--rq-muted);margin-bottom:2px}
 .rq-go{display:inline-block;margin-left:6px;border:0;background:none;padding:0;color:var(--rq-strong);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.rq-ev-h{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--rq-muted)}
+.rq-ev{background:var(--rq-evbg)!important}
+.rq-ev-h{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--rq-ev)}
 .rq-ev-h span{margin-right:auto}
-.rq-ev-h button{height:28px;border:0;background:none;padding:0 6px;color:var(--rq-strong);font-size:12px;cursor:pointer}
+.rq-ev-h button{height:28px;border:0;background:none;padding:0 6px;color:var(--rq-ev);font-size:12px;cursor:pointer}
 .rq-ev p{margin:2px 0 0;font-family:Georgia,'Times New Roman','Noto Serif SC',serif}
-.rq-step{align-self:flex-start;min-height:38px;padding:0 18px;border:1px solid var(--rq-main);border-radius:19px;background:none;color:var(--rq-strong);font-size:14px;cursor:pointer}
+.rq-tgl{display:flex;gap:8px;flex-wrap:wrap}
+.rq-t{min-height:38px;padding:0 18px;border:1px solid var(--rq-main);border-radius:19px;background:none;color:var(--rq-strong);font-size:14px;cursor:pointer}
+.rq-t[aria-pressed=true]{background:var(--rq-strong);border-color:var(--rq-strong);color:var(--rq-card)}
+.rq-t:disabled{border-style:dashed;border-color:var(--rq-line);color:var(--rq-muted);opacity:.6;cursor:default}
 
 /* 右上角工具栏的「题目」按钮 */
 .rp-rb.rq-btn{width:auto;padding:0 10px;font-size:14px;font-family:inherit}
@@ -68,7 +78,12 @@ body.rq-sheet #reader-view{padding-bottom:58vh}
 #reader-view .rq-flash{animation:rqFlash 2.6s ease;border-radius:8px}
 @keyframes rqFlash{0%,70%{background:color-mix(in srgb,var(--p-light,#dfe8dc) 80%,transparent);box-shadow:0 0 0 8px color-mix(in srgb,var(--p-light,#dfe8dc) 80%,transparent)}100%{background:transparent;box-shadow:0 0 0 8px transparent}}
 #reader-view [data-anno-p]{scroll-margin-top:80px}
-::highlight(rq-ev){text-decoration:underline;text-decoration-thickness:2px;text-decoration-color:var(--p-strong,#284c3d);background-color:color-mix(in srgb,var(--p-light,#dfe8dc) 45%,transparent)}
+/* 依据句：紫色下划线 + 很淡的紫底 + 句尾题号（标签用 ::after，不占文字） */
+:root{--rq-ev:#6D5BD0;--rq-evbg:rgba(109,91,208,.10)}
+html[data-theme=dark]{--rq-ev:#B3A6FF;--rq-evbg:rgba(179,166,255,.14)}
+html[data-theme=xmas]{--rq-ev:#D6C2FF;--rq-evbg:rgba(214,194,255,.14)}
+#reader-view .rq-evm{text-decoration:underline;text-decoration-color:var(--rq-ev);text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-skip-ink:none;background:var(--rq-evbg);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#reader-view .rq-evend::after{content:attr(data-q);display:inline-block;margin-left:3px;font-family:'Noto Serif SC',serif;font-size:.62em;line-height:1;vertical-align:.6em;color:var(--rq-ev);text-decoration:none;font-weight:400}
 
 /* 选区浮条里的「设为依据」，和点了以后的题号选择 */
 .anno-chip .anno-chip-ev{border-left:1px solid rgba(255,255,255,.2)!important;border-radius:0 7px 7px 0}
@@ -92,3 +107,7 @@ html[data-theme=xmas] .rq-pick{background:#3a281d;color:#f3e6d3}
   .rq-scroll{padding:4px 16px 24px}
   .rp-rb.rq-btn{padding:0 8px}
 }
+
+/* 手写时：原文和题目栏都不能选字（只画画）；题卡上的画布 */
+body.ink-on #reader-view .rd-ink,body.ink-on .rq-panel .rq-ink{-webkit-user-select:none;user-select:none}
+.rq-ink .ink-inner{position:relative}

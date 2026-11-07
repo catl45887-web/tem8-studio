@@ -86,9 +86,31 @@
     var a = el.querySelector('[data-anno-article]'), id = a ? a.dataset.annoArticle : ''
     if (!id) return hint()
     ensureBar()
-    pane = ink.mount(el, 'read:' + id, 'a', { scope: 'reader', zoom: false, anchor: ANCHOR })
+    pane = ink.mount(el, 'read:' + id, 'a', { scope: 'reader', zoom: false, anchor: ANCHOR, noTap: true })
     pane._id = id
+    widen()
   }
+  /* ---------- 画布铺满整个阅读区：画布层左右伸到阅读区边上（正文位置不动） ----------
+   * 阅读区 = 阅读页去掉右侧给题目栏 / 笔记让出的位置。笔迹仍挂在最近的词上，所以边上写的字也跟着那一行走 */
+  function widen() {
+    if (!pane || !pane.inner || !pane.inner.isConnected) return false
+    var v = $('reader-view'), inner = pane.inner
+    if (!v) return false
+    var rv = v.getBoundingClientRect(), cs = getComputedStyle(v)
+    var r = pane.el.getBoundingClientRect()
+    var left = rv.left, right = rv.right - (parseFloat(cs.paddingRight) || 0)
+    var L = Math.max(0, Math.round(r.left - left)), R = Math.max(0, Math.round(right - r.right))
+    if (pane._lr === L + ',' + R) return false
+    pane._lr = L + ',' + R
+    inner.style.marginLeft = -L + 'px'; inner.style.paddingLeft = L + 'px'
+    inner.style.marginRight = -R + 'px'; inner.style.paddingRight = R + 'px'
+    return true
+  }
+  var widenT = 0
+  function widenSoon() { clearTimeout(widenT); widenT = setTimeout(function () { if (widen() && pane) pane.redraw() }, 60) }
+  window.addEventListener('resize', widenSoon)
+  // 题目栏 / 笔记抽屉开关会改阅读页的留白
+  new MutationObserver(widenSoon).observe(document.body, { attributes: true, attributeFilter: ['class'] })
   function hint() {}
 
   /* ---------- 笔迹挂到词上 ----------
@@ -144,7 +166,7 @@
 
   document.addEventListener('tem8:reader-render', function () { setTimeout(mountArticle, 0) })
   // 排版变了：重新按词的位置画一遍
-  document.addEventListener('tem8:reader-layout', function () { if (pane) requestAnimationFrame(function () { pane.redraw() }) })
+  document.addEventListener('tem8:reader-layout', function () { if (pane) requestAnimationFrame(function () { widen(); pane.redraw() }) })
   document.addEventListener('tem8:view', function (e) {
     if (e.detail !== 'reader') { if (pane && I()) { I().unmount(pane); pane = null } }
   })

@@ -71,17 +71,25 @@
 
   /* ============ 文本渲染 ============ */
   const WORD_RE = /[A-Za-z]+(?:[’'][A-Za-z]+)?/g
+  // 其他模块加在文字上的标记（精读题目栏的「依据」）：window.TEM8_ANNO_EXTRA(文章, 段) -> [{s,e,label}]
+  // 只加 class，不加文字（标签用 CSS ::after 显示），所以不影响选区的字符偏移
+  let EXTRA = []
   function paint(text, marks, from, to) {
     const bounds = [from, to]
     for (const m of marks) {
       if (m.e > from && m.s < to) { bounds.push(Math.max(from, m.s), Math.min(to, m.e)) }
+    }
+    for (const x of EXTRA) {
+      if (x.e > from && x.s < to) { bounds.push(Math.max(from, x.s), Math.min(to, x.e)) }
     }
     const pts = [...new Set(bounds)].sort((a, b) => a - b)
     let html = ''
     for (let k = 0; k < pts.length - 1; k++) {
       const s = pts[k], e = pts[k + 1]
       if (e <= s) continue
-      const piece = esc(text.slice(s, e)).replace(/\n/g, '<br>')
+      let piece = esc(text.slice(s, e)).replace(/\n/g, '<br>')
+      const ev = EXTRA.find(x => x.s <= s && x.e >= e)
+      if (ev) piece = `<span class="rq-evm${e === ev.e ? ' rq-evend" data-q="' + esc(ev.label) : ''}">${piece}</span>`
       const hit = marks.find(m => m.s <= s && m.e >= e)
       html += hit ? `<mark class="anno-hl ${esc(hit.c || 'y')}">${piece}</mark>` : piece
     }
@@ -92,6 +100,7 @@
     const o = opts || {}
     cache[articleId + '#' + seg] = text
     const marks = marksOf(articleId, seg)
+    try { EXTRA = (window.TEM8_ANNO_EXTRA && window.TEM8_ANNO_EXTRA(articleId, seg)) || [] } catch (e) { EXTRA = [] }
     if (o.word === false) return paint(text, marks, 0, text.length)
     const attr = o.attr || 'data-word'
     const segAttr = o.segAttr ? ` ${o.segAttr}="${seg}"` : ''
