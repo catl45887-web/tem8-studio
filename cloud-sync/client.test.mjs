@@ -61,6 +61,7 @@ test('browser client creates a code, uploads a word, then sends its deletion', a
     await waitFor(() => JSON.parse(storage.get('tem8_sync_v1') || '{}').initialized)
     assert.equal(JSON.parse(storage.get('tem8_sync_v1')).code, 'A'.repeat(26))
     assert.equal(element('sync-code-display').textContent, 'AAAA-AAAA-AAAA-AAAA-AAAA-AAAA-AA')
+    assert.match(element('sync-last-success').textContent, /^本设备最近成功同步：/)
   } finally {
     for (const [key, value] of Object.entries(original)) {
       if (value === undefined) delete globalThis[key]
