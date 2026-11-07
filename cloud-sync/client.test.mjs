@@ -20,11 +20,12 @@ test('browser client creates a code, uploads a word, then sends its deletion', a
     addEventListener: (type, listener) => listeners.set(type, listener),
     dispatchEvent: event => listeners.get(event.type)?.(event)
   }
-  const original = {window: globalThis.window, document: globalThis.document, localStorage: globalThis.localStorage, fetch: globalThis.fetch, location: globalThis.location}
+  const original = {window: globalThis.window, document: globalThis.document, localStorage: globalThis.localStorage, fetch: globalThis.fetch, location: globalThis.location, confirm: globalThis.confirm}
   globalThis.window = {TEM8_SYNC_ENDPOINT: 'https://sync.example'}
   globalThis.document = document
   globalThis.localStorage = localStorage
   globalThis.location = {reload() { throw new Error('unexpected reload') }}
+  globalThis.confirm = () => true
   globalThis.fetch = async (url, options) => {
     if (options.method === 'GET') return Response.json({items: [...server.values()], nextCursor: null})
     const payload = JSON.parse(options.body)
@@ -55,6 +56,11 @@ test('browser client creates a code, uploads a word, then sends its deletion', a
     await waitFor(() => server.get(wordKey)?.deleted === true)
     assert.equal(server.get(wordKey).revision, deletionRevision)
     assert.equal(JSON.parse(storage.get('tem8_sync_v1')).shadow[wordKey], undefined)
+    element('sync-code-input').value = 'A'.repeat(26)
+    listeners.get('click')({target: {closest: () => ({dataset: {syncJoin: ''}})}})
+    await waitFor(() => JSON.parse(storage.get('tem8_sync_v1') || '{}').initialized)
+    assert.equal(JSON.parse(storage.get('tem8_sync_v1')).code, 'A'.repeat(26))
+    assert.equal(element('sync-code-display').textContent, 'AAAA-AAAA-AAAA-AAAA-AAAA-AAAA-AA')
   } finally {
     for (const [key, value] of Object.entries(original)) {
       if (value === undefined) delete globalThis[key]

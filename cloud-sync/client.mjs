@@ -55,6 +55,7 @@ function render() {
   const connected = !!readMeta().code
   $('sync-disconnected').hidden = connected
   $('sync-connected').hidden = !connected
+  document.querySelector('[data-sync-join]').textContent = connected ? '改用输入的同步码' : '使用已有同步码'
   if (connected) $('sync-code-display').textContent = displayCode(readMeta().code)
   if (!ENDPOINT) {
     status('云端服务尚未接通，当前仍使用本机记录。')
@@ -182,9 +183,12 @@ async function connect(code) {
   code = normalize(code)
   if (!/^[A-Z2-7]{26}$/.test(code)) { status('同步码格式不正确，请检查后重试。'); return }
   const current = readMeta()
+  if (current.code === code) { status('这台设备已经在使用这个同步码。'); return }
+  if (current.code && !confirm('改用这个同步码？这台设备的学习记录会与新同步码下的记录合并，原同步码下的其他设备不会再收到这台设备的新记录。')) return
   saveMeta({code, deviceId: current.deviceId || crypto.randomUUID(), clock: 0, shadow: {}, observed: flatten(readRecords()), pending: {}, initialized: false})
   generation++
   render()
+  $('sync-code-input').value = ''
   status('正在连接云端并合并本机记录…')
   await sync()
 }
