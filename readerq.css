@@ -1,0 +1,94 @@
+/* 精读页「题目」栏（readerq.js） */
+.rq-panel{
+  --rq-card:var(--p-card,#fffefa);--rq-line:var(--p-line,var(--line,#e7e7dc));--rq-ink:var(--p-ink,var(--ink,#273630));
+  --rq-muted:var(--p-muted,var(--muted,#7b857e));--rq-soft:var(--p-soft,#eef3ec);--rq-light:var(--p-light,#dfe8dc);
+  --rq-main:var(--p-main,#cbd9ca);--rq-strong:var(--p-strong,#284c3d);
+  position:fixed;z-index:70;display:flex;flex-direction:column;background:var(--rq-card);color:var(--rq-ink);
+  font-family:inherit
+}
+.rq-panel[hidden]{display:none}
+/* 宽屏：停在右侧，和笔记抽屉同一个位置 */
+.rq-panel.rq-as-side{top:0;right:0;bottom:0;width:336px;border-left:1px solid var(--rq-line);animation:rqSide .18s ease}
+@keyframes rqSide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}
+/* 窄屏：底部抽屉，三档高度 */
+.rq-panel.rq-as-sheet{left:0;right:0;bottom:0;z-index:75;border-radius:18px 18px 0 0;box-shadow:0 -8px 28px rgba(30,40,45,.12);padding-bottom:env(safe-area-inset-bottom)}
+.rq-panel.rq-half{height:56vh}
+.rq-panel.rq-full{height:calc(100vh - 56px);height:calc(100dvh - 56px)}
+body.rq-sheet #reader-view{padding-bottom:58vh}
+
+.rq-head{position:relative;display:flex;align-items:center;gap:8px;padding:12px 10px 8px 20px;flex-shrink:0}
+.rq-as-sheet .rq-head{padding-top:22px}
+.rq-head>b{font-size:16px}
+.rq-sub{font-size:12px;color:var(--rq-muted);margin-right:auto}
+.rq-grab{position:absolute;left:0;right:0;top:0;height:20px;border:0;background:none;padding:0;display:flex;justify-content:center;align-items:center;cursor:pointer}
+.rq-grab i{width:36px;height:4px;border-radius:2px;background:var(--rq-main)}
+.rq-x{width:40px;height:40px;border:0;background:none;color:var(--rq-muted);font-size:24px;line-height:1;border-radius:10px;cursor:pointer}
+.rq-link{height:40px;border:0;background:none;color:var(--rq-strong);font-size:13px;padding:0 6px;cursor:pointer}
+.rq-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 32px;display:flex;flex-direction:column;gap:30px}
+
+.rq-peek{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;border:0;background:none;color:var(--rq-ink);text-align:left;padding:0 20px 14px;font-size:15px;cursor:pointer}
+.rq-peek b{flex-shrink:0;color:var(--rq-strong)}
+.rq-peek span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rq-nav{display:flex;align-items:center;justify-content:space-between;padding:6px 10px 10px;flex-shrink:0}
+.rq-nav span{font-size:12px;color:var(--rq-muted)}
+.rq-nav button{min-height:44px;padding:0 12px;border:0;background:none;color:var(--rq-strong);font-size:14px;cursor:pointer}
+.rq-nav button:disabled{opacity:.35;cursor:default}
+
+.rq-tip{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--rq-light);font-size:13px;line-height:1.65}
+.rq-tip span{flex:1}
+.rq-tip button{flex-shrink:0;height:32px;padding:0 12px;border:0;border-radius:16px;background:var(--rq-card);color:var(--rq-strong);font-size:12px;cursor:pointer}
+
+.rq-card{display:flex;flex-direction:column;gap:10px}
+.rq-no{display:flex;align-items:center;gap:8px;font-size:13px}
+.rq-no b{color:var(--rq-strong)}
+.rq-no span{font-size:12px;color:var(--rq-muted)}
+.rq-stem{margin:0;font-size:16px;line-height:1.6;font-weight:600;font-family:Georgia,'Times New Roman','Noto Serif SC',serif}
+.rq-opts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rq-opts li{display:flex;align-items:baseline;gap:8px;padding:8px 12px;border:1px solid var(--rq-line);border-radius:10px;font-size:15px;line-height:1.5;font-family:Georgia,'Times New Roman','Noto Serif SC',serif}
+.rq-l{color:var(--rq-muted);flex-shrink:0}
+.rq-o{flex:1}
+.rq-opts li.ok{background:var(--rq-light);border-color:var(--rq-main);font-weight:600}
+.rq-opts li.ok .rq-l{color:var(--rq-ink)}
+.rq-opts em{font-style:normal;font-weight:400;font-size:12px;color:var(--rq-strong);white-space:nowrap;font-family:inherit}
+.rq-ref,.rq-box,.rq-ev{padding:10px 12px;border-radius:10px;background:var(--rq-soft);font-size:14px;line-height:1.75}
+.rq-ref b,.rq-box b{display:block;font-size:12px;font-weight:400;color:var(--rq-muted);margin-bottom:2px}
+.rq-go{display:inline-block;margin-left:6px;border:0;background:none;padding:0;color:var(--rq-strong);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.rq-ev-h{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--rq-muted)}
+.rq-ev-h span{margin-right:auto}
+.rq-ev-h button{height:28px;border:0;background:none;padding:0 6px;color:var(--rq-strong);font-size:12px;cursor:pointer}
+.rq-ev p{margin:2px 0 0;font-family:Georgia,'Times New Roman','Noto Serif SC',serif}
+.rq-step{align-self:flex-start;min-height:38px;padding:0 18px;border:1px solid var(--rq-main);border-radius:19px;background:none;color:var(--rq-strong);font-size:14px;cursor:pointer}
+
+/* 右上角工具栏的「题目」按钮 */
+.rp-rb.rq-btn{width:auto;padding:0 10px;font-size:14px;font-family:inherit}
+.rp-rb.rq-btn[aria-pressed=true]{background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.rp-rb.rq-btn[hidden]{display:none}
+
+/* 原文：提示时标出段落、依据句下划线 */
+#reader-view .rq-flash{animation:rqFlash 2.6s ease;border-radius:8px}
+@keyframes rqFlash{0%,70%{background:color-mix(in srgb,var(--p-light,#dfe8dc) 80%,transparent);box-shadow:0 0 0 8px color-mix(in srgb,var(--p-light,#dfe8dc) 80%,transparent)}100%{background:transparent;box-shadow:0 0 0 8px transparent}}
+#reader-view [data-anno-p]{scroll-margin-top:80px}
+::highlight(rq-ev){text-decoration:underline;text-decoration-thickness:2px;text-decoration-color:var(--p-strong,#284c3d);background-color:color-mix(in srgb,var(--p-light,#dfe8dc) 45%,transparent)}
+
+/* 选区浮条里的「设为依据」，和点了以后的题号选择 */
+.anno-chip .anno-chip-ev{border-left:1px solid rgba(255,255,255,.2)!important;border-radius:0 7px 7px 0}
+.anno-chip .anno-chip-ev[hidden]{display:none}
+.rq-pick{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:91;width:max-content;max-width:calc(100% - 24px);margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 10px;border-radius:14px;background:#2a2118;color:#f3ede4;box-shadow:0 10px 30px rgba(42,33,24,.35);font-size:14px}
+.rq-pick[hidden]{display:none}
+.rq-pick>span{padding:0 4px;opacity:.8;font-size:13px}
+.rq-pick-qs{display:flex;flex-wrap:wrap;gap:4px}
+.rq-pick button{min-height:38px;padding:0 12px;border:0;border-radius:9px;background:none;color:inherit;font-size:14px;cursor:pointer}
+.rq-pick button:hover,.rq-pick button.cur{background:rgba(255,255,255,.14)}
+.rq-pick .rq-pick-x{opacity:.75}
+html[data-theme=dark] .rq-pick{background:#ece6dc;color:#1c1b19;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+html[data-theme=dark] .rq-pick button:hover,html[data-theme=dark] .rq-pick button.cur{background:rgba(0,0,0,.1)}
+html[data-theme=dark] .anno-chip .anno-chip-ev{border-left-color:rgba(0,0,0,.18)!important}
+
+/* 圣诞主题 */
+html[data-theme=xmas] .rq-panel{--rq-card:#30231b;--rq-line:rgba(255,255,255,.14);--rq-ink:#f3e6d3;--rq-muted:#c9b49a;--rq-soft:rgba(255,255,255,.07);--rq-light:rgba(230,199,154,.18);--rq-main:rgba(230,199,154,.45);--rq-strong:#e6c79a}
+html[data-theme=xmas] .rq-pick{background:#3a281d;color:#f3e6d3}
+
+@media (max-width:640px){
+  .rq-scroll{padding:4px 16px 24px}
+  .rp-rb.rq-btn{padding:0 8px}
+}

@@ -245,6 +245,8 @@
   function updateDock() {
     var d = document.querySelector('.anno-panel'), v = $('reader-view')
     var open = !!d && !d.hidden && getComputedStyle(d).display !== 'none'
+    // 题目栏（readerq.js）也停在右侧
+    if (document.body.classList.contains('rq-open')) open = true
     var on = open && window.innerWidth >= 1000 && v && v.classList.contains('active')
     if (on === docked()) return
     document.body.classList.toggle('rp-docked', on)
@@ -269,6 +271,7 @@
   window.TEM8_RP = {
     zhAll: function () { return P.zh === 'all' },
     apply: apply,
+    dock: updateDock,
     prefs: function () { return Object.assign({}, P) },
     sig: sig
   }
