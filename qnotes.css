@@ -157,14 +157,55 @@ sup.px-evtag{font-size:10.5px;font-weight:700;color:var(--px-ev);margin-left:2px
 .px-evq-acts button{all:unset;cursor:pointer;font-size:12.5px;color:var(--muted,#777)}
 .px-evq-acts button:hover{color:var(--ink,#222)}
 .pq-myev blockquote{border-left:3px solid var(--px-ev)}
-.px-selbar{position:fixed;z-index:980;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:7px 8px;border-radius:12px;
-  background:var(--ink,#222);color:var(--paper,#fff);box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100vw - 16px);font-family:-apple-system,"PingFang SC",sans-serif}
-.px-selbar[hidden]{display:none}
-.px-selbar button{all:unset;cursor:pointer;font-size:14px;padding:6px 10px;border-radius:8px;color:inherit}
-.px-selbar button:hover,.px-selbar button:focus-visible{background:color-mix(in srgb,var(--paper,#fff) 16%,transparent)}
-.px-sel-sep{width:1px;align-self:stretch;background:color-mix(in srgb,var(--paper,#fff) 25%,transparent);margin:0 2px}
 .px-sel-lab{font-size:12px;opacity:.7;padding:0 2px}
-.px-selbar .px-sel-q{padding:6px 8px;font-variant-numeric:tabular-nums}
-.px-selbar .px-sel-q.has{opacity:.6}
 sup.px-evtag::after{content:attr(data-q)}
-@media (pointer:coarse){.px-selbar button{padding:9px 12px;font-size:15px}.px-selbar .px-sel-q{padding:9px 10px}}
+@media (pointer:coarse){
+/* 做题时的自制选区：原文、题干不走浏览器原生选中（不弹“拷贝/查找”菜单），操作条在这一栏标题行里 */
+#workflow-session-view [data-hl]{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;cursor:text}
+.px-pick{background:color-mix(in srgb,var(--accent,#4e6670) 22%,transparent);border-radius:3px;box-shadow:0 0 0 1px color-mix(in srgb,var(--accent,#4e6670) 35%,transparent)}
+.px-head .px-selslot{flex:1;min-width:0;text-align:right;font-size:12.5px;color:var(--muted,#888);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.px-head .px-selslot.on{display:flex;align-items:center;justify-content:flex-end;gap:4px;overflow-x:auto;scrollbar-width:none;text-overflow:clip;color:var(--ink,#222)}
+.px-head .px-selslot.on::-webkit-scrollbar{display:none}
+.px-head .px-selslot.on~.px-qn{display:none}
+.px-act{all:unset;flex:none;cursor:pointer;font-size:13.5px;line-height:1;padding:7px 10px;border-radius:999px;background:var(--soft,#eef2f2);color:var(--ink,#222);font-family:-apple-system,"PingFang SC",sans-serif}
+.px-act:hover,.px-act:focus-visible{background:color-mix(in srgb,var(--accent,#4e6670) 18%,var(--soft,#eee))}
+.px-act[data-px-hl=on]{background:color-mix(in srgb,var(--px-hl) 75%,transparent)}
+.px-act[data-px-ev]{color:var(--px-ev);font-variant-numeric:tabular-nums}
+.px-act[data-px-ev].has{opacity:.55}
+.px-act.px-x{background:none;color:var(--muted,#888);font-size:16px;padding:6px 8px}
+.px-selslot .px-sel-lab{flex:none;font-size:12px;color:var(--muted,#888);margin:0 2px 0 6px}
+@media (pointer:coarse){.px-act{padding:9px 12px;font-size:14.5px}}
+.px-head:has(.px-selslot.on)>strong{display:none}
+.px-head:has(.px-selslot.on){align-items:center;padding-top:6px;padding-bottom:6px}
+.px-head .px-selslot.on{justify-content:flex-start}
+
+/* ---------- 生词本 ---------- */
+/* 平板、手机单列，宽屏电脑才两列 */
+.wordbook-grid.wv-grid{grid-template-columns:1fr}
+@media (min-width:1280px){.wordbook-grid.wv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.wv-row .wb-head strong{font-size:21px;letter-spacing:.2px}
+.wv-row>p{color:var(--ink,#222);font-size:15.5px}
+.wv-row>small{color:var(--muted,#888)}
+.wv-form{font-size:12px;color:var(--muted,#888);margin-left:auto;padding-left:8px}
+.wv-hidden{color:var(--muted,#999)!important;font-weight:400!important;font-size:14px!important;border-bottom:1px dashed var(--line,#ccc);padding-bottom:1px;cursor:pointer}
+.wv-masking .wv-row{cursor:pointer}
+.wv-ctx{margin:8px 0 2px;padding:9px 12px;border-radius:8px;background:var(--soft,#f2f4f4);font-size:14.5px;line-height:1.7;color:var(--ink,#222)}
+.wv-ctx p{margin:0}
+.wv-ctx mark{background:color-mix(in srgb,var(--px-hl,#f3df8f) 70%,transparent);color:inherit;border-radius:2px;padding:0 1px}
+.wv-ctx .wv-ctx-cn{font-size:13px;color:var(--muted,#777);margin-top:2px}
+.wv-ctx .pq-link{margin-top:4px;font-size:13px}
+.wv-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wv-lv{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted,#888);font-variant-numeric:tabular-nums}
+.wv-lv b{color:var(--ink,#222);font-weight:600}
+.wv-mk{all:unset;cursor:pointer;font-size:12.5px;padding:5px 10px;border-radius:999px;background:var(--soft,#eef2f2);color:var(--ink,#333)}
+.wv-mk:hover{background:color-mix(in srgb,var(--accent,#4e6670) 16%,var(--soft,#eee))}
+.wv-src.on{background:var(--soft,#eef2f2)}
+.wv-del{all:unset;cursor:pointer;font-size:12.5px;color:var(--muted,#999);padding:5px 4px 5px 10px}
+.wv-del:hover{color:var(--pq-bad,#b44)}
+.wv-maskseg{margin-left:6px}
+.wv-undo{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom));z-index:990;display:flex;align-items:center;gap:14px;
+  padding:10px 12px 10px 16px;border-radius:999px;background:var(--ink,#222);color:var(--paper,#fff);font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.wv-undo[hidden]{display:none}
+.wv-undo button{all:unset;cursor:pointer;font-weight:600;color:var(--px-hl,#f3df8f);padding:2px 6px}
+/* 底栏“复习”的数字：放到字的右上角，不压字 */
+html:not([data-theme=xmas]) .tabbar .tab-dot{top:2px;right:auto;left:calc(50% + 17px);min-width:15px;height:15px;line-height:15px;font-size:9.5px;padding:0 4px}

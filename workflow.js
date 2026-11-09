@@ -438,7 +438,8 @@
     text=String(text||'')
     const hl=(session?.hl?.[scope]||[]).map((r,i)=>({s:r[0],e:r[1],k:'hl',i}))
     const ev=Object.entries(session?.evid||{}).filter(([,v])=>v.scope===scope).map(([key,v])=>({s:v.s,e:v.e,k:'ev',key}))
-    const all=[...hl,...ev].filter(r=>r.e>r.s)
+    const pk=pick&&pick.scope===scope?[{...pickRange(),k:'pk'}]:[]
+    const all=[...hl,...ev,...pk].filter(r=>r.e>r.s)
     if(!all.length)return escape(text)
     const cuts=[...new Set([0,text.length,...all.flatMap(r=>[r.s,r.e])])].filter(x=>x>=0&&x<=text.length).sort((a,b)=>a-b)
     let out=''
@@ -446,6 +447,7 @@
       const a=cuts[j],b=cuts[j+1],piece=escape(text.slice(a,b));if(!piece)continue
       const h=hl.find(r=>r.s<=a&&r.e>=b),e=ev.filter(r=>r.s<=a&&r.e>=b)
       let t=piece
+      if(pk.length&&pk[0].s<=a&&pk[0].e>=b)t=`<span class="px-pick">${t}</span>`
       if(e.length)t=`<span class="px-ev" data-ev="${e.map(r=>r.key).join(',')}">${t}</span>`
       if(h)t=`<mark class="px-hl" data-hl-scope="${escape(scope)}" data-hl-i="${h.i}">${t}</mark>`
       out+=t
@@ -458,73 +460,84 @@
     const v=session?.evid?.[it.key];if(!v)return ''
     return `<div class="px-evq"><span>我的依据 · 第 ${v.para} 段</span><q>${escape(v.quote)}</q><span class="px-evq-acts"><button type="button" data-px-ev-go="${it.key}">看原文</button><button type="button" data-px-ev-del="${it.key}">移除</button></span></div>`
   }
-  function selInfo(){
-    const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return null
-    const r=sel.getRangeAt(0),host=n=>(n.nodeType===1?n:n.parentElement)?.closest?.('[data-hl]')
-    const h1=host(r.startContainer),h2=host(r.endContainer);if(!h1||h1!==h2||!h1.closest('#workflow-session-view'))return null
-    const pre=document.createRange();pre.selectNodeContents(h1);pre.setEnd(r.startContainer,r.startOffset)
-    let s=pre.toString().length,e=s+r.toString().length
-    // 选区对齐到整词：不会只高光半个单词
-    const src=h1.textContent,isW=c=>/[A-Za-z0-9’'-]/.test(c||'')
-    while(s>0&&isW(src[s-1])&&isW(src[s]))s--
-    while(e<src.length&&isW(src[e-1])&&isW(src[e]))e++
-    while(s<e&&/\s/.test(src[s]))s++
-    while(e>s&&/\s/.test(src[e-1]))e--
-    const quote=src.slice(s,e)
-    if(!quote.trim())return null
-    return {scope:h1.dataset.hl,s,e,quote,rect:r.getBoundingClientRect()}
+  /* 自己做的“选中”：不用浏览器原生选区，所以 iPad 不会弹出“拷贝 / 查找 / 翻译”菜单
+   *  手指：点一个词开始，再点另一个词，中间整段选中；鼠标 / Apple Pencil：按住拖过去
+   *  选中后，操作条出现在这一栏的标题行里（原文在“Passage”那一栏，题干在“题目”那一栏） */
+  let pick=null,dragFrom=null,dragged=false
+  const isW=c=>/[A-Za-z0-9’'-]/.test(c||'')
+  function hostText(scope){
+    if(scope.startsWith('p:')){const [,aid,i]=scope.split(':');return art(aid)?.segments?.[Number(i)]?.en||''}
+    const it=gItems(group()).find(x=>'q:'+x.key===scope);return it?.prompt||''
   }
-  let selbar=null,selNow=null
-  function hideSelbar(){if(selbar)selbar.hidden=true;selNow=null}
-  function showSelbar(info){
-    if(!selbar){selbar=document.createElement('div');selbar.className='px-selbar';selbar.hidden=true;document.body.appendChild(selbar)
-      selbar.addEventListener('pointerdown',e=>e.preventDefault())}
-    selNow=info
-    const isP=info.scope.startsWith('p:'),items=isP?gItems(group()):[]
-    const tapMode=!!info.tap
-    const evBtns=(info.evKeys||[]).map(k=>{const it=items.find(x=>x.key===k)||gItems(group()).find(x=>x.key===k);return `<button type="button" data-px-ev-del="${k}">取消 Q${it?it.no:''} 依据</button>`}).join('')
-    selbar.innerHTML=tapMode?`${info.unmark!==undefined?'<button type="button" data-px-hl="off">取消高光</button>':''}${evBtns}`
-      :`<button type="button" data-px-hl="on">高光</button>${isP&&items.length?`<span class="px-sel-sep"></span><span class="px-sel-lab">设为依据</span>${items.map(it=>`<button type="button" class="px-sel-q${session.evid?.[it.key]?' has':''}" data-px-ev="${it.key}">Q${it.no}</button>`).join('')}`:''}`
-    selbar.hidden=false
-    // 浮条贴着选中的文字：默认在下方（上方留给系统的拷贝菜单），下面放不下就放上方
-    const r=info.rect,w=selbar.offsetWidth,h=selbar.offsetHeight,vv=window.visualViewport,vTop=vv?vv.offsetTop:0,vH=vv?vv.height:innerHeight
-    const foot=document.querySelector('.px-foot')?.getBoundingClientRect().top||vH
-    let top=r.bottom+(matchMedia('(pointer: coarse)').matches?18:10)
-    if(top+h>Math.min(foot,vTop+vH)-8)top=Math.max(vTop+8,r.top-h-12)
-    selbar.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px'
-    selbar.style.top=top+'px'
+  function wordAt(x,y){
+    let node,off
+    if(document.caretRangeFromPoint){const r=document.caretRangeFromPoint(x,y);if(!r)return null;node=r.startContainer;off=r.startOffset}
+    else if(document.caretPositionFromPoint){const r=document.caretPositionFromPoint(x,y);if(!r)return null;node=r.offsetNode;off=r.offset}
+    else return null
+    const host=(node.nodeType===1?node:node.parentElement)?.closest?.('[data-hl]');if(!host||!host.closest('#workflow-session-view'))return null
+    const pre=document.createRange();pre.selectNodeContents(host);try{pre.setEnd(node,off)}catch{return null}
+    const text=hostText(host.dataset.hl);let i=Math.min(pre.toString().length,text.length)
+    if(!isW(text[i])&&isW(text[i-1]))i--
+    if(!isW(text[i])){let l=i,r=i;while(l>0&&!isW(text[l]))l--;while(r<text.length&&!isW(text[r]))r++;i=isW(text[l])&&(i-l<=r-i||!isW(text[r]))?l:r;if(!isW(text[i]))return null}
+    let s=i,e=i;while(s>0&&isW(text[s-1]))s--;while(e<text.length&&isW(text[e]))e++
+    return {scope:host.dataset.hl,s,e}
   }
+  const pickRange=()=>pick?{s:Math.min(pick.a.s,pick.b.s),e:Math.max(pick.a.e,pick.b.e)}:null
+  function slotFor(scope){return document.querySelector(`#workflow-session-view [data-px-slot="${scope.startsWith('p:')?'p':'q'}"]`)}
+  function paintSlots(){
+    document.querySelectorAll('#workflow-session-view [data-px-slot]').forEach(el=>{el.classList.remove('on');el.innerHTML=el.dataset.pxSlot==='p'?'点一个词开始，再点另一个词选中一段':''})
+    if(!pick)return
+    const el=slotFor(pick.scope);if(!el)return
+    const r=pickRange(),isP=pick.scope.startsWith('p:'),items=isP?gItems(group()):[]
+    const hlHit=(session.hl?.[pick.scope]||[]).map((x,i)=>({x,i})).filter(({x})=>x[0]<r.e&&x[1]>r.s)
+    const evHit=Object.entries(session.evid||{}).filter(([,v])=>v.scope===pick.scope&&v.s<r.e&&v.e>r.s).map(([k])=>k)
+    const qn=k=>gItems(group()).find(x=>x.key===k)?.no||''
+    el.classList.add('on')
+    el.innerHTML=`<button type="button" class="px-act px-x" data-px-pick-x aria-label="取消选择">×</button><button type="button" class="px-act" data-px-hl="on">高光</button>${hlHit.length?'<button type="button" class="px-act" data-px-hl="off">取消高光</button>':''}${evHit.map(k=>`<button type="button" class="px-act" data-px-ev-del="${k}">取消 Q${qn(k)} 依据</button>`).join('')}${items.length?`<span class="px-sel-lab">设为依据</span>${items.map(it=>`<button type="button" class="px-act px-sel-q${session.evid?.[it.key]?' has':''}" data-px-ev="${it.key}">Q${it.no}</button>`).join('')}`:''}`
+  }
+  function setPick(p){const old=pick?.scope;pick=p;if(old&&old!==p?.scope)repaintHL(old);if(p)repaintHL(p.scope);paintSlots()}
   function repaintHL(scope){
-    document.querySelectorAll(`#workflow-session-view [data-hl="${CSS.escape(scope)}"]`).forEach(el=>{
-      let text=''
-      if(scope.startsWith('p:')){const [,aid,i]=scope.split(':');text=art(aid)?.segments?.[Number(i)]?.en||''}
-      else{const it=gItems(group()).find(x=>'q:'+x.key===scope);text=it?.prompt||''}
-      el.innerHTML=paintHL(text,scope)})
+    document.querySelectorAll(`#workflow-session-view [data-hl="${CSS.escape(scope)}"]`).forEach(el=>{el.innerHTML=paintHL(hostText(scope),scope)})
   }
   function refreshEvid(key){const el=document.getElementById('it-'+key);if(!el)return;el.querySelector('.px-evq')?.remove();const h=el.querySelector('h4');if(h)h.insertAdjacentHTML('afterend',evidHTML({key}))}
-  document.addEventListener("selectionchange",()=>{if(!inSession())return;clearTimeout(selbar?._t);const t=setTimeout(()=>{const i=selInfo();if(i)showSelbar(i);else if(selNow&&!selNow.tap)hideSelbar()},180);if(selbar)selbar._t=t})
+  // 鼠标、笔：按住拖选
+  document.addEventListener('pointerdown',e=>{
+    if(!inSession()||e.pointerType==='touch'||e.button!==0)return
+    const w=e.target.closest?.('[data-hl]')?wordAt(e.clientX,e.clientY):null;if(!w)return
+    dragFrom=w;dragged=false
+  },true)
+  document.addEventListener('pointermove',e=>{
+    if(!dragFrom||!(e.buttons&1))return
+    const w=wordAt(e.clientX,e.clientY);if(!w||w.scope!==dragFrom.scope)return
+    if(w.s!==dragFrom.s){dragged=true;setPick({scope:w.scope,a:dragFrom,b:w});e.preventDefault()}
+  },true)
+  document.addEventListener('pointerup',()=>{dragFrom=null},true)
   document.addEventListener('click',e=>{
     if(!inSession())return
-    const b=e.target.closest?.('[data-px-hl],[data-px-ev],[data-px-ev-go],[data-px-ev-del]')
+    const b=e.target.closest?.('[data-px-hl],[data-px-ev],[data-px-ev-go],[data-px-ev-del],[data-px-pick-x]')
     if(b){e.stopPropagation()
       if(b.dataset.pxEvGo){const v=session.evid?.[b.dataset.pxEvGo];if(v){if(matchMedia('(max-width:760px)').matches)setTab('p');const p=document.getElementById('wf-p-'+(v.para));p?.scrollIntoView({behavior:'smooth',block:'center'});p?.classList.add('anno-flash');setTimeout(()=>p?.classList.remove('anno-flash'),1400)}return}
-      if(b.dataset.pxEvDel){const k=b.dataset.pxEvDel,v=session.evid?.[k];if(v){delete session.evid[k];persist();repaintHL(v.scope);refreshEvid(k)}hideSelbar();return}
-      const info=selNow;if(!info)return
-      if(b.dataset.pxHl==='on'){session.hl||={};(session.hl[info.scope]||=[]).push([info.s,info.e])}
-      else if(b.dataset.pxHl==='off'){const l=session.hl?.[info.scope];if(l)l.splice(info.unmark,1)}
-      else if(b.dataset.pxEv){const k=b.dataset.pxEv,old=session.evid?.[k];session.evid||={};session.evid[k]={scope:info.scope,s:info.s,e:info.e,quote:info.quote.slice(0,240),para:Number(info.scope.split(':')[2])+1};if(old&&old.scope!==info.scope)repaintHL(old.scope);refreshEvid(k)}
-      persist();repaintHL(info.scope);window.getSelection()?.removeAllRanges();hideSelbar();return}
-    // 点已经高光 / 标成依据的文字：可以取消（想错了随时改）
-    const m=e.target.closest?.('mark.px-hl'),ev=e.target.closest?.('.px-ev')
-    if((m||ev)&&window.getSelection()?.isCollapsed){
-      const host=e.target.closest('[data-hl]'),r=(ev||m).getBoundingClientRect()
-      showSelbar({tap:true,scope:host?.dataset.hl||m?.dataset.hlScope,unmark:m?Number(m.dataset.hlI):undefined,evKeys:ev?ev.dataset.ev.split(','):[],rect:r});return}
-    if(selbar&&!selbar.hidden&&!e.target.closest('.px-selbar'))hideSelbar()
+      if(b.dataset.pxEvDel){const k=b.dataset.pxEvDel,v=session.evid?.[k];if(v){delete session.evid[k];persist();refreshEvid(k);const sc=v.scope;if(pick?.scope===sc)setPick(null);else repaintHL(sc)}return}
+      if(b.dataset.pxPickX!==undefined){setPick(null);return}
+      if(!pick)return
+      const r=pickRange(),sc=pick.scope
+      if(b.dataset.pxHl==='on'){session.hl||={};(session.hl[sc]||=[]).push([r.s,r.e])}
+      else if(b.dataset.pxHl==='off'){const l=session.hl?.[sc];if(l)session.hl[sc]=l.filter(x=>!(x[0]<r.e&&x[1]>r.s))}
+      else if(b.dataset.pxEv){const k=b.dataset.pxEv,old=session.evid?.[k];session.evid||={};session.evid[k]={scope:sc,s:r.s,e:r.e,quote:hostText(sc).slice(r.s,r.e).slice(0,240),para:Number(sc.split(':')[2])+1};if(old&&old.scope!==sc)repaintHL(old.scope);refreshEvid(k)}
+      persist();setPick(null);return}
+    const host=e.target.closest?.('[data-hl]')
+    if(!host){if(pick&&!e.target.closest('[data-px-slot]'))setPick(null);return}
+    if(dragged){dragged=false;return}
+    const w=wordAt(e.clientX,e.clientY);if(!w)return
+    // 第一下：选中这个词；第二下点同一栏里的另一个词：选中两词之间整段；再点就重新开始
+    if(pick&&pick.scope===w.scope&&pick.a.s===pick.b.s&&w.s!==pick.a.s)setPick({scope:w.scope,a:pick.a,b:w})
+    else if(pick&&pick.scope===w.scope&&pick.a.s===pick.b.s&&w.s===pick.a.s)setPick(null)
+    else setPick({scope:w.scope,a:w,b:w})
   },true)
   function renderReading(){
     const a=article(),n=gItems(group()).length
     return `<div class="px-tabs" role="tablist"><button type="button" role="tab" data-pq-tab="p" aria-selected="${mobileTab==='p'}" class="${mobileTab==='p'?'on':''}">文章</button><button type="button" role="tab" data-pq-tab="q" aria-selected="${mobileTab==='q'}" class="${mobileTab==='q'?'on':''}">题目 <small>${n}</small></button></div>
-      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span>选中文字可高光、设为依据</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span>${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
+      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span class="px-selslot" data-px-slot="p">点一个词开始，再点另一个词选中一段</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span class="px-selslot" data-px-slot="q"></span><span class="px-qn">${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
   }
   const blankW=v=>Math.min(300,Math.max(150,String(v||'').length*7.2+26))
   // 提纲数据里有两种旧格式：“…(1)______ …”下面再单独一行“(1) ______”，或正文里只有“______”、编号单独成行。
@@ -621,6 +634,7 @@
     return `<div class="pq-timer ${exam?'down':'up'} ${exam&&secs<=600?'warn':''} ${paused?'paused':''}"><button type="button" data-pq-timer="hide" title="${hidden?'显示':'隐藏'}计时" aria-label="${exam?'剩余时间':'已用时间'}"><time id="workflow-time">${hidden?'··:··':mmss(secs)}</time></button>${exam?'':`<button type="button" data-pq-timer="pause" title="${paused?'继续':'暂停'}计时" aria-label="${paused?'继续':'暂停'}计时">${paused?'继续':'暂停'}</button>`}</div>`
   }
   function renderSession(){
+    pick=null
     const g=group(),kind=g.kind,mock=session.type==='mock'
     const body=kind==='reading'?renderReading():kind==='lecture'?renderLecture():kind==='interview'?renderInterview():kind==='language'?renderLanguage():kind==='translation'?renderTranslation():renderWriting()
     const track=isListening(kind)?listening[g.year]:null
