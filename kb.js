@@ -2,7 +2,7 @@
  *  方案 A「系统键盘」：照常弹系统键盘，题目（简答题题干 / 翻译原文 / 写作要求 / 改错那一行 / 听力那一行提纲）
  *         钉在屏幕上方的一条里，输入框接在它下面，键盘弹多高都看得到题
  *  方案 B「内置键盘」：不弹系统键盘，网站自己在底部画一个紧凑的英文键盘（专八主观题都写英文），
- *         上面同样钉着题目；外接键盘照常能打
+ *         上面同样钉着题目；这个模式下只能用屏幕上的键盘打字，外接键盘、粘贴、语音输入都不进输入框
  *  只在触屏（手机、iPad）上生效；电脑上照常。做题页顶部「键盘」按钮切换，记在 localStorage['tem8_kb'] */
 ;(function () {
   'use strict'
@@ -201,6 +201,16 @@
     document.addEventListener('pointerdown', function (e) { var el = e.target.closest && e.target.closest(FIELDS); if (el && owns(el)) { if (mode() === 'builtin') el.setAttribute('inputmode', 'none'); else el.removeAttribute('inputmode') } }, true)
     document.addEventListener('focusin', onFocus)
     document.addEventListener('focusout', onBlur)
+    // 内置键盘模式：外接键盘按键、粘贴、语音输入、系统自动更正一律不进输入框（屏幕键盘用 setRangeText 写入，不经过这里）
+    function locked(e) { return cur && e.target === cur && mode() === 'builtin' }
+    document.addEventListener('beforeinput', function (e) { if (locked(e)) e.preventDefault() }, true)
+    document.addEventListener('paste', function (e) { if (locked(e)) e.preventDefault() }, true)
+    document.addEventListener('drop', function (e) { if (locked(e)) e.preventDefault() }, true)
+    document.addEventListener('keydown', function (e) {
+      if (!locked(e) || !e.isTrusted) return   // 屏幕键盘的“下一个”是脚本发的回车，放行
+      if (/^Arrow|^(Home|End|PageUp|PageDown|Tab|Escape|Shift|Control|Alt|Meta|CapsLock)$/.test(e.key)) return  // 移动光标可以
+      e.preventDefault(); e.stopImmediatePropagation()
+    }, true)
     if (vv) { vv.addEventListener('resize', relayout); vv.addEventListener('scroll', relayout) }
     document.addEventListener('input', function (e) { if (e.target === cur && cur.tagName === 'TEXTAREA') relayout() })
   }
