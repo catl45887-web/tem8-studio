@@ -110,7 +110,9 @@
 
   /* ================= 生词本 ================= */
   const BOX = [1, 2, 4, 7, 15]
-  let wv = { view: 'list', q: '', sort: 'time', src: 'all' }
+  let wv = { view: 'list', q: '', sort: 'time', src: 'all', mask: '' }
+  const shown = new Set(), ctxOpen = new Set()
+  try { wv.mask = localStorage.getItem('tem8_wv_mask') || '' } catch {}
   let queue = [], qi = 0, flipped = false, sessionDone = 0
   const wordbook = () => { const w = read(MAIN).wordbook; return Array.isArray(w) ? w : [] }
   const metaAll = () => { const t = read(WF).tools || {}, m = {}; for (const [k, v] of Object.entries(t)) if (k.startsWith('w:')) m[k.slice(2)] = v || {}; return m }
@@ -150,16 +152,52 @@
       D.ensure(words).then(() => { if ($('#words-view')?.classList.contains('active')) renderWords() }).catch(() => { list.innerHTML = '<div class="rv-empty sm">词典加载失败，请刷新页面重试。</div>' })
       return
     }
+    if (migrateForms(words)) return
     const meta = metaAll(), now = Date.now()
     const due = words.filter(w => !meta[w]?.due || meta[w].due <= now).length
     if (bar) bar.innerHTML = `<div class="pq-seg" role="tablist"><button type="button" role="tab" data-wv-view="list" class="${wv.view === 'list' ? 'on' : ''}" aria-selected="${wv.view === 'list'}">列表</button><button type="button" role="tab" data-wv-view="cards" class="${wv.view === 'cards' ? 'on' : ''}" aria-selected="${wv.view === 'cards'}">卡片复习 <small>${due}</small></button></div><span class="rv-count">共 ${words.length} 词</span><span class="rv-spacer"></span><button type="button" class="pq-link" data-wv-export="txt">导出 txt</button><button type="button" class="pq-link" data-wv-export="docx">导出 Word</button><button type="button" class="pq-link" data-wv-export="dictation">默写版</button><button type="button" class="pq-link danger" data-word-clear>清空</button>`
     if (wv.view === 'cards') { renderCards(); return }
     const rows = wordsSorted()
     const years = [...new Set(words.map(w => art(meta[w]?.a)?.year).filter(Boolean))].sort((a, b) => b - a)
-    list.innerHTML = `<div class="wv-tools"><input type="search" class="wv-search" placeholder="搜索单词或释义" value="${esc(wv.q)}" data-wv-search aria-label="搜索生词"><div class="pq-seg sm">${[['time', '加入时间'], ['alpha', '字母'], ['mastery', '掌握度']].map(([v, l]) => `<button type="button" data-wv-sort="${v}" class="${wv.sort === v ? 'on' : ''}">${l}</button>`).join('')}</div></div>
+    list.innerHTML = `<div class="wv-tools"><input type="search" class="wv-search" placeholder="搜索单词或释义" value="${esc(wv.q)}" data-wv-search aria-label="搜索生词"><div class="pq-seg sm">${[['time', '加入时间'], ['alpha', '字母'], ['mastery', '掌握度']].map(([v, l]) => `<button type="button" data-wv-sort="${v}" class="${wv.sort === v ? 'on' : ''}">${l}</button>`).join('')}</div><div class="pq-seg sm wv-maskseg" role="group" aria-label="自测：遮住">${[['', '不遮'], ['cn', '遮释义'], ['word', '遮单词']].map(([v, l]) => `<button type="button" data-wv-mask="${v}" class="${wv.mask === v ? 'on' : ''}">${l}</button>`).join('')}</div></div>
       ${years.length ? `<div class="rv-filters one"><div><span>来源</span>${chip('data-wv-src', 'all', '全部', wv.src === 'all')}${years.map(y => chip('data-wv-src', String(y), y + ' 年', wv.src === String(y))).join('')}${chip('data-wv-src', 'none', '未记录', wv.src === 'none')}</div></div>` : ''}
-      <div class="wordbook-grid wv-grid">${rows.map(({ w, m }) => { const e = D ? D.entry(w) : { word: w }, lv = level(m), src = srcLabel(m)
-        return `<article class="wordbook-row wv-row"><div class="wb-head"><strong>${esc(e.word)}</strong>${e.phon ? `<span class="wb-phon">/${esc(e.phon)}/</span>` : ''}${e.pos ? `<span class="wb-pos">${esc(e.pos)}</span>` : ''}<button type="button" class="wv-say" data-wv-say="${esc(w)}" aria-label="朗读 ${esc(w)}">▶︎</button><button class="wb-del" data-word-remove="${esc(w)}" title="移出生词本" aria-label="移出生词本">×</button></div><p>${esc(e.cn || '词典暂未收录')}</p>${e.en ? `<small>${esc(e.en)}</small>` : ''}<div class="wv-foot"><span class="wv-level" title="掌握度 ${lv}/5" aria-label="掌握度 ${lv}/5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= lv ? 'on' : ''}"></i>`).join('')}</span>${src ? `<button type="button" class="wv-src" data-wv-open="${esc(m.a)}" data-seg="${m.seg}">${esc(src)} →</button>` : ''}</div></article>` }).join('') || '<div class="rv-empty sm"><strong>没有找到</strong></div>'}</div>`
+      <div class="wordbook-grid wv-grid${wv.mask ? ' wv-masking' : ''}">${rows.map(({ w, m }) => rowHTML(w, m, D)).join('') || '<div class="rv-empty sm"><strong>没有找到</strong></div>'}</div>`
+  }
+  // 一行生词：遮住释义 / 遮住单词时点一下显示；点出处展开原文那句话；掌握度可以直接调
+  function rowHTML(w, m, D) {
+    const e = D ? D.entry(w) : { word: w }, lv = level(m), src = srcLabel(m), open = shown.has(w)
+    const maskWord = wv.mask === 'word' && !open, maskMean = wv.mask === 'cn' && !open
+    const ex = ctxOpen.has(w) ? exampleFrom(m.f || w, m) : null
+    return `<article class="wordbook-row wv-row${maskWord || maskMean ? ' wv-masked' : ''}" data-wv-row="${esc(w)}">
+      <div class="wb-head">${maskWord ? '<strong class="wv-hidden">点一下看单词</strong>' : `<strong>${esc(e.word)}</strong>${e.phon ? `<span class="wb-phon">/${esc(e.phon)}/</span>` : ''}`}${e.pos ? `<span class="wb-pos">${esc(e.pos)}</span>` : ''}${maskWord ? '' : `<button type="button" class="wv-say" data-wv-say="${esc(w)}" aria-label="朗读 ${esc(w)}">▶︎</button>`}${m.f && m.f !== w && !maskWord ? `<span class="wv-form">原文是 ${esc(m.f)}</span>` : ''}</div>
+      ${maskMean ? '<p class="wv-hidden">点一下看释义</p>' : `<p>${esc(e.cn || '词典暂未收录')}</p>${e.en ? `<small>${esc(e.en)}</small>` : ''}`}
+      ${ex ? `<div class="wv-ctx"><p>${hl(ex.en, (m.f || w))}</p>${ex.cn ? `<p class="wv-ctx-cn">${esc(ex.cn)}</p>` : ''}${m.a ? `<button type="button" class="pq-link" data-wv-open="${esc(m.a)}" data-seg="${m.seg}">去原文 →</button>` : ''}</div>` : ''}
+      <div class="wv-foot"><span class="wv-lv">掌握 <b>${lv}</b>/5<span class="wv-level" aria-hidden="true">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= lv ? 'on' : ''}"></i>`).join('')}</span></span><button type="button" class="wv-mk" data-wv-know="${esc(w)}">记住了</button><button type="button" class="wv-mk" data-wv-forget="${esc(w)}">没记住</button><span class="rv-spacer"></span>${src ? `<button type="button" class="wv-src${ctxOpen.has(w) ? ' on' : ''}" data-wv-ctx="${esc(w)}" aria-expanded="${ctxOpen.has(w)}">${ctxOpen.has(w) ? '收起原句' : esc(src) + ' · 看原句'}</button>` : ''}<button type="button" class="wv-del" data-wv-del="${esc(w)}" aria-label="移出生词本">移出</button></div></article>`
+  }
+  // 以前存进来的变形（sweetened、beverages…）一次性改成原形，原来的样子记成“原文是 …”
+  let migrated = false
+  function migrateForms(words) {
+    if (migrated) return false
+    migrated = true
+    const D = window.TEM8_DICT; if (!D || !D.lemmaOf) return false
+    const map = {}
+    for (const w of words) { const l = D.lemmaOf(w); if (l && l !== w) map[w] = l }
+    if (!Object.keys(map).length) return false
+    writeTools(t => { for (const [f, l] of Object.entries(map)) { const old = t['w:' + f] || {}, cur = t['w:' + l] || {}; t['w:' + l] = { ...old, ...cur, f: cur.f || f, at: Math.max(old.at || 0, cur.at || 0) || Date.now(), box: Math.max(old.box ?? -1, cur.box ?? -1) }; if (t['w:' + l].box < 0) delete t['w:' + l].box; delete t['w:' + f] } })
+    window.TEM8_WORDBOOK?.rename(map)
+    setTimeout(renderWords, 0)
+    return true
+  }
+  function setBox(w, know) {
+    const now = Date.now()
+    writeTools(t => { const m = t['w:' + w] || { at: now }; let box = Number.isFinite(m.box) ? m.box : -1; box = know ? Math.min(4, box + 1) : 0; t['w:' + w] = { ...m, box, due: now + BOX[box] * DAY, last: now, n: (m.n || 0) + 1 } })
+  }
+  let undoT = 0
+  function toastUndo(w, i) {
+    let t = document.getElementById('wv-undo')
+    if (!t) { t = document.createElement('div'); t.id = 'wv-undo'; t.className = 'wv-undo'; document.body.appendChild(t) }
+    t.innerHTML = `<span>已移出 <b>${esc(w)}</b></span><button type="button" data-wv-undo="${esc(w)}" data-i="${i}">撤销</button>`
+    t.hidden = false; clearTimeout(undoT); undoT = setTimeout(() => { t.hidden = true }, 4000)
   }
   function buildQueue(all) {
     const meta = metaAll(), now = Date.now()
@@ -230,11 +268,20 @@
     if (d.wvSort) { wv.sort = d.wvSort; renderWords(); return }
     if (d.wvSrc) { wv.src = d.wvSrc; renderWords(); return }
     if (d.wvSay) { e.stopPropagation(); const raw = window.TEM8_DICT?.raw(d.wvSay); const src = raw?.media?.us || raw?.media?.uk; if (src) { try { new Audio(src).play().catch(() => window.TEM8_SPEAK?.(d.wvSay)) } catch { window.TEM8_SPEAK?.(d.wvSay) } } else window.TEM8_SPEAK?.(d.wvSay); return }
+    if (d.wvMask !== undefined) { wv.mask = d.wvMask; shown.clear(); try { localStorage.setItem('tem8_wv_mask', wv.mask) } catch {} renderWords(); return }
+    if (d.wvCtx) { e.stopPropagation(); ctxOpen.has(d.wvCtx) ? ctxOpen.delete(d.wvCtx) : ctxOpen.add(d.wvCtx); renderWords(); return }
+    if (d.wvKnow || d.wvForget) { e.stopPropagation(); setBox(d.wvKnow || d.wvForget, !!d.wvKnow); renderWords(); return }
+    if (d.wvDel) { e.stopPropagation(); const i = window.TEM8_WORDBOOK?.remove(d.wvDel); toastUndo(d.wvDel, i ?? 0); renderWords(); return }
+    if (d.wvUndo) { e.stopPropagation(); window.TEM8_WORDBOOK?.restore(d.wvUndo, Number(d.i) || 0); const t = document.getElementById('wv-undo'); if (t) t.hidden = true; renderWords(); return }
     if (d.wvOpen) { e.stopPropagation(); window.TEM8_OPEN_ARTICLE?.(d.wvOpen, Number(d.seg)); return }
     if (d.wvFlip !== undefined) { flipped = !flipped; renderCards(); return }
     if (d.wvGrade) { gradeWord(Number(d.wvGrade)); return }
     if (d.wvAgain !== undefined) { buildQueue(true); renderCards(); return }
     if (d.wvExport) { exportWords(d.wvExport); return }
+  })
+  document.addEventListener('click', e => {
+    const row = e.target.closest?.('.wv-row.wv-masked, .wv-masking .wv-row'); if (!row || e.target.closest('button')) return
+    const w = row.dataset.wvRow; shown.has(w) ? shown.delete(w) : shown.add(w); renderWords()
   })
   document.addEventListener('change', e => { const k = e.target.dataset?.rvPick; if (k) { e.target.checked ? picked.add(k) : picked.delete(k); renderMistakes() } })
   document.addEventListener('input', e => { if (e.target.dataset?.wvSearch !== undefined) { wv.q = e.target.value.trim(); const pos = e.target.selectionStart; renderWords(); const s = $('[data-wv-search]'); if (s) { s.focus(); try { s.setSelectionRange(pos, pos) } catch {} } } })

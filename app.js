@@ -829,7 +829,13 @@
   document.addEventListener('click', e => { if (e.target.closest && e.target.closest('[data-word]')) wordCtx = null }, true)
   // 共享：词典与导出
   window.TEM8_MARK_BOOK = markBookWords
-  window.TEM8_DICT = { ensure: ensureDictionary, needs: needsDictionary, entry: wordEntry, form: dictionaryForm, raw: w => (hasDef(w) ? dictionary[w] : null) || dictionary[dictionaryForm(w)] || null }
+  // 生词本的增删改都走这里（review.js 用），避免和内存里的 store 打架
+  window.TEM8_WORDBOOK = {
+    remove(w) { syncWordbook(); const l = store.wordbook || [], i = l.indexOf(w); store.wordbook = l.filter(x => x !== w); save(); markBookWords(); if (view === 'words') renderWordbook(); return i },
+    restore(w, i) { syncWordbook(); const l = (store.wordbook || []).filter(x => x !== w); l.splice(Math.max(0, Math.min(i, l.length)), 0, w); store.wordbook = l; save(); markBookWords(); if (view === 'words') renderWordbook() },
+    rename(map) { syncWordbook(); const out = []; for (const w of store.wordbook || []) { const n = map[w] || w; if (!out.includes(n)) out.push(n) } store.wordbook = out; save(); markBookWords() }
+  }
+  window.TEM8_DICT = { lemmaOf: w => (dictionary[w] && dictionary[w].lemma) || null, ensure: ensureDictionary, needs: needsDictionary, entry: wordEntry, form: dictionaryForm, raw: w => (hasDef(w) ? dictionary[w] : null) || dictionary[dictionaryForm(w)] || null }
   function docxParas(paras) {
     return paras.map(p => {
       if (p.xml) return p.xml
