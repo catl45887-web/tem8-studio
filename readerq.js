@@ -121,7 +121,7 @@
     }
     return '<ol class="rq-opts">' + q.options.map(function (o, i) {
       var ok = show && i === q.answer
-      return '<li class="' + (ok ? 'ok' : '') + '" data-ink-a="q' + n + ':o' + i + '"><span class="rq-l">' + LET[i] + '.</span><span class="rq-o">' + esc(o) + '</span>' + (ok ? '<em>正确答案</em>' : '') + '</li>'
+      return '<li class="' + (ok ? 'ok' : '') + '" data-ink-a="q' + n + ':o' + i + '"><span class="rq-l">' + LET[i] + '.</span><span class="rq-o">' + lk(o) + '</span>' + (ok ? '<em>正确答案</em>' : '') + '</li>'
     }).join('') + '</ol>'
   }
   function cardHTML(q, idx) {

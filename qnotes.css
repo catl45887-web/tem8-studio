@@ -160,7 +160,6 @@ sup.px-evtag{font-size:10.5px;font-weight:700;color:var(--px-ev);margin-left:2px
 .px-selbar{position:fixed;z-index:980;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:7px 8px;border-radius:12px;
   background:var(--ink,#222);color:var(--paper,#fff);box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100vw - 16px);font-family:-apple-system,"PingFang SC",sans-serif}
 .px-selbar[hidden]{display:none}
-.px-selbar.dock{left:50%!important;transform:translateX(-50%);top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom))}
 .px-selbar button{all:unset;cursor:pointer;font-size:14px;padding:6px 10px;border-radius:8px;color:inherit}
 .px-selbar button:hover,.px-selbar button:focus-visible{background:color-mix(in srgb,var(--paper,#fff) 16%,transparent)}
 .px-sel-sep{width:1px;align-self:stretch;background:color-mix(in srgb,var(--paper,#fff) 25%,transparent);margin:0 2px}
@@ -168,3 +167,4 @@ sup.px-evtag{font-size:10.5px;font-weight:700;color:var(--px-ev);margin-left:2px
 .px-selbar .px-sel-q{padding:6px 8px;font-variant-numeric:tabular-nums}
 .px-selbar .px-sel-q.has{opacity:.6}
 sup.px-evtag::after{content:attr(data-q)}
+@media (pointer:coarse){.px-selbar button{padding:9px 12px;font-size:15px}.px-selbar .px-sel-q{padding:9px 10px}}

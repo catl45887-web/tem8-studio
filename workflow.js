@@ -446,7 +446,7 @@
       const a=cuts[j],b=cuts[j+1],piece=escape(text.slice(a,b));if(!piece)continue
       const h=hl.find(r=>r.s<=a&&r.e>=b),e=ev.filter(r=>r.s<=a&&r.e>=b)
       let t=piece
-      if(e.length)t=`<span class="px-ev">${t}</span>`
+      if(e.length)t=`<span class="px-ev" data-ev="${e.map(r=>r.key).join(',')}">${t}</span>`
       if(h)t=`<mark class="px-hl" data-hl-scope="${escape(scope)}" data-hl-i="${h.i}">${t}</mark>`
       out+=t
       // 依据句末尾标上题号
@@ -481,13 +481,18 @@
       selbar.addEventListener('pointerdown',e=>e.preventDefault())}
     selNow=info
     const isP=info.scope.startsWith('p:'),items=isP?gItems(group()):[]
-    const has=info.unmark!==undefined
-    selbar.innerHTML=has?`<button type="button" data-px-hl="off">取消高光</button>`
+    const tapMode=!!info.tap
+    const evBtns=(info.evKeys||[]).map(k=>{const it=items.find(x=>x.key===k)||gItems(group()).find(x=>x.key===k);return `<button type="button" data-px-ev-del="${k}">取消 Q${it?it.no:''} 依据</button>`}).join('')
+    selbar.innerHTML=tapMode?`${info.unmark!==undefined?'<button type="button" data-px-hl="off">取消高光</button>':''}${evBtns}`
       :`<button type="button" data-px-hl="on">高光</button>${isP&&items.length?`<span class="px-sel-sep"></span><span class="px-sel-lab">设为依据</span>${items.map(it=>`<button type="button" class="px-sel-q${session.evid?.[it.key]?' has':''}" data-px-ev="${it.key}">Q${it.no}</button>`).join('')}`:''}`
     selbar.hidden=false
-    const touch=matchMedia('(pointer: coarse)').matches
-    if(touch){selbar.classList.add('dock');selbar.style.left=selbar.style.top=''}
-    else{selbar.classList.remove('dock');const r=info.rect,w=selbar.offsetWidth;selbar.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px';selbar.style.top=Math.min(innerHeight-56,r.bottom+10)+'px'}
+    // 浮条贴着选中的文字：默认在下方（上方留给系统的拷贝菜单），下面放不下就放上方
+    const r=info.rect,w=selbar.offsetWidth,h=selbar.offsetHeight,vv=window.visualViewport,vTop=vv?vv.offsetTop:0,vH=vv?vv.height:innerHeight
+    const foot=document.querySelector('.px-foot')?.getBoundingClientRect().top||vH
+    let top=r.bottom+(matchMedia('(pointer: coarse)').matches?18:10)
+    if(top+h>Math.min(foot,vTop+vH)-8)top=Math.max(vTop+8,r.top-h-12)
+    selbar.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px'
+    selbar.style.top=top+'px'
   }
   function repaintHL(scope){
     document.querySelectorAll(`#workflow-session-view [data-hl="${CSS.escape(scope)}"]`).forEach(el=>{
@@ -497,20 +502,23 @@
       el.innerHTML=paintHL(text,scope)})
   }
   function refreshEvid(key){const el=document.getElementById('it-'+key);if(!el)return;el.querySelector('.px-evq')?.remove();const h=el.querySelector('h4');if(h)h.insertAdjacentHTML('afterend',evidHTML({key}))}
-  document.addEventListener('selectionchange',()=>{if(!inSession())return;clearTimeout(selbar?._t);const t=setTimeout(()=>{const i=selInfo();if(i)showSelbar(i);else if(selNow&&selNow.unmark===undefined)hideSelbar()},180);if(selbar)selbar._t=t})
+  document.addEventListener("selectionchange",()=>{if(!inSession())return;clearTimeout(selbar?._t);const t=setTimeout(()=>{const i=selInfo();if(i)showSelbar(i);else if(selNow&&!selNow.tap)hideSelbar()},180);if(selbar)selbar._t=t})
   document.addEventListener('click',e=>{
     if(!inSession())return
     const b=e.target.closest?.('[data-px-hl],[data-px-ev],[data-px-ev-go],[data-px-ev-del]')
     if(b){e.stopPropagation()
       if(b.dataset.pxEvGo){const v=session.evid?.[b.dataset.pxEvGo];if(v){if(matchMedia('(max-width:760px)').matches)setTab('p');const p=document.getElementById('wf-p-'+(v.para));p?.scrollIntoView({behavior:'smooth',block:'center'});p?.classList.add('anno-flash');setTimeout(()=>p?.classList.remove('anno-flash'),1400)}return}
-      if(b.dataset.pxEvDel){const k=b.dataset.pxEvDel,v=session.evid?.[k];if(v){delete session.evid[k];persist();repaintHL(v.scope);refreshEvid(k)}return}
+      if(b.dataset.pxEvDel){const k=b.dataset.pxEvDel,v=session.evid?.[k];if(v){delete session.evid[k];persist();repaintHL(v.scope);refreshEvid(k)}hideSelbar();return}
       const info=selNow;if(!info)return
       if(b.dataset.pxHl==='on'){session.hl||={};(session.hl[info.scope]||=[]).push([info.s,info.e])}
       else if(b.dataset.pxHl==='off'){const l=session.hl?.[info.scope];if(l)l.splice(info.unmark,1)}
       else if(b.dataset.pxEv){const k=b.dataset.pxEv,old=session.evid?.[k];session.evid||={};session.evid[k]={scope:info.scope,s:info.s,e:info.e,quote:info.quote.slice(0,240),para:Number(info.scope.split(':')[2])+1};if(old&&old.scope!==info.scope)repaintHL(old.scope);refreshEvid(k)}
       persist();repaintHL(info.scope);window.getSelection()?.removeAllRanges();hideSelbar();return}
-    const m=e.target.closest?.('mark.px-hl')
-    if(m&&window.getSelection()?.isCollapsed){const r=m.getBoundingClientRect();showSelbar({scope:m.dataset.hlScope,unmark:Number(m.dataset.hlI),rect:r});return}
+    // 点已经高光 / 标成依据的文字：可以取消（想错了随时改）
+    const m=e.target.closest?.('mark.px-hl'),ev=e.target.closest?.('.px-ev')
+    if((m||ev)&&window.getSelection()?.isCollapsed){
+      const host=e.target.closest('[data-hl]'),r=(ev||m).getBoundingClientRect()
+      showSelbar({tap:true,scope:host?.dataset.hl||m?.dataset.hlScope,unmark:m?Number(m.dataset.hlI):undefined,evKeys:ev?ev.dataset.ev.split(','):[],rect:r});return}
     if(selbar&&!selbar.hidden&&!e.target.closest('.px-selbar'))hideSelbar()
   },true)
   function renderReading(){
