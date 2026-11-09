@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"kj":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"kilojoule(s)","cn":"千焦（耳）"}]}}});
+Object.assign(window.TEM8_DICTIONARY, {"kj":{"oxford":{"phon":"","pos":"abbreviation","senses":[{"en":"kilojoule","cn":"千焦（耳）"}]}}});

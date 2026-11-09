@@ -91,7 +91,7 @@
       var btn = document.querySelector('.tabbar [data-tab="' + tab + '"]')
       if (btn) btn.dataset.view = view
     }
-    if (view === 'notes' && window.TEM8_ANNO && window.TEM8_ANNO.renderPage) window.TEM8_ANNO.renderPage($('notes-content'))
+    if (view === 'notes') { if (window.TEM8_QNOTES) window.TEM8_QNOTES.renderHub($('notes-content')); else if (window.TEM8_ANNO && window.TEM8_ANNO.renderPage) window.TEM8_ANNO.renderPage($('notes-content')) }
     closePanel()
     if (view === 'reader') setTimeout(updateCount, 0)
   }

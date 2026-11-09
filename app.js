@@ -58,7 +58,7 @@
       if (dictionaryLoaded.has(bucket)) return Promise.resolve()
       if (!dictionaryPromises.has(bucket)) dictionaryPromises.set(bucket, new Promise((resolve, reject) => {
         const script = document.createElement('script')
-        script.src = dictionaryPrefixes ? `dictionary/prefix/${bucket}.js` : `dictionary/${bucket}.js`
+        script.src = (dictionaryPrefixes ? `dictionary/prefix/${bucket}.js` : `dictionary/${bucket}.js`) + '?v=20261108'  // 词典数据更新时改这里，手机才会重新下载
         script.onload = () => { dictionaryLoaded.add(bucket); resolve() }
         script.onerror = () => {
           dictionaryPromises.delete(bucket)
@@ -546,7 +546,7 @@
   }
   function markBookWords() {
     const set=new Set((store.wordbook||[]).map(w=>String(w).toLowerCase()))
-    document.querySelectorAll('#reader-content [data-word]').forEach(el=>{ const k=String(el.dataset.word||'').toLowerCase(); el.classList.toggle('in-book', set.has(k)||set.has(dictionaryForm(k))) })
+    document.querySelectorAll('#reader-content [data-word],.rq-panel [data-word],#workflow-report-content [data-word]').forEach(el=>{ const k=String(el.dataset.word||'').toLowerCase(); el.classList.toggle('in-book', set.has(k)||set.has(dictionaryForm(k))) })
   }
   // 阅读进度：顶部细线 = 滚动比例；段落读过（滚出屏幕上半）就记进度；记住滚动位置
   let rdTick=0
@@ -616,15 +616,25 @@
     if (btns.length) top += `<div class="wd-audios">${btns.join('')}<span class="wd-audio-hint">真实发音（词典音库）</span></div>`
 
     // ---- 释义区（分词典来源）----
+    const exHTML = x => x?.en ? `<div class="wd-sx"><span>${esc(x.en)}</span>${x.cn ? `<i>${esc(x.cn)}</i>` : ''}</div>` : ''
     const srcBlock = (name, list, kind) => {
       if (!list?.length) return ''
+      const MAX = 6, many = list.length > MAX + 2
+      let lastPos = kind === 'ox' ? (ox?.pos || '') : ''
       const rows = list.map((s,i) => {
-        if (kind === 'ox') return `<li><div class="wd-def">${esc(s.cn)}</div>${s.en ? `<div class="wd-en">${esc(s.en)}</div>` : ''}</li>`
-        if (kind === 'co') return `<li>${s.pos ? `<div class="wd-sub">${esc(String(s.pos).replace(/\[[^\]]*\]/g,'').trim())}</div>` : ''}<div class="wd-def">${esc(s.cn)}</div>${s.en ? `<div class="wd-en">${esc(s.en)}</div>` : ''}</li>`
+        const more = many && i >= MAX ? ' class="wd-more"' : ''
+        if (kind === 'ox') {
+          const p = s.pos || ox?.pos || '', head = p !== lastPos ? `<li class="wd-posh"${more}>${esc(p)}</li>` : ''
+          lastPos = p
+          const tags = [s.sc ? `<span class="wd-sc">${esc(s.sc)}</span>` : '', s.g ? `<span class="wd-g">${esc(s.g)}</span>` : '', s.lab ? `<span class="wd-g">${esc(s.lab)}</span>` : ''].join('')
+          return `${head}<li${more}>${tags ? `<div class="wd-tags">${tags}</div>` : ''}<div class="wd-def">${esc(s.cn || s.en)}</div>${s.en && s.cn ? `<div class="wd-en">${esc(s.en)}</div>` : ''}${exHTML(s.ex)}</li>`
+        }
+        if (kind === 'co') return `<li${more}>${s.pos ? `<div class="wd-sub">${esc(String(s.pos).replace(/\[[^\]]*\]/g,'').replace(/[A-Z][A-Z-]+\s*/g,'').trim() || s.pos)}</div>` : ''}<div class="wd-def">${esc(s.cn || s.en)}</div>${s.en && s.cn ? `<div class="wd-en">${esc(s.en)}</div>` : ''}${exHTML(s.ex)}</li>`
         if (kind === 'ld') return `<li><div class="wd-def">${esc(s.en)}</div>${s.cn ? `<div class="wd-en wd-cn">${esc(s.cn)}</div>` : ''}</li>`
         return `<li><div class="wd-def">${esc(s.en)}</div></li>`
       }).join('')
-      return `<section class="wd-src"><h4>${name}</h4><ol class="wd-list">${rows}</ol></section>`
+      const n = list.length
+      return `<section class="wd-src${many ? ' wd-fold' : ''}"><h4>${name}${n > 1 ? ` <small>${n} 条义项</small>` : ''}</h4><ol class="wd-list">${rows}</ol>${many ? `<button type="button" class="wd-unfold" onclick="this.closest('.wd-src').classList.remove('wd-fold');this.remove()">展开全部 ${n} 条</button>` : ''}</section>`
     }
     let body = ''
     body += srcBlock('牛津高阶英汉双解', ox?.senses, 'ox')
@@ -682,7 +692,7 @@
     }
     store.wordbook = [...set]; save()
     if (readerTab==='words' && view==='reader') renderReader()
-    if (view==='reader') markBookWords()
+    markBookWords()
     if (view==='words') renderWordbook()
     return added
   }
@@ -785,6 +795,7 @@
   // 阅读页点词时清空做题页的出处
   document.addEventListener('click', e => { if (e.target.closest && e.target.closest('[data-word]')) wordCtx = null }, true)
   // 共享：词典与导出
+  window.TEM8_MARK_BOOK = markBookWords
   window.TEM8_DICT = { ensure: ensureDictionary, needs: needsDictionary, entry: wordEntry, form: dictionaryForm, raw: w => dictionary[w] || dictionary[dictionaryForm(w)] || null }
   function docxParas(paras) {
     return paras.map(p => {

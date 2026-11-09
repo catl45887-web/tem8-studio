@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"mha":{"oxford":{"phon":"ˌem eɪtʃ ˈeɪ","pos":"abbr.","senses":[{"en":"Member of the House of Assembly (the parliament in Newfoundland and Labrador) （","cn":"纽芬兰和拉布拉多的）议会议员"}]},"media":{"uk":"media/uk/mha__gb_1.mp3","us":"media/us/mha__us_1.mp3"}}});
+Object.assign(window.TEM8_DICTIONARY, {"mha":{"oxford":{"phon":"ˌem eɪtʃ ˈeɪ","pos":"noun","senses":[{"en":"Member of the House of Assembly (the parliament in Newfoundland and Labrador)","cn":"（纽芬兰和拉布拉多的）议会议员"}]},"media":{"uk":"media/uk/mha__gb_1.mp3","us":"media/us/mha__us_1.mp3"}}});

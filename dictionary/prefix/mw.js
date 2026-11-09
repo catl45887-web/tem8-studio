@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"mw":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"medium wave","cn":"中波"},{"en":"megawatt(s)","cn":"兆瓦（特）"}]}}});
+Object.assign(window.TEM8_DICTIONARY, {"mw":{"oxford":{"phon":"","pos":"abbreviation","senses":[{"en":"medium wave","cn":"中波"},{"en":"megawatt","cn":"兆瓦（特）"}]},"collins":{"senses":[{"pos":"","cn":"","en":"MW is a written abbreviation for(书面缩略 =) medium wave ."},{"pos":"","cn":"","en":"MW is a written abbreviation for(书面缩略 =) megawatt."}]}}});
