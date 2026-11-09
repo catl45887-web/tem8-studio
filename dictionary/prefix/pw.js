@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"pw":{"collins":{"senses":[{"pos":"","cn":"每周；每星期；"}]}}});
+Object.assign(window.TEM8_DICTIONARY, {"pw":{"collins":{"senses":[{"pos":"","cn":"每周；每星期","en":"pw is used especially when stating the weekly cost of something. pw is the written abbreviation for (书面缩略=) 'per week'.","ex":{"en":"...single room — £55 pw.","cn":"单人间——每周55英镑"}}]}}});

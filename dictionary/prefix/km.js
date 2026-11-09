@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"km":{"oxford":{"phon":"","pos":"abbr.","senses":[{"en":"(in writing) kilometre(s) （","cn":"书写形式）千米，公里"}]},"media":{"us":"media/ldoce/hwd/ame/5/laad3km.mp3"}}});
+Object.assign(window.TEM8_DICTIONARY, {"km":{"oxford":{"phon":"","pos":"abbreviation","senses":[{"en":"(in writing) kilometre(s)","cn":"（书写形式）千米，公里"}]},"media":{"us":"media/ldoce/hwd/ame/5/laad3km.mp3"},"collins":{"senses":[{"pos":"","cn":"","en":"km is a written abbreviation for (书面缩略=) kilometre."}]}}});

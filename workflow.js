@@ -277,7 +277,6 @@
     const sw=(key,label,desc,on,avail=true)=>avail?`<label class="pq-switch"><span><b>${label}</b><small>${desc}</small></span><input type="checkbox" class="t-switch" data-pq-switch="${key}" ${on?'checked':''}></label>`:''
     const switches=[
       cfg.mode==='practice'&&objective?sw('instant','即时反馈','选完立刻显示对错和解析',cfg.instant):'',
-      type==='reading-group'&&cfg.mode==='practice'?sw('allowWord','点词查义','阅读原文时点单词查词典',cfg.allowWord):'',
       isListening(type)&&cfg.mode==='exam'?sw('replay','允许回听','计时模式下也能暂停、拖动音频',cfg.replay):''
     ].filter(Boolean).join('')
     const noAudio=isListening(type)&&cfg.years.some(y=>!listening[y]?.audio)
@@ -429,17 +428,14 @@
       return `<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no} · 简答</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4><textarea data-workflow-short="${it.key}" placeholder="在此作答" rows="3">${escape(value)}</textarea><div class="workflow-question-foot">${it.q.locatorParagraph||/Para\.\s*\d+/i.test(it.prompt)?`<button type="button" data-workflow-locate="${it.key}">看原文对应段落</button>`:'<span></span>'}<span data-count-for="${it.key}" class="${limit&&n>limit?'over':''}">${n}${limit?` / ${limit} 词${n>limit?' · 超出':''}`:' 词'}</span></div></article>`}).join('')
     return html
   }
+  // 做题时的原文：和考场一样只能看，不能查词、不能标记、不能记笔记（笔记放到交卷后的解析里）
   function passageText(a){
-    const A=anno(),allow=!!session.allowWord
-    return `<div class="workflow-article" data-anno-scope data-anno-article="${a.id}" data-anno-word="${allow?1:0}" data-anno-word-attr="data-workflow-word">${a.segments.map((s,i)=>{
-      const n=A?A.noteCount(a.id,i):0
-      const body=A?A.textHTML(a.id,i,s.en,{word:allow,attr:'data-workflow-word'}):escape(s.en)
-      return `<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text">${body}</span><span class="anno-tools"><button class="anno-pbtn${n?' has':''}" type="button" data-anno-open="${i}" title="${n?`第 ${i+1} 段有 ${n} 条笔记`:`在第 ${i+1} 段记笔记`}">${n?`笔记 ${n}`:''}</button></span></p>`}).join('')}</div>`
+    return `<div class="workflow-article px-exam-text" data-anno-article="${a.id}">${a.segments.map((s,i)=>`<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text">${escape(s.en)}</span></p>`).join('')}</div>`
   }
   function renderReading(){
     const a=article(),n=gItems(group()).length
     return `<div class="px-tabs" role="tablist"><button type="button" role="tab" data-pq-tab="p" aria-selected="${mobileTab==='p'}" class="${mobileTab==='p'?'on':''}">文章</button><button type="button" role="tab" data-pq-tab="q" aria-selected="${mobileTab==='q'}" class="${mobileTab==='q'?'on':''}">题目 <small>${n}</small></button></div>
-      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span>${session.allowWord?'点词查义 · ':''}选中文字可标记</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span>${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
+      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span>交卷后可查词、记笔记</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span>${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
   }
   const blankW=v=>Math.min(300,Math.max(150,String(v||'').length*7.2+26))
   // 提纲数据里有两种旧格式：“…(1)______ …”下面再单独一行“(1) ______”，或正文里只有“______”、编号单独成行。
@@ -547,7 +543,7 @@
     const all=allItems(session.groups),done=all.filter(it=>isAnswered(it,session.answers)).length
     const nav=`<button type="button" class="secondary-btn" data-workflow-prev ${session.current===0?'disabled':''}>上一组</button><span class="px-where">${escape(groupLabel(g))}${session.groups.length>1?` · ${session.current+1}/${session.groups.length}`:''}</span>${last?'<button type="button" class="primary-btn" data-pq-submit>交卷 <span>→</span></button>':'<button type="button" class="primary-btn" data-workflow-next>下一组 <span>→</span></button>'}`
     const ink=window.TEM8_INK
-    $('#workflow-session-content').innerHTML=`<header class="px-top"><button class="pq-back" type="button" data-workflow-back="config" aria-label="返回">←</button><div class="pq-title"><strong>${escape(name)}</strong><span>${escape(groupLabel(g))} · ${session.mode==='exam'?'计时':'练习'}</span></div><span class="px-mini" data-px-mini hidden></span>${kind==='reading'&&session.mode!=='exam'?'<button class="pq-ghost" type="button" data-workflow-study>精读</button>':''}<span class="pq-saved" id="pq-saved">${session.savedAt?'已保存 '+clock(session.savedAt):''}</span>${timerHTML()}${ink?`<button type="button" class="px-tb" data-ink-toggle aria-pressed="${ink.on}">手写</button>`:''}<button type="button" class="px-tb" data-px-card aria-haspopup="dialog">答题卡 <span data-px-count>${done}/${all.length}</span></button></header>
+    $('#workflow-session-content').innerHTML=`<header class="px-top"><button class="pq-back" type="button" data-workflow-back="config" aria-label="返回">←</button><div class="pq-title"><strong>${escape(name)}</strong><span>${escape(groupLabel(g))} · ${session.mode==='exam'?'计时':'练习'}</span></div><span class="px-mini" data-px-mini hidden></span>${['reading','translation','writing','language','lecture'].includes(kind)?(window.TEM8_KB?.button()||''):''}<span class="pq-saved" id="pq-saved">${session.savedAt?'已保存 '+clock(session.savedAt):''}</span>${timerHTML()}${ink?`<button type="button" class="px-tb" data-ink-toggle aria-pressed="${ink.on}">手写</button>`:''}<button type="button" class="px-tb" data-px-card aria-haspopup="dialog">答题卡 <span data-px-count>${done}/${all.length}</span></button></header>
       ${ink?`<div class="px-inkbar">${ink.barHTML({clearText:'确定要清除这一组的所有笔迹吗？'})}</div>`:''}${audio}
       <div class="px-body px-k-${kind}">${body}</div>
       <footer class="px-foot">${nav}</footer>
@@ -742,19 +738,30 @@
     const e=load().tools?.['m:'+it.key];if(!e)return ''
     return `<div class="pq-reasons"><span>错因</span>${REASONS.map(r=>`<button type="button" class="pq-chip xs ${e.r===r?'on':''}" data-pq-reason="${it.key}" data-r="${r}" aria-pressed="${e.r===r}">${r}</button>`).join('')}</div>`
   }
+  // 交卷后：题干、选项里的词能点开查；每题下面一个笔记框（qnotes.js）
+  const lk=t=>window.TEM8_QNOTES?.lk?window.TEM8_QNOTES.lk(t):escape(t)
+  const fromOf=run=>run.type==='mock'?'模考':run.type==='review'?'错题复习':'练习'
+  function qmeta(it){
+    const info=itemInfo(it.key)
+    if(info)return {label:info.label,kind:info.p.kind==='reading'?'阅读':'听力',prompt:String(it.prompt||'').slice(0,120),aid:info.p.articleId||'',num:info.p.number}
+    const m=/^(language|translation|writing)-(\d{4})/.exec(it.key)
+    const kind=m?{language:'改错',translation:'翻译',writing:'写作'}[m[1]]:''
+    return {label:m?`${m[2]} · ${kind}${it.kind==='line'?` · 第 ${it.no} 题`:''}`:it.key,kind,prompt:String(it.row||it.prompt||'').slice(0,120)}
+  }
+  const qbox=(it,run)=>window.TEM8_QNOTES?`<div class="pq-qn">${window.TEM8_QNOTES.box(it.key,qmeta(it),fromOf(run))}</div>`:''
   function reportRow(it,run){
     const v=run.answers[it.key],r=grade(it,run.answers)
     const mark={ok:'正确',bad:'错误',none:'未作答',self:'自查',na:''}[r]
     if(it.kind==='choice'){
       const mine=v===undefined||v===''?'未作答':LETTERS[v],right=it.answer===undefined?'暂无':LETTERS[it.answer]
-      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${escape(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${escape(o)}</li>`).join('')}</ol><div class="pq-analysis">${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${r==='bad'?reasonChips(it):''}</details>`
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${lk(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${lk(o)}</li>`).join('')}</ol><div class="pq-analysis">${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
     }
     if(it.kind==='blank'){
       const shown=String(it.answer||'').replace(/\s*\/\/\s*/g,' 或 ')
-      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${r==='bad'?reasonChips(it):''}</details>`
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${qbox(it,run)}</details>`
     }
-    if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${escape(it.prompt)}</p><div class="pq-analysis">${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div></details>`
-    if(it.kind==='line')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span></summary><p class="wf-prompt">${escape(it.row)}</p>${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}</details>`
+    if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${lk(it.prompt)}</p><div class="pq-analysis">${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
+    if(it.kind==='line')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span></summary><p class="wf-prompt">${escape(it.row)}</p>${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}${qbox(it,run)}</details>`
     return ''
   }
   /* 翻译、写作：参考对照 + 自评 */
@@ -769,13 +776,13 @@
       const done=ticks.filter(Boolean).length
       const check=pts.length?`<div class="pq-eval"><h5>逐句对照自评 <small>每句看意思是否译出、关键词和句型是否到位</small></h5>${pts.map((p,i)=>`<label class="pq-evrow"><input type="checkbox" data-pq-eval="${key}" data-i="${i}" ${ticks[i]?'checked':''}><span>${escape(p)}</span></label>`).join('')}<p class="pq-evscore">自评 <b>${done} / ${pts.length}</b> 句到位 · 估分约 <b>${Math.round(done/pts.length*100)}%</b></p></div>`:''
       const guide=papers[y]?.translationAnalysis
-      return `<div class="workflow-report-card"><h3>${y} · 翻译</h3>${box}${check}${guide?`<details class="wf-answer-row"><summary>翻译解析</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}<div class="pq-export"><button type="button" class="secondary-btn" data-pq-export="txt" data-key="${key}">导出 txt</button><button type="button" class="secondary-btn" data-pq-export="docx" data-key="${key}">导出 Word</button></div></div>`
+      return `<div class="workflow-report-card"><h3>${y} · 翻译</h3>${box}${check}${guide?`<details class="wf-answer-row"><summary>翻译解析</summary><p class="wf-analysis">${escape(guide).replace(/\n/g,'<br>')}</p></details>`:''}<div class="pq-export"><button type="button" class="secondary-btn" data-pq-export="txt" data-key="${key}">导出 txt</button><button type="button" class="secondary-btn" data-pq-export="docx" data-key="${key}">导出 Word</button></div>${qbox({key,kind:'long'},run)}</div>`
     }
     const ref=papers[y]?.writingReference,min=papers[y]?.writingMinWords,n=words(mine)
     const done=ticks.filter(Boolean).length+(min&&n>=min?1:0),total=RUBRIC.length+(min?1:0)
     return `<div class="workflow-report-card"><h3>${y} · 写作</h3><p>${n} 词${min?(n>=min?` · 达到最低 ${min} 词`:` · <b class="pq-bad">未达到最低 ${min} 词</b>`):''}</p><div class="pq-compare"><section><h5>我的作文</h5><div class="pq-mytext">${mine.trim()?escape(mine).replace(/\n/g,'<br>'):'<span class="workflow-hint">未作答</span>'}</div></section><section><h5>参考范文</h5><div class="pq-mytext">${ref?escape(ref).replace(/\n/g,'<br>'):'<span class="workflow-hint">暂无范文</span>'}</div></section></div>
       <div class="pq-eval"><h5>评分维度自评 <small>对照范文，逐条打勾</small></h5>${min?`<label class="pq-evrow auto"><input type="checkbox" disabled ${n>=min?'checked':''}><span><em>字数</em>达到 ${min} 词（自动判断）</span></label>`:''}${RUBRIC.map(([d,t],i)=>`<label class="pq-evrow"><input type="checkbox" data-pq-eval="${key}" data-i="${i}" ${ticks[i]?'checked':''}><span><em>${d}</em>${t}</span></label>`).join('')}<p class="pq-evscore">自评 <b>${done} / ${total}</b> 项 · 估分约 <b>${Math.round(done/total*100)}%</b></p></div>
-      ${papers[y]?.writingAnalysis?`<details class="wf-answer-row"><summary>写作指南</summary><p class="wf-analysis">${escape(papers[y].writingAnalysis).replace(/\n/g,'<br>')}</p></details>`:''}<div class="pq-export"><button type="button" class="secondary-btn" data-pq-export="txt" data-key="${key}">导出 txt</button><button type="button" class="secondary-btn" data-pq-export="docx" data-key="${key}">导出 Word</button></div></div>`
+      ${papers[y]?.writingAnalysis?`<details class="wf-answer-row"><summary>写作指南</summary><p class="wf-analysis">${escape(papers[y].writingAnalysis).replace(/\n/g,'<br>')}</p></details>`:''}<div class="pq-export"><button type="button" class="secondary-btn" data-pq-export="txt" data-key="${key}">导出 txt</button><button type="button" class="secondary-btn" data-pq-export="docx" data-key="${key}">导出 Word</button></div>${qbox({key,kind:'long'},run)}</div>`
   }
   function renderReport(){
     const run=lastRun;if(!run)return
@@ -806,7 +813,7 @@
       return `<tr><th scope="row">${lbl(x)}</th><td class="ok">${x.c.ok}</td><td class="bad">${x.c.bad}</td><td>${x.c.none}</td>${selfN?`<td>${x.c.self}</td>`:''}<td class="rp-bar"><span><i class="ok" style="width:${x.c.ok/t*100}%"></i><i class="bad" style="width:${x.c.bad/t*100}%"></i><i class="self" style="width:${x.c.self/t*100}%"></i></span></td></tr>`}).join('')}</tbody></table></section>`:''
     // 3 答题卡总览
     const grid=obj.length?`<section class="rp-card"><div class="rp-card-h"><h2>答题卡</h2><div class="rp-legend"><span><i class="r-ok"></i>对</span><span><i class="r-bad"></i>错</span><span><i class="r-none"></i>未答</span>${selfN?'<span><i class="r-self"></i>自查</span>':''}</div></div>${obj.map(x=>`<div class="rp-gline"><span>${lbl(x)}</span><div class="rp-cells">${x.its.map(it=>{const r=grade(it,run.answers);return `<button type="button" class="rp-cell r-${r}" data-pq-goto="${it.key}" aria-label="第 ${it.no} 题 ${({ok:'正确',bad:'错误',none:'未作答',self:'需自查',na:'无答案'})[r]}">${it.no}</button>`}).join('')}</div></div>`).join('')}<p class="rp-tip">点题号直接看那道题的解析。</p></section>`:''
-    const acts=obj.length?`<div class="rp-acts">${wrongN?`<button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${wrongN}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>${wrongN?'<p class="rp-tip">错题已自动收进错题本，展开错题可以标错因。</p>':''}`:''
+    const acts=obj.length?`<div class="rp-acts">${wrongN?`<button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${wrongN}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>${wrongN?'<p class="rp-tip">错题已自动收进错题本。每题解析下面可以记笔记、标错因，复习 › 笔记里按错因汇总。</p>':''}`:''
     // 4 解析：按部分折叠；错题直接列出（点开看解析），答对、未作答各自收起来
     const sub=(label,list,open)=>list.length?`<details class="rp-sub"${open?' open':''}><summary>${label} · ${list.length} 题</summary><div class="wf-answer-list">${list.map(it=>reportRow(it,run)).join('')}</div></details>`:''
     const detail=secs.map(x=>{
@@ -822,6 +829,7 @@
       ${hero}${table}${grid}${acts}
       ${detail?`<h2 class="rp-h2">解析</h2>${detail}`:''}
       <div class="pq-res-foot"><button class="secondary-btn" data-workflow-back="${run.type==='mock'?'mock':'papers'}">${run.type==='mock'?'返回模考':'返回'}</button>${run.type!=='review'&&run.type!=='mock'?'<button class="primary-btn" data-pq-again>再练一次 <span>→</span></button>':''}</div></div>`
+    setTimeout(()=>window.TEM8_MARK_BOOK?.(),0)
   }
   function saveEval(key,i,on){
     const run=lastRun;if(!run)return

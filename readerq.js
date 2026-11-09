@@ -136,11 +136,21 @@
     var why = hasWhy && t.w ? '<div class="rq-box" data-ink-a="q' + n + ':w"><b>解析</b>' + esc(p.rest).replace(/\n/g, '<br>') + '</div>' : ''
     return '<article class="rq-card" data-rq-card="' + idx + '">' +
       '<div class="rq-no" data-ink-a="q' + n + ':n"><b>Q' + n + '</b><span>' + (isChoice(q) ? '选择题' : '简答题') + '</span></div>' +
-      '<p class="rq-stem" data-ink-a="q' + n + ':s">' + esc(q.prompt) + '</p>' +
+      '<p class="rq-stem" data-ink-a="q' + n + ':s">' + lk(q.prompt) + '</p>' +
       optsHTML(q, hasAns && t.a) + evHTML +
       '<div class="rq-tgl" role="group" aria-label="提示、答案和解析" data-ink-a="q' + n + ':b">' + b('h', '提示', hasHint, t.h) + b('a', '答案', hasAns, t.a) + b('w', '解析', hasWhy, t.w) + '</div>' +
-      hint + why +
+      hint + why + noteBox(q) +
       '</article>'
+  }
+  // 题干、选项里的词也能点开查（和原文同一个查词卡）
+  function lk(t) { return W.TEM8_QNOTES && W.TEM8_QNOTES.lk ? W.TEM8_QNOTES.lk(t) : esc(t) }
+  // 每题下面的小笔记：和交卷后写的记在同一道题下面
+  function noteBox(q) {
+    var Q = W.TEM8_QNOTES; if (!Q) return ''
+    var a = (W.TEM8_2026_ARTICLES || []).concat(W.TEM8_2025_ARTICLES || [], W.TEM8_MID_ARTICLES || [], W.TEM8_ARCHIVE_ARTICLES || [], W.TEM8_ARCHIVE_ARTICLES2 || []).find(function (x) { return x.id === aid })
+    var info = W.TEM8_WORKFLOW && W.TEM8_WORKFLOW.itemInfo ? W.TEM8_WORKFLOW.itemInfo(qKey(q)) : null
+    var label = info ? info.label : ((a ? a.year + ' · ' : '') + 'Q' + q.number)
+    return '<div class="rq-qn">' + Q.box(qKey(q), { label: label, kind: '阅读', prompt: String(q.prompt || '').slice(0, 120), aid: aid, num: q.number }, '精读') + '</div>'
   }
   function tipHTML() {
     if (S.tip) return ''
@@ -178,6 +188,7 @@
     } else navBox.hidden = true
     ensurePane()
     dock()
+    if (W.TEM8_MARK_BOOK) W.TEM8_MARK_BOOK()
   }
   function dock() { if (W.TEM8_RP && W.TEM8_RP.dock) W.TEM8_RP.dock() }
 
@@ -350,8 +361,28 @@
     setArticle(id, d.mode)
     // 第一次渲染时还不知道是哪篇：补画一次依据
     if (changed && S.ev[aid]) setTimeout(repaintEv, 0)
-    setTimeout(function () { ensureBtn(); ensureChipBtn(); render() }, 40)
+    setTimeout(function () {
+      ensureBtn(); ensureChipBtn()
+      // 从笔记页“去这题”过来：打开题目栏并停在那道题
+      if (want && want.aid === aid) {
+        var i = qs.findIndex(function (q) { return String(q.number) === String(want.num) })
+        if (i >= 0) S.cur[aid] = i
+        S.open = true; if (!wide()) S.sheet = 'half'; save()
+        var wi = i; want = null
+        render(); if (wide() && wi >= 0) setTimeout(function () { scrollToCard(wi) }, 60)
+        return
+      }
+      render()
+    }, 40)
   })
+  var want = null
+  function openAt(id, num) {
+    want = { aid: String(id), num: num }
+    var tab = document.querySelector('.tabbar [data-tab="library"]'); if (tab) tab.click()
+    var b = document.querySelector('[data-open-reader][data-mode="free"][data-article="' + String(id).replace(/"/g, '') + '"]')
+    if (b) b.click()
+    else if (W.TEM8_ANNO && W.TEM8_ANNO.jumpTo) W.TEM8_ANNO.jumpTo(String(id), -1)
+  }
   document.addEventListener('tem8:view', function (e) {
     if (e.detail === 'reader') { setTimeout(function () { ensureBtn(); render() }, 60); return }
     endPick()
@@ -377,5 +408,5 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(init, 0) })
   else setTimeout(init, 0)
 
-  W.TEM8_RQ = { isOpen: isOpen, render: render }
+  W.TEM8_RQ = { isOpen: isOpen, render: render, openAt: openAt }
 })()

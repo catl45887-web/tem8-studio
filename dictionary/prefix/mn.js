@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"mna":{"oxford":{"phon":"ˌem en ˈeɪ","pos":"abbr.","senses":[{"en":"Member of the National Assembly","cn":"国会议员"}]},"media":{"uk":"media/uk/mna__gb_1.mp3","us":"media/us/mna__us_1.mp3"}}});
+Object.assign(window.TEM8_DICTIONARY, {"mna":{"oxford":{"phon":"ˌem en ˈeɪ","pos":"noun","senses":[{"en":"Member of the National Assembly","cn":"国会议员"}]},"media":{"uk":"media/uk/mna__gb_1.mp3","us":"media/us/mna__us_1.mp3"}}});

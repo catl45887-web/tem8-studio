@@ -1,1 +1,1 @@
-Object.assign(window.TEM8_DICTIONARY, {"tfl":{"ldoce":{"phon":"hwd","pos":"","senses":[{"en":"the abbreviation of Transport for London","cn":""}]},"media":{"uk":"media/ldoce/hwd/bre/6/ld5_tfl.mp3","us":"media/ldoce/hwd/ame/6/ld5_tfl.mp3"}}});
+Object.assign(window.TEM8_DICTIONARY, {"tfl":{"ldoce":{"phon":"hwd","pos":"","senses":[{"en":"the abbreviation of Transport for London","cn":""}]},"media":{"uk":"media/ldoce/hwd/bre/6/ld5_tfl.mp3","us":"media/ldoce/hwd/ame/6/ld5_tfl.mp3"},"oxford":{"phon":"ˌtiː ef ˈel","pos":"","senses":[{"en":"Transport for London","cn":"伦敦交通"}]}}});
