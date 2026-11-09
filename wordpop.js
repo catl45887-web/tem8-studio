@@ -87,11 +87,13 @@
     anchor = opts.anchor?.isConnected ? opts.anchor : recent ? lastDown.el : null
     if (anchor) anchor.classList.add('wpop-anchor')
 
+    if (!pop._base) { pop._base = 1; pop.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-wpop-base]'); if (b && window.TEM8_SHOW_WORD) { e.stopPropagation(); window.TEM8_SHOW_WORD(b.dataset.wpopBase, null, anchor) } }) }
     pop.querySelector('.wpop-word').textContent = opts.word || ''
     pop.querySelector('.wpop-phon').textContent = opts.phon ? `/${opts.phon}/` : ''
     const meta = []
     if (opts.freq > 0) meta.push(`<span class="wpop-freq"><b>考频</b>在真题阅读中出现 <em>${opts.freq}</em> 次</span>`)
-    if (opts.lemma && opts.lemma !== opts.word) meta.push(`<span class="wpop-lemma">原形 <b>${esc(opts.lemma)}</b></span>`)
+    if (opts.form) meta.push(`<span class="wpop-lemma">原文是 <b>${esc(opts.form)}</b>${opts.formLabel ? ' · ' + esc(opts.formLabel) : ''}</span>`)
+    else if (opts.lemma && opts.lemma !== opts.word) meta.push(`<button type="button" class="wpop-lemma wpop-baselink" data-wpop-base="${esc(opts.lemma)}">也可能是 <b>${esc(opts.lemma)}</b> 的变形${opts.baseMeaning ? '：' + esc(opts.baseMeaning) : ''} ›</button>`)
     const metaEl = pop.querySelector('.wpop-meta')
     metaEl.innerHTML = meta.join('')
     metaEl.hidden = !meta.length

@@ -131,3 +131,7 @@ input.kb-float{padding:14px 16px!important;height:auto!important}
 .kb-count{position:fixed;right:14px;z-index:966;font-size:12px;color:var(--muted,#888);pointer-events:none}
 .kb-count[hidden]{display:none}
 .kb-pin{border-bottom:1px dashed var(--line,#ddd);box-shadow:none}
+button.wpop-baselink{all:unset;cursor:pointer;display:inline;font-size:inherit;line-height:1.5}
+button.wpop-baselink:hover{text-decoration:underline;text-underline-offset:3px}
+.wd-basebox{margin-bottom:-6px;padding-top:6px;border-top:1px dashed currentColor;border-top-color:color-mix(in srgb,currentColor 25%,transparent)}
+.wd-list .wd-posh{display:block}

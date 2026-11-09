@@ -41,6 +41,8 @@
       candidates.add(base)
       addStems(base)
     }
+    // 不规则变形的原形可能在别的分片里（mens → men → man），一起加载
+    for (const c of [...candidates]) if (wordLemmas[c]) candidates.add(wordLemmas[c])
     return [...candidates].filter(value => typeof value === 'string' && /^[a-z]/.test(value))
   }
   function dictionaryBuckets(words) {
@@ -58,7 +60,7 @@
       if (dictionaryLoaded.has(bucket)) return Promise.resolve()
       if (!dictionaryPromises.has(bucket)) dictionaryPromises.set(bucket, new Promise((resolve, reject) => {
         const script = document.createElement('script')
-        script.src = (dictionaryPrefixes ? `dictionary/prefix/${bucket}.js` : `dictionary/${bucket}.js`) + '?v=20261108'  // 词典数据更新时改这里，手机才会重新下载
+        script.src = (dictionaryPrefixes ? `dictionary/prefix/${bucket}.js` : `dictionary/${bucket}.js`) + '?v=20261108b'  // 词典数据更新时改这里，手机才会重新下载
         script.onload = () => { dictionaryLoaded.add(bucket); resolve() }
         script.onerror = () => {
           dictionaryPromises.delete(bucket)
@@ -75,10 +77,23 @@
   // 词形还原：所有格、复数、过去式/进行时、比较级、连字符复合词都尽量还原到词典原形
   // 只有带真实释义的条目才算命中，避免"只有发音的空壳条目"抢占原形
   function hasDef(w){ const e = dictionary[w]; return !!e && !!(e.oxford || e.collins || e.ldoce || e.vocab || e.collocations) }
+  // 原文里的形式叫什么：复数、过去式、现在分词……
+  function formLabel(form, baseEntry){
+    const f = String(form || ''), poses = new Set(((baseEntry && baseEntry.oxford && baseEntry.oxford.senses) || []).map(x => x.pos || baseEntry.oxford.pos))
+    const noun = [...poses].some(p => /noun/.test(p)), verb = [...poses].some(p => /verb/.test(p))
+    if (wordLemmas[f]) return verb ? '不规则变形' : noun ? '复数' : '变形'
+    if (/(ies|s)$/.test(f)) return noun && verb ? '复数 / 第三人称单数' : verb ? '第三人称单数' : '复数'
+    if (/ed$/.test(f)) return '过去式 / 过去分词'
+    if (/ing$/.test(f)) return '现在分词 / 动名词'
+    if (/est$/.test(f)) return '最高级'
+    if (/er$/.test(f)) return '比较级'
+    return '变形'
+  }
   function dictionaryForm(word){
     let w = String(word || '').toLowerCase().replace(/[’]/g,"'").replace(/^[^a-z]+|[^a-z'-]+$/g,'')
     if (!w) return w
     if (hasDef(w)) return w
+    if (dictionary[w] && dictionary[w].lemma && hasDef(dictionary[w].lemma)) return dictionary[w].lemma
     if (wordLemmas[w] && hasDef(wordLemmas[w])) return wordLemmas[w]
 
     const tryList = list => { for (const x of list) if (x && x !== w && hasDef(x)) return x; return null }
@@ -226,7 +241,7 @@
   }
   function syncWordbook() { try { const raw = JSON.parse(localStorage.getItem(KEY) || '{}'); if (Array.isArray(raw.wordbook)) store.wordbook = raw.wordbook } catch {} }
   function wordEntry(w) {
-    const lemma = dictionaryForm(w), e = dictionary[w] || dictionary[lemma] || {}, ox = e.oxford, co = e.collins
+    const lemma = dictionaryForm(w), e = (hasDef(w) ? dictionary[w] : null) || dictionary[lemma] || {}, ox = e.oxford, co = e.collins
     const s0 = ox?.senses?.[0] || co?.senses?.[0] || null
     return { word:w, lemma, phon:(ox?.phon || '').replace(/^\/|\/$/g, ''), pos:ox?.pos || s0?.pos || '', cn:s0?.cn || (extras.glossary && extras.glossary[lemma]) || '', en:s0?.en || '' }
   }
@@ -584,8 +599,21 @@
       return
     }
     activeWord = String(key || '').toLowerCase().replace(/[’']s$/,'').replace(/[’']/g,'\'')
-    const lemma = dictionaryForm(activeWord)
-    const entry = dictionary[activeWord] || dictionary[lemma] || {}
+    // 变形词（bands、ruled、went…）一律还原成原形来查：标题显示原形，下面注明原文里是哪种形式
+    const own = dictionary[activeWord]
+    let lemma = own && own.lemma ? own.lemma : dictionaryForm(activeWord)
+    const viaLemma = lemma !== activeWord && !hasDef(activeWord)
+    const baseKey = !viaLemma && own && own.base ? own.base : ''
+    const need = [viaLemma ? lemma : '', baseKey].filter(Boolean)
+    if (need.length && needsDictionary(need) && !showWord._again) {
+      showWord._again = true
+      ensureDictionary(need).then(() => { if (request === wordLookupRequest) showWord(key, index, anchor) }).catch(() => {}).finally(() => { showWord._again = false })
+      return
+    }
+    const formWord = activeWord
+    if (viaLemma) activeWord = lemma
+    const entry = viaLemma ? (dictionary[lemma] || {}) : (own || dictionary[lemma] || {})
+    const baseEntry = baseKey ? dictionary[baseKey] : null
     const ox = entry.oxford, co = entry.collins, coll = entry.collocations, ld = entry.ldoce, vb = entry.vocab
     const senses = [ox?.senses?.[0], co?.senses?.[0], ld?.senses?.[0], vb?.senses?.[0]].filter(Boolean)
     const primary = senses.map(s => s.cn).filter(Boolean)[0] || senses.map(s => s.en).filter(Boolean)[0]
@@ -598,7 +626,7 @@
     const posClean = String(pos).replace(/\[[^\]]*\]/g,'').replace(/[\u3400-\u9fff]/g,'').trim()
     const phon = ox?.phon || ld?.phon || ''
     $('word-detail').innerHTML = [
-      lemma !== activeWord ? `<span class="wd-lemma">原形 <b>${esc(lemma)}</b></span>` : '',
+      viaLemma ? `<span class="wd-lemma">原文是 <b>${esc(formWord)}</b> · ${esc(formLabel(formWord, entry))}</span>` : baseKey ? `<span class="wd-lemma">原形 <b>${esc(baseKey)}</b></span>` : '',
       posClean ? `<span class="wd-pos">${esc(posClean)}</span>` : '',
       phon ? `<span class="wd-phon">/${esc(phon)}/</span>` : ''
     ].filter(Boolean).join('')
@@ -641,6 +669,11 @@
     body += srcBlock('柯林斯高阶双解', co?.senses, 'co')
     body += srcBlock('朗文当代高级', ld?.senses, 'ld')
     body += srcBlock('Vocabulary.com', vb?.senses, 'vb')
+    if (baseEntry?.oxford?.senses?.length) {
+      const keep = ox
+      body += `<section class="wd-src wd-basebox"><h4>原形 ${esc(baseKey)} <small>${esc(formLabel(formWord, baseEntry))}</small></h4></section>`
+      body += srcBlock('牛津高阶英汉双解', baseEntry.oxford.senses.map(x => ({ pos: baseEntry.oxford.pos, ...x })), 'ox')
+    }
     if (coll?.phrases?.length) {
       body += `<section class="wd-src"><h4>牛津搭配词典</h4><div class="wd-collos">${coll.phrases.map(p => `<span>${esc(p)}</span>`).join('')}</div></section>`
     }
@@ -661,7 +694,7 @@
       const w = activeWord
       window.TEM8_WORDPOP.open({
         anchor,
-        word: w, lemma, pos: posClean, phon, uk: md.uk, us: md.us,
+        word: w, lemma: baseKey || lemma, form: viaLemma ? formWord : '', baseMeaning: (() => { const o = baseEntry?.oxford; if (!o) return ''; const v = /(ed|ing)$/.test(formWord) && o.senses.find(x => /verb/.test(x.pos || o.pos)); return (v || o.senses[0])?.cn || '' })(), formLabel: viaLemma ? formLabel(formWord, entry) : '', pos: posClean, phon, uk: md.uk, us: md.us,
         meaning: primary || '词典暂未收录这个词。',
         freq: examFreq(w, lemma),
         fullHTML: top + body,
@@ -796,7 +829,7 @@
   document.addEventListener('click', e => { if (e.target.closest && e.target.closest('[data-word]')) wordCtx = null }, true)
   // 共享：词典与导出
   window.TEM8_MARK_BOOK = markBookWords
-  window.TEM8_DICT = { ensure: ensureDictionary, needs: needsDictionary, entry: wordEntry, form: dictionaryForm, raw: w => dictionary[w] || dictionary[dictionaryForm(w)] || null }
+  window.TEM8_DICT = { ensure: ensureDictionary, needs: needsDictionary, entry: wordEntry, form: dictionaryForm, raw: w => (hasDef(w) ? dictionary[w] : null) || dictionary[dictionaryForm(w)] || null }
   function docxParas(paras) {
     return paras.map(p => {
       if (p.xml) return p.xml
