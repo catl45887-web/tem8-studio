@@ -312,6 +312,9 @@
           if (tap) {
             // 轻点 = 点击（选选项、点单词），不留墨点
             this.list.pop(); this.redraw()
+            // 写字模式下轻点单词（原文、题干、选项）仍然查词；划过去的笔画不算
+            const w = this.noTap ? document.elementFromPoint(c.x0, c.y0)?.closest('[data-word]') : null
+            if (w) { this._allow = true; w.click(); this._allow = false; return }
             if (c.type !== 'mouse' && !this.noTap) tapAt(c.x0, c.y0)
             return
           }
@@ -324,7 +327,7 @@
       el.addEventListener('pointerup', end, { capture: true, ...o })
       // noTap：鼠标 / 笔刚落下画过，浏览器自己补发的 click 也拦掉（不查词、不弹浮条、不点按钮）
       el.addEventListener('click', e => {
-        if (this.noTap && this.active && Date.now() - (this._downAt || 0) < 1200) { e.preventDefault(); e.stopPropagation() }
+        if (this.noTap && this.active && !this._allow && Date.now() - (this._downAt || 0) < 1200) { e.preventDefault(); e.stopPropagation() }
       }, { capture: true, ...o })
       el.addEventListener('pointercancel', e => { if (cur && e.pointerId === cur.id) { cancelStroke(); sync() } }, { capture: true, ...o })
     }

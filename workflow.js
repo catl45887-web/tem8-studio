@@ -422,20 +422,101 @@
   function readingItems(){
     const items=gItems(group()),choice=items.filter(i=>i.kind==='choice'),short=items.filter(i=>i.kind==='short')
     let html=''
-    if(choice.length)html+=`<h3 class="workflow-section-title">选择题 <small>${choice.length} 道</small></h3>`+choice.map(it=>`<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no}</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4>${optionsHTML(it)}${feedback(it)}</article>`).join('')
+    if(choice.length)html+=`<h3 class="workflow-section-title">选择题 <small>${choice.length} 道</small></h3>`+choice.map(it=>`<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no}</span>${flagBtn(it.key)}</div><h4 data-hl="q:${it.key}">${paintHL(it.prompt,'q:'+it.key)}</h4>${evidHTML(it)}${optionsHTML(it)}${feedback(it)}</article>`).join('')
     if(short.length)html+=`<h3 class="workflow-section-title">简答题 <small>${short.length} 道</small></h3>`+short.map(it=>{
       const value=session.answers[it.key]||'',n=words(value),limit=it.limit
-      return `<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no} · 简答</span>${flagBtn(it.key)}</div><h4>${escape(it.prompt)}</h4><textarea data-workflow-short="${it.key}" placeholder="在此作答" rows="3">${escape(value)}</textarea><div class="workflow-question-foot">${it.q.locatorParagraph||/Para\.\s*\d+/i.test(it.prompt)?`<button type="button" data-workflow-locate="${it.key}">看原文对应段落</button>`:'<span></span>'}<span data-count-for="${it.key}" class="${limit&&n>limit?'over':''}">${n}${limit?` / ${limit} 词${n>limit?' · 超出':''}`:' 词'}</span></div></article>`}).join('')
+      return `<article class="pq-q" id="it-${it.key}" data-item="${it.key}"><div class="pq-qhead"><span>Q${it.no} · 简答</span>${flagBtn(it.key)}</div><h4 data-hl="q:${it.key}">${paintHL(it.prompt,'q:'+it.key)}</h4>${evidHTML(it)}<textarea data-workflow-short="${it.key}" placeholder="在此作答" rows="3">${escape(value)}</textarea><div class="workflow-question-foot">${it.q.locatorParagraph||/Para\.\s*\d+/i.test(it.prompt)?`<button type="button" data-workflow-locate="${it.key}">看原文对应段落</button>`:'<span></span>'}<span data-count-for="${it.key}" class="${limit&&n>limit?'over':''}">${n}${limit?` / ${limit} 词${n>limit?' · 超出':''}`:' 词'}</span></div></article>`}).join('')
     return html
   }
-  // 做题时的原文：和考场一样只能看，不能查词、不能标记、不能记笔记（笔记放到交卷后的解析里）
+  // 做题时的原文：和考场一样不能查词、不能记笔记；但能像在卷子上一样划高光、把句子标成某题的依据
   function passageText(a){
-    return `<div class="workflow-article px-exam-text" data-anno-article="${a.id}">${a.segments.map((s,i)=>`<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text">${escape(s.en)}</span></p>`).join('')}</div>`
+    return `<div class="workflow-article px-exam-text" data-anno-article="${a.id}">${a.segments.map((s,i)=>`<p id="wf-p-${i+1}" data-anno-p="${i}"><b>${String(s.number||i+1).padStart(2,'0')}</b><span class="anno-text" data-hl="p:${a.id}:${i}">${paintHL(s.en,`p:${a.id}:${i}`)}</span></p>`).join('')}</div>`
   }
+  /* ---------- 做题时的高光、依据 ---------- */
+  // session.hl = { 范围: [[起,止],…] }，范围是 p:文章:段 或 q:题目key；session.evid = { 题目key: {scope,s,e,quote,para} }
+  function paintHL(text,scope){
+    text=String(text||'')
+    const hl=(session?.hl?.[scope]||[]).map((r,i)=>({s:r[0],e:r[1],k:'hl',i}))
+    const ev=Object.entries(session?.evid||{}).filter(([,v])=>v.scope===scope).map(([key,v])=>({s:v.s,e:v.e,k:'ev',key}))
+    const all=[...hl,...ev].filter(r=>r.e>r.s)
+    if(!all.length)return escape(text)
+    const cuts=[...new Set([0,text.length,...all.flatMap(r=>[r.s,r.e])])].filter(x=>x>=0&&x<=text.length).sort((a,b)=>a-b)
+    let out=''
+    for(let j=0;j<cuts.length-1;j++){
+      const a=cuts[j],b=cuts[j+1],piece=escape(text.slice(a,b));if(!piece)continue
+      const h=hl.find(r=>r.s<=a&&r.e>=b),e=ev.filter(r=>r.s<=a&&r.e>=b)
+      let t=piece
+      if(e.length)t=`<span class="px-ev">${t}</span>`
+      if(h)t=`<mark class="px-hl" data-hl-scope="${escape(scope)}" data-hl-i="${h.i}">${t}</mark>`
+      out+=t
+      // 依据句末尾标上题号
+      ev.filter(r=>r.e===b).forEach(r=>{const it=gItems(group()).find(x=>x.key===r.key);out+=`<sup class="px-evtag" data-q="Q${it?it.no:''}"></sup>`})
+    }
+    return out
+  }
+  function evidHTML(it){
+    const v=session?.evid?.[it.key];if(!v)return ''
+    return `<div class="px-evq"><span>我的依据 · 第 ${v.para} 段</span><q>${escape(v.quote)}</q><span class="px-evq-acts"><button type="button" data-px-ev-go="${it.key}">看原文</button><button type="button" data-px-ev-del="${it.key}">移除</button></span></div>`
+  }
+  function selInfo(){
+    const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return null
+    const r=sel.getRangeAt(0),host=n=>(n.nodeType===1?n:n.parentElement)?.closest?.('[data-hl]')
+    const h1=host(r.startContainer),h2=host(r.endContainer);if(!h1||h1!==h2||!h1.closest('#workflow-session-view'))return null
+    const pre=document.createRange();pre.selectNodeContents(h1);pre.setEnd(r.startContainer,r.startOffset)
+    let s=pre.toString().length,e=s+r.toString().length
+    // 选区对齐到整词：不会只高光半个单词
+    const src=h1.textContent,isW=c=>/[A-Za-z0-9’'-]/.test(c||'')
+    while(s>0&&isW(src[s-1])&&isW(src[s]))s--
+    while(e<src.length&&isW(src[e-1])&&isW(src[e]))e++
+    while(s<e&&/\s/.test(src[s]))s++
+    while(e>s&&/\s/.test(src[e-1]))e--
+    const quote=src.slice(s,e)
+    if(!quote.trim())return null
+    return {scope:h1.dataset.hl,s,e,quote,rect:r.getBoundingClientRect()}
+  }
+  let selbar=null,selNow=null
+  function hideSelbar(){if(selbar)selbar.hidden=true;selNow=null}
+  function showSelbar(info){
+    if(!selbar){selbar=document.createElement('div');selbar.className='px-selbar';selbar.hidden=true;document.body.appendChild(selbar)
+      selbar.addEventListener('pointerdown',e=>e.preventDefault())}
+    selNow=info
+    const isP=info.scope.startsWith('p:'),items=isP?gItems(group()):[]
+    const has=info.unmark!==undefined
+    selbar.innerHTML=has?`<button type="button" data-px-hl="off">取消高光</button>`
+      :`<button type="button" data-px-hl="on">高光</button>${isP&&items.length?`<span class="px-sel-sep"></span><span class="px-sel-lab">设为依据</span>${items.map(it=>`<button type="button" class="px-sel-q${session.evid?.[it.key]?' has':''}" data-px-ev="${it.key}">Q${it.no}</button>`).join('')}`:''}`
+    selbar.hidden=false
+    const touch=matchMedia('(pointer: coarse)').matches
+    if(touch){selbar.classList.add('dock');selbar.style.left=selbar.style.top=''}
+    else{selbar.classList.remove('dock');const r=info.rect,w=selbar.offsetWidth;selbar.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px';selbar.style.top=Math.min(innerHeight-56,r.bottom+10)+'px'}
+  }
+  function repaintHL(scope){
+    document.querySelectorAll(`#workflow-session-view [data-hl="${CSS.escape(scope)}"]`).forEach(el=>{
+      let text=''
+      if(scope.startsWith('p:')){const [,aid,i]=scope.split(':');text=art(aid)?.segments?.[Number(i)]?.en||''}
+      else{const it=gItems(group()).find(x=>'q:'+x.key===scope);text=it?.prompt||''}
+      el.innerHTML=paintHL(text,scope)})
+  }
+  function refreshEvid(key){const el=document.getElementById('it-'+key);if(!el)return;el.querySelector('.px-evq')?.remove();const h=el.querySelector('h4');if(h)h.insertAdjacentHTML('afterend',evidHTML({key}))}
+  document.addEventListener('selectionchange',()=>{if(!inSession())return;clearTimeout(selbar?._t);const t=setTimeout(()=>{const i=selInfo();if(i)showSelbar(i);else if(selNow&&selNow.unmark===undefined)hideSelbar()},180);if(selbar)selbar._t=t})
+  document.addEventListener('click',e=>{
+    if(!inSession())return
+    const b=e.target.closest?.('[data-px-hl],[data-px-ev],[data-px-ev-go],[data-px-ev-del]')
+    if(b){e.stopPropagation()
+      if(b.dataset.pxEvGo){const v=session.evid?.[b.dataset.pxEvGo];if(v){if(matchMedia('(max-width:760px)').matches)setTab('p');const p=document.getElementById('wf-p-'+(v.para));p?.scrollIntoView({behavior:'smooth',block:'center'});p?.classList.add('anno-flash');setTimeout(()=>p?.classList.remove('anno-flash'),1400)}return}
+      if(b.dataset.pxEvDel){const k=b.dataset.pxEvDel,v=session.evid?.[k];if(v){delete session.evid[k];persist();repaintHL(v.scope);refreshEvid(k)}return}
+      const info=selNow;if(!info)return
+      if(b.dataset.pxHl==='on'){session.hl||={};(session.hl[info.scope]||=[]).push([info.s,info.e])}
+      else if(b.dataset.pxHl==='off'){const l=session.hl?.[info.scope];if(l)l.splice(info.unmark,1)}
+      else if(b.dataset.pxEv){const k=b.dataset.pxEv,old=session.evid?.[k];session.evid||={};session.evid[k]={scope:info.scope,s:info.s,e:info.e,quote:info.quote.slice(0,240),para:Number(info.scope.split(':')[2])+1};if(old&&old.scope!==info.scope)repaintHL(old.scope);refreshEvid(k)}
+      persist();repaintHL(info.scope);window.getSelection()?.removeAllRanges();hideSelbar();return}
+    const m=e.target.closest?.('mark.px-hl')
+    if(m&&window.getSelection()?.isCollapsed){const r=m.getBoundingClientRect();showSelbar({scope:m.dataset.hlScope,unmark:Number(m.dataset.hlI),rect:r});return}
+    if(selbar&&!selbar.hidden&&!e.target.closest('.px-selbar'))hideSelbar()
+  },true)
   function renderReading(){
     const a=article(),n=gItems(group()).length
     return `<div class="px-tabs" role="tablist"><button type="button" role="tab" data-pq-tab="p" aria-selected="${mobileTab==='p'}" class="${mobileTab==='p'?'on':''}">文章</button><button type="button" role="tab" data-pq-tab="q" aria-selected="${mobileTab==='q'}" class="${mobileTab==='q'?'on':''}">题目 <small>${n}</small></button></div>
-      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span>交卷后可查词、记笔记</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span>${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
+      <div class="px-split px-read" data-tab="${mobileTab}">${pane(`<strong>${a.year} · ${escape(passageName(a))}</strong><span>选中文字可高光、设为依据</span>`,passageText(a),'p','px-col-p')}${pane(`<strong>题目</strong><span>${n} 题</span>`,readingItems(),'q','px-col-q')}</div>`
   }
   const blankW=v=>Math.min(300,Math.max(150,String(v||'').length*7.2+26))
   // 提纲数据里有两种旧格式：“…(1)______ …”下面再单独一行“(1) ______”，或正文里只有“______”、编号单独成行。
@@ -686,7 +767,7 @@
     if(!session)return
     persist()
     clearTimeout(persistT);window.TEM8_INK?.drop(session.id)
-    const run={type:session.type,year:session.year,years:session.years||[session.year],finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks,mode:session.mode,elapsed:Math.round(elapsedMs()/1000),durationMinutes:session.durationMinutes||0,label:session.label||'',eval:{}}
+    const run={type:session.type,year:session.year,years:session.years||[session.year],finishedAt:Date.now(),groups:session.groups,answers:session.answers,marks:session.marks,evid:session.evid||{},hl:session.hl||{},mode:session.mode,elapsed:Math.round(elapsedMs()/1000),durationMinutes:session.durationMinutes||0,label:session.label||'',eval:{}}
     writeStore(s=>{s.session=null;s.history=[...(s.history||[]),run].slice(-80)})
     mistakeUpdate(run)
     window.TEM8_AUDIO?.stop()
@@ -748,19 +829,20 @@
     const kind=m?{language:'改错',translation:'翻译',writing:'写作'}[m[1]]:''
     return {label:m?`${m[2]} · ${kind}${it.kind==='line'?` · 第 ${it.no} 题`:''}`:it.key,kind,prompt:String(it.row||it.prompt||'').slice(0,120)}
   }
+  const myEvid=(it,run)=>{const v=run.evid?.[it.key];return v?`<div class="pq-an-sec pq-myev"><h5>你做题时标的依据 · 第 ${v.para} 段</h5><blockquote>${escape(v.quote)}</blockquote></div>`:''}
   const qbox=(it,run)=>window.TEM8_QNOTES?`<div class="pq-qn">${window.TEM8_QNOTES.box(it.key,qmeta(it),fromOf(run))}</div>`:''
   function reportRow(it,run){
     const v=run.answers[it.key],r=grade(it,run.answers)
     const mark={ok:'正确',bad:'错误',none:'未作答',self:'自查',na:''}[r]
     if(it.kind==='choice'){
       const mine=v===undefined||v===''?'未作答':LETTERS[v],right=it.answer===undefined?'暂无':LETTERS[it.answer]
-      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${lk(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${lk(o)}</li>`).join('')}</ol><div class="pq-analysis">${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.kind==='choice'&&it.key.startsWith('interview')?it.no:'Q'+it.no}</span><span class="wf-mine">你的答案 ${mine}</span><span class="wf-right">正确 ${right}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':''}">${mark}</span>`:''}</summary>${it.prompt?`<p class="wf-prompt">${lk(it.prompt)}</p>`:''}<ol class="pq-ropts">${(it.options||[]).map((o,i)=>`<li class="${i===it.answer?'right':''} ${i===v&&i!==it.answer?'wrong':''}"><b>${LETTERS[i]}</b>${lk(o)}</li>`).join('')}</ol><div class="pq-analysis">${myEvid(it,run)}${it.answer!==undefined?`<div class="pq-an-sec"><h5>正确答案</h5><p><b>${right}</b>　${escape(it.options?.[it.answer]||'')}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
     }
     if(it.kind==='blank'){
       const shown=String(it.answer||'').replace(/\s*\/\/\s*/g,' 或 ')
       return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${qbox(it,run)}</details>`
     }
-    if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${lk(it.prompt)}</p><div class="pq-analysis">${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
+    if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${lk(it.prompt)}</p><div class="pq-analysis">${myEvid(it,run)}${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
     if(it.kind==='line')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span></summary><p class="wf-prompt">${escape(it.row)}</p>${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}${qbox(it,run)}</details>`
     return ''
   }
@@ -813,7 +895,7 @@
       return `<tr><th scope="row">${lbl(x)}</th><td class="ok">${x.c.ok}</td><td class="bad">${x.c.bad}</td><td>${x.c.none}</td>${selfN?`<td>${x.c.self}</td>`:''}<td class="rp-bar"><span><i class="ok" style="width:${x.c.ok/t*100}%"></i><i class="bad" style="width:${x.c.bad/t*100}%"></i><i class="self" style="width:${x.c.self/t*100}%"></i></span></td></tr>`}).join('')}</tbody></table></section>`:''
     // 3 答题卡总览
     const grid=obj.length?`<section class="rp-card"><div class="rp-card-h"><h2>答题卡</h2><div class="rp-legend"><span><i class="r-ok"></i>对</span><span><i class="r-bad"></i>错</span><span><i class="r-none"></i>未答</span>${selfN?'<span><i class="r-self"></i>自查</span>':''}</div></div>${obj.map(x=>`<div class="rp-gline"><span>${lbl(x)}</span><div class="rp-cells">${x.its.map(it=>{const r=grade(it,run.answers);return `<button type="button" class="rp-cell r-${r}" data-pq-goto="${it.key}" aria-label="第 ${it.no} 题 ${({ok:'正确',bad:'错误',none:'未作答',self:'需自查',na:'无答案'})[r]}">${it.no}</button>`}).join('')}</div></div>`).join('')}<p class="rp-tip">点题号直接看那道题的解析。</p></section>`:''
-    const acts=obj.length?`<div class="rp-acts">${wrongN?`<button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${wrongN}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>${wrongN?'<p class="rp-tip">错题已自动收进错题本。每题解析下面可以记笔记、标错因，复习 › 笔记里按错因汇总。</p>':''}`:''
+    const acts=obj.length?`<div class="rp-acts">${wrongN?`<button type="button" class="primary-btn" data-pq-redo>重做错题 <span>${wrongN}</span></button><button type="button" class="secondary-btn" data-view="mistakes">去错题本</button>`:'<span class="workflow-hint">没有错题，做得不错。</span>'}</div>${wrongN?'<p class="rp-tip">错题已自动收进错题本。展开每题能对照你标的依据和原文定位，下面可以记笔记、标错因，复习 › 笔记里按错因汇总。</p>':''}`:''
     // 4 解析：按部分折叠；错题直接列出（点开看解析），答对、未作答各自收起来
     const sub=(label,list,open)=>list.length?`<details class="rp-sub"${open?' open':''}><summary>${label} · ${list.length} 题</summary><div class="wf-answer-list">${list.map(it=>reportRow(it,run)).join('')}</div></details>`:''
     const detail=secs.map(x=>{

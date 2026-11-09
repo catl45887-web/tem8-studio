@@ -83,25 +83,32 @@ html[data-theme=dark] #reader-view [data-word].in-book,html[data-theme=dark] .rq
 .kb-pin.folded .kb-pin-body{display:none}
 body.kb-active .px-foot,body.kb-active .px-handle,body.kb-active .tabbar{visibility:hidden}
 
-.kb{position:fixed;left:0;right:0;bottom:0;z-index:970;background:color-mix(in srgb,var(--soft,#e9e9e6) 92%,var(--ink,#000) 8%);
-  padding:6px 4px calc(6px + env(safe-area-inset-bottom));user-select:none;-webkit-user-select:none;touch-action:manipulation;
-  border-top:1px solid var(--line,#ccc)}
+.kb{position:fixed;left:0;right:0;bottom:0;z-index:970;background:color-mix(in srgb,var(--soft,#e9e9e6) 88%,var(--ink,#000) 12%);
+  padding:6px max(3px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom)) max(3px,env(safe-area-inset-right,0px));
+  user-select:none;-webkit-user-select:none;touch-action:manipulation;border-top:1px solid var(--line,#ccc)}
 .kb[hidden]{display:none}
-.kb-bar{display:flex;align-items:center;justify-content:space-between;padding:0 8px 6px;font-size:12px;color:var(--muted,#777)}
-.kb-hide{all:unset;cursor:pointer;font-size:14px;font-weight:600;color:var(--accent,#456);padding:2px 6px}
-.kb-row{display:flex;justify-content:center;gap:5px;margin-bottom:7px}
+.kb-bar{display:flex;justify-content:flex-end;padding:0 6px 4px}
+.kb-hide{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--accent,#456);padding:4px 6px}
+.kb-row{display:flex;gap:6px;margin-bottom:9px}
 .kb-row:last-child{margin-bottom:0}
-.kb-k{all:unset;box-sizing:border-box;flex:1 1 0;max-width:64px;height:44px;border-radius:7px;background:var(--paper,#fff);color:var(--ink,#222);
-  display:flex;align-items:center;justify-content:center;font-size:20px;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;
-  box-shadow:0 1px 0 rgba(0,0,0,.18);cursor:pointer;transition:transform .08s,background .08s}
-.kb-k.down{transform:scale(.94);background:var(--soft,#ddd)}
-.kb-fn{background:color-mix(in srgb,var(--paper,#fff) 70%,var(--ink,#000) 12%);font-size:15px}
+.kb-k{all:unset;box-sizing:border-box;flex:1 1 0;min-width:0;height:44px;border-radius:6px;background:var(--paper,#fff);color:var(--ink,#222);
+  display:flex;align-items:center;justify-content:center;font-size:21px;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;
+  box-shadow:0 1px 0 rgba(0,0,0,.22);cursor:pointer;transition:background .06s}
+.kb-k.down{background:var(--soft,#ddd)}
+.kb-fn{background:color-mix(in srgb,var(--paper,#fff) 62%,var(--ink,#000) 14%);font-size:15px}
+.kb-fn.down{background:var(--paper,#fff)}
 .kb-shift.on{background:var(--paper,#fff);color:var(--accent,#456)}
-.kb-w15{flex-grow:1.5;max-width:96px}
-.kb-space{flex-grow:5;max-width:360px;font-size:14px;color:var(--muted,#777)}
+.kb-space{font-size:14px;color:var(--muted,#777)}
 .kb-enter{color:var(--accent,#456);font-weight:600}
-.kb-row:nth-child(3) .kb-k:not(.kb-fn){max-width:58px}
-@media (min-width:700px){.kb{padding-left:max(4px,calc(50% - 380px));padding-right:max(4px,calc(50% - 380px))}.kb-k{height:52px}}
+.kb-indent-l{margin-left:4.5%}
+.kb-indent-r{margin-right:4.5%}
+/* 平板：整宽大键，间距和 iPad 自带键盘接近 */
+.kb-tablet{padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom));padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+.kb-tablet .kb-row{gap:9px;margin-bottom:10px}
+.kb-tablet .kb-k{height:62px;border-radius:8px;font-size:24px}
+.kb-tablet .kb-fn{font-size:17px}
+.kb-tablet .kb-indent-l{margin-left:2.6%}
+@media (orientation:landscape) and (min-width:1000px){.kb-tablet .kb-k{height:56px}}
 body.kb-builtin{padding-bottom:var(--kb-h,0)}
 .kb-switch{white-space:nowrap}
 .kb-toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 14px);transform:translateX(-50%);z-index:990;background:var(--ink,#222);color:var(--paper,#fff);
@@ -135,3 +142,29 @@ button.wpop-baselink{all:unset;cursor:pointer;display:inline;font-size:inherit;l
 button.wpop-baselink:hover{text-decoration:underline;text-underline-offset:3px}
 .wd-basebox{margin-bottom:-6px;padding-top:6px;border-top:1px dashed currentColor;border-top-color:color-mix(in srgb,currentColor 25%,transparent)}
 .wd-list .wd-posh{display:block}
+
+/* ---------- 做题时：高光、依据 ---------- */
+:root{--px-hl:#f3df8f;--px-ev:#8a6fc2}
+html[data-theme=dark]{--px-hl:#7a6630;--px-ev:#b9a3e8}
+mark.px-hl{background:color-mix(in srgb,var(--px-hl) 70%,transparent);color:inherit;border-radius:2px;padding:0 1px;cursor:pointer}
+.px-ev{text-decoration:underline;text-decoration-color:var(--px-ev);text-decoration-thickness:2px;text-underline-offset:4px}
+sup.px-evtag{font-size:10.5px;font-weight:700;color:var(--px-ev);margin-left:2px;font-family:-apple-system,sans-serif}
+.px-evq{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:6px 0 10px;padding:8px 10px;border-radius:8px;
+  background:color-mix(in srgb,var(--px-ev) 9%,transparent);font-size:13px;color:var(--muted,#666)}
+.px-evq>span:first-child{color:var(--px-ev);font-weight:600}
+.px-evq q{flex:1 1 100%;color:var(--ink,#222);font-size:14px;line-height:1.6;quotes:"“" "”"}
+.px-evq-acts{display:flex;gap:10px;margin-left:auto}
+.px-evq-acts button{all:unset;cursor:pointer;font-size:12.5px;color:var(--muted,#777)}
+.px-evq-acts button:hover{color:var(--ink,#222)}
+.pq-myev blockquote{border-left:3px solid var(--px-ev)}
+.px-selbar{position:fixed;z-index:980;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:7px 8px;border-radius:12px;
+  background:var(--ink,#222);color:var(--paper,#fff);box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100vw - 16px);font-family:-apple-system,"PingFang SC",sans-serif}
+.px-selbar[hidden]{display:none}
+.px-selbar.dock{left:50%!important;transform:translateX(-50%);top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom))}
+.px-selbar button{all:unset;cursor:pointer;font-size:14px;padding:6px 10px;border-radius:8px;color:inherit}
+.px-selbar button:hover,.px-selbar button:focus-visible{background:color-mix(in srgb,var(--paper,#fff) 16%,transparent)}
+.px-sel-sep{width:1px;align-self:stretch;background:color-mix(in srgb,var(--paper,#fff) 25%,transparent);margin:0 2px}
+.px-sel-lab{font-size:12px;opacity:.7;padding:0 2px}
+.px-selbar .px-sel-q{padding:6px 8px;font-variant-numeric:tabular-nums}
+.px-selbar .px-sel-q.has{opacity:.6}
+sup.px-evtag::after{content:attr(data-q)}

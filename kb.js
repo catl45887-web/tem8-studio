@@ -2,7 +2,7 @@
  *  方案 A「系统键盘」：照常弹系统键盘，题目（简答题题干 / 翻译原文 / 写作要求 / 改错那一行 / 听力那一行提纲）
  *         钉在屏幕上方的一条里，输入框接在它下面，键盘弹多高都看得到题
  *  方案 B「内置键盘」：不弹系统键盘，网站自己在底部画一个紧凑的英文键盘（专八主观题都写英文），
- *         上面同样钉着题目；这个模式下只能用屏幕上的键盘打字，外接键盘、粘贴、语音输入都不进输入框
+ *         上面同样钉着题目；手机和平板一律用它（不弹系统键盘）。只能用屏幕上的键盘打字，外接键盘、粘贴、语音输入都不进输入框
  *  只在触屏（手机、iPad）上生效；电脑上照常。做题页顶部「键盘」按钮切换，记在 localStorage['tem8_kb'] */
 ;(function () {
   'use strict'
@@ -11,7 +11,8 @@
   if (/[?&]kbtest\b/.test(location.search)) touch = true
   var vv = window.visualViewport
   var FIELDS = '[data-workflow-short],[data-workflow-text],[data-workflow-blank],[data-workflow-error-text]'
-  function mode() { try { return localStorage.getItem(PREF) === 'builtin' ? 'builtin' : 'system' } catch (e) { return 'system' } }
+  // 手机和平板上一律用内置键盘（不再提供系统键盘）
+  function mode() { return 'builtin' }
   function setMode(m) { try { localStorage.setItem(PREF, m) } catch (e) {} }
   function owns(el) { return touch && !!(el && el.matches && el.matches(FIELDS) && el.closest('#workflow-session-view')) }
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] }) }
@@ -58,19 +59,34 @@
   }
 
   /* ---------- 内置键盘 ---------- */
+  // 布局：手机是紧凑四行；平板照 iPad 自带键盘的排法——整宽、删除在第一行尾、换行在第二行尾、底行有收起键
+  var tablet = function () { return Math.min(innerWidth, screen.width || innerWidth) >= 700 || innerWidth >= 700 }
   var ROWS = {
-    abc: ['qwertyuiop', 'asdfghjkl', '⇧zxcvbnm⌫', ['123', ',', '␣', '.', '⏎']],
-    num: ['1234567890', ['-', '/', ':', ';', '(', ')', '"', "'", '?', '!'], ['∧', '—', '&', '%', '$', '@', '#', '*', '⌫'], ['ABC', ',', '␣', '.', '⏎']]
+    phone: {
+      abc: [['q','w','e','r','t','y','u','i','o','p'], ['~a','s','d','f','g','h','j','k','l~'], ['⇧','z','x','c','v','b','n','m','⌫'], ['123',',','␣','.','⏎']],
+      num: [['1','2','3','4','5','6','7','8','9','0'], ['-','/',':',';','(',')','"',"'",'?','!'], ['∧','—','&','%','@','#','*','⌫'], ['ABC',',','␣','.','⏎']]
+    },
+    tablet: {
+      abc: [['q','w','e','r','t','y','u','i','o','p','⌫'], ['~a','s','d','f','g','h','j','k','l',"'",'⏎'], ['⇧','z','x','c','v','b','n','m',',','.','?'], ['123','∧','/','␣','-','hide']],
+      num: [['1','2','3','4','5','6','7','8','9','0','⌫'], ['~-','/',':',';','(',')','"','&','@','⏎'], ['∧','—','%','#','*','$',',','.','?','!'], ['ABC','∧','/','␣','-','hide']]
+    }
   }
-  function keyHTML(k) {
-    var cls = 'kb-k', lab = k
-    if (k === '⇧') { cls += ' kb-fn kb-shift' + (shift ? ' on' : ''); lab = '⇧' }
-    else if (k === '⌫') { cls += ' kb-fn'; lab = '⌫' }
-    else if (k === '123' || k === 'ABC') cls += ' kb-fn kb-w15'
+  var GROW = { '⌫': 1.5, '⏎': 1.8, '⇧': 1.5, '123': 1.5, 'ABC': 1.5, '␣': 5.5, 'hide': 1.5 }
+  function keyHTML(raw) {
+    var k = raw.replace(/~/g, ''), cls = 'kb-k', lab = k, grow = GROW[k] || 1
+    if (tablet() && k === '⏎') grow = 2
+    if (!tablet() && (k === '⇧' || k === '⌫')) grow = 1.35
+    if (!tablet() && k === '␣') grow = 4
+    if (k === '⇧') { cls += ' kb-fn kb-shift' + (shift ? ' on' : '') }
+    else if (k === '⌫') cls += ' kb-fn'
+    else if (k === '123' || k === 'ABC') cls += ' kb-fn'
     else if (k === '␣') { cls += ' kb-space'; lab = 'space' }
-    else if (k === '⏎') { cls += ' kb-fn kb-enter kb-w15'; lab = cur && cur.tagName === 'TEXTAREA' ? '换行' : '下一个' }
+    else if (k === '⏎') { cls += ' kb-fn kb-enter'; lab = cur && cur.tagName === 'TEXTAREA' ? '换行' : '下一个' }
+    else if (k === 'hide') { cls += ' kb-fn kb-hidekey'; lab = '收起' }
     else if (shift && /^[a-z]$/.test(k)) lab = k.toUpperCase()
-    return '<button type="button" class="' + cls + '" data-k="' + esc(k) + '">' + esc(lab) + '</button>'
+    // 第二行左右缩进半格，和真键盘一样错开
+    var pad = /^~/.test(raw) ? ' kb-indent-l' : /~$/.test(raw) ? ' kb-indent-r' : ''
+    return '<button type="button" class="' + cls + pad + '" style="flex-grow:' + grow + '" data-k="' + esc(k) + '" aria-label="' + esc(lab) + '">' + esc(lab) + '</button>'
   }
   function drawKb() {
     if (!kb) {
@@ -80,8 +96,10 @@
       kb.addEventListener('click', function (e) { e.preventDefault() })
       document.body.appendChild(kb)
     }
-    kb.innerHTML = '<div class="kb-bar"><span>内置键盘</span><button type="button" class="kb-hide" data-k="hide">完成</button></div>' +
-      ROWS[layer].map(function (r) { return '<div class="kb-row">' + (typeof r === 'string' ? r.split('') : r).map(keyHTML).join('') + '</div>' }).join('')
+    var T = tablet(), rows = ROWS[T ? 'tablet' : 'phone'][layer]
+    kb.classList.toggle('kb-tablet', T)
+    kb.innerHTML = (T ? '' : '<div class="kb-bar"><button type="button" class="kb-hide" data-k="hide">收起键盘</button></div>') +
+      rows.map(function (r) { return '<div class="kb-row">' + r.map(keyHTML).join('') + '</div>' }).join('')
   }
   function insert(txt) {
     var el = cur; if (!el) return
@@ -217,7 +235,7 @@
 
   /* ---------- 做题页顶部的「键盘」切换 ---------- */
   function button() {
-    if (!touch) return ''
+    return ''
     var b = mode() === 'builtin'
     return '<button type="button" class="pq-ghost kb-switch" data-kb-switch aria-label="切换键盘：现在是' + (b ? '内置键盘' : '系统键盘') + '">' + (b ? '内置键盘' : '系统键盘') + '</button>'
   }
