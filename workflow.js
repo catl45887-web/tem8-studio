@@ -123,6 +123,7 @@
     if(!isAnswered(it,answers))return it.kind==='choice'&&it.answer===undefined?'na':it.kind==='blank'&&(!it.answer||cjkAns(it.answer))?'na':(it.kind==='choice'||it.kind==='blank')?'none':'none'
     if(it.kind==='choice')return it.answer===undefined?'na':v===it.answer?'ok':'bad'
     if(it.kind==='blank'){if(!it.answer||cjkAns(it.answer))return 'self';return okBlank(it.answer,v)?'ok':'bad'}
+    if(it.kind==='line'&&it.fix&&window.TEM8_PROOFPTS)return window.TEM8_PROOFPTS.judge(it,answers)
     return 'self'
   }
   const gradable=it=>(it.kind==='choice'&&it.answer!==undefined)||(it.kind==='blank'&&it.answer&&!cjkAns(it.answer))
@@ -867,7 +868,7 @@
     }
     if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${lk(it.prompt)}</p><div class="pq-analysis">${myEvid(it,run)}${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
     if(it.kind==='line'){const pp=window.TEM8_PROOFPTS?.rowExtra(it,v)||{chip:'',body:''}
-      return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span>${pp.chip}</summary>${pp.hasLine?'':`<p class="wf-prompt">${escape(it.row)}</p>`}${pp.body}${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}${qbox(it,run)}</details>`}
+      return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span>${pp.chip}</summary>${pp.hasLine?'':`<p class="wf-prompt">${escape(it.row)}</p>`}${pp.body}${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}${qbox(it,run)}</details>`}
     return ''
   }
   /* 翻译、写作：参考对照 + 自评 */
@@ -892,6 +893,7 @@
   }
   function renderReport(){
     const run=lastRun;if(!run)return
+    if(window.TEM8_PROOFPTS)for(const g of run.groups)if(g.kind==='language')window.TEM8_PROOFPTS.recordItems(gItems(g),run.answers,run.finishedAt)
     const st=stats(run)
     const hist=load().history||[]
     const prev=[...hist].reverse().find(h=>h.finishedAt<run.finishedAt&&sig(h)===sig(run))
@@ -907,13 +909,15 @@
     const obj=secs.filter(x=>!x.long)
     const selfN=obj.reduce((n,x)=>n+x.c.self,0)
     const wrongN=st.wrong.length,noneN=st.none.length
+    const langIts=secs.filter(x=>x.g.kind==='language').flatMap(x=>x.its),langN=langIts.length,langOk=langIts.filter(it=>grade(it,run.answers)==='ok').length,onlyLang=!st.gradable.length&&langN>0
+    const hT=onlyLang?langN:st.gradable.length,hOk=onlyLang?langOk:st.ok,hBad=onlyLang?langIts.filter(it=>grade(it,run.answers)==='bad').length:wrongN,hNone=onlyLang?langIts.filter(it=>grade(it,run.answers)==='none').length:noneN,hPct=onlyLang?(hOk+hBad?Math.round(hOk/(hOk+hBad)*100):null):st.pct
     const lbl=x=>escape(groupLabel(x.g))
     // 1 成绩卡
     const hero=obj.length?`<section class="rp-hero">
-      <div class="rp-score"><div class="rp-big"><b>${st.ok}</b><span>/ ${st.gradable.length}</span></div><p>客观题答对</p><div class="rp-meter" aria-hidden="true"><i class="ok" style="width:${st.gradable.length?st.ok/st.gradable.length*100:0}%"></i><i class="bad" style="width:${st.gradable.length?wrongN/st.gradable.length*100:0}%"></i></div></div>
-      <dl class="rp-kpi"><div><dt>答错</dt><dd class="bad">${wrongN}</dd></div><div><dt>未作答</dt><dd>${noneN}</dd></div><div><dt>已答正确率</dt><dd>${st.pct==null?'—':st.pct+'%'}${diff!=null?`<small class="${diff>0?'up':diff<0?'down':''}">${diff>0?'+':''}${diff}%</small>`:''}</dd></div><div><dt>用时</dt><dd>${m}′${String(sec).padStart(2,'0')}″</dd></div></dl>
+      <div class="rp-score"><div class="rp-big"><b>${onlyLang?langOk:st.ok}</b><span>/ ${onlyLang?langN:st.gradable.length}</span></div><p>${onlyLang?'改错改对':'客观题答对'}</p><div class="rp-meter" aria-hidden="true"><i class="ok" style="width:${hT?hOk/hT*100:0}%"></i><i class="bad" style="width:${hT?hBad/hT*100:0}%"></i></div></div>
+      <dl class="rp-kpi"><div><dt>答错</dt><dd class="bad">${hBad}</dd></div><div><dt>未作答</dt><dd>${hNone}</dd></div><div><dt>已答正确率</dt><dd>${hPct==null?'—':hPct+'%'}${!onlyLang&&diff!=null?`<small class="${diff>0?'up':diff<0?'down':''}">${diff>0?'+':''}${diff}%</small>`:''}</dd></div><div><dt>用时</dt><dd>${m}′${String(sec).padStart(2,'0')}″</dd></div></dl>
     </section>
-    ${selfN||secs.some(x=>x.long)?`<p class="rp-note">${selfN?`另有 ${selfN} 题（简答、改错等）需要对照答案自查，`:''}${secs.some(x=>x.long)?'翻译、写作在最下面对照参考自评，':''}都不计入上面的分数。</p>`:''}`:`<p class="rp-note">用时 ${m} 分 ${sec} 秒。</p>`
+    ${selfN||secs.some(x=>x.long)||secs.some(x=>x.g.kind==='language')?`<p class="rp-note">${secs.some(x=>x.g.kind==='language')?(onlyLang?'改错按答案自动判定，判得不对可以在解析里改。':'改错按答案自动判定，判得不对可以在解析里改，'):''}${selfN?`另有 ${selfN} 题（简答等）需要对照答案自查，`:''}${secs.some(x=>x.long)?'翻译、写作在最下面对照参考自评，':''}${onlyLang?'':'都不计入上面的分数。'}</p>`:''}`:`<p class="rp-note">用时 ${m} 分 ${sec} 秒。</p>`
     // 2 分项表
     const table=obj.length?`<section class="rp-card"><h2>各部分</h2><table class="rp-table"><thead><tr><th>部分</th><th>对</th><th>错</th><th>未答</th>${selfN?'<th>自查</th>':''}<th class="rp-th-bar"><span class="sr">比例</span></th></tr></thead><tbody>${obj.map(x=>{const t=x.its.length||1
       return `<tr><th scope="row">${lbl(x)}</th><td class="ok">${x.c.ok}</td><td class="bad">${x.c.bad}</td><td>${x.c.none}</td>${selfN?`<td>${x.c.self}</td>`:''}<td class="rp-bar"><span><i class="ok" style="width:${x.c.ok/t*100}%"></i><i class="bad" style="width:${x.c.bad/t*100}%"></i><i class="self" style="width:${x.c.self/t*100}%"></i></span></td></tr>`}).join('')}</tbody></table></section>`:''
@@ -925,7 +929,6 @@
     const detail=secs.map(x=>{
       if(x.long)return selfEval(x.g,run)
       const PP=x.g.kind==='language'&&window.TEM8_PROOFPTS
-      if(PP)PP.recordItems(x.its,run.answers,run.finishedAt)
       const head=[x.c.bad?`<em class="bad">错 ${x.c.bad}</em>`:'',x.c.ok?`对 ${x.c.ok}`:'',x.c.none?`未答 ${x.c.none}`:'',x.c.self?`自查 ${x.c.self}`:''].filter(Boolean).join(' · ')
       return `<details class="rp-sec" ${x.c.bad||x.c.self?'open':''}><summary><b>${lbl(x)}</b><span>${head}</span></summary>
         ${PP?PP.sectionHTML(x.g.year,x.its,'sum'):''}

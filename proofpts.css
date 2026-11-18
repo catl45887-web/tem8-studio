@@ -87,3 +87,8 @@ mark.pp-ins{background:none;box-shadow:none}
 .pp-order li div{grid-template-columns:5em minmax(0,1fr) auto;align-items:baseline;gap:4px 12px;width:100%}
 .pp-order small{text-align:right;white-space:nowrap}
 @media(max-width:700px){.pp-order li div{grid-template-columns:4.2em minmax(0,1fr)}.pp-order small{grid-column:2;text-align:left;white-space:normal}}
+.pp-why{margin:0 0 14px;font-size:12px;line-height:1.7;color:var(--muted)}
+.pp-lock{font-size:12px;color:var(--muted);padding:8px 10px;border:1px dashed var(--line);border-radius:8px}
+.pp-fold>summary{flex-wrap:wrap}
+.pp-fold>summary small{flex:1 1 12em}
+@media(max-width:700px){.pp-order li{align-items:flex-start}.pp-order li>b{margin-top:1px}}
