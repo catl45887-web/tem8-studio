@@ -150,7 +150,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What is mainly discussed on the show?",
           "answer": 2,
-          "analysis": "【详解】本题问节目主要讨论的内容。访谈开头，主持人提到嘉宾 Nelson 拥有多重身份，紧接着明确指出“今天我们要和他谈谈他的写作(talk to him about his writing)”，随后的访谈内容也围绕其第一部作品、灵感来源、剧本推广及角色创作展开。因此，本访谈的主题是作为作家的 Nelson。故选 C 项。\n【干扰排除】A 项提到的“导演”、B 项提到的“教师”和 D 项提到的“演员”虽然都是 Nelson 的身份，但都不是本次访谈的重点。"
+          "analysis": "【详解】本题问节目主要讨论的内容。访谈开头，主持人提到嘉宾 Nelson 拥有多重身份，紧接着明确指出“今天我们要和他谈谈他的写作(talk to him about his writing)”，随后的访谈内容也围绕其第一部作品、灵感来源、剧本推广及角色创作展开。因此，本访谈的主题是作为作家的 Nelson。故选 C 项。【干扰排除】A 项提到的“导演”、B 项提到的“教师”和 D 项提到的“演员”虽然都是 Nelson 的身份，但都不是本次访谈的重点。"
         },
         {
           "number": 2,
@@ -163,7 +163,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What happened to the first story the man wrote?",
           "answer": 0,
-          "analysis": "【详解】本题问男士写的第一个故事发生了什么。男士回忆说他 11 岁时在笔记本上写了 50 多页的小说开头，并保存在抽屉里，但随后说“不知怎么，它丢了(it got lost)，我完全不知道发生了什么”。这对应 A 项“无处可寻”。\n【干扰排除】B 项“仍在抽屉里”和 D 项“很久以前出版了”与录音中的 lost 矛盾。C 项“完成了”错误，录音说他只写了小说的开头(beginning of a novel)。"
+          "analysis": "【详解】本题问男士写的第一个故事发生了什么。男士回忆说他 11 岁时在笔记本上写了 50 多页的小说开头，并保存在抽屉里，但随后说“不知怎么，它丢了(it got lost)，我完全不知道发生了什么”。这对应 A 项“无处可寻”。【干扰排除】B 项“仍在抽屉里”和 D 项“很久以前出版了”与录音中的 lost 矛盾。C 项“完成了”错误，录音说他只写了小说的开头(beginning of a novel)。"
         },
         {
           "number": 3,
@@ -176,7 +176,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What inspired the man most in his creative writing?",
           "answer": 1,
-          "analysis": "【详解】本题问对男士的创作启发最大的是什么。男士列举了希腊神话、经典文学和电影等启发他创作的灵感来源，但最后强调“希腊神话对我影响最深(Greek mythology still impresses me the most)”，故选 B 项。\n【干扰排除】A 项“现代文学”被男士明确否定，他表示自己“读任何现代作品(don't read anything “modern”)”。C 项“经典文学”和 D 项“电影”虽对他有启发，但程度不及希腊神话。"
+          "analysis": "【详解】本题问对男士的创作启发最大的是什么。男士列举了希腊神话、经典文学和电影等启发他创作的灵感来源，但最后强调“希腊神话对我影响最深(Greek mythology still impresses me the most)”，故选 B 项。【干扰排除】A 项“现代文学”被男士明确否定，他表示自己“读任何现代作品(don't read anything “modern”)”。C 项“经典文学”和 D 项“电影”虽对他有启发，但程度不及希腊神话。"
         },
         {
           "number": 4,
@@ -189,7 +189,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "According to the man, what influences the characters he created?",
           "answer": 2,
-          "analysis": "【详解】本题问男士创作的角色受什么影响。男士表示他认为或遇见的每一个人(Every person I know... or even run into)、家人、朋友、伴侣等都会影响他创作的角色。这对应 C 项“周围的人”。\n【干扰排除】A 项“他的教学经历”和 B 项“他的表演经历”在录音中仅与其身份有关，并未说明对他笔下的角色有直接影响。D 项“有趣的事件”虽复现录音中的 interest，但男士的论述重点始终落在“人”而不是“事件(incidents)”。"
+          "analysis": "【详解】本题问男士创作的角色受什么影响。男士表示他认为或遇见的每一个人(Every person I know... or even run into)、家人、朋友、伴侣等都会影响他创作的角色。这对应 C 项“周围的人”。【干扰排除】A 项“他的教学经历”和 B 项“他的表演经历”在录音中仅与其身份有关，并未说明对他笔下的角色有直接影响。D 项“有趣的事件”虽复现录音中的 interest，但男士的论述重点始终落在“人”而不是“事件(incidents)”。"
         },
         {
           "number": 5,
@@ -202,7 +202,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "According to the man, which of the following is true about the characters he created?",
           "answer": 3,
-          "analysis": "【详解】本题问关于男士创作的角色，哪项陈述是正确的。男士讲述了 his 对角色极高的情感投入，称“在创作期间，他们一直和我生活在一起(they live with me the entire time)”，即便在聚会或约会时，他也会思考角色会有什么反应。这里“生活在一起”并非现实状态，而是思维意识层面的状态，对应 D 项“角色虚拟地(virtually)与他生活在一起”。\n【干扰排除】A 项“角色出现在梦里”与录音矛盾，男士明确说“除了睡觉时(except when I sleep)”，角色都在他周围。B 项“角色与他交流”和 C 项“角色像他的朋友”是对 live with me 的过度解读，男士的意思是角色在思想上如影随形。"
+          "analysis": "【详解】本题问关于男士创作的角色，哪项陈述是正确的。男士讲述了 his 对角色极高的情感投入，称“在创作期间，他们一直和我生活在一起(they live with me the entire time)”，即便在聚会或约会时，他也会思考角色会有什么反应。这里“生活在一起”并非现实状态，而是思维意识层面的状态，对应 D 项“角色虚拟地(virtually)与他生活在一起”。【干扰排除】A 项“角色出现在梦里”与录音矛盾，男士明确说“除了睡觉时(except when I sleep)”，角色都在他周围。B 项“角色与他交流”和 C 项“角色像他的朋友”是对 live with me 的过度解读，男士的意思是角色在思想上如影随形。"
         },
         {
           "number": 6,
@@ -215,7 +215,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What does the man say about writing an outline?",
           "answer": 2,
-          "analysis": "【详解】本题问男士对写大纲的看法。男士表示自己有时候会写，但他并不特别喜欢写大纲，只是“某些故事需要它(certain stories demand it)”。这意味着是否写大纲取决于创作内容的类型，故选 C 项。\n【干扰排除】A 项“进行创意写作时没必要写”和 B 项“创意写作而言必不可少”都过于绝对，不符合录音中“有时会写(Sometimes)”的描述。D 项“取决于角色类型”没有依据，录音强调的是“故事(stories)”类型，而非“角色”。"
+          "analysis": "【详解】本题问男士对写大纲的看法。男士表示自己有时候会写，但他并不特别喜欢写大纲，只是“某些故事需要它(certain stories demand it)”。这意味着是否写大纲取决于创作内容的类型，故选 C 项。【干扰排除】A 项“进行创意写作时没必要写”和 B 项“创意写作而言必不可少”都过于绝对，不符合录音中“有时会写(Sometimes)”的描述。D 项“取决于角色类型”没有依据，录音强调的是“故事(stories)”类型，而非“角色”。"
         },
         {
           "number": 7,
@@ -228,7 +228,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What makes the man know his writing process goes wrong?",
           "answer": 3,
-          "analysis": "【详解】本题问男士如何判断创作过程出了问题。男士提到，如果角色不能“自己开口”(speak for themselves)，那他肯定做错了。角色能“自己开口”意味着其言行符合自身逻辑，情感自然流露，故角色不能“自己开口”就意味着其无法自然流露情感，D 项“角色不再自然地开口”符合此义。\n【干扰排除】A 项“角色开始倒退发展”张冠李戴，录音中 backwards 描述的是电影结构，而非角色。B 项“角色在外形上有独特特点”和 C 项“角色表现出怪癖”虽与营造一个 great character“角色构建”有关，但均不是判断创作出错的标准。"
+          "analysis": "【详解】本题问男士如何判断创作过程出了问题。男士提到，如果角色不能“自己开口”(speak for themselves)，那他肯定做错了。角色能“自己开口”意味着其言行符合自身逻辑，情感自然流露，故角色不能“自己开口”就意味着其无法自然流露情感，D 项“角色不再自然地开口”符合此义。【干扰排除】A 项“角色开始倒退发展”张冠李戴，录音中 backwards 描述的是电影结构，而非角色。B 项“角色在外形上有独特特点”和 C 项“角色表现出怪癖”虽与营造一个 great character“角色构建”有关，但均不是判断创作出错的标准。"
         },
         {
           "number": 8,
@@ -241,7 +241,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What does the man usually do as a daily routine while writing?",
           "answer": 0,
-          "analysis": "【详解】本题问男士写作期间的日常习惯。男士明确说“很大一部分是锻炼(Working out is a huge part of it)”，并具体提到了拳击和瑜伽。A 项中的 does physical exercise 也表示锻炼，与录音中的 Working out 同义。\n【干扰排除】B 项“他每天慢跑”错误，男士明确说“不怎么喜欢慢跑(not very fond of jogging)”。C 项“创作音乐”错误，他只是“听(listening)”音乐。D 项“定期给朋友打电话”与男士说的写作时会“关掉手机(turning it off)”矛盾。"
+          "analysis": "【详解】本题问男士写作期间的日常习惯。男士明确说“很大一部分是锻炼(Working out is a huge part of it)”，并具体提到了拳击和瑜伽。A 项中的 does physical exercise 也表示锻炼，与录音中的 Working out 同义。【干扰排除】B 项“他每天慢跑”错误，男士明确说“不怎么喜欢慢跑(not very fond of jogging)”。C 项“创作音乐”错误，他只是“听(listening)”音乐。D 项“定期给朋友打电话”与男士说的写作时会“关掉手机(turning it off)”矛盾。"
         },
         {
           "number": 9,
@@ -254,7 +254,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "How does the man get over writer's block?",
           "answer": 1,
-          "analysis": "【详解】本题问男士如何克服写作障碍。男士列举了多种方法，但最后强调“真正对他起作用的是独自在森林里露营几天(camping a few days alone in the woods)”，故选 B 项“独自露营”。\n【干扰排除】A 项“在纸上写作”、C 项“保持严格作息”和 D 项“与同事合作”都是男士尝试过但并未强调为“最终奏效”的方法。"
+          "analysis": "【详解】本题问男士如何克服写作障碍。男士列举了多种方法，但最后强调“真正对他起作用的是独自在森林里露营几天(camping a few days alone in the woods)”，故选 B 项“独自露营”。【干扰排除】A 项“在纸上写作”、C 项“保持严格作息”和 D 项“与同事合作”都是男士尝试过但并未强调为“最终奏效”的方法。"
         },
         {
           "number": 10,
@@ -267,7 +267,7 @@ window.TEM8_LISTENING_2026 = {
           ],
           "prompt": "What is the man's working habit?",
           "answer": 0,
-          "analysis": "【详解】本题问男士的工作习惯。男士直言“我喜欢独处并独自工作(I like being alone and working alone)”，故选 A 项“他喜欢独自工作”。\n【干扰排除】B 项“他喜欢让自己感到孤独”错误，男士享受的是“独处(alone)”而非负面的“孤独(lonely)”。C 项的“讨论”和 D 项的“在办公室工作”只是他在提到办公室工作时的细节信息，但他本人更倾向于目前的独立工作模式。"
+          "analysis": "【详解】本题问男士的工作习惯。男士直言“我喜欢独处并独自工作(I like being alone and working alone)”，故选 A 项“他喜欢独自工作”。【干扰排除】B 项“他喜欢让自己感到孤独”错误，男士享受的是“独处(alone)”而非负面的“孤独(lonely)”。C 项的“讨论”和 D 项的“在办公室工作”只是他在提到办公室工作时的细节信息，但他本人更倾向于目前的独立工作模式。"
         }
       ]
     }

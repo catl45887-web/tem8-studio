@@ -178,7 +178,7 @@ window.TEM8_PAPER_EXTRAS = {
         ""
       ],
       [
-        "but rather that cultures are a natural byproduct of social interaction.",
+        "but rather than that cultures are a natural byproduct of social interaction.",
         "(8) ________"
       ],
       [

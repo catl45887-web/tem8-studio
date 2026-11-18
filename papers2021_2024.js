@@ -555,7 +555,7 @@ window.TEM8_MID_QUESTIONS = [
    "Non-human creatures are different in vocal tracts."
   ],
   "answer": 3,
-  "analysis": "【定位】题目指明是第2段。\n【详解】第2段中，两次尝试都未能让黑猩猩成功“说话”,这主要是因为非人灵长类动物并没有适合发出语音的声道生理结构(non-human primates do not actually have a physically structured vocal tract)。D项 “非人类生物在声道结构上与人类存在差异”与原文意思相符，Non-human creatures对应原文non-human primates, vocal tract为原文重现。\n【干扰排除】文中只有黑猩猩Gua和人类孩子一起长大，Viki只是被当成人类孩子一样抚养(as if she were a human child),文章并未明确表明黑猩猩必须与人类孩子一起抚养才能学习语言，故排除A项。尽管尝试改变口型帮助 Viki “说”出了一些词，但结果并不理想，故排除B项“口型塑造在语言学习中是关键”。文中完全未提及实验的时间长度对结果有什么影响，故排除C项“时间长度是实验中的一个重要因素”。"
+  "analysis": "【定位】题目指明是第2段。【详解】第2段中，两次尝试都未能让黑猩猩成功“说话”,这主要是因为非人灵长类动物并没有适合发出语音的声道生理结构(non-human primates do not actually have a physically structured vocal tract)。D项 “非人类生物在声道结构上与人类存在差异”与原文意思相符，Non-human creatures对应原文non-human primates, vocal tract为原文重现。【干扰排除】文中只有黑猩猩Gua和人类孩子一起长大，Viki只是被当成人类孩子一样抚养(as if she were a human child),文章并未明确表明黑猩猩必须与人类孩子一起抚养才能学习语言，故排除A项。尽管尝试改变口型帮助 Viki “说”出了一些词，但结果并不理想，故排除B项“口型塑造在语言学习中是关键”。文中完全未提及实验的时间长度对结果有什么影响，故排除C项“时间长度是实验中的一个重要因素”。"
  },
  {
   "number": 12,
@@ -569,7 +569,7 @@ window.TEM8_MID_QUESTIONS = [
    "They were non-human primates for experiments."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干中的Washoe and Sarah 可定位至第3、4段。\n【详解】从第3、4段可以看出，Washoe和Sarah被抚养的环境完全不同。Washoe像人类孩子一样在舒适的家庭环境中被抚养(raised Washoe like a human chid... domestic environment),而Sarah则在笼子里 (remained an animal in a cage)被训练。因此，B项“它们在类似的环境中得到抚养”不正确。\n【干扰排除】第4段第3句明确提到了两组实验的训练方式截然不同，故排除A项“它们的教学方法不一样”。文中明确提到Washoe和Sarah都有创新的表达方式，对应原文Some of the forms appear to have been inventions by Washoe和Sarah was also capable of producing “sentences”,故排除C项“它们在表达上有一定的创新性”。D项“它们是用于实验的非人灵长类动物”也是正确的说法，第3、4段描述的就是对这两只黑猩猩进行的实验。"
+  "analysis": "【定位】根据题干中的Washoe and Sarah 可定位至第3、4段。【详解】从第3、4段可以看出，Washoe和Sarah被抚养的环境完全不同。Washoe像人类孩子一样在舒适的家庭环境中被抚养(raised Washoe like a human chid... domestic environment),而Sarah则在笼子里 (remained an animal in a cage)被训练。因此，B项“它们在类似的环境中得到抚养”不正确。【干扰排除】第4段第3句明确提到了两组实验的训练方式截然不同，故排除A项“它们的教学方法不一样”。文中明确提到Washoe和Sarah都有创新的表达方式，对应原文Some of the forms appear to have been inventions by Washoe和Sarah was also capable of producing “sentences”,故排除C项“它们在表达上有一定的创新性”。D项“它们是用于实验的非人灵长类动物”也是正确的说法，第3、4段描述的就是对这两只黑猩猩进行的实验。"
  },
  {
   "number": 13,
@@ -583,7 +583,7 @@ window.TEM8_MID_QUESTIONS = [
    "“Mary give chocolate Sarah” (Sarah)."
   ],
   "answer": 3,
-  "analysis": "【定位】根据题干中的a conditioned response to human cues和选项可定位至第2~5段。\n【详解】题干关键词a conditioned response to human cues出现在第5段最后一句，意思是“对人类信号的条件反射”,即只是对人们要求做出反应(produce signs in response to the demands of people),而不是真正参与“对话”(taking part in a “conversation”)。Sarah通过食物奖励来训练，学会将形状与物体或动作联系起来。在Sarah的实验中，食物奖励即human cues,所以Sarah在表达Mary give chocolate Sarah的句子只是为获得食物奖励做出的条件反射，并非理解后创造出来的句子，故选D项。\n【干扰排除】mama、cup等词是Viki在科学家调整了其发音嘴型后说出来的，而不是受提示做出的条件反射，排除A 项。Washoe的“open food drink”和water bird是其自发创造性的表达，它的训练过程也没有出现human cues,故排除B、C项。"
+  "analysis": "【定位】根据题干中的a conditioned response to human cues和选项可定位至第2~5段。【详解】题干关键词a conditioned response to human cues出现在第5段最后一句，意思是“对人类信号的条件反射”,即只是对人们要求做出反应(produce signs in response to the demands of people),而不是真正参与“对话”(taking part in a “conversation”)。Sarah通过食物奖励来训练，学会将形状与物体或动作联系起来。在Sarah的实验中，食物奖励即human cues,所以Sarah在表达Mary give chocolate Sarah的句子只是为获得食物奖励做出的条件反射，并非理解后创造出来的句子，故选D项。【干扰排除】mama、cup等词是Viki在科学家调整了其发音嘴型后说出来的，而不是受提示做出的条件反射，排除A 项。Washoe的“open food drink”和water bird是其自发创造性的表达，它的训练过程也没有出现human cues,故排除B、C项。"
  },
  {
   "number": 14,
@@ -597,7 +597,7 @@ window.TEM8_MID_QUESTIONS = [
    "Animals and human behavior."
   ],
   "answer": 2,
-  "analysis": "【定位】全文。\n【详解】本文从多个角度探讨了动物(主要是黑猩猩)是否能理解和使用人类语言，以及人类如何尝试教导动物使用人类语言。因此，文章的主题是C项“动物与人类语言”。文章的最后一段也指出了人类语言的独特性和复杂性，进一步证实了这一主题。\n【干扰排除】本文探讨的是动物能否使用人类的语言，而没有探讨动物自己的语言，故排除A项“动物行为与语言”和 B项“动物交流系统”。文章讨论的重点是语言，而非行为，故排除D项“动物与人类行为”。"
+  "analysis": "【定位】全文。【详解】本文从多个角度探讨了动物(主要是黑猩猩)是否能理解和使用人类语言，以及人类如何尝试教导动物使用人类语言。因此，文章的主题是C项“动物与人类语言”。文章的最后一段也指出了人类语言的独特性和复杂性，进一步证实了这一主题。【干扰排除】本文探讨的是动物能否使用人类的语言，而没有探讨动物自己的语言，故排除A项“动物行为与语言”和 B项“动物交流系统”。文章讨论的重点是语言，而非行为，故排除D项“动物与人类行为”。"
  },
  {
   "number": 15,
@@ -611,7 +611,7 @@ window.TEM8_MID_QUESTIONS = [
    "The team began exploring the ship wreck soon after its discovery."
   ],
   "answer": 0,
-  "analysis": "【定位】根据选项的相关表述及出题顺序，定位到第1、2段。\n【详解】第2段第1句中，Harris和一支考古学家小队在2010年发现了“调查者号”,而他们对这艘沉船进行潜水、研究和记录则是在2011年。由此可见，A项“对沉船进行作业是在团队的第二次探访中开始的”表述正确，故为答案，同时排除D项“在发现沉船后不久，团队就开始了探索”。\n【干扰排除】第2段最后一句提到了original plan “最初的计划”,其具体内容在上一句：考古学家们原本打算将沉船及其文物留在原地(leave... its artifacts where they had lain),可见B项“最初的计划是探索这艘船并找回文物”表述错误。第1段第3句提到，Harris周围有十几个红黄拼色的帐篷沿着海岸线一字排开，结合第5段倒数第3句可知，这些居民社区虽然是离他们最近的，但实际距离还是比较远(125英里),可见Harris团队并不是在当地居民社区附近过夜，排除C项。"
+  "analysis": "【定位】根据选项的相关表述及出题顺序，定位到第1、2段。【详解】第2段第1句中，Harris和一支考古学家小队在2010年发现了“调查者号”,而他们对这艘沉船进行潜水、研究和记录则是在2011年。由此可见，A项“对沉船进行作业是在团队的第二次探访中开始的”表述正确，故为答案，同时排除D项“在发现沉船后不久，团队就开始了探索”。【干扰排除】第2段最后一句提到了original plan “最初的计划”,其具体内容在上一句：考古学家们原本打算将沉船及其文物留在原地(leave... its artifacts where they had lain),可见B项“最初的计划是探索这艘船并找回文物”表述错误。第1段第3句提到，Harris周围有十几个红黄拼色的帐篷沿着海岸线一字排开，结合第5段倒数第3句可知，这些居民社区虽然是离他们最近的，但实际距离还是比较远(125英里),可见Harris团队并不是在当地居民社区附近过夜，排除C项。"
  },
  {
   "number": 16,
@@ -625,7 +625,7 @@ window.TEM8_MID_QUESTIONS = [
    "It got stuck in ice and was later abandoned."
   ],
   "answer": 3,
-  "analysis": "【定位】全文。\n【详解】第4段第3句提到，“调查者号”在默西湾被冰封住了(it was set upon by ice in Mercy Bay),随后第5句提及船上的人们在1853年春天意外获救(a surprising rescue)。因此可以看出，D项“它被冰困住，后来被遗弃了”是对“调查者号”的正确描述。\n【干扰排除】第4段第2句指出，“调查者号”最初被派去寻找和营救“幽冥号”和“惊恐号”,而不是被派去发现一条新的海上通道，排除A项。第5段第1句提到Harris发现“调查者号”实际上仅耗了几分钟(just a few minutes),B项“对它的实际发现耗费了大量时间”与之相悖。第4段第3句提到，“调查者号”的航行没能发现富兰克林的船只或船员的任何踪迹或消息(without sight or word of...),可见它并没有与“幽冥号”和“惊恐号”取得联系，排除C项。"
+  "analysis": "【定位】全文。【详解】第4段第3句提到，“调查者号”在默西湾被冰封住了(it was set upon by ice in Mercy Bay),随后第5句提及船上的人们在1853年春天意外获救(a surprising rescue)。因此可以看出，D项“它被冰困住，后来被遗弃了”是对“调查者号”的正确描述。【干扰排除】第4段第2句指出，“调查者号”最初被派去寻找和营救“幽冥号”和“惊恐号”,而不是被派去发现一条新的海上通道，排除A项。第5段第1句提到Harris发现“调查者号”实际上仅耗了几分钟(just a few minutes),B项“对它的实际发现耗费了大量时间”与之相悖。第4段第3句提到，“调查者号”的航行没能发现富兰克林的船只或船员的任何踪迹或消息(without sight or word of...),可见它并没有与“幽冥号”和“惊恐号”取得联系，排除C项。"
  },
  {
   "number": 17,
@@ -639,7 +639,7 @@ window.TEM8_MID_QUESTIONS = [
    "They had no idea what those artifacts were used for on board."
   ],
   "answer": 2,
-  "analysis": "【定位】题目指明是第7段。\n【详解】第7段提到，Bernier他们没有预料到文物的数量(the number of artifacts),所以才要随机应变，而第 6段最后一句指出，打捞沉船遗物用光了他们的工具包，可见文物的数量非常多，因此C项“他们没有适当的工具来发掘这么多文物”是Bernier提到要随机应变的原因。\n【干扰排除】第6段第1句提到考古学家对恶劣天气有所准备，所以这不是需要随机应变的原因，排除A项。文章没有提及考古学家有多少时间来收拾和固定这些文物，B项中的had little time没有依据。第3段第1句已明确提到文物的种类(musket, shoes...),因此D项“他们不知道这些文物在船上是用来做什么的”表述有误。"
+  "analysis": "【定位】题目指明是第7段。【详解】第7段提到，Bernier他们没有预料到文物的数量(the number of artifacts),所以才要随机应变，而第 6段最后一句指出，打捞沉船遗物用光了他们的工具包，可见文物的数量非常多，因此C项“他们没有适当的工具来发掘这么多文物”是Bernier提到要随机应变的原因。【干扰排除】第6段第1句提到考古学家对恶劣天气有所准备，所以这不是需要随机应变的原因，排除A项。文章没有提及考古学家有多少时间来收拾和固定这些文物，B项中的had little time没有依据。第3段第1句已明确提到文物的种类(musket, shoes...),因此D项“他们不知道这些文物在船上是用来做什么的”表述有误。"
  },
  {
   "number": 18,
@@ -653,7 +653,7 @@ window.TEM8_MID_QUESTIONS = [
    "Inefficient."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干中的the archaeologists' way of protecting the retrieved artifacts定位到第8段。\n【详解】第8段的前3句都在描述考古学家如何打捞文物，其中第1句提到用一个黑色大储藏箱的盖子(a large black storage case)来装火枪，第2句提到用一个装食物的冷藏箱(A large food cooler)来装铜船壳，第3句则提到用复杂的方式来打捞一块脆弱的长方形镶嵌毡。整体来看，由于缺乏工具，考古人员只能随机应变，因此他们所运用的打捞方式都比较新颖、非传统。选项中只有B项“新颖的”符合文章逻辑。\n【干扰排除】A“不可思议的”、C项“可想象的”和D项“效率低下的”都无法概括考古学家打捞文物所用方式的特点，故排除。"
+  "analysis": "【定位】根据题干中的the archaeologists' way of protecting the retrieved artifacts定位到第8段。【详解】第8段的前3句都在描述考古学家如何打捞文物，其中第1句提到用一个黑色大储藏箱的盖子(a large black storage case)来装火枪，第2句提到用一个装食物的冷藏箱(A large food cooler)来装铜船壳，第3句则提到用复杂的方式来打捞一块脆弱的长方形镶嵌毡。整体来看，由于缺乏工具，考古人员只能随机应变，因此他们所运用的打捞方式都比较新颖、非传统。选项中只有B项“新颖的”符合文章逻辑。【干扰排除】A“不可思议的”、C项“可想象的”和D项“效率低下的”都无法概括考古学家打捞文物所用方式的特点，故排除。"
  },
  {
   "number": 19,
@@ -667,7 +667,7 @@ window.TEM8_MID_QUESTIONS = [
    "how the artifacts were protected"
   ],
   "answer": 0,
-  "analysis": "【定位】题目指明是最后一段。\n【详解】最后一段并未提及文物的制作者，故选A项“谁制作了这些文物”。\n【干扰排除】最后一段具体指出打捞了哪些文物(a.. musket、copper sheathing、a… encrusted felt),用哪些物品来对其进行保护，以及打捞的文物被运送到渥太华的加拿大公园管理局文物保护实验室(the Parks Canada conservation lab in Ottawa),故B项“文物被送往何处”、C项“发现了哪些文物”和D项“如何保护这些文物”均在最后一段提及，应排除。"
+  "analysis": "【定位】题目指明是最后一段。【详解】最后一段并未提及文物的制作者，故选A项“谁制作了这些文物”。【干扰排除】最后一段具体指出打捞了哪些文物(a.. musket、copper sheathing、a… encrusted felt),用哪些物品来对其进行保护，以及打捞的文物被运送到渥太华的加拿大公园管理局文物保护实验室(the Parks Canada conservation lab in Ottawa),故B项“文物被送往何处”、C项“发现了哪些文物”和D项“如何保护这些文物”均在最后一段提及，应排除。"
  },
  {
   "number": 20,
@@ -681,7 +681,7 @@ window.TEM8_MID_QUESTIONS = [
    "aspiring"
   ],
   "answer": 3,
-  "analysis": "【定位】根据题干中的his mother和出题顺序定位到第2、3段。\n【详解】作者的母亲在第2段中登场，该段第3句提到作者的父母开始变得ambitious “有野心”;第3段第1句提到，这样的变化应该归咎于母亲，并且该段最后一句表明，母亲对自己无欲无求，但对父亲和作者却抱有很大的期待(incurably ambitious)。D项的aspiring与ambitious意思相近，意为“有抱负的”,故为答案。\n【干扰排除】第3段第2句提到母亲会读一点书和杂志，但这不代表她就一定知识渊博，排除A项。B项“有责任心的” 利用第3段第1句原词responsible做干扰；该句的意思是母亲需要为二人心态的变化负责，并非说母亲有责任心，排除B项。第3段第2句说母亲幻想作者成为一个统治者，这只是一个母亲对儿子的期盼，不代表她想象力丰富，排除 C项。"
+  "analysis": "【定位】根据题干中的his mother和出题顺序定位到第2、3段。【详解】作者的母亲在第2段中登场，该段第3句提到作者的父母开始变得ambitious “有野心”;第3段第1句提到，这样的变化应该归咎于母亲，并且该段最后一句表明，母亲对自己无欲无求，但对父亲和作者却抱有很大的期待(incurably ambitious)。D项的aspiring与ambitious意思相近，意为“有抱负的”,故为答案。【干扰排除】第3段第2句提到母亲会读一点书和杂志，但这不代表她就一定知识渊博，排除A项。B项“有责任心的” 利用第3段第1句原词responsible做干扰；该句的意思是母亲需要为二人心态的变化负责，并非说母亲有责任心，排除B项。第3段第2句说母亲幻想作者成为一个统治者，这只是一个母亲对儿子的期盼，不代表她想象力丰富，排除 C项。"
  },
  {
   "number": 21,
@@ -695,7 +695,7 @@ window.TEM8_MID_QUESTIONS = [
    "The expectations of the family."
   ],
   "answer": 1,
-  "analysis": "【定位】题目指明是第5段。\n【详解】第5段首先提到鸡的身上会发生很多悲惨的事情(many and tragic things);接着提到养鸡过程中的艰辛，如第2句所说的“吃掉大量父亲累死累活换来的玉米和饲料”、最后一句的“得花好多钱在杀虫药上”; 此外，养鸡过程中还会碰到不可避免的疾病和死亡威胁，如第2句提到的几种疾病、倒数第2句提到的死于车轮下等等。这一系列描述都是为了告诉读者养鸡的艰难困苦，故选B项。\n【干扰排除】A项“养鸡的具体步骤”中的specific steps并没有在原文体现，该段没有按步骤来介绍养鸡的过程。C项 “一家人的兴奋之情”中的excitement没有原文依据。第5段倒数第2句提到expectations are... aroused,但这只是为了衬托出养鸡过程中有非常多意外，让人心灰意冷，不代表“一家人的期待”,排除D项。"
+  "analysis": "【定位】题目指明是第5段。【详解】第5段首先提到鸡的身上会发生很多悲惨的事情(many and tragic things);接着提到养鸡过程中的艰辛，如第2句所说的“吃掉大量父亲累死累活换来的玉米和饲料”、最后一句的“得花好多钱在杀虫药上”; 此外，养鸡过程中还会碰到不可避免的疾病和死亡威胁，如第2句提到的几种疾病、倒数第2句提到的死于车轮下等等。这一系列描述都是为了告诉读者养鸡的艰难困苦，故选B项。【干扰排除】A项“养鸡的具体步骤”中的specific steps并没有在原文体现，该段没有按步骤来介绍养鸡的过程。C项 “一家人的兴奋之情”中的excitement没有原文依据。第5段倒数第2句提到expectations are... aroused,但这只是为了衬托出养鸡过程中有非常多意外，让人心灰意冷，不代表“一家人的期待”,排除D项。"
  },
  {
   "number": 22,
@@ -709,7 +709,7 @@ window.TEM8_MID_QUESTIONS = [
    "Their resourcefulness."
   ],
   "answer": 2,
-  "analysis": "【定位】题目指明是第6段最后一句。\n【详解】our upward journey的字面意思是“我们向上的旅程”,含有“去往更好的地方”之意。第6段第1句是主题句，表明作者一家放弃了养鸡，开始找别的出路(gave up that struggle and began another)。最后一句则提及他们前往Bidwell,怀抱着微小的希望(a tiny caravan of hope),开始他们的upward journey。结合选项，只有their ambition放在句中符合逻辑，表示“开始追求他们的人生抱负”,故选C项。\n【干扰排除】A项“他们的担忧”和B项“他们的挣扎”都属于负面的表述，与句子逻辑不符，也无法呼应该句提到的a tiny caravan of hope,故排除。D项“他们的机智”的resourcefulness在文章中无法找到对应之处。"
+  "analysis": "【定位】题目指明是第6段最后一句。【详解】our upward journey的字面意思是“我们向上的旅程”,含有“去往更好的地方”之意。第6段第1句是主题句，表明作者一家放弃了养鸡，开始找别的出路(gave up that struggle and began another)。最后一句则提及他们前往Bidwell,怀抱着微小的希望(a tiny caravan of hope),开始他们的upward journey。结合选项，只有their ambition放在句中符合逻辑，表示“开始追求他们的人生抱负”,故选C项。【干扰排除】A项“他们的担忧”和B项“他们的挣扎”都属于负面的表述，与句子逻辑不符，也无法呼应该句提到的a tiny caravan of hope,故排除。D项“他们的机智”的resourcefulness在文章中无法找到对应之处。"
  },
  {
   "number": 23,
@@ -723,7 +723,7 @@ window.TEM8_MID_QUESTIONS = [
    "Additive."
   ],
   "answer": 3,
-  "analysis": "【定位】题目指明是第7段最后两句。\n【详解】第7段最后两句的意思是“穷人会牢牢抓住拥有的一切。这是让生活如此令人失望的诸多事实之一”。后一句附加补充说明前一句，可以视作一种补充性评论，故选D项“附加的，补充的”。\n【干扰排除】这两句话并没有时间先后顺序，排除A项“时间的”。此外，后一句并不是前一句的结果，前一句也不是在举例，故排除B项“因果的”和C项“作为例证的”。"
+  "analysis": "【定位】题目指明是第7段最后两句。【详解】第7段最后两句的意思是“穷人会牢牢抓住拥有的一切。这是让生活如此令人失望的诸多事实之一”。后一句附加补充说明前一句，可以视作一种补充性评论，故选D项“附加的，补充的”。【干扰排除】这两句话并没有时间先后顺序，排除A项“时间的”。此外，后一句并不是前一句的结果，前一句也不是在举例，故排除B项“因果的”和C项“作为例证的”。"
  },
  {
   "number": 24,
@@ -737,7 +737,7 @@ window.TEM8_MID_QUESTIONS = [
    "“... a book concerning our flight from the chicken farm into town”."
   ],
   "answer": 0,
-  "analysis": "【定位】题目指明是第8、9段。\n【详解】在文章的后半部分，作者表现了他们一家的决心，表达对摆脱当前生活困境的渴望。这部分带有一种潜在的希望和乐观情绪，认为在养鸡场之外等待着他们的是更好的东西。A“……我是为了看世上的新鲜事物”捕捉到了这种希望和可能性，它表明作者不仅仅寻求逃离他们的现状，而且想体验世界的奇妙，故选A项。\n【干扰排除】B项“那会儿我已经开始读书……”的下一句是have notions of my own,说明读书让作者有了自己的想法，但与sense of hope无关。C项“我走了整整八英里……”只是描述了作者是如何去到城里的，没有透露任何关于希望的信息。D项“……有关从养鸡场逃亡到城里的过程的一本书”只是暗示这个过程可能很精彩，与对未来的希望无关。"
+  "analysis": "【定位】题目指明是第8、9段。【详解】在文章的后半部分，作者表现了他们一家的决心，表达对摆脱当前生活困境的渴望。这部分带有一种潜在的希望和乐观情绪，认为在养鸡场之外等待着他们的是更好的东西。A“……我是为了看世上的新鲜事物”捕捉到了这种希望和可能性，它表明作者不仅仅寻求逃离他们的现状，而且想体验世界的奇妙，故选A项。【干扰排除】B项“那会儿我已经开始读书……”的下一句是have notions of my own,说明读书让作者有了自己的想法，但与sense of hope无关。C项“我走了整整八英里……”只是描述了作者是如何去到城里的，没有透露任何关于希望的信息。D项“……有关从养鸡场逃亡到城里的过程的一本书”只是暗示这个过程可能很精彩，与对未来的希望无关。"
  },
  {
   "number": 25,
@@ -745,7 +745,7 @@ window.TEM8_MID_QUESTIONS = [
   "prompt": "What does “this” in Para. 1 refer to?",
   "type": "short",
   "referenceAnswer": "The view that other creatures would not be able to understand human language.",
-  "analysis": "【定位】第1段第1-2句。\n【详解】首句提出“如果人类语言的特性使之独一无二，那么其他生物似乎根本不可能理解它”这一判断；紧接着说 Some humans, however, do not behave as if this is the case（有些人的行为却不像这么回事），this 回指的就是前面那个判断，即“其他生物无法理解人类语言”。\n（注：本题解析文档中未收录，以上答案依据原文推导。）"
+  "analysis": "【定位】第1段第1-2句。【详解】首句提出“如果人类语言的特性使之独一无二，那么其他生物似乎根本不可能理解它”这一判断；紧接着说 Some humans, however, do not behave as if this is the case（有些人的行为却不像这么回事），this 回指的就是前面那个判断，即“其他生物无法理解人类语言”。（注：本题解析文档中未收录，以上答案依据原文推导。）"
  },
  {
   "number": 26,
@@ -815,7 +815,7 @@ window.TEM8_MID_QUESTIONS = [
    "It accepts medical professionals' advice."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题目中 the Australian government's response定位至第4段。\n【详解】题目问澳大利亚政府对含糖饮料税的回应是什么。第4段第1句提到澳大利亚卫生部长已经明确表态，政府不支持征收糖税，他认为有食品标签法和自愿行为守则已经足够(.. are adequate)。B项“它认为没有这样的必要”简要概括了政府的态度。\n【干扰排除】A项“它认为对食品营销而言，征税还不够”利用文中出现的food marketing、adequate制造干扰，在原文找不到相关表述。C项“它将征税视为当务之急”属于张冠李戴，由第3段可知，把征收糖税列为当务之急的是澳大利亚医学协会，而非澳大利亚政府。D项“它采纳医学专家的建议”没有原文依据。"
+  "analysis": "【定位】根据题目中 the Australian government's response定位至第4段。【详解】题目问澳大利亚政府对含糖饮料税的回应是什么。第4段第1句提到澳大利亚卫生部长已经明确表态，政府不支持征收糖税，他认为有食品标签法和自愿行为守则已经足够(.. are adequate)。B项“它认为没有这样的必要”简要概括了政府的态度。【干扰排除】A项“它认为对食品营销而言，征税还不够”利用文中出现的food marketing、adequate制造干扰，在原文找不到相关表述。C项“它将征税视为当务之急”属于张冠李戴，由第3段可知，把征收糖税列为当务之急的是澳大利亚医学协会，而非澳大利亚政府。D项“它采纳医学专家的建议”没有原文依据。"
  },
  {
   "number": 12,
@@ -829,7 +829,7 @@ window.TEM8_MID_QUESTIONS = [
    "The Australian Medical Association."
   ],
   "answer": 2,
-  "analysis": "【定位】根据题目中opposed to the SSB tax和各选项的专有名词进行定位。\n【详解】题目问哪个组织反对征税。第11段第2句提到了澳大利亚饮料协会(The Australian Beverages Council)多年来一直反对征税(fighting against a tax),故选C项。\n【干扰排除】A项“澳大利亚医疗保健和医院协会”在第10段第2句出现，B项“营养与饮食学会”出现在第8段第1句的期刊名字中，但文章没有提到这两个组织对征税的态度，故排除。D项“澳大利亚医学协会”在第3段提到，由文中的urged the government to introduce an SSB tax、wants a sugar tax “as a matter of priority”可知，它赞同征收糖税，与题目要求相反，故排除。"
+  "analysis": "【定位】根据题目中opposed to the SSB tax和各选项的专有名词进行定位。【详解】题目问哪个组织反对征税。第11段第2句提到了澳大利亚饮料协会(The Australian Beverages Council)多年来一直反对征税(fighting against a tax),故选C项。【干扰排除】A项“澳大利亚医疗保健和医院协会”在第10段第2句出现，B项“营养与饮食学会”出现在第8段第1句的期刊名字中，但文章没有提到这两个组织对征税的态度，故排除。D项“澳大利亚医学协会”在第3段提到，由文中的urged the government to introduce an SSB tax、wants a sugar tax “as a matter of priority”可知，它赞同征收糖税，与题目要求相反，故排除。"
  },
  {
   "number": 13,
@@ -843,7 +843,7 @@ window.TEM8_MID_QUESTIONS = [
    "Completely doubtful."
   ],
   "answer": 0,
-  "analysis": "【定位】题目指明是第12段。\n【详解】题目问作者对征收含糖饮料税的态度。第12段第1句作者提出疑问，第2句则表明观点：这就要看你是否认为食品饮料行业有很大影响力。作者认为每个人都有自己的看法，并列出了两方面的看法，他并未透露自己的立场。由此可见，作者对糖税的看法是“中立和客观的”,故选A项。 (4)[11]澳大利亚卫生部长已经明确表示政府不支持征收糖税，他说有食品标签法和不向儿童营销食品的 (5)悉尼大学博登肥胖、营养、运动和饮食失调研究机构的蒂姆·吉尔教授认为，[25]含糖饮料税的优势在 (6)此前，政府以复杂性为由反对征收含糖饮料税。吉尔说：“但现在，英国也加入了(征收糖税的)行列—— (7)统计局数据显示，澳大利亚是人均软饮消费量最高的10个国家之一。世界卫生组织建议成年人每天摄 (8)《营养与饮食学会志》刊登的一项研究发现，[26]在墨尔本阿尔弗雷德医院为期17周的试验中，当含糖 (9)墨西哥推行糖税两年后，一项针对墨西哥含糖饮料销售情况的分析发现，在征税的第一年，含糖饮料的 (11)食品饮料行业的游说团体势力强大。[12]澳大利亚饮料协会——该行业的一个游说团体，多年来一直反自愿行为守则这两样已经足够。一位工党议员同样不支持征税，他认为促进健康的生活方式需要其他策略。理查于征税对象很好辨认。“辨认含糖饮料及其生产商非常简单，在含糖饮料生产时政府就能对其征税，”他说，“澳大它的消费文化与我们相似，人口、生产商却更多——征税操作复杂的说法再也站不住脚了。” 入糖分不超过6茶匙，而澳大利亚人每天平均的摄入量却不止12茶匙。光是一瓶330毫升的可乐就含有9茶匙糖。饮料的价格上涨20%时，软饮销量下降了27.6%,而瓶装水销量几乎等额增长。销售额下降了5.5%,第二年下降了9.7%。虽然两年时间不足以断定征收糖税对健康的长期影响，但是研究发现：“减对征税。它说，没有证据表明这项征税能对减少肥胖起到一丁点作用，相反它会减少就业，对政客而言这是非常德·迪·纳塔莱(之前是一名医生)领导的绿党则支持“糖税”,曾提议把含糖饮料的价格提高20%。利亚含糖饮料生产商数量有限。政府征税的困难之一或许在于征税的复杂性不确定。例如，如果要对每种含糖食少含糖饮料的消费对健康状态、降低医疗费用可能产生积极作用。” 可怕的。[27]澳大利亚便利店协会认为，英国推行糖税是“懈怠马虎的”“有漏洞的”“歧视性的”和“不理性的”。物都征税，那就会极其复杂。” (10)含糖饮料和糖往往与肥胖症、2型糖尿病、心血管疾病、龋齿和骨密度问题密切相关。澳大利亚医疗保它加大宣传力度，试图阻止这项税收在澳大利亚推行。健和医院协会表示，在澳大利亚，肥胖是导致可预防性死亡或疾病的罪魁祸首，其危害大于吸烟。不过，要找到税收影响肥胖水平的确凿证据，还要进行长期分析。\n【干扰排除】虽然本段作者描述健康专家的观点所花笔墨较多，但也只是客观陈述，并不能表明作者的态度倾向，故排除B项“部分支持的”。C项“带偏见的、担忧的”、D项“完全怀疑”在该段找不到相关依据，可排除。"
+  "analysis": "【定位】题目指明是第12段。【详解】题目问作者对征收含糖饮料税的态度。第12段第1句作者提出疑问，第2句则表明观点：这就要看你是否认为食品饮料行业有很大影响力。作者认为每个人都有自己的看法，并列出了两方面的看法，他并未透露自己的立场。由此可见，作者对糖税的看法是“中立和客观的”,故选A项。 (4)[11]澳大利亚卫生部长已经明确表示政府不支持征收糖税，他说有食品标签法和不向儿童营销食品的 (5)悉尼大学博登肥胖、营养、运动和饮食失调研究机构的蒂姆·吉尔教授认为，[25]含糖饮料税的优势在 (6)此前，政府以复杂性为由反对征收含糖饮料税。吉尔说：“但现在，英国也加入了(征收糖税的)行列—— (7)统计局数据显示，澳大利亚是人均软饮消费量最高的10个国家之一。世界卫生组织建议成年人每天摄 (8)《营养与饮食学会志》刊登的一项研究发现，[26]在墨尔本阿尔弗雷德医院为期17周的试验中，当含糖 (9)墨西哥推行糖税两年后，一项针对墨西哥含糖饮料销售情况的分析发现，在征税的第一年，含糖饮料的 (11)食品饮料行业的游说团体势力强大。[12]澳大利亚饮料协会——该行业的一个游说团体，多年来一直反自愿行为守则这两样已经足够。一位工党议员同样不支持征税，他认为促进健康的生活方式需要其他策略。理查于征税对象很好辨认。“辨认含糖饮料及其生产商非常简单，在含糖饮料生产时政府就能对其征税，”他说，“澳大它的消费文化与我们相似，人口、生产商却更多——征税操作复杂的说法再也站不住脚了。” 入糖分不超过6茶匙，而澳大利亚人每天平均的摄入量却不止12茶匙。光是一瓶330毫升的可乐就含有9茶匙糖。饮料的价格上涨20%时，软饮销量下降了27.6%,而瓶装水销量几乎等额增长。销售额下降了5.5%,第二年下降了9.7%。虽然两年时间不足以断定征收糖税对健康的长期影响，但是研究发现：“减对征税。它说，没有证据表明这项征税能对减少肥胖起到一丁点作用，相反它会减少就业，对政客而言这是非常德·迪·纳塔莱(之前是一名医生)领导的绿党则支持“糖税”,曾提议把含糖饮料的价格提高20%。利亚含糖饮料生产商数量有限。政府征税的困难之一或许在于征税的复杂性不确定。例如，如果要对每种含糖食少含糖饮料的消费对健康状态、降低医疗费用可能产生积极作用。” 可怕的。[27]澳大利亚便利店协会认为，英国推行糖税是“懈怠马虎的”“有漏洞的”“歧视性的”和“不理性的”。物都征税，那就会极其复杂。” (10)含糖饮料和糖往往与肥胖症、2型糖尿病、心血管疾病、龋齿和骨密度问题密切相关。澳大利亚医疗保它加大宣传力度，试图阻止这项税收在澳大利亚推行。健和医院协会表示，在澳大利亚，肥胖是导致可预防性死亡或疾病的罪魁祸首，其危害大于吸烟。不过，要找到税收影响肥胖水平的确凿证据，还要进行长期分析。【干扰排除】虽然本段作者描述健康专家的观点所花笔墨较多，但也只是客观陈述，并不能表明作者的态度倾向，故排除B项“部分支持的”。C项“带偏见的、担忧的”、D项“完全怀疑”在该段找不到相关依据，可排除。"
  },
  {
   "number": 14,
@@ -857,7 +857,7 @@ window.TEM8_MID_QUESTIONS = [
    "Offsetting financial burden by funding healthcare."
   ],
   "answer": 3,
-  "analysis": "【定位】题目指明是第13、14段。\n【详解】题目问有关含糖饮料税的一些争论。第13段说明糖税加大了最低收入群体的经济负担；第14段则说明相比糖税带来的健康益处，这点代价不算大，而且如果政府把税收投入到健康行动计划(to fund health initiatives),则有助于减轻弱势群体的经济负担(reduce the financial burden)。因此，本题选 D项“通过资助医疗保健来抵消经济负担”。\n【干扰排除】第13段提到糖税使最低收入群体比最高收入群体每年要多花5美元，但这并不代表“扩大了社会经济群体之间的贫富差距”,A项夸大了糖税的影响，故可排除。B项“给普通家庭增加经济负担”和C项“以令人满意的方式促进经济发展”没有原文依据。"
+  "analysis": "【定位】题目指明是第13、14段。【详解】题目问有关含糖饮料税的一些争论。第13段说明糖税加大了最低收入群体的经济负担；第14段则说明相比糖税带来的健康益处，这点代价不算大，而且如果政府把税收投入到健康行动计划(to fund health initiatives),则有助于减轻弱势群体的经济负担(reduce the financial burden)。因此，本题选 D项“通过资助医疗保健来抵消经济负担”。【干扰排除】第13段提到糖税使最低收入群体比最高收入群体每年要多花5美元，但这并不代表“扩大了社会经济群体之间的贫富差距”,A项夸大了糖税的影响，故可排除。B项“给普通家庭增加经济负担”和C项“以令人满意的方式促进经济发展”没有原文依据。"
  },
  {
   "number": 15,
@@ -871,7 +871,7 @@ window.TEM8_MID_QUESTIONS = [
    "Reputable career image."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干中的 a reason for the author to take the job定位到第1段。\n【详解】第1段第1句首先提到作者得到了那份工作，接着第2句直接指出工资不高(The pay wasn't much), 这与B项“不错的收入”中的decent “相当好的”相矛盾。故B项并不是作者接受这份工作的原因。\n【干扰排除】A项“便利的地点”和C项“理想的工作时间”都在第1段第3句中提及，该句提到上班地点离作者家很近(within bicycling distance of my home),并且只需要在上午上班(work mornings)。该段第2句提到，虽然这份工作的工资不高，但它算是在“商业圈”(the Business)里，可以推测娱乐产业在当时具有较高的地位，因而D项“良好的职业形象”可视为原因之一。"
+  "analysis": "【定位】根据题干中的 a reason for the author to take the job定位到第1段。【详解】第1段第1句首先提到作者得到了那份工作，接着第2句直接指出工资不高(The pay wasn't much), 这与B项“不错的收入”中的decent “相当好的”相矛盾。故B项并不是作者接受这份工作的原因。【干扰排除】A项“便利的地点”和C项“理想的工作时间”都在第1段第3句中提及，该句提到上班地点离作者家很近(within bicycling distance of my home),并且只需要在上午上班(work mornings)。该段第2句提到，虽然这份工作的工资不高，但它算是在“商业圈”(the Business)里，可以推测娱乐产业在当时具有较高的地位，因而D项“良好的职业形象”可视为原因之一。"
  },
  {
   "number": 16,
@@ -885,7 +885,7 @@ window.TEM8_MID_QUESTIONS = [
    "They view breakdowns as essential."
   ],
   "answer": 3,
-  "analysis": "【定位】根据题干中的agents' attitude towards \"breakdowns”定位到第2段最后一句。\n【详解】第2段最后一句提到，经纪人们以尊崇(reverence)的态度对待“剧本分解”的到来，作者戏谑地将其与教徒对晨祷的虔敬进行比较，借此嘲弄了经纪人们对“剧本分解”夸张的关注，故可以判断D项“他们认为剧本分析必不可少”的表述正确。\n【干扰排除】A项“他们耐心地等待剧本分解的迟迟到来”与第2段最后一句提到的“愤怒地打来电话”(angry phone calls)相矛盾。B项“他们有时会忽视剧本分解的到来”中的sometimes ignores和C项“他们对剧本分解不太在意” 中的care less都没有提及，并且这两项表述与第2段最后一句的意思相左。"
+  "analysis": "【定位】根据题干中的agents' attitude towards \"breakdowns”定位到第2段最后一句。【详解】第2段最后一句提到，经纪人们以尊崇(reverence)的态度对待“剧本分解”的到来，作者戏谑地将其与教徒对晨祷的虔敬进行比较，借此嘲弄了经纪人们对“剧本分解”夸张的关注，故可以判断D项“他们认为剧本分析必不可少”的表述正确。【干扰排除】A项“他们耐心地等待剧本分解的迟迟到来”与第2段最后一句提到的“愤怒地打来电话”(angry phone calls)相矛盾。B项“他们有时会忽视剧本分解的到来”中的sometimes ignores和C项“他们对剧本分解不太在意” 中的care less都没有提及，并且这两项表述与第2段最后一句的意思相左。"
  },
  {
   "number": 17,
@@ -899,7 +899,7 @@ window.TEM8_MID_QUESTIONS = [
    "Typing scripts."
   ],
   "answer": 0,
-  "analysis": "【定位】题目指明是第5段。\n【详解】第5段倒数第2句提到，写手们可能会和彼此讨论(talk among themselves)他们认为特别好或特别不好的作品，接着用such editorializing指代写手们说的内容，并指出这些内容不能出现在最终成品中。由此判断，such editorializing指的就是写手们口头上对作品所做的评论，即A项。\n【干扰排除】B项“写社论”、C项“复制剧本”和D项“输入剧本”的表述都没有在第5段中出现，均与题目所问的 such editorializing无关。"
+  "analysis": "【定位】题目指明是第5段。【详解】第5段倒数第2句提到，写手们可能会和彼此讨论(talk among themselves)他们认为特别好或特别不好的作品，接着用such editorializing指代写手们说的内容，并指出这些内容不能出现在最终成品中。由此判断，such editorializing指的就是写手们口头上对作品所做的评论，即A项。【干扰排除】B项“写社论”、C项“复制剧本”和D项“输入剧本”的表述都没有在第5段中出现，均与题目所问的 such editorializing无关。"
  },
  {
   "number": 18,
@@ -913,7 +913,7 @@ window.TEM8_MID_QUESTIONS = [
    "Lack of subscribers."
   ],
   "answer": 2,
-  "analysis": "【定位】题目指明是第7段。\n【详解】第7段第1、2句提到，虽然分解公司对于订阅者有着严格的限制(immutable perimeters),必须是经过认证的经纪人(accredited agents),第4、5、6句提到，虽然有限制，但并不能监控到方方面面，侵权问题很普遍(而这可能是限制使得受众少，盈利订阅费昂贵所致)。由此可知，第7段谈论的主要问题在于侵权行为，故选C项“侵犯版权”。\n【干扰排除】第7段第1句提到了分解服务公司在该领域占据主导地位，但没有提到相关的竞争情况，排除A项“市场竞争”。该段虽然提到了公司对订阅者身份的限制，但并不是本段主要阐述的内容，排除B项“分解服务的限制”。D 项利用文中原词subscribers制造干扰，文中只说订阅用户必须是经过认证的经纪人，但没有说“缺乏订阅用户”,故D 项错误。"
+  "analysis": "【定位】题目指明是第7段。【详解】第7段第1、2句提到，虽然分解公司对于订阅者有着严格的限制(immutable perimeters),必须是经过认证的经纪人(accredited agents),第4、5、6句提到，虽然有限制，但并不能监控到方方面面，侵权问题很普遍(而这可能是限制使得受众少，盈利订阅费昂贵所致)。由此可知，第7段谈论的主要问题在于侵权行为，故选C项“侵犯版权”。【干扰排除】第7段第1句提到了分解服务公司在该领域占据主导地位，但没有提到相关的竞争情况，排除A项“市场竞争”。该段虽然提到了公司对订阅者身份的限制，但并不是本段主要阐述的内容，排除B项“分解服务的限制”。D 项利用文中原词subscribers制造干扰，文中只说订阅用户必须是经过认证的经纪人，但没有说“缺乏订阅用户”,故D 项错误。"
  },
  {
   "number": 19,
@@ -927,7 +927,7 @@ window.TEM8_MID_QUESTIONS = [
    "Indifferent."
   ],
   "answer": 1,
-  "analysis": "【定位】全文。\n【详解】作者的通篇的语调总体上比较幽默轻松，或戏谑嘲弄，或打趣讥讽。例如不直言令人崩溃(break down)的工作却打趣“琢磨出这个名字(Breakdown)中所有更加愤世嫉俗的含义”;嘲弄经纪人的抓狂是因为“简直要和教徒对晨祷一样认真”;写公司的限制导致写手们跑去兼职评论员一吐为快，都可看出作者是在打趣讥讽，故B项“反语的，讽刺的”为正确答案。\n【干扰排除】总的来说，作者在文章叙述时并没有表现出“狂怒”和“沮丧”的语气，可排除A项和C项。作者对其工作和行业很在乎，语气并不是“漠不关心的”,排除D项。"
+  "analysis": "【定位】全文。【详解】作者的通篇的语调总体上比较幽默轻松，或戏谑嘲弄，或打趣讥讽。例如不直言令人崩溃(break down)的工作却打趣“琢磨出这个名字(Breakdown)中所有更加愤世嫉俗的含义”;嘲弄经纪人的抓狂是因为“简直要和教徒对晨祷一样认真”;写公司的限制导致写手们跑去兼职评论员一吐为快，都可看出作者是在打趣讥讽，故B项“反语的，讽刺的”为正确答案。【干扰排除】总的来说，作者在文章叙述时并没有表现出“狂怒”和“沮丧”的语气，可排除A项和C项。作者对其工作和行业很在乎，语气并不是“漠不关心的”,排除D项。"
  },
  {
   "number": 20,
@@ -941,7 +941,7 @@ window.TEM8_MID_QUESTIONS = [
    "exaggeration"
   ],
   "answer": 1,
-  "analysis": "【定位】题目指明是第1、2段。\n【详解】题目问作者在第1、2段使用了什么手法营造画面感。第1段第2句提到，作者之前在矿工的小木屋里过的是一种艰苦的(all hard)生活，而这里却是个安适的地方(a nest);且第2段详细描述了这个地方温馨细巧的布置，与第1段里矿工小屋简陋随意的陈设形成鲜明对比。所以，答案为B项“对比”。\n【干扰排除】第1段中的fasting “禁食”和 famishing “饥饿”为拟人的用法，nourishment “营养品”为比喻，但这些修辞是为了说明作者的感受，而非营造画面感，故排除A项“拟人”和C项“比喻”。D项“夸张”并未在文中运用。"
+  "analysis": "【定位】题目指明是第1、2段。【详解】题目问作者在第1、2段使用了什么手法营造画面感。第1段第2句提到，作者之前在矿工的小木屋里过的是一种艰苦的(all hard)生活，而这里却是个安适的地方(a nest);且第2段详细描述了这个地方温馨细巧的布置，与第1段里矿工小屋简陋随意的陈设形成鲜明对比。所以，答案为B项“对比”。【干扰排除】第1段中的fasting “禁食”和 famishing “饥饿”为拟人的用法，nourishment “营养品”为比喻，但这些修辞是为了说明作者的感受，而非营造画面感，故排除A项“拟人”和C项“比喻”。D项“夸张”并未在文中运用。"
  },
  {
   "number": 21,
@@ -955,7 +955,7 @@ window.TEM8_MID_QUESTIONS = [
    "Concerned."
   ],
   "answer": 2,
-  "analysis": "【定位】全文。\n【详解】题目问男人对他妻子是什么感觉。第3段第1句明确指出，男人提起妻子时是一种充满爱意的语气 (caressingly),且对妻子的布置满是深情的崇拜(full of affectionate worship),可见C项“崇拜，爱慕”是他对妻子感情的最佳概括。\n【干扰排除】每当作者注意到妻子的布置或者照片，男人都会欣喜不已，为之感到自豪，也并未表现出哀伤的情绪， A项“卑鄙的，残酷的”和B项“多愁善感的”与之不符。虽然妻子出了远门，但男人并未体现出担心，或时时挂念，故排除D项“担心的；挂念的”。"
+  "analysis": "【定位】全文。【详解】题目问男人对他妻子是什么感觉。第3段第1句明确指出，男人提起妻子时是一种充满爱意的语气 (caressingly),且对妻子的布置满是深情的崇拜(full of affectionate worship),可见C项“崇拜，爱慕”是他对妻子感情的最佳概括。【干扰排除】每当作者注意到妻子的布置或者照片，男人都会欣喜不已，为之感到自豪，也并未表现出哀伤的情绪， A项“卑鄙的，残酷的”和B项“多愁善感的”与之不符。虽然妻子出了远门，但男人并未体现出担心，或时时挂念，故排除D项“担心的；挂念的”。"
  },
  {
   "number": 22,
@@ -969,7 +969,7 @@ window.TEM8_MID_QUESTIONS = [
    "likes to do home decoration"
   ],
   "answer": 0,
-  "analysis": "【定位】根据 readjusting the fabric over the picture-frame 可定位到第3段。\n【详解】题目问从男人整理相框上的织物可以看出男人是怎样的人。第3段第3句提到，男人会小心翼翼地(with careful negligence)整理织物，反复调整，直到他满意，可见他很注意这些陈设的细节，故选A项“关心细节”。\n【干扰排除】第3段倒数第3句说男人经常看妻子这样整理，所以他也会，但并未提到他参与整理，故排除B项“习惯帮助他的妻子”。最后一句男人说他只知道怎么做，不知道为什么要这么做，故排除C项。家里的一切都是男人妻子布置的，男人整理细节并不能体现他喜欢家居布置，故排除D项。"
+  "analysis": "【定位】根据 readjusting the fabric over the picture-frame 可定位到第3段。【详解】题目问从男人整理相框上的织物可以看出男人是怎样的人。第3段第3句提到，男人会小心翼翼地(with careful negligence)整理织物，反复调整，直到他满意，可见他很注意这些陈设的细节，故选A项“关心细节”。【干扰排除】第3段倒数第3句说男人经常看妻子这样整理，所以他也会，但并未提到他参与整理，故排除B项“习惯帮助他的妻子”。最后一句男人说他只知道怎么做，不知道为什么要这么做，故排除C项。家里的一切都是男人妻子布置的，男人整理细节并不能体现他喜欢家居布置，故排除D项。"
  },
  {
   "number": 23,
@@ -983,7 +983,7 @@ window.TEM8_MID_QUESTIONS = [
    "The deep desire for seeing the man's wife."
   ],
   "answer": 3,
-  "analysis": "【定位】题目指明是第15段。\n【详解】题目问什么让作者感到害怕。第15段第3句提到，作者深深渴望见到男人的妻子(a deep, strong longing to see her),这种渴望之深令他心生恐惧(afraid),故选D项“深深渴望见到男人的妻子”。\n【干扰排除】解题句明确指出了让作者感到害怕的原因，故可以直接排除A项“屋内奇怪的氛围”、B项“男人执着于见到自己的妻子”和C项“男人怪异的言行”。"
+  "analysis": "【定位】题目指明是第15段。【详解】题目问什么让作者感到害怕。第15段第3句提到，作者深深渴望见到男人的妻子(a deep, strong longing to see her),这种渴望之深令他心生恐惧(afraid),故选D项“深深渴望见到男人的妻子”。【干扰排除】解题句明确指出了让作者感到害怕的原因，故可以直接排除A项“屋内奇怪的氛围”、B项“男人执着于见到自己的妻子”和C项“男人怪异的言行”。"
  },
  {
   "number": 24,
@@ -997,7 +997,7 @@ window.TEM8_MID_QUESTIONS = [
    "intelligent"
   ],
   "answer": 1,
-  "analysis": "【定位】全文。\n【详解】题目问从男人的叙述中，我们不能得知他妻子是一个怎样的人。文章并未体现男人的妻子如何精明或敏锐，故选B项“精明的，敏锐的”。\n【干扰排除】第16段第1、2句指出，她喜欢有人来( likes to have people come),并与之交谈，而且她见识广博(knows nearly everything herself),可见男人的妻子善于交际，博知聪慧，可排除A项“好交际的，友好的”和D项“聪慧的”。第6段第2句提到，男人的妻子是作者见过最为美丽的(the most beautiful)女人，故排除C项“美丽的”。"
+  "analysis": "【定位】全文。【详解】题目问从男人的叙述中，我们不能得知他妻子是一个怎样的人。文章并未体现男人的妻子如何精明或敏锐，故选B项“精明的，敏锐的”。【干扰排除】第16段第1、2句指出，她喜欢有人来( likes to have people come),并与之交谈，而且她见识广博(knows nearly everything herself),可见男人的妻子善于交际，博知聪慧，可排除A项“好交际的，友好的”和D项“聪慧的”。第6段第2句提到，男人的妻子是作者见过最为美丽的(the most beautiful)女人，故排除C项“美丽的”。"
  },
  {
   "number": 25,
@@ -1075,7 +1075,7 @@ window.TEM8_MID_QUESTIONS = [
    "the contrast between Buck and others"
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干直接定位到第 2 段。\n【详解】本题问第 2 段的写作目的。第 2 段描写了 Judge Miller's place 优越的环境，从 sun-kissed、wide、more spacious scale、orderly 等词能感受到。这里也正是 Buck 居住的地方，鉴于前后两段都围绕 Buck 展开，可判断本段的目的是为了体现 Buck 所居住的环境优越，故选 B 项。\n【干扰排除】第 2 段讲的只是住宅的情况，不涉及 A 项“故事的社会背景”。C 项“米勒法官宅邸的布局”的确是第 2 段描述的内容，但并非写作意图，作者是在描述布局的过程中暗示 Buck 居住环境的优越，从而和后文形成对比。D 项“Buck 与其他(狗)的对比”是第 3 段的内容，不是第 2 段。"
+  "analysis": "【定位】根据题干直接定位到第 2 段。【详解】本题问第 2 段的写作目的。第 2 段描写了 Judge Miller's place 优越的环境，从 sun-kissed、wide、more spacious scale、orderly 等词能感受到。这里也正是 Buck 居住的地方，鉴于前后两段都围绕 Buck 展开，可判断本段的目的是为了体现 Buck 所居住的环境优越，故选 B 项。【干扰排除】第 2 段讲的只是住宅的情况，不涉及 A 项“故事的社会背景”。C 项“米勒法官宅邸的布局”的确是第 2 段描述的内容，但并非写作意图，作者是在描述布局的过程中暗示 Buck 居住环境的优越，从而和后文形成对比。D 项“Buck 与其他(狗)的对比”是第 3 段的内容，不是第 2 段。"
  },
  {
   "number": 12,
@@ -1089,7 +1089,7 @@ window.TEM8_MID_QUESTIONS = [
    "House-dogs were well protected by housemaids."
   ],
   "answer": 0,
-  "analysis": "【定位】根据 superiority over other dogs 定位至第 3 至 5 段。\n【详解】本题问“优越地位”在第 3 至 5 段是如何体现的。第 5 段段首说明原因：它父亲和大法官形影不离(inseparable companion)，而它很可能子承父业(bid fair to follow in the way of his father)，暗示它是人最喜爱的狗，即 A 项。正是由于这个原因，它才能“统治”住宅内的一切动物(king over all creeping, crawling, flying things...)，故最能体现它的 superiority。\n【干扰排除】第 3 段提到，有些狗深居简出(rarely put nose out of doors or set foot to ground)，这与 B 项说的“不允许外出”不同。C 项“它住的时间比其他狗长”没有依据，原文只是在第 3 段第 2 句提到 Buck 从出生到现在住在这里 4 年，没有和其他狗比时间。D 项“看家狗要由女仆保护”在第 3 段末句提到，但这是对上文深居简出的狗的细节描述，不能体现 Buck 的优越性。"
+  "analysis": "【定位】根据 superiority over other dogs 定位至第 3 至 5 段。【详解】本题问“优越地位”在第 3 至 5 段是如何体现的。第 5 段段首说明原因：它父亲和大法官形影不离(inseparable companion)，而它很可能子承父业(bid fair to follow in the way of his father)，暗示它是人最喜爱的狗，即 A 项。正是由于这个原因，它才能“统治”住宅内的一切动物(king over all creeping, crawling, flying things...)，故最能体现它的 superiority。【干扰排除】第 3 段提到，有些狗深居简出(rarely put nose out of doors or set foot to ground)，这与 B 项说的“不允许外出”不同。C 项“它住的时间比其他狗长”没有依据，原文只是在第 3 段第 2 句提到 Buck 从出生到现在住在这里 4 年，没有和其他狗比时间。D 项“看家狗要由女仆保护”在第 3 段末句提到，但这是对上文深居简出的狗的细节描述，不能体现 Buck 的优越性。"
  },
  {
   "number": 13,
@@ -1103,7 +1103,7 @@ window.TEM8_MID_QUESTIONS = [
    "friendly"
   ],
   "answer": 3,
-  "analysis": "【定位】根据 describing Buck 定位至第 3 至 5 段。\n【详解】本题问作者描述 Buck 的基调。从第 3 至 5 段的内容来看，作者在描述 Buck 时，将它的地位捧得很高，描述它与其他狗不同，会陪主人游泳、打猎、散步和玩耍，和主人相处融洽，将其描述为“统治者”(over this great demesne Buck ruled. The whole realm was his, for he was king, king over...)，整体基调正面积极，也流露出喜爱之情，故选 D 项“友善的”。\n【干扰排除】虽然在描述中偶有一些含贬义的词，如 imperiously “专横的”、sated “饱享的”、egotistical “自大的”，但这些词更多是宠溺之词，不是真的批判(critical)和讽刺(sarcastic)，故排除 A、B 项。虽然文中像 for he was king、king over 等表述略有浮夸，但行文风格说不上幽默、令人发笑，也排除 C 项。"
+  "analysis": "【定位】根据 describing Buck 定位至第 3 至 5 段。【详解】本题问作者描述 Buck 的基调。从第 3 至 5 段的内容来看，作者在描述 Buck 时，将它的地位捧得很高，描述它与其他狗不同，会陪主人游泳、打猎、散步和玩耍，和主人相处融洽，将其描述为“统治者”(over this great demesne Buck ruled. The whole realm was his, for he was king, king over...)，整体基调正面积极，也流露出喜爱之情，故选 D 项“友善的”。【干扰排除】虽然在描述中偶有一些含贬义的词，如 imperiously “专横的”、sated “饱享的”、egotistical “自大的”，但这些词更多是宠溺之词，不是真的批判(critical)和讽刺(sarcastic)，故排除 A、B 项。虽然文中像 for he was king、king over 等表述略有浮夸，但行文风格说不上幽默、令人发笑，也排除 C 项。"
  },
  {
   "number": 14,
@@ -1117,7 +1117,7 @@ window.TEM8_MID_QUESTIONS = [
    "the troubles Manuel brought to Buck"
   ],
   "answer": 3,
-  "analysis": "【定位】全文。\n【详解】第 1 段首句就暗示，如果 Buck 读报，就会知道“麻烦要来了”(trouble was brewing)。最后一段又呼应第 1 段，说 Buck 不读报，再次暗示麻烦会来。而之后就是介绍好赌潦倒的 Manuel，所以可以推测 Manuel 会给 Buck 带来麻烦，故选 D 项。\n【干扰排除】前文都是围绕 Buck 来展开的，不会突然将内容转换到 lottery system 和 Manuel 怎样赌，故排除 A 项和 C 项。B 项“报纸上写什么”实际在第 1 段和第 6 段开头已经说出，即许多人要北上淘金，所以下文不会再重复，排除 B 项。"
+  "analysis": "【定位】全文。【详解】第 1 段首句就暗示，如果 Buck 读报，就会知道“麻烦要来了”(trouble was brewing)。最后一段又呼应第 1 段，说 Buck 不读报，再次暗示麻烦会来。而之后就是介绍好赌潦倒的 Manuel，所以可以推测 Manuel 会给 Buck 带来麻烦，故选 D 项。【干扰排除】前文都是围绕 Buck 来展开的，不会突然将内容转换到 lottery system 和 Manuel 怎样赌，故排除 A 项和 C 项。B 项“报纸上写什么”实际在第 1 段和第 6 段开头已经说出，即许多人要北上淘金，所以下文不会再重复，排除 B 项。"
  },
  {
   "number": 15,
@@ -1131,7 +1131,7 @@ window.TEM8_MID_QUESTIONS = [
    "Permits issued to able-bodied trekkers."
   ],
   "answer": 2,
-  "analysis": "【定位】根据题目定位至第 1、2 段。\n【详解】题目问哪项不属于安全措施。第 1 段提到尼泊尔政府出台攀登珠峰的新规，该段最后一句提到其中一条规定是禁止使用直升机登上高海拔营地(expeditions... would be forbidden from using helicopters to reach high camps)，因此 C 项不属于安全措施，为本题答案。\n【干扰排除】第 1 段最后一句提到，所有探险队必须雇佣至少一名夏尔巴人向导(have to employ at least one Sherpa)，A 项与此相符。第 2 段第 1 句提到尼泊尔旅游部过去的一系列声明，其中之一是登山者必须提交 DNA 样本，B 项“公布登山者的计划”与此对应。由第 1 段第 2 句可知，尼泊尔政府不再向盲人、单独登山者或双腿截肢者发放登山许可证，也就是说许可证只发放给身体健全的登山者，因此 D 项符合原文表述。"
+  "analysis": "【定位】根据题目定位至第 1、2 段。【详解】题目问哪项不属于安全措施。第 1 段提到尼泊尔政府出台攀登珠峰的新规，该段最后一句提到其中一条规定是禁止使用直升机登上高海拔营地(expeditions... would be forbidden from using helicopters to reach high camps)，因此 C 项不属于安全措施，为本题答案。【干扰排除】第 1 段最后一句提到，所有探险队必须雇佣至少一名夏尔巴人向导(have to employ at least one Sherpa)，A 项与此相符。第 2 段第 1 句提到尼泊尔旅游部过去的一系列声明，其中之一是登山者必须提交 DNA 样本，B 项“公布登山者的计划”与此对应。由第 1 段第 2 句可知，尼泊尔政府不再向盲人、单独登山者或双腿截肢者发放登山许可证，也就是说许可证只发放给身体健全的登山者，因此 D 项符合原文表述。"
  },
  {
   "number": 16,
@@ -1145,7 +1145,7 @@ window.TEM8_MID_QUESTIONS = [
    "To emphasize the importance of training."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题目定位至第 4 段。\n【详解】题目问第 4 段的写作意图。在第 3 段最后，作者认为尼泊尔公布的登峰规定对减少珠峰攀登的危险不起丝毫作用。在第 4 段，作者列举阿拉斯加德纳里山和阿根廷阿空加瓜山的做法，用实例说明该段首句的观点：把珠峰变得安全是可以做到的(possible)。紧接着，作者在该段后半部分提出尼泊尔的改革应采取哪些措施以提高登山的安全性。由此可见，本段作者旨在通过举例提出可行性建议，故选 B 项。\n【干扰排除】第 4 段作者通过举例提出建议，没有列出必要条件，故排除 A 项。作者列举两地的做法，是为了说明提高攀登珠峰的安全性是可能实现的，为提出建议作铺垫，而不仅仅为了展示其他地区的政策，故排除 C 项。第 4 段虽然提到要求某些人员参加相关培训，但这只是其中一个建议，D 项“强调培训的重要性”属于以偏概全，故排除。"
+  "analysis": "【定位】根据题目定位至第 4 段。【详解】题目问第 4 段的写作意图。在第 3 段最后，作者认为尼泊尔公布的登峰规定对减少珠峰攀登的危险不起丝毫作用。在第 4 段，作者列举阿拉斯加德纳里山和阿根廷阿空加瓜山的做法，用实例说明该段首句的观点：把珠峰变得安全是可以做到的(possible)。紧接着，作者在该段后半部分提出尼泊尔的改革应采取哪些措施以提高登山的安全性。由此可见，本段作者旨在通过举例提出可行性建议，故选 B 项。【干扰排除】第 4 段作者通过举例提出建议，没有列出必要条件，故排除 A 项。作者列举两地的做法，是为了说明提高攀登珠峰的安全性是可能实现的，为提出建议作铺垫，而不仅仅为了展示其他地区的政策，故排除 C 项。第 4 段虽然提到要求某些人员参加相关培训，但这只是其中一个建议，D 项“强调培训的重要性”属于以偏概全，故排除。"
  },
  {
   "number": 17,
@@ -1159,7 +1159,7 @@ window.TEM8_MID_QUESTIONS = [
    "Cost of climbing business has been greatly reduced recently."
   ],
   "answer": 0,
-  "analysis": "【定位】根据题目定位至第 5、6 段。\n【详解】题目问从第 5、6 段能推断出什么信息。第 5 段第 1 句提到，低价向导公司的兴起使得安全措施难以实施(less likely than ever to be instituted)。第 6 段接着说，此后出现价格更低的向导公司抢占市场，并提到 2014 年的冰塔崩塌事件。由此推断，这些公司用较低价格吸引更多客户，考虑的是自身利益，而不是客户的安全，因此选 A 项“低价向导公司可能无法确保登山者的安全”。\n【干扰排除】由第 6 段可知，西方人、尼泊尔人都能创办低价向导公司，但文中没有比较两者的可靠性，排除 B 项。由第 6 段后半部分可知，昆布冰川冰塔崩塌事故后，夏尔巴人提出的诉求中只有保险赔偿金有提高，仅此而已(but not much else)，C 项“夏尔巴人向导的工作条件大大改善”与文意相反。第 6 段提到的 Lower-cost guiding companies 并非指公司自身的业务成本降低，而是指这些公司要价更低，用低价吸引更多客户，故排除 D 项。"
+  "analysis": "【定位】根据题目定位至第 5、6 段。【详解】题目问从第 5、6 段能推断出什么信息。第 5 段第 1 句提到，低价向导公司的兴起使得安全措施难以实施(less likely than ever to be instituted)。第 6 段接着说，此后出现价格更低的向导公司抢占市场，并提到 2014 年的冰塔崩塌事件。由此推断，这些公司用较低价格吸引更多客户，考虑的是自身利益，而不是客户的安全，因此选 A 项“低价向导公司可能无法确保登山者的安全”。【干扰排除】由第 6 段可知，西方人、尼泊尔人都能创办低价向导公司，但文中没有比较两者的可靠性，排除 B 项。由第 6 段后半部分可知，昆布冰川冰塔崩塌事故后，夏尔巴人提出的诉求中只有保险赔偿金有提高，仅此而已(but not much else)，C 项“夏尔巴人向导的工作条件大大改善”与文意相反。第 6 段提到的 Lower-cost guiding companies 并非指公司自身的业务成本降低，而是指这些公司要价更低，用低价吸引更多客户，故排除 D 项。"
  },
  {
   "number": 18,
@@ -1173,7 +1173,7 @@ window.TEM8_MID_QUESTIONS = [
    "the problems of budget outfitters"
   ],
   "answer": 3,
-  "analysis": "【定位】根据题目定位至第 9 段。\n【详解】题目问第 9 段引用桑吉这个例子的目的。第 8 段提到，一些低价向导公司让经验不足的向导带领新手客户登山，使攀登珠峰变得更加危险；随后第 9 段就陈述了七峰徒步公司提拔年轻的后勤人员桑吉为珠峰向导后，他与客户遭遇危险的案例。可见，桑吉的例子是为了说明 D 项“低价装备公司存在的问题”。\n【干扰排除】桑吉的例子中并不是没有向导，而是向导经验不足，并不能体现“向导的重要性”，故排除 A 项。该例子也没有提到“登山的复杂性”，故排除 B 项。C 项“规定的卫生条件”在文中没有相关表述，可排除。"
+  "analysis": "【定位】根据题目定位至第 9 段。【详解】题目问第 9 段引用桑吉这个例子的目的。第 8 段提到，一些低价向导公司让经验不足的向导带领新手客户登山，使攀登珠峰变得更加危险；随后第 9 段就陈述了七峰徒步公司提拔年轻的后勤人员桑吉为珠峰向导后，他与客户遭遇危险的案例。可见，桑吉的例子是为了说明 D 项“低价装备公司存在的问题”。【干扰排除】桑吉的例子中并不是没有向导，而是向导经验不足，并不能体现“向导的重要性”，故排除 A 项。该例子也没有提到“登山的复杂性”，故排除 B 项。C 项“规定的卫生条件”在文中没有相关表述，可排除。"
  },
  {
   "number": 19,
@@ -1187,7 +1187,7 @@ window.TEM8_MID_QUESTIONS = [
    "provide an example"
   ],
   "answer": 1,
-  "analysis": "【定位】根据题目定位至第 10 段。\n【详解】第 10 段第 1 句提到，资深登山向导的反应截然不同(reacting... in different ways)，可预见本段会对比登山向导的不同态度。该段首先提到阿德里安·巴林杰等向导持否定态度，放弃攀登尼泊尔侧珠峰；而在 Others are staying put 这句之后则提到埃里克·西蒙森认为尼泊尔侧珠峰已变得更安全。由此可见，Others are staying put 的作用是 B 项“形成对比”。\n【干扰排除】Others are staying put 前后的内容存在转折、对比关系，A 项“罗列因素”、C 项“介绍观点”和 D 项“举例”均与此不符。"
+  "analysis": "【定位】根据题目定位至第 10 段。【详解】第 10 段第 1 句提到，资深登山向导的反应截然不同(reacting... in different ways)，可预见本段会对比登山向导的不同态度。该段首先提到阿德里安·巴林杰等向导持否定态度，放弃攀登尼泊尔侧珠峰；而在 Others are staying put 这句之后则提到埃里克·西蒙森认为尼泊尔侧珠峰已变得更安全。由此可见，Others are staying put 的作用是 B 项“形成对比”。【干扰排除】Others are staying put 前后的内容存在转折、对比关系，A 项“罗列因素”、C 项“介绍观点”和 D 项“举例”均与此不符。"
  },
  {
   "number": 20,
@@ -1201,7 +1201,7 @@ window.TEM8_MID_QUESTIONS = [
    "friendly"
   ],
   "answer": 1,
-  "analysis": "【定位】根据题目定位至第 1、2 段。\n【详解】本题问文中将这些游牧者描述为怎样的人。第 1 段末句提到考古学家对这些游牧者所在地区知之甚少(largely unknown)。第 2 段则说他们几乎没有留下关于其起源、信仰或者生活方式的痕迹(few physical traces of their origins, beliefs, or ways of life)。由此可推断，这些游牧者是神秘的，故选 B 项。\n【干扰排除】第 2 段末句提到这些游牧者对周边发动间歇性的突袭(periodic forays)，并造成严重破坏(wreaked havoc)，故排除 A 项“爱好和平的”和 D 项“友好的”。第 2 段第 2 句提到，他们很少会在城镇定居(on rare occasions settled down and built towns or even cities)，故排除 C 项“城镇的”。"
+  "analysis": "【定位】根据题目定位至第 1、2 段。【详解】本题问文中将这些游牧者描述为怎样的人。第 1 段末句提到考古学家对这些游牧者所在地区知之甚少(largely unknown)。第 2 段则说他们几乎没有留下关于其起源、信仰或者生活方式的痕迹(few physical traces of their origins, beliefs, or ways of life)。由此可推断，这些游牧者是神秘的，故选 B 项。【干扰排除】第 2 段末句提到这些游牧者对周边发动间歇性的突袭(periodic forays)，并造成严重破坏(wreaked havoc)，故排除 A 项“爱好和平的”和 D 项“友好的”。第 2 段第 2 句提到，他们很少会在城镇定居(on rare occasions settled down and built towns or even cities)，故排除 C 项“城镇的”。"
  },
  {
   "number": 21,
@@ -1215,7 +1215,7 @@ window.TEM8_MID_QUESTIONS = [
    "Population movement."
   ],
   "answer": 2,
-  "analysis": "【定位】根据 steppes 和 accessible 定位至第 5 段。\n【详解】本题问是什么让人能够通行草原。第 5 段末句中的 turned a forbidding landscape for pedestrians into a natural highway for grass “将行人难以踏足的禁地变成天然的草地公路”与题干中的 steppes accessible to travelers “让行人通行草原”对应，该句 when 后的内容即为条件，即开始驯养马匹和骑马(horse domestication and riding)。C 项复现原文词，故为答案。\n【干扰排除】本题关键在于找到与题干信息一致的解题句，其他三项的信息在解题句中均未提及。"
+  "analysis": "【定位】根据 steppes 和 accessible 定位至第 5 段。【详解】本题问是什么让人能够通行草原。第 5 段末句中的 turned a forbidding landscape for pedestrians into a natural highway for grass “将行人难以踏足的禁地变成天然的草地公路”与题干中的 steppes accessible to travelers “让行人通行草原”对应，该句 when 后的内容即为条件，即开始驯养马匹和骑马(horse domestication and riding)。C 项复现原文词，故为答案。【干扰排除】本题关键在于找到与题干信息一致的解题句，其他三项的信息在解题句中均未提及。"
  },
  {
   "number": 22,
@@ -1229,7 +1229,7 @@ window.TEM8_MID_QUESTIONS = [
    "their location in the trade route to the north"
   ],
   "answer": 0,
-  "analysis": "【定位】根据 Frachetti、interested 及 the south of the steppes 定位至第 7 段。\n【详解】本题问最初吸引弗拉切蒂来到草原南部地区的原因。第 7 段首句中的 was drawn to the southern region of Central Asia 与题干中的 initially interested in the areas to the south of the steppes 对应，故该句 for 后的内容就是答案。A 项“多样化的地理特征”与文中的 its environmental diversity “环境多样性”同义，故为答案。\n【干扰排除】细节题的关键在于找到与题干信息一致的解题句，其他三项在文中其他地方有提及，但与本题所问无关。"
+  "analysis": "【定位】根据 Frachetti、interested 及 the south of the steppes 定位至第 7 段。【详解】本题问最初吸引弗拉切蒂来到草原南部地区的原因。第 7 段首句中的 was drawn to the southern region of Central Asia 与题干中的 initially interested in the areas to the south of the steppes 对应，故该句 for 后的内容就是答案。A 项“多样化的地理特征”与文中的 its environmental diversity “环境多样性”同义，故为答案。【干扰排除】细节题的关键在于找到与题干信息一致的解题句，其他三项在文中其他地方有提及，但与本题所问无关。"
  },
  {
   "number": 23,
@@ -1243,7 +1243,7 @@ window.TEM8_MID_QUESTIONS = [
    "They were probably given by other tribes."
   ],
   "answer": 3,
-  "analysis": "【定位】根据题干中的 wheat and millet 定位至第 8、9 段。\n【详解】本题问关于拜尔什小麦和黍的表述哪项正确。第 8 段提到考古队在拜尔什发现了小麦和黍，第 9 段提到这些谷物可能是从其他部落处获得的(acquired from other tribes)，故选 D 项“它们可能是其他部落给的”。\n【干扰排除】第 8 段末句提到这两种谷物可能都不是由拜尔什人种植的(may not have grown either grain)，因此这不是农业的象征，排除 A 项。B 项利用第 8 段末句的 trade networks stretching from the Near East to China 设置干扰，这句话是说谷物是从近东到中国的贸易网中获取的，并不意味着拜尔什人直接与中国交易，故排除。第 8 段提到这些作物是用于葬礼的(used ritually in a burial)，并非宗教仪式，故排除 C 项。"
+  "analysis": "【定位】根据题干中的 wheat and millet 定位至第 8、9 段。【详解】本题问关于拜尔什小麦和黍的表述哪项正确。第 8 段提到考古队在拜尔什发现了小麦和黍，第 9 段提到这些谷物可能是从其他部落处获得的(acquired from other tribes)，故选 D 项“它们可能是其他部落给的”。【干扰排除】第 8 段末句提到这两种谷物可能都不是由拜尔什人种植的(may not have grown either grain)，因此这不是农业的象征，排除 A 项。B 项利用第 8 段末句的 trade networks stretching from the Near East to China 设置干扰，这句话是说谷物是从近东到中国的贸易网中获取的，并不意味着拜尔什人直接与中国交易，故排除。第 8 段提到这些作物是用于葬礼的(used ritually in a burial)，并非宗教仪式，故排除 C 项。"
  },
  {
   "number": 24,
@@ -1257,7 +1257,7 @@ window.TEM8_MID_QUESTIONS = [
    "Begash was part of the Eurasian community."
   ],
   "answer": 1,
-  "analysis": "【定位】根据题目定位至第 10 段。\n【详解】本题问关于拜尔什的发现有什么意义。第 10 段开头的 What makes the Begash discoveries so important is that... 与题干对应，故之后的内容即为答案。第 1 句提到人们对拜尔什地区的旧印象(previously... was assumed)，第 2、3 句主要提到对这些游牧民族的新认识(not simple..., but...)，之后又说明拜尔什位于十字路口、是关键的传播渠道。这些都属于对该地区形成的新观点，故选 B 项。\n【干扰排除】文中说该地区的人们不是简单的狩猎者，而是老练的牧民(not simple foragers, but sophisticated pastoralists)，A 项与此相反。C、D 项是文中提到的细节，说明的是拜尔什当时的位置关系，但不能代表相关发现的意义。"
+  "analysis": "【定位】根据题目定位至第 10 段。【详解】本题问关于拜尔什的发现有什么意义。第 10 段开头的 What makes the Begash discoveries so important is that... 与题干对应，故之后的内容即为答案。第 1 句提到人们对拜尔什地区的旧印象(previously... was assumed)，第 2、3 句主要提到对这些游牧民族的新认识(not simple..., but...)，之后又说明拜尔什位于十字路口、是关键的传播渠道。这些都属于对该地区形成的新观点，故选 B 项。【干扰排除】文中说该地区的人们不是简单的狩猎者，而是老练的牧民(not simple foragers, but sophisticated pastoralists)，A 项与此相反。C、D 项是文中提到的细节，说明的是拜尔什当时的位置关系，但不能代表相关发现的意义。"
  },
  {
   "number": 25,
@@ -1335,7 +1335,7 @@ window.TEM8_MID_QUESTIONS = [
    "Bone structure."
   ],
   "answer": 3,
-  "analysis": "【定位】根据题干中的 facts about gorillas 和 bone structure 可定位至第 1、2 段。\n【详解】第 1 段第 4 句提到，大猩猩的骨头陈列在各地的自然历史博物馆中(bones have been mounted in natural history museums)。这一点说明人类能够直接接触到大猩猩的骨头，也就对大猩猩的骨头结构有所了解，故选 D 项“骨头结构”。\n【干扰排除】第 2 段第 3 句提到，博物学家也没能弄清楚大猩猩的寿命(how long the gorilla lives)、死亡方式以及死亡原因(how or why it dies)。另外，他也未能界定大猩猩族群确切的社会模式(exact social pattern of the family groups)。综上，排除 A 项“寿命”、B 项“死因”和 C 项“家庭结构”。"
+  "analysis": "【定位】根据题干中的 facts about gorillas 和 bone structure 可定位至第 1、2 段。【详解】第 1 段第 4 句提到，大猩猩的骨头陈列在各地的自然历史博物馆中(bones have been mounted in natural history museums)。这一点说明人类能够直接接触到大猩猩的骨头，也就对大猩猩的骨头结构有所了解，故选 D 项“骨头结构”。【干扰排除】第 2 段第 3 句提到，博物学家也没能弄清楚大猩猩的寿命(how long the gorilla lives)、死亡方式以及死亡原因(how or why it dies)。另外，他也未能界定大猩猩族群确切的社会模式(exact social pattern of the family groups)。综上，排除 A 项“寿命”、B 项“死因”和 C 项“家庭结构”。"
  },
  {
   "number": 12,
@@ -1349,7 +1349,7 @@ window.TEM8_MID_QUESTIONS = [
    "Stereotyped."
   ],
   "answer": 1,
-  "analysis": "【定位】题目指明第 2 段。\n【详解】第 2 段围绕首句“我们对大猩猩所知甚少”展开。再结合 mystery 的上下文可知，人们对大猩猩的了解仍停留在一个世纪前刚知道这种动物的时候，强调的是人们对大猩猩仍然了解得很少。更关键的是下文直接拿喜马拉雅山雪怪作比较，指出这种雪怪也不比大猩猩更 elusive。据此可判断 mystery 与 B 项 Elusive 意思更接近，即“神秘难懂、捉摸不透”，故选 B 项。\n【干扰排除】A 项“虚构、荒诞的东西”、C 项“恐怖”和 D 项“刻板的”均与 mystery 意思不同。"
+  "analysis": "【定位】题目指明第 2 段。【详解】第 2 段围绕首句“我们对大猩猩所知甚少”展开。再结合 mystery 的上下文可知，人们对大猩猩的了解仍停留在一个世纪前刚知道这种动物的时候，强调的是人们对大猩猩仍然了解得很少。更关键的是下文直接拿喜马拉雅山雪怪作比较，指出这种雪怪也不比大猩猩更 elusive。据此可判断 mystery 与 B 项 Elusive 意思更接近，即“神秘难懂、捉摸不透”，故选 B 项。【干扰排除】A 项“虚构、荒诞的东西”、C 项“恐怖”和 D 项“刻板的”均与 mystery 意思不同。"
  },
  {
   "number": 13,
@@ -1363,7 +1363,7 @@ window.TEM8_MID_QUESTIONS = [
    "When alarmed, the male gorilla is more likely to show fury."
   ],
   "answer": 0,
-  "analysis": "【定位】根据题干引文可定位至第 6 段。\n【详解】此题的解题关键在于理解 shadow boxing 的含义。shadow boxing 本意是指“空拳、佯装的攻击”。根据语境也能推断出其意：文章在 But all this is no more than shadow boxing 之后用 for 引出了原因，指出大猩猩是温驯的生物，并进一步说明大猩猩并不喜欢攻击，故选 A 项“大猩猩面对危险时很少发起攻击”。\n【干扰排除】B 项“大猩猩狂怒时通常会发起攻击”与大猩猩温驯的特点不符。C 项“雄性大猩猩会保护陷入危险的家人”与题目无关。D 项“受惊时雄性大猩猩更易表现出狂怒”在文中并未提及。"
+  "analysis": "【定位】根据题干引文可定位至第 6 段。【详解】此题的解题关键在于理解 shadow boxing 的含义。shadow boxing 本意是指“空拳、佯装的攻击”。根据语境也能推断出其意：文章在 But all this is no more than shadow boxing 之后用 for 引出了原因，指出大猩猩是温驯的生物，并进一步说明大猩猩并不喜欢攻击，故选 A 项“大猩猩面对危险时很少发起攻击”。【干扰排除】B 项“大猩猩狂怒时通常会发起攻击”与大猩猩温驯的特点不符。C 项“雄性大猩猩会保护陷入危险的家人”与题目无关。D 项“受惊时雄性大猩猩更易表现出狂怒”在文中并未提及。"
  },
  {
   "number": 14,
@@ -1377,7 +1377,7 @@ window.TEM8_MID_QUESTIONS = [
    "nonchalant"
   ],
   "answer": 2,
-  "analysis": "【定位】全文。\n【详解】此题考查作者的态度。作者在文中先是指出大猩猩受到捕杀和圈禁，接着又纠正了人们对大猩猩的误解，并指出大猩猩是 gentle、kindly 和 most forgiving 的，故选 C 项“同情的”。\n【干扰排除】B 项“怀有敌意”和 D 项“漠不关心”与全文不符。A 项“模棱两可”与全文多次表达对大猩猩的喜爱不符。"
+  "analysis": "【定位】全文。【详解】此题考查作者的态度。作者在文中先是指出大猩猩受到捕杀和圈禁，接着又纠正了人们对大猩猩的误解，并指出大猩猩是 gentle、kindly 和 most forgiving 的，故选 C 项“同情的”。【干扰排除】B 项“怀有敌意”和 D 项“漠不关心”与全文不符。A 项“模棱两可”与全文多次表达对大猩猩的喜爱不符。"
  },
  {
   "number": 15,
@@ -1391,7 +1391,7 @@ window.TEM8_MID_QUESTIONS = [
    "\"straight, plain kitchen chairs\" and \"an overstuffed sofa\" (Para. 4)."
   ],
   "answer": 1,
-  "analysis": "【定位】各选项分别指明第 1、4、7 段。\n【详解】burning hot 意为“灼热的”，a glassy, brilliant azure 意为“明净耀眼的湛蓝色”，两者都出现在第 7 段。由该句后半句 and the sun burned down riotously bright(太阳猛烈而刺眼地燃烧着)可知，a glassy, brilliant azure 描述的也是天气炎热、晴空万里的情况，与 burning hot 并没有形成对比，故选 B 项。\n【干扰排除】第 1 段中的 yellow or green 形容安东尼帕罗斯穿衣花花绿绿、不修边幅，而 soberly dressed(穿衣朴素)指的是辛格穿衣风格比较朴素，与安东尼帕罗斯形成了鲜明的对比，故排除 A 项；gentle, stupid smile(温柔而呆滞的笑容)和 quick, intelligent expression(眼神敏捷而充满智慧)也体现出安东尼帕罗斯和辛格在性格上的对比，故排除 C 项；straight, plain kitchen chairs 是辛格用的普通直背餐桌椅，an overstuffed sofa 是安东尼帕罗斯用的加了厚软垫的鼓鼓囊囊的沙发，这一描写体现了两人在生活习惯上的差异，也是一种对比，故排除 D 项。"
+  "analysis": "【定位】各选项分别指明第 1、4、7 段。【详解】burning hot 意为“灼热的”，a glassy, brilliant azure 意为“明净耀眼的湛蓝色”，两者都出现在第 7 段。由该句后半句 and the sun burned down riotously bright(太阳猛烈而刺眼地燃烧着)可知，a glassy, brilliant azure 描述的也是天气炎热、晴空万里的情况，与 burning hot 并没有形成对比，故选 B 项。【干扰排除】第 1 段中的 yellow or green 形容安东尼帕罗斯穿衣花花绿绿、不修边幅，而 soberly dressed(穿衣朴素)指的是辛格穿衣风格比较朴素，与安东尼帕罗斯形成了鲜明的对比，故排除 A 项；gentle, stupid smile(温柔而呆滞的笑容)和 quick, intelligent expression(眼神敏捷而充满智慧)也体现出安东尼帕罗斯和辛格在性格上的对比，故排除 C 项；straight, plain kitchen chairs 是辛格用的普通直背餐桌椅，an overstuffed sofa 是安东尼帕罗斯用的加了厚软垫的鼓鼓囊囊的沙发，这一描写体现了两人在生活习惯上的差异，也是一种对比，故排除 D 项。"
  },
  {
   "number": 16,
@@ -1405,7 +1405,7 @@ window.TEM8_MID_QUESTIONS = [
    "be more \"talkative\""
   ],
   "answer": 3,
-  "analysis": "【定位】全文。\n【详解】由第 2 段第 2 句 At home Singer was always talking to Antonapoulos.(在家里，辛格总是跟安东尼帕罗斯说话)可知，辛格更“健谈”，更爱“说话”，故选 D 项。\n【干扰排除】A 项可定位至第 6 段第 2 句 Singer had always greatly enjoyed this game(辛格一直特别喜欢象棋)，this game 指代的是 chess，故 A 项错误；B 项描述的是安东尼帕罗斯的喜好，不是描写辛格的；C 项在文中并没有提及。"
+  "analysis": "【定位】全文。【详解】由第 2 段第 2 句 At home Singer was always talking to Antonapoulos.(在家里，辛格总是跟安东尼帕罗斯说话)可知，辛格更“健谈”，更爱“说话”，故选 D 项。【干扰排除】A 项可定位至第 6 段第 2 句 Singer had always greatly enjoyed this game(辛格一直特别喜欢象棋)，this game 指代的是 chess，故 A 项错误；B 项描述的是安东尼帕罗斯的喜好，不是描写辛格的；C 项在文中并没有提及。"
  },
  {
   "number": 17,
@@ -1419,7 +1419,7 @@ window.TEM8_MID_QUESTIONS = [
    "Antonopoulos was pleased when white pieces were attacked"
   ],
   "answer": 0,
-  "analysis": "【定位】题目指明第 6 段。\n【详解】从第 6 段可知，安东尼帕罗斯走完开局的几步之后，辛格就自己跟自己下棋，直到终局，即 A 项。\n【干扰排除】第 6 段第 3 句说明安东尼帕罗斯对象棋不感兴趣，故排除 B 项；由第 6 段第 5 句可知安东尼帕罗斯很难领会象棋的玩法，故排除 C 项；由第 6 段最后一句可知，只有黑棋的“王”被杀死时安东尼帕罗斯才会很开心，故排除 D 项。"
+  "analysis": "【定位】题目指明第 6 段。【详解】从第 6 段可知，安东尼帕罗斯走完开局的几步之后，辛格就自己跟自己下棋，直到终局，即 A 项。【干扰排除】第 6 段第 3 句说明安东尼帕罗斯对象棋不感兴趣，故排除 B 项；由第 6 段第 5 句可知安东尼帕罗斯很难领会象棋的玩法，故排除 C 项；由第 6 段最后一句可知，只有黑棋的“王”被杀死时安东尼帕罗斯才会很开心，故排除 D 项。"
  },
  {
   "number": 18,
@@ -1433,7 +1433,7 @@ window.TEM8_MID_QUESTIONS = [
    "Changeable short winter and hot long summer."
   ],
   "answer": 2,
-  "analysis": "【定位】题目指明第 7 段。\n【详解】此题为段落大意题。第 7 段主要描写了两个伙伴的日常生活轨迹和小镇的气候与社会经济情况。该段提到大街上的人大多是饥饿、孤独又绝望的(desperate look of hunger and of loneliness)，符合 C 项的 omnipresent desperation，omnipresent 意为“无处不在的、普遍存在的”；而该段中的 content 则说明辛格和安东尼帕罗斯的日子过得非常惬意，他们自己也很满足，对应 C 项的 self-contentment。综上，本题选 C 项。\n【干扰排除】A 项“繁荣的商业和贫困的人口”和 D 项“多变而短暂的冬天和漫长炎热的夏天”都只是第 7 段的部分内容，B 项中的 desperate attempt for survival 在第 7 段并没有提到。"
+  "analysis": "【定位】题目指明第 7 段。【详解】此题为段落大意题。第 7 段主要描写了两个伙伴的日常生活轨迹和小镇的气候与社会经济情况。该段提到大街上的人大多是饥饿、孤独又绝望的(desperate look of hunger and of loneliness)，符合 C 项的 omnipresent desperation，omnipresent 意为“无处不在的、普遍存在的”；而该段中的 content 则说明辛格和安东尼帕罗斯的日子过得非常惬意，他们自己也很满足，对应 C 项的 self-contentment。综上，本题选 C 项。【干扰排除】A 项“繁荣的商业和贫困的人口”和 D 项“多变而短暂的冬天和漫长炎热的夏天”都只是第 7 段的部分内容，B 项中的 desperate attempt for survival 在第 7 段并没有提到。"
  },
  {
   "number": 19,
@@ -1447,7 +1447,7 @@ window.TEM8_MID_QUESTIONS = [
    "Mozart's music in the film"
   ],
   "answer": 1,
-  "analysis": "【定位】根据题干 Amadeus's appeal 可定位到第 1 段。\n【详解】文章开篇便清楚指出《莫扎特传》这部电影远远没有忠实地描述已知事实(far from a faithful account)，因此“忠于历史的故事线”并不是影片吸引观众的原因，故选 B 项。\n【干扰排除】根据文中第 1 段多次出现的 attributable to 可知，电影《莫扎特传》的吸引力源于它的娱乐价值高(high entertainment value)和莫扎特的音乐(Mozart's music)。因此 A 项“对莫扎特的人物刻画”、C 项“演员的优质表演”和 D 项“影片中的莫扎特音乐”都是这部影片吸引观众的地方，故排除。"
+  "analysis": "【定位】根据题干 Amadeus's appeal 可定位到第 1 段。【详解】文章开篇便清楚指出《莫扎特传》这部电影远远没有忠实地描述已知事实(far from a faithful account)，因此“忠于历史的故事线”并不是影片吸引观众的原因，故选 B 项。【干扰排除】根据文中第 1 段多次出现的 attributable to 可知，电影《莫扎特传》的吸引力源于它的娱乐价值高(high entertainment value)和莫扎特的音乐(Mozart's music)。因此 A 项“对莫扎特的人物刻画”、C 项“演员的优质表演”和 D 项“影片中的莫扎特音乐”都是这部影片吸引观众的地方，故排除。"
  },
  {
   "number": 20,
@@ -1461,7 +1461,7 @@ window.TEM8_MID_QUESTIONS = [
    "He was once assigned to an important post."
   ],
   "answer": 0,
-  "analysis": "【定位】根据关键词 Salieri 可定位至第 3、4 段。\n【详解】文章第 3 段最后一句提到，萨列里认识莫扎特时已经结婚，而且至少是 8 个孩子的父亲(Salieri was married... father of at least eight children)，A 项“萨列里一生未婚”描述错误，故选 A 项。\n【干扰排除】第 3 段提到，路德维希·凡·贝多芬、弗朗茨·李斯特和弗朗茨·舒伯特都是萨列里的学生，而这些学生都是著名的音乐家，故 B 项“萨列里的学生后来都出名了”描述正确；萨列里被认为是造诣更深(more accomplished)的音乐家和作曲家，故 C 项“萨列里是一名有才能的音乐家和作曲家”描述正确；萨列里曾担任神圣罗马帝国皇帝约瑟夫二世宫廷音乐指挥这一要职，故 D 项“萨列里曾被委派要职”描述正确。"
+  "analysis": "【定位】根据关键词 Salieri 可定位至第 3、4 段。【详解】文章第 3 段最后一句提到，萨列里认识莫扎特时已经结婚，而且至少是 8 个孩子的父亲(Salieri was married... father of at least eight children)，A 项“萨列里一生未婚”描述错误，故选 A 项。【干扰排除】第 3 段提到，路德维希·凡·贝多芬、弗朗茨·李斯特和弗朗茨·舒伯特都是萨列里的学生，而这些学生都是著名的音乐家，故 B 项“萨列里的学生后来都出名了”描述正确；萨列里被认为是造诣更深(more accomplished)的音乐家和作曲家，故 C 项“萨列里是一名有才能的音乐家和作曲家”描述正确；萨列里曾担任神圣罗马帝国皇帝约瑟夫二世宫廷音乐指挥这一要职，故 D 项“萨列里曾被委派要职”描述正确。"
  },
  {
   "number": 21,
@@ -1475,7 +1475,7 @@ window.TEM8_MID_QUESTIONS = [
    "suspected each other on some occasions"
   ],
   "answer": 2,
-  "analysis": "【定位】根据关键词 rivalry 可定位到第 4 段。\n【详解】第 4 段提到，莫扎特和萨列里二人曾在工作上有过激烈的竞争(vying for work)，其中包括给符腾堡公主当音乐教师这一显赫的职位。这是两人之间存在竞争关系的主要原因，故选 C 项“竞争音乐方面的工作和职位”。\n【干扰排除】A 项“住在同一个城市”是干扰项，它虽然和 rivalry 出现在同一个句子里，但并不是主要原因，因为两人从事同一个领域的工作才是可能存在竞争的基础。B 项“加入不同的音乐学派”只是一种事实，与存在竞争无关。文中虽然提到莫扎特和父亲曾经怀疑萨列里背地里破坏莫扎特的成功，但并未明确提到萨列里对莫扎特也存在怀疑，故排除 D 项“在某些时候互相怀疑”。"
+  "analysis": "【定位】根据关键词 rivalry 可定位到第 4 段。【详解】第 4 段提到，莫扎特和萨列里二人曾在工作上有过激烈的竞争(vying for work)，其中包括给符腾堡公主当音乐教师这一显赫的职位。这是两人之间存在竞争关系的主要原因，故选 C 项“竞争音乐方面的工作和职位”。【干扰排除】A 项“住在同一个城市”是干扰项，它虽然和 rivalry 出现在同一个句子里，但并不是主要原因，因为两人从事同一个领域的工作才是可能存在竞争的基础。B 项“加入不同的音乐学派”只是一种事实，与存在竞争无关。文中虽然提到莫扎特和父亲曾经怀疑萨列里背地里破坏莫扎特的成功，但并未明确提到萨列里对莫扎特也存在怀疑，故排除 D 项“在某些时候互相怀疑”。"
  },
  {
   "number": 22,
@@ -1489,7 +1489,7 @@ window.TEM8_MID_QUESTIONS = [
    "Salieri's success and status in the musical circle."
   ],
   "answer": 3,
-  "analysis": "【定位】题目指明是第 4 段。\n【详解】第 4 段最后一句明确指出，莫扎特和萨列里之间若有任何敌意，那也是出在莫扎特的身上，而这种敌意源自萨列里的地位和成就(and it stemmed from Salieri's status and success)，故选 D 项“萨列里在音乐界的成就和地位”。\n【干扰排除】A 项“莫扎特和父亲决裂的经历”并没有出现在第 4 段，且与题干所问无关。B 项“萨列里企图破坏莫扎特的成功”仅仅是莫扎特和父亲的一种猜测，并不是事实。C 项“莫扎特作为一名音乐天才所取得的成就和地位”与此不符。"
+  "analysis": "【定位】题目指明是第 4 段。【详解】第 4 段最后一句明确指出，莫扎特和萨列里之间若有任何敌意，那也是出在莫扎特的身上，而这种敌意源自萨列里的地位和成就(and it stemmed from Salieri's status and success)，故选 D 项“萨列里在音乐界的成就和地位”。【干扰排除】A 项“莫扎特和父亲决裂的经历”并没有出现在第 4 段，且与题干所问无关。B 项“萨列里企图破坏莫扎特的成功”仅仅是莫扎特和父亲的一种猜测，并不是事实。C 项“莫扎特作为一名音乐天才所取得的成就和地位”与此不符。"
  },
  {
   "number": 23,
@@ -1503,7 +1503,7 @@ window.TEM8_MID_QUESTIONS = [
    "In his private life, he may not have had Mozart's exuberance.... (Para. 3)."
   ],
   "answer": 2,
-  "analysis": "【定位】题目和各选项指明第 1、2、3、5、6 段。\n【详解】题目要求找出最能支撑“为了体现善恶之间的戏剧性反差……真实人物的复杂个性也趋于单一扁平”的陈述。重点在于“人物的复杂个性趋于单一扁平”，也就是答案需要体现电影故事与史实之间的出入。C 项的 unjust 恰好体现了这种出入：unjust 只是基于当代人对莫扎特单一的认知而作出的判断，实际上萨列里也是很有才能和名望的作曲家，并不存在不公平之处。电影正是通过缩减真实人物的复杂故事增强了戏剧性反差的效果，故选 C 项。\n【干扰排除】A 项“……肯定不是他走向衰落或名誉尽失的标志”与人物复杂个性无关。B 项“这部电影编造的故事情节实际上是基于 19 世纪 20 年代在维也纳真实流传过的一个谣言”是对电影剧本来源的描述，没有涉及对角色具体的创作和更改。D 项“萨列里的私生活也许没有莫扎特精彩”虽然也说现实与电影不符，但此处只是描述个人经历，不涉及个性的简化，也体现不了善恶的反差。"
+  "analysis": "【定位】题目和各选项指明第 1、2、3、5、6 段。【详解】题目要求找出最能支撑“为了体现善恶之间的戏剧性反差……真实人物的复杂个性也趋于单一扁平”的陈述。重点在于“人物的复杂个性趋于单一扁平”，也就是答案需要体现电影故事与史实之间的出入。C 项的 unjust 恰好体现了这种出入：unjust 只是基于当代人对莫扎特单一的认知而作出的判断，实际上萨列里也是很有才能和名望的作曲家，并不存在不公平之处。电影正是通过缩减真实人物的复杂故事增强了戏剧性反差的效果，故选 C 项。【干扰排除】A 项“……肯定不是他走向衰落或名誉尽失的标志”与人物复杂个性无关。B 项“这部电影编造的故事情节实际上是基于 19 世纪 20 年代在维也纳真实流传过的一个谣言”是对电影剧本来源的描述，没有涉及对角色具体的创作和更改。D 项“萨列里的私生活也许没有莫扎特精彩”虽然也说现实与电影不符，但此处只是描述个人经历，不涉及个性的简化，也体现不了善恶的反差。"
  },
  {
   "number": 24,
@@ -1517,7 +1517,7 @@ window.TEM8_MID_QUESTIONS = [
    "provide an account of Mozart as a talented musician"
   ],
   "answer": 1,
-  "analysis": "【定位】全文。\n【详解】本题属于写作意图题。由于文章主要对比了真实的历史和电影里的描述，可看出作者的意图便是批驳《莫扎特传》中不符合历史事实的地方并予以纠正，故选 B 项“纠正影片中被歪曲的人物细节”。\n【干扰排除】A 项“审视这部电影如何吸引现代观众”只是文章第 1 段的一部分，不是作者主要的写作意图。C 项“强调影片《莫扎特传》的娱乐价值”也只是在第 1 段有所提及，不是主要意图。文章主要在纠正影片不符合史实的地方，并列举了大量关于萨列里的事实，并不是单纯在描述莫扎特作为一名天才音乐家的事迹。"
+  "analysis": "【定位】全文。【详解】本题属于写作意图题。由于文章主要对比了真实的历史和电影里的描述，可看出作者的意图便是批驳《莫扎特传》中不符合历史事实的地方并予以纠正，故选 B 项“纠正影片中被歪曲的人物细节”。【干扰排除】A 项“审视这部电影如何吸引现代观众”只是文章第 1 段的一部分，不是作者主要的写作意图。C 项“强调影片《莫扎特传》的娱乐价值”也只是在第 1 段有所提及，不是主要意图。文章主要在纠正影片不符合史实的地方，并列举了大量关于萨列里的事实，并不是单纯在描述莫扎特作为一名天才音乐家的事迹。"
  },
  {
   "number": 25,
@@ -1735,7 +1735,7 @@ window.TEM8_MID_LISTENING = {
       "An academic."
      ],
      "answer": 3,
-     "analysis": "本题问根据采访人的介绍，Maureen McLane 是做什么的。采访人一开始提到 Maureen 是一位诗人兼评论家，后来又介绍说她是纽约大学的英文教授，这些身份都与学术相关，D 项“学者”是对其多重学术身份的概括。\n【干扰排除】采访人提到 Maureen 发表了许多学术著作，但并未说她是“出版商”，故排除 A 项。Maureen 只是作为一名受访者参加了一档电台节目，故排除 B 项“播音员”和 C 项“节目女主持”。",
+     "analysis": "本题问根据采访人的介绍，Maureen McLane 是做什么的。采访人一开始提到 Maureen 是一位诗人兼评论家，后来又介绍说她是纽约大学的英文教授，这些身份都与学术相关，D 项“学者”是对其多重学术身份的概括。【干扰排除】采访人提到 Maureen 发表了许多学术著作，但并未说她是“出版商”，故排除 A 项。Maureen 只是作为一名受访者参加了一档电台节目，故排除 B 项“播音员”和 C 项“节目女主持”。",
      "prompt": "What is Maureen McLane according to the interviewer?",
      "part": 1
     },
@@ -1748,7 +1748,7 @@ window.TEM8_MID_LISTENING = {
       "During nursery."
      ],
      "answer": 2,
-     "analysis": "本题问 Maureen 最早是在什么时候开始阅读诗歌的。本问题直接摘自采访人的提问，Maureen 的相关回答是 in my high school days，故选 C 项“高中时期”。\n【干扰排除】Maureen 回答后虽然补充说明自己在高中之前也接触过童谣、赞美诗以及父亲写的诗歌等，但之后又强调阅读诗歌这件事真正意义上是出现在高中时期，故排除 A 项“童年时期”、B 项“小学时期”和 D 项“幼年时期”。",
+     "analysis": "本题问 Maureen 最早是在什么时候开始阅读诗歌的。本问题直接摘自采访人的提问，Maureen 的相关回答是 in my high school days，故选 C 项“高中时期”。【干扰排除】Maureen 回答后虽然补充说明自己在高中之前也接触过童谣、赞美诗以及父亲写的诗歌等，但之后又强调阅读诗歌这件事真正意义上是出现在高中时期，故排除 A 项“童年时期”、B 项“小学时期”和 D 项“幼年时期”。",
      "prompt": "When did Maureen first begin to read poetry?",
      "part": 1
     },
@@ -1761,7 +1761,7 @@ window.TEM8_MID_LISTENING = {
       "Professor of English."
      ],
      "answer": 1,
-     "analysis": "本题问对于 Maureen 而言，谁是最重要的老师。Maureen 认为，到头来诗人自己才是最重要的老师(in the end the poets themselves are the most important teachers)，说到底教导一个人的是其他作家的作品(it's writing that teaches you, other writers' works)，故选 B 项“作家和诗人”。\n【干扰排除】根据 Maureen 的回答，A 项“历史学家”、C 项“音乐教授”和 D 项“英语教授”都是在不同方面对她很重要的老师，但 Maureen 并未表示他们是最重要的老师，故均排除。",
+     "analysis": "本题问对于 Maureen 而言，谁是最重要的老师。Maureen 认为，到头来诗人自己才是最重要的老师(in the end the poets themselves are the most important teachers)，说到底教导一个人的是其他作家的作品(it's writing that teaches you, other writers' works)，故选 B 项“作家和诗人”。【干扰排除】根据 Maureen 的回答，A 项“历史学家”、C 项“音乐教授”和 D 项“英语教授”都是在不同方面对她很重要的老师，但 Maureen 并未表示他们是最重要的老师，故均排除。",
      "prompt": "Who were the most important teachers to Maureen?",
      "part": 1
     },
@@ -1774,7 +1774,7 @@ window.TEM8_MID_LISTENING = {
       "Local history."
      ],
      "answer": 0,
-     "analysis": "本题问 Maureen 回到哈佛大学执教后，对下列哪一项的感受更加强烈。Maureen 在采访中提到，她对周围环境有了更多的认识和了解(I was more aware of the environment)，故选 A 项。\n【干扰排除】B 项“学术工作”和 D 项“当地历史”在采访中并未提及。虽然 Maureen 提到哈佛大学变得更加商业化(more commercialized)，但并未谈及自己对此的感受，故排除 C 项“商业化”。",
+     "analysis": "本题问 Maureen 回到哈佛大学执教后，对下列哪一项的感受更加强烈。Maureen 在采访中提到，她对周围环境有了更多的认识和了解(I was more aware of the environment)，故选 A 项。【干扰排除】B 项“学术工作”和 D 项“当地历史”在采访中并未提及。虽然 Maureen 提到哈佛大学变得更加商业化(more commercialized)，但并未谈及自己对此的感受，故排除 C 项“商业化”。",
      "prompt": "Which of the following did Maureen feel more strongly about when she returned to teach at Harvard?",
      "part": 1
     },
@@ -1787,7 +1787,7 @@ window.TEM8_MID_LISTENING = {
       "To better appreciate the poems."
      ],
      "answer": 3,
-     "analysis": "本题问 Maureen 为什么把录音带到了课堂上。Maureen 在采访中提到，录音能很好地让一个人的注意力回到诗歌上面(recordings offer a great way to refocus one's attention on the poem)，录音是一个用来和诗相遇的空间，一个真的很有力量的空间(a zone for encounter, a zone that's really powerful)。从这里可以看出，Maureen 觉得录音能够让学生很好地感受诗歌，故选 D 项“更好地欣赏诗歌”。\n【干扰排除】Maureen 提到带录音的好处时，并没有提及 A 项“帮助学生更好地记住诗歌”和 B 项“促进诗歌的创作”。inner ear “内在的耳朵”是 Maureen 提到的另一个话题，与她所说的“诗歌感”有关，但她并未提到 inner ear 与 recordings 之间的关系，故排除 C 项“无意识地激活一个人的内在耳朵”。",
+     "analysis": "本题问 Maureen 为什么把录音带到了课堂上。Maureen 在采访中提到，录音能很好地让一个人的注意力回到诗歌上面(recordings offer a great way to refocus one's attention on the poem)，录音是一个用来和诗相遇的空间，一个真的很有力量的空间(a zone for encounter, a zone that's really powerful)。从这里可以看出，Maureen 觉得录音能够让学生很好地感受诗歌，故选 D 项“更好地欣赏诗歌”。【干扰排除】Maureen 提到带录音的好处时，并没有提及 A 项“帮助学生更好地记住诗歌”和 B 项“促进诗歌的创作”。inner ear “内在的耳朵”是 Maureen 提到的另一个话题，与她所说的“诗歌感”有关，但她并未提到 inner ear 与 recordings 之间的关系，故排除 C 项“无意识地激活一个人的内在耳朵”。",
      "prompt": "Why did Maureen bring recordings to class?",
      "part": 1
     },
@@ -1800,7 +1800,7 @@ window.TEM8_MID_LISTENING = {
       "She thought socializing experience helped a lot."
      ],
      "answer": 2,
-     "analysis": "本题问 Maureen 如何看待与作家打交道这种事。Maureen 在采访中表示，其他作家觉得写作生活和社交生活之间存在着某种延续性，而她从来没有这样觉得。对她来说，诗歌是一个与专业化或人际关系网络(networking)都无关的领域，所以可以推断出 Maureen 将写作生活和社交生活分开，更喜欢和其他诗人保持距离，故选 C 项。\n【干扰排除】主持人说到，Maureen 曾说过她认为在诗歌中保持孤独是一种享受(a tremendous gift)，A 项“写作生活和社交生活之间的延续性是一种享受”与此不符；B 项“写作生活和社交生活之间的联系是必要的”和 D 项“她认为社交经历很有用”均与 Maureen 的回答截然相反。",
+     "analysis": "本题问 Maureen 如何看待与作家打交道这种事。Maureen 在采访中表示，其他作家觉得写作生活和社交生活之间存在着某种延续性，而她从来没有这样觉得。对她来说，诗歌是一个与专业化或人际关系网络(networking)都无关的领域，所以可以推断出 Maureen 将写作生活和社交生活分开，更喜欢和其他诗人保持距离，故选 C 项。【干扰排除】主持人说到，Maureen 曾说过她认为在诗歌中保持孤独是一种享受(a tremendous gift)，A 项“写作生活和社交生活之间的延续性是一种享受”与此不符；B 项“写作生活和社交生活之间的联系是必要的”和 D 项“她认为社交经历很有用”均与 Maureen 的回答截然相反。",
      "prompt": "What did Maureen think about socializing with writers?",
      "part": 1
     },
@@ -1813,7 +1813,7 @@ window.TEM8_MID_LISTENING = {
       "It had a networking role."
      ],
      "answer": 0,
-     "analysis": "本题问 Maureen 对诗人圈子的看法。她在采访中提到，诗人的圈子里并不一定都要是诗人，也不一定是那些组织读诗会的人，诗人圈子的成员可能存在于街头表演的民间音乐人中间。由此可知，Maureen 认为普罗大众中间都可能存在诗人，故选 A 项“诗人圈子的成员可以是任何人”。\n【干扰排除】B 项“诗人圈子的成员必须是诗人”和 C 项“诗人圈子里应都是专业人士”与 Maureen 的观点相悖。Maureen 认为诗歌与社交无关，故排除 D 项“诗人圈子具有社交属性”。",
+     "analysis": "本题问 Maureen 对诗人圈子的看法。她在采访中提到，诗人的圈子里并不一定都要是诗人，也不一定是那些组织读诗会的人，诗人圈子的成员可能存在于街头表演的民间音乐人中间。由此可知，Maureen 认为普罗大众中间都可能存在诗人，故选 A 项“诗人圈子的成员可以是任何人”。【干扰排除】B 项“诗人圈子的成员必须是诗人”和 C 项“诗人圈子里应都是专业人士”与 Maureen 的观点相悖。Maureen 认为诗歌与社交无关，故排除 D 项“诗人圈子具有社交属性”。",
      "prompt": "What was Maureen's view about a community for poets?",
      "part": 1
     },
@@ -1826,7 +1826,7 @@ window.TEM8_MID_LISTENING = {
       "To signal the end of a section."
      ],
      "answer": 1,
-     "analysis": "本题问为什么 Maureen 的诗歌篇节会有结尾诗节。Maureen 在采访中表示，结尾诗节能够让人慢慢地从中脱离，能缓和强烈的氛围以及暗示未来的某些东西。此外，结尾诗节既可以用于重申感情基调，亦可以上升至更广泛的层面。综上可知，结尾诗节极大地提高了诗人写诗的灵活性，故选 B 项“为表达的灵活性留出空间”。\n【干扰排除】A 项“表达更加强烈的情感”与“缓和强烈的氛围”(modulate out of certain kinds of intensities)意思相反。C 项“避免读者的误解”是根据录音中的 I wanted to avoid that 设置的干扰，avoid that 是指避免全诗只有一个基调(in that one mode)，而不是避免读者误解。D 项“提示诗歌篇节的结束”在采访中并未提及。",
+     "analysis": "本题问为什么 Maureen 的诗歌篇节会有结尾诗节。Maureen 在采访中表示，结尾诗节能够让人慢慢地从中脱离，能缓和强烈的氛围以及暗示未来的某些东西。此外，结尾诗节既可以用于重申感情基调，亦可以上升至更广泛的层面。综上可知，结尾诗节极大地提高了诗人写诗的灵活性，故选 B 项“为表达的灵活性留出空间”。【干扰排除】A 项“表达更加强烈的情感”与“缓和强烈的氛围”(modulate out of certain kinds of intensities)意思相反。C 项“避免读者的误解”是根据录音中的 I wanted to avoid that 设置的干扰，avoid that 是指避免全诗只有一个基调(in that one mode)，而不是避免读者误解。D 项“提示诗歌篇节的结束”在采访中并未提及。",
      "prompt": "Why did her sections have concluding stanzas?",
      "part": 1
     },
@@ -1839,7 +1839,7 @@ window.TEM8_MID_LISTENING = {
       "It was ordinary."
      ],
      "answer": 2,
-     "analysis": "本题问 Maureen 如何看待自己的诗歌朗读方式。Maureen 在采访中提到，她的诗歌朗读有时候会让人们感到惊讶(Sometimes people are surprised by my reading)。人们的惊讶从侧面说明 Maureen 的诗歌朗读存在一些与众不同的地方，故选 C 项“其方式是与众不同的”。\n【干扰排除】Maureen 在讨论诗歌朗读方面的话题时，只是提出一些朗读建议和理念，并未直接提到自己的朗读方式有什么创新之处，故排除 A 项“其方式是新颖的”。B 项“其方式是富有感情的”在 Maureen 的回答中并未涉及，D 项“其方式是普通的”与 Maureen 所说的 surprised 矛盾。",
+     "analysis": "本题问 Maureen 如何看待自己的诗歌朗读方式。Maureen 在采访中提到，她的诗歌朗读有时候会让人们感到惊讶(Sometimes people are surprised by my reading)。人们的惊讶从侧面说明 Maureen 的诗歌朗读存在一些与众不同的地方，故选 C 项“其方式是与众不同的”。【干扰排除】Maureen 在讨论诗歌朗读方面的话题时，只是提出一些朗读建议和理念，并未直接提到自己的朗读方式有什么创新之处，故排除 A 项“其方式是新颖的”。B 项“其方式是富有感情的”在 Maureen 的回答中并未涉及，D 项“其方式是普通的”与 Maureen 所说的 surprised 矛盾。",
      "prompt": "What did Maureen think about her way of poetry reading?",
      "part": 1
     },
@@ -1852,7 +1852,7 @@ window.TEM8_MID_LISTENING = {
       "Maureen's works of criticism and poems."
      ],
      "answer": 1,
-     "analysis": "本题问这篇采访的主要内容是什么，属于主旨题。这篇采访的前半部分主要是 Maureen 在高中、大学的学诗经历，后半部分主要谈了她作为一名诗人在诗歌鉴赏、创作、社交和诗歌朗读方面的见解和看法，故选 B 项“Maureen 作为一名学生和诗人的经历”。\n【干扰排除】A 项“Maureen 的教学和写作经验”和 C 项“Maureen 对于诗人社交的看法”都仅仅是采访内容的一部分；D 项“Maureen 的诗歌批评作品和诗歌作品”中的“诗歌批评作品”在采访中并未提及，并且“诗歌作品”也只是采访的部分内容。",
+     "analysis": "本题问这篇采访的主要内容是什么，属于主旨题。这篇采访的前半部分主要是 Maureen 在高中、大学的学诗经历，后半部分主要谈了她作为一名诗人在诗歌鉴赏、创作、社交和诗歌朗读方面的见解和看法，故选 B 项“Maureen 作为一名学生和诗人的经历”。【干扰排除】A 项“Maureen 的教学和写作经验”和 C 项“Maureen 对于诗人社交的看法”都仅仅是采访内容的一部分；D 项“Maureen 的诗歌批评作品和诗歌作品”中的“诗歌批评作品”在采访中并未提及，并且“诗歌作品”也只是采访的部分内容。",
      "prompt": "What is the interview mainly about?",
      "part": 1
     }
@@ -2017,7 +2017,7 @@ window.TEM8_MID_LISTENING = {
       "To fund schools with a philanthropy agency."
      ],
      "answer": 1,
-     "analysis": "本题问女士从事教育行业的原因。本题直接摘自男士提问的原话，女士的相关回答是她投身教育行业是因为想改善弱势群体的生活(improving lives in under-served communities for the better)，故选 B 项“为了帮助弱势群体过上更好的生活”。\n【干扰排除】A 项“为了实现儿时做老师的梦想”和 C 项“为了与其他教育者分享教学经验”在采访中并未提及，故排除。女士在教育慈善机构工作、通过基金会帮助老师和学生，这是她从事教育行业所做的事情，而不是其原因，所以排除 D 项。",
+     "analysis": "本题问女士从事教育行业的原因。本题直接摘自男士提问的原话，女士的相关回答是她投身教育行业是因为想改善弱势群体的生活(improving lives in under-served communities for the better)，故选 B 项“为了帮助弱势群体过上更好的生活”。【干扰排除】A 项“为了实现儿时做老师的梦想”和 C 项“为了与其他教育者分享教学经验”在采访中并未提及，故排除。女士在教育慈善机构工作、通过基金会帮助老师和学生，这是她从事教育行业所做的事情，而不是其原因，所以排除 D 项。",
      "prompt": "Why does the woman go into education?",
      "part": 1
     },
@@ -2030,7 +2030,7 @@ window.TEM8_MID_LISTENING = {
       "Positive."
      ],
      "answer": 3,
-     "analysis": "本题问女士父母对其孩子教育的态度。女士在采访中提到，她的父母坚决让孩子抓住一切学习的机会，期待他们能不断深造，可见女士的父母对子女的教育持积极的态度，故选 D 项“积极的”。\n【干扰排除】A 项“批判的”、B 项“不情愿的”和 C 项“消极的”与女士父母对孩子教育的积极态度不符，故均排除。",
+     "analysis": "本题问女士父母对其孩子教育的态度。女士在采访中提到，她的父母坚决让孩子抓住一切学习的机会，期待他们能不断深造，可见女士的父母对子女的教育持积极的态度，故选 D 项“积极的”。【干扰排除】A 项“批判的”、B 项“不情愿的”和 C 项“消极的”与女士父母对孩子教育的积极态度不符，故均排除。",
      "prompt": "What is her parents' attitude towards their children's education?",
      "part": 1
     },
@@ -2043,7 +2043,7 @@ window.TEM8_MID_LISTENING = {
       "Providing grants to educators three years ago."
      ],
      "answer": 2,
-     "analysis": "本题问 NEA 基金会为改善公共教育做了什么。女士提到该基金会有一个一年制的专业发展项目(professional development program)，让教师出国学习，故 C 项“提供专业发展项目”正确。\n【干扰排除】A 项“提高所有公立学校教育的教学质量”在采访中并未提及。女士提到 NEA 基金会为教育出资者设有一个年度奖项，B 项“为教育出资者提供奖金，每年颁发两次”与此不符。基金会还会资助有创意的课堂项目，每年颁发三次，D 项“三年前为教育者设奖项”与此不符。",
+     "analysis": "本题问 NEA 基金会为改善公共教育做了什么。女士提到该基金会有一个一年制的专业发展项目(professional development program)，让教师出国学习，故 C 项“提供专业发展项目”正确。【干扰排除】A 项“提高所有公立学校教育的教学质量”在采访中并未提及。女士提到 NEA 基金会为教育出资者设有一个年度奖项，B 项“为教育出资者提供奖金，每年颁发两次”与此不符。基金会还会资助有创意的课堂项目，每年颁发三次，D 项“三年前为教育者设奖项”与此不符。",
      "prompt": "What does the NEA foundation do to improve public education?",
      "part": 1
     },
@@ -2056,7 +2056,7 @@ window.TEM8_MID_LISTENING = {
       "To support critical skills areas in learning."
      ],
      "answer": 0,
-     "analysis": "本题问 EverFi 和 NEA 基金会未来的计划。女士在访谈中提到，EverFi 和 NEA 基金会将继续合作，开发更多社会和情感学习方面的项目(to develop initiatives in social and emotional learning)，故选 A 项。\n【干扰排除】B 项“免费提供数字教学资源”、C 项“为教育者提供更多数字学习工具”和 D 项“为学习需要的关键技能提供支持”都是 EverFi 和 NEA 基金会目前的合作内容，而不是未来的打算，故排除。",
+     "analysis": "本题问 EverFi 和 NEA 基金会未来的计划。女士在访谈中提到，EverFi 和 NEA 基金会将继续合作，开发更多社会和情感学习方面的项目(to develop initiatives in social and emotional learning)，故选 A 项。【干扰排除】B 项“免费提供数字教学资源”、C 项“为教育者提供更多数字学习工具”和 D 项“为学习需要的关键技能提供支持”都是 EverFi 和 NEA 基金会目前的合作内容，而不是未来的打算，故排除。",
      "prompt": "What do both EverFi and the NEA foundation plan to do in the future?",
      "part": 1
     },
@@ -2069,7 +2069,7 @@ window.TEM8_MID_LISTENING = {
       "Politeness."
      ],
      "answer": 2,
-     "analysis": "本题问女士认为教师应该追求什么品质。女士在采访中提到，教师要追求优秀(Excellence is what you are after)，故选 C 项“优秀”。\n【干扰排除】A 项“自信”和 D 项“有礼貌”在采访中并未提及。B 项“和蔼”是用采访中的 be kind with your students 设置的干扰，录音里说的是对待学生的态度，而不是追求的品质，故排除。",
+     "analysis": "本题问女士认为教师应该追求什么品质。女士在采访中提到，教师要追求优秀(Excellence is what you are after)，故选 C 项“优秀”。【干扰排除】A 项“自信”和 D 项“有礼貌”在采访中并未提及。B 项“和蔼”是用采访中的 be kind with your students 设置的干扰，录音里说的是对待学生的态度，而不是追求的品质，故排除。",
      "prompt": "According to the woman, what quality should be pursued by a teacher?",
      "part": 1
     },
@@ -2082,7 +2082,7 @@ window.TEM8_MID_LISTENING = {
       "It is partially preventable."
      ],
      "answer": 2,
-     "analysis": "本题问女士对光污染的看法。录音提到，女士认为光污染越来越严重(getting worse)，C 项“变得更加严重”是对原话的同义复述，故选 C 项。\n【干扰排除】A 项“最严重的污染”只是利用录音中的 serious problems 进行干扰；B 项“得到了很好的控制”和 D 项“在某种程度上是可以预防的”并未在录音中提及。",
+     "analysis": "本题问女士对光污染的看法。录音提到，女士认为光污染越来越严重(getting worse)，C 项“变得更加严重”是对原话的同义复述，故选 C 项。【干扰排除】A 项“最严重的污染”只是利用录音中的 serious problems 进行干扰；B 项“得到了很好的控制”和 D 项“在某种程度上是可以预防的”并未在录音中提及。",
      "prompt": "What does the woman think of light pollution?",
      "part": 1
     },
@@ -2095,7 +2095,7 @@ window.TEM8_MID_LISTENING = {
       "To see how light escapes upwards."
      ],
      "answer": 0,
-     "analysis": "本题问女士建议听众仰望天空的原因。录音提到，只要仰视天空，就会发现现在能看到的星星比以前要少，这是光污染的“症状”(symptom)之一，所以女士的建议是为了让听众体会光污染，A 项“为了体验光污染”正确。\n【干扰排除】B 项“为了数星星”不是仰望天空的真正目的；C 项“为了找到光污染的原因”与录音内容不符；D 项“为了看到光如何向上逃逸”是利用录音中的 escaping up 设置的干扰。",
+     "analysis": "本题问女士建议听众仰望天空的原因。录音提到，只要仰视天空，就会发现现在能看到的星星比以前要少，这是光污染的“症状”(symptom)之一，所以女士的建议是为了让听众体会光污染，A 项“为了体验光污染”正确。【干扰排除】B 项“为了数星星”不是仰望天空的真正目的；C 项“为了找到光污染的原因”与录音内容不符；D 项“为了看到光如何向上逃逸”是利用录音中的 escaping up 设置的干扰。",
      "prompt": "Why does the woman suggest the audience look up into the sky?",
      "part": 1
     },
@@ -2108,7 +2108,7 @@ window.TEM8_MID_LISTENING = {
       "Strong connection has been found."
      ],
      "answer": 1,
-     "analysis": "本题问女士对光照与犯罪之间关系的看法。录音中，女士提到许多研究表明光照和犯罪之间没有太大联系(little connection between lighting and crime)，B 项“光照和犯罪的关系不太密切”是对这句话的同义复述，故选 B 项。\n【干扰排除】A 项“犯罪不太可能发生在光照不足的地方”、C 项“强光不利于犯罪”与 D 项“已发现两者之间的紧密联系”均与录音内容不符，故排除。",
+     "analysis": "本题问女士对光照与犯罪之间关系的看法。录音中，女士提到许多研究表明光照和犯罪之间没有太大联系(little connection between lighting and crime)，B 项“光照和犯罪的关系不太密切”是对这句话的同义复述，故选 B 项。【干扰排除】A 项“犯罪不太可能发生在光照不足的地方”、C 项“强光不利于犯罪”与 D 项“已发现两者之间的紧密联系”均与录音内容不符，故排除。",
      "prompt": "In the woman's opinion, how does lighting relate to crime?",
      "part": 1
     },
@@ -2121,7 +2121,7 @@ window.TEM8_MID_LISTENING = {
       "New standards for efficient street lighting."
      ],
      "answer": 3,
-     "analysis": "本题问女士希望看到什么改变。录音提到，女士认为要为街道照明设定标准(a standard for street lighting)，即不能继续使用大部分光线往天上照的低效街道照明设备，D 项“高效街道照明的新标准”符合录音内容，故选 D 项。\n【干扰排除】A 项“室内照明的新规定”、B 项“照明设备的新规格”和 C 项“安全照明的新条例”都是利用录音中的个别字眼设置的干扰，故排除。",
+     "analysis": "本题问女士希望看到什么改变。录音提到，女士认为要为街道照明设定标准(a standard for street lighting)，即不能继续使用大部分光线往天上照的低效街道照明设备，D 项“高效街道照明的新标准”符合录音内容，故选 D 项。【干扰排除】A 项“室内照明的新规定”、B 项“照明设备的新规格”和 C 项“安全照明的新条例”都是利用录音中的个别字眼设置的干扰，故排除。",
      "prompt": "What change would the woman like to see?",
      "part": 1
     },
@@ -2134,7 +2134,7 @@ window.TEM8_MID_LISTENING = {
       "It should be as bright as possible."
      ],
      "answer": 1,
-     "analysis": "本题问女士对室内照明有什么推荐建议。录音中女士提到，在家里我们只需要保证光照的方向是正确的(just make sure it is well directed)，B 项“方向要正确”是对录音内容的同义复述，故选 B 项。\n【干扰排除】A 项“角度向上”与录音中的“角度向下”(angled downward)矛盾；C 项“晚上要关灯”和 D 项“室内照明要尽可能亮”在录音中并未提及，均可排除。",
+     "analysis": "本题问女士对室内照明有什么推荐建议。录音中女士提到，在家里我们只需要保证光照的方向是正确的(just make sure it is well directed)，B 项“方向要正确”是对录音内容的同义复述，故选 B 项。【干扰排除】A 项“角度向上”与录音中的“角度向下”(angled downward)矛盾；C 项“晚上要关灯”和 D 项“室内照明要尽可能亮”在录音中并未提及，均可排除。",
      "prompt": "What does the woman recommend for home lighting?",
      "part": 1
     }
@@ -2295,7 +2295,7 @@ window.TEM8_MID_LISTENING = {
       "Issues related to gap-year planning."
      ],
      "answer": 3,
-     "analysis": "本题问采访第1部分的主要内容是什么,属于主旨题。采访人一开始提到，欢迎眼下正在思考间隔年是否适合自己和迫切想知道如何开展间隔年的人收听该采访，可知采访内容与对间隔年的规划有关，故选D项“间隔年计划的相关问题”。\n【干扰排除】A项“间隔年可参与的项目”、B项“间隔年的必要准备”和C项“有关间隔年的个人经验”都只是采访内容的一部分，并不全面。",
+     "analysis": "本题问采访第1部分的主要内容是什么,属于主旨题。采访人一开始提到，欢迎眼下正在思考间隔年是否适合自己和迫切想知道如何开展间隔年的人收听该采访，可知采访内容与对间隔年的规划有关，故选D项“间隔年计划的相关问题”。【干扰排除】A项“间隔年可参与的项目”、B项“间隔年的必要准备”和C项“有关间隔年的个人经验”都只是采访内容的一部分，并不全面。",
      "prompt": "What is part one of the interview mainly about?",
      "part": 1
     },
@@ -2308,7 +2308,7 @@ window.TEM8_MID_LISTENING = {
       "To win a competitive edge in employment."
      ],
      "answer": 1,
-     "analysis": "本题问在男士看来，年轻人为什么要认真考虑尝试一次间隔年。本问题直接摘自采访人的提问，男士的回答是，间隔年是一次改变人生的经历(a life changing experience),故选B项“为了拥有一次改变人生的经历”。\n【干扰排除】A项“给未来的简历增辉添彩”、C项“为更美好的大学生活做准备”和D项“获得求职的一大竞争优势” 是别人的看法，男士只表示赞同，但不是他自己的看法。",
+     "analysis": "本题问在男士看来，年轻人为什么要认真考虑尝试一次间隔年。本问题直接摘自采访人的提问，男士的回答是，间隔年是一次改变人生的经历(a life changing experience),故选B项“为了拥有一次改变人生的经历”。【干扰排除】A项“给未来的简历增辉添彩”、C项“为更美好的大学生活做准备”和D项“获得求职的一大竞争优势” 是别人的看法，男士只表示赞同，但不是他自己的看法。",
      "prompt": "According to the man, why should young people think seriously about taking a gap year?",
      "part": 1
     },
@@ -2321,7 +2321,7 @@ window.TEM8_MID_LISTENING = {
       "Conducting research on others’traditions."
      ],
      "answer": 2,
-     "analysis": "本题问男士认为间隔年最大的好处是什么。本问题直接摘自采访人的提问，男士的回答是，你可以不断学到更多知识，这有助于自我增值(adds more value to yourself),C项“不断自我提升”为其同义复述，故选C项。\n【干扰排除】A项“体验异国文化”、B项“积累冒险经验”和D项“开展对其他习俗的研究”分别利用录音中的exotic cultures、adventure和traditions设置干扰，这些词被男士用来描述对间隔年的看法，并非间隔年最大的好处。",
+     "analysis": "本题问男士认为间隔年最大的好处是什么。本问题直接摘自采访人的提问，男士的回答是，你可以不断学到更多知识，这有助于自我增值(adds more value to yourself),C项“不断自我提升”为其同义复述，故选C项。【干扰排除】A项“体验异国文化”、B项“积累冒险经验”和D项“开展对其他习俗的研究”分别利用录音中的exotic cultures、adventure和traditions设置干扰，这些词被男士用来描述对间隔年的看法，并非间隔年最大的好处。",
      "prompt": "What does the man say about the best thing of taking a gap year?",
      "part": 1
     },
@@ -2334,7 +2334,7 @@ window.TEM8_MID_LISTENING = {
       "Preparing independently for a suitable plan."
      ],
      "answer": 3,
-     "analysis": "本题问男士对准备开始间隔年的年轻人有什么建议。本问题直接摘自采访人的提问，男士的回答是，最重要的是调查和规划，不太建议听取别人的经验，只需选择最适合自己的方案(what is most appropriate for you)即可，故选D项“独立筹划一个合适的方案”。\n【干扰排除】男士说的调查，其内容包括想去的地方和想去的原因，而不包括间隔年的好处，故排除A项。男士说他个人不太建议和其他有相关经历的朋友交流，或者浏览网上论坛，B项“倾听有过间隔年经历的朋友的意见”和C项“浏览网上论坛，交流意见”与此矛盾。",
+     "analysis": "本题问男士对准备开始间隔年的年轻人有什么建议。本问题直接摘自采访人的提问，男士的回答是，最重要的是调查和规划，不太建议听取别人的经验，只需选择最适合自己的方案(what is most appropriate for you)即可，故选D项“独立筹划一个合适的方案”。【干扰排除】男士说的调查，其内容包括想去的地方和想去的原因，而不包括间隔年的好处，故排除A项。男士说他个人不太建议和其他有相关经历的朋友交流，或者浏览网上论坛，B项“倾听有过间隔年经历的朋友的意见”和C项“浏览网上论坛，交流意见”与此矛盾。",
      "prompt": "What is the man's advice for young people before they start a gap year?",
      "part": 1
     },
@@ -2347,7 +2347,7 @@ window.TEM8_MID_LISTENING = {
       "Experiencing a prolonged gap year."
      ],
      "answer": 0,
-     "analysis": "本题问在男士看来，招聘方最看重哪种间隔年经历。男士提到，兽医学专业的学生志愿参加(volunteer) 野生动物救助项目有助于提升简历，并列出相关调查数据佐证招聘方更青睐这类求职者，故选A项“参与专业相关的志愿工作”。\n【干扰排除】录音只提到，在间隔年获得海外工作经验的求职者也很受招聘方欢迎，但并未提及需要参加不同的项目，故排除B项“参与海外不同项目的工作”。C项“有足够的文化知识”和D项“经历一个长期的间隔年”在采访中并未提及。",
+     "analysis": "本题问在男士看来，招聘方最看重哪种间隔年经历。男士提到，兽医学专业的学生志愿参加(volunteer) 野生动物救助项目有助于提升简历，并列出相关调查数据佐证招聘方更青睐这类求职者，故选A项“参与专业相关的志愿工作”。【干扰排除】录音只提到，在间隔年获得海外工作经验的求职者也很受招聘方欢迎，但并未提及需要参加不同的项目，故排除B项“参与海外不同项目的工作”。C项“有足够的文化知识”和D项“经历一个长期的间隔年”在采访中并未提及。",
      "prompt": "According to the man, what kind of gap year experience do employers care most?",
      "part": 1
     },
@@ -2360,7 +2360,7 @@ window.TEM8_MID_LISTENING = {
       "It involves primarily travelling."
      ],
      "answer": 0,
-     "analysis": "本题问男士对间隔年的看法。男士认为，无论老少(from all ages),无论背景，都可以过间隔年。A项“老老少少都可以过间隔年”为其同义复述，故选A项。\n【干扰排除】男士说间隔年通常只有3到9个月(three to nine months),B项“间隔年通常为期12个月”与此不符。C 项“间隔年因不同年龄段人群而不同”在采访中并未提及。男士只是提出如果间隔年时间较短，可以去旅游，而不是说旅游是间隔年的主要活动，故排除D项“间隔年主要是去旅游”。",
+     "analysis": "本题问男士对间隔年的看法。男士认为，无论老少(from all ages),无论背景，都可以过间隔年。A项“老老少少都可以过间隔年”为其同义复述，故选A项。【干扰排除】男士说间隔年通常只有3到9个月(three to nine months),B项“间隔年通常为期12个月”与此不符。C 项“间隔年因不同年龄段人群而不同”在采访中并未提及。男士只是提出如果间隔年时间较短，可以去旅游，而不是说旅游是间隔年的主要活动，故排除D项“间隔年主要是去旅游”。",
      "prompt": "What does the man say about a gap year?",
      "part": 1
     },
@@ -2373,7 +2373,7 @@ window.TEM8_MID_LISTENING = {
       "It offers chances to know more about cultures."
      ],
      "answer": 3,
-     "analysis": "本题问在男士看来，为何志愿活动是一个好的选择。本问题直接摘自采访人的提问，男士的回答是，参加志愿活动能增进对当地的独特文化和社会的了解(learning more about specific culture and society)。D项“有机会增进对文化的了解”为其同义复述，故选D项。\n【干扰排除】男士说参加志愿活动可以直接改变(make a direct difference)当地人的生活，A项“这对更多人产生间接影响”与此不符。B项“这有助于结识当地人”和C项“这有助于游览更多当地景点”在采访中并未提及。",
+     "analysis": "本题问在男士看来，为何志愿活动是一个好的选择。本问题直接摘自采访人的提问，男士的回答是，参加志愿活动能增进对当地的独特文化和社会的了解(learning more about specific culture and society)。D项“有机会增进对文化的了解”为其同义复述，故选D项。【干扰排除】男士说参加志愿活动可以直接改变(make a direct difference)当地人的生活，A项“这对更多人产生间接影响”与此不符。B项“这有助于结识当地人”和C项“这有助于游览更多当地景点”在采访中并未提及。",
      "prompt": "According to the man, why is volunteering a good option?",
      "part": 1
     },
@@ -2386,7 +2386,7 @@ window.TEM8_MID_LISTENING = {
       "Touring overland in Africa."
      ],
      "answer": 1,
-     "analysis": "本题问下列哪项是男士最不可能做的事情。男士的旅游清单中只有第4件事情——攀登珠峰——是他需要三思的(need to think twice),说明这是他最不可能做的，故B项为答案。\n【干扰排除】A项“搭便车环游美国”、C项“笼中潜水观白鲨”和D项“非洲陆上旅行”都是男士想做且不需要三思的事情，故排除。",
+     "analysis": "本题问下列哪项是男士最不可能做的事情。男士的旅游清单中只有第4件事情——攀登珠峰——是他需要三思的(need to think twice),说明这是他最不可能做的，故B项为答案。【干扰排除】A项“搭便车环游美国”、C项“笼中潜水观白鲨”和D项“非洲陆上旅行”都是男士想做且不需要三思的事情，故排除。",
      "prompt": "Which of the following activities is the man least likely to do?",
      "part": 1
     },
@@ -2399,7 +2399,7 @@ window.TEM8_MID_LISTENING = {
       "His innate love for adventure."
      ],
      "answer": 2,
-     "analysis": "本题问是什么导致男士如此热爱旅游。男士说国际化的家庭环境(an international household)和学习环境(the United World College)是他热爱旅游的原因(explain my love for travel),故选C项“他的成长环境和学校教育”。\n【干扰排除】A项“他的童年经历”和D项“他天生爱冒险”在采访中并未提及。B项“他的混血出身”更强调他的血统，他的血统只能看作是间接原因之一，不够全面，故排除。",
+     "analysis": "本题问是什么导致男士如此热爱旅游。男士说国际化的家庭环境(an international household)和学习环境(the United World College)是他热爱旅游的原因(explain my love for travel),故选C项“他的成长环境和学校教育”。【干扰排除】A项“他的童年经历”和D项“他天生爱冒险”在采访中并未提及。B项“他的混血出身”更强调他的血统，他的血统只能看作是间接原因之一，不够全面，故排除。",
      "prompt": "What contributes to the man's love for travelling?",
      "part": 1
     },
@@ -2412,7 +2412,7 @@ window.TEM8_MID_LISTENING = {
       "Acquiring new knowledge."
      ],
      "answer": 3,
-     "analysis": "本题问男士认为环球旅行对他个人而言有什么好处。在录音最后，采访人提问，对男士个人而言，游遍世界上每个国家意味着什么。男士回答，从个人体验中或者每到一个地方都有很多需要学习的(so much to learn),旅行是一个不断学习的过程(constant learning)。D项“获得新知识”与此相符。\n【干扰排除】A项“获得更多社交经验”和B项“与更多当地人交流”在采访中并未提及。男士说环球旅行可以检验(a validation)自己的批判性思考能力，而非培养，故排除C项。",
+     "analysis": "本题问男士认为环球旅行对他个人而言有什么好处。在录音最后，采访人提问，对男士个人而言，游遍世界上每个国家意味着什么。男士回答，从个人体验中或者每到一个地方都有很多需要学习的(so much to learn),旅行是一个不断学习的过程(constant learning)。D项“获得新知识”与此相符。【干扰排除】A项“获得更多社交经验”和B项“与更多当地人交流”在采访中并未提及。男士说环球旅行可以检验(a validation)自己的批判性思考能力，而非培养，故排除C项。",
      "prompt": "What does the man see as a personal benefit of global travelling?",
      "part": 1
     }
@@ -2573,7 +2573,7 @@ window.TEM8_MID_LISTENING = {
       "It is more aesthetic."
      ],
      "answer": 0,
-     "analysis": "本题问小说写作(fiction writing)的情况。男士在对比写小说和写散文时提到，写小说会更费劲(more arduous),之后解释了原因，A项中的demanding “要求高的，费力的”与录音中的arduous同义，故为答案。\n【干扰排除】B项“很轻松”与男士说的相反。C项的“理论性的”和D项“审美的”均在访谈中提到，但与本题无关。",
+     "analysis": "本题问小说写作(fiction writing)的情况。男士在对比写小说和写散文时提到，写小说会更费劲(more arduous),之后解释了原因，A项中的demanding “要求高的，费力的”与录音中的arduous同义，故为答案。【干扰排除】B项“很轻松”与男士说的相反。C项的“理论性的”和D项“审美的”均在访谈中提到，但与本题无关。",
      "prompt": "How does the man feel about fiction writing?",
      "part": 1
     },
@@ -2586,7 +2586,7 @@ window.TEM8_MID_LISTENING = {
       "It has different themes and subjects."
      ],
      "answer": 2,
-     "analysis": "本题问散文(essay)的情况。男士在比较小说和散文时提到，他想知道小说是否会比散文流传更久，因为散文有时代局限性(limited to the time in which it is written),C项是对此信息的概括，正确。\n【干扰排除】A项“散文更易记忆”未在访谈中提到。B项利用访谈中的aesthetic设置干扰，男士是说同时写小说和散文有“美学风险”(aesthetic risk),而不是说散文关注美学主题。D项“散文有不同的主题和对象”未提到。",
+     "analysis": "本题问散文(essay)的情况。男士在比较小说和散文时提到，他想知道小说是否会比散文流传更久，因为散文有时代局限性(limited to the time in which it is written),C项是对此信息的概括，正确。【干扰排除】A项“散文更易记忆”未在访谈中提到。B项利用访谈中的aesthetic设置干扰，男士是说同时写小说和散文有“美学风险”(aesthetic risk),而不是说散文关注美学主题。D项“散文有不同的主题和对象”未提到。",
      "prompt": "What does the man say about the essay?",
      "part": 1
     },
@@ -2599,7 +2599,7 @@ window.TEM8_MID_LISTENING = {
       "Theme."
      ],
      "answer": 3,
-     "analysis": "本题问小说和散文的相似点。男士提到，小说和散文针对的主题是类似的(treat similar themes),只不过角度不同，所以两者共同点是“主题”,D项正确。\n【干扰排除】A项“读者”和C项“目的”未提到。B项“观点”与男士说的from a different view相反。",
+     "analysis": "本题问小说和散文的相似点。男士提到，小说和散文针对的主题是类似的(treat similar themes),只不过角度不同，所以两者共同点是“主题”,D项正确。【干扰排除】A项“读者”和C项“目的”未提到。B项“观点”与男士说的from a different view相反。",
      "prompt": "According to the man, what is the similarity between novels and essays?",
      "part": 1
     },
@@ -2612,7 +2612,7 @@ window.TEM8_MID_LISTENING = {
       "Novels of Central Europe."
      ],
      "answer": 1,
-     "analysis": "本题问男士最喜欢的小说类型。男士提到他喜欢的很多文学类型，但最后强调，给他印象最持久的(have impressed me the longest)是minor novels(指篇幅较短、结构不那么复杂或者不是太知名的小说),B项正确。\n【干扰排除】虽然其他三项均有提到，但都不是男士最喜欢的。",
+     "analysis": "本题问男士最喜欢的小说类型。男士提到他喜欢的很多文学类型，但最后强调，给他印象最持久的(have impressed me the longest)是minor novels(指篇幅较短、结构不那么复杂或者不是太知名的小说),B项正确。【干扰排除】虽然其他三项均有提到，但都不是男士最喜欢的。",
      "prompt": "What is the man's most favorite type of novels?",
      "part": 1
     },
@@ -2625,7 +2625,7 @@ window.TEM8_MID_LISTENING = {
       "People will go on buying literary books."
      ],
      "answer": 0,
-     "analysis": "本题问男士对小说写作的未来怎么看。男士在该访谈后半部分提到，现在文学出版过于臃肿了(obesity), 图书过多，但他认为有解决方法，即人们可以选择某些书(a few alternatives),比如经典的书、畅销排行榜上的书等。故A项“仍然会有一些选择”正确。\n【干扰排除】男士的确提到，如果小说仍然过剩，会让读者产生困惑，从而远离小说(turn away in confusion),但这是不是肯定会发生，男士没有明确，只是提到有解决方式可阻止这种情况，故B项“读者依旧会有疑惑”和D项“人们会继续买文学书”错误。C项“小说会变得稀少”与男士的观点相反，男士认为是越变越多了，而不是变少(isn't threatened by becoming a rarity but rather by obesity)。 Interview Two:",
+     "analysis": "本题问男士对小说写作的未来怎么看。男士在该访谈后半部分提到，现在文学出版过于臃肿了(obesity), 图书过多，但他认为有解决方法，即人们可以选择某些书(a few alternatives),比如经典的书、畅销排行榜上的书等。故A项“仍然会有一些选择”正确。【干扰排除】男士的确提到，如果小说仍然过剩，会让读者产生困惑，从而远离小说(turn away in confusion),但这是不是肯定会发生，男士没有明确，只是提到有解决方式可阻止这种情况，故B项“读者依旧会有疑惑”和D项“人们会继续买文学书”错误。C项“小说会变得稀少”与男士的观点相反，男士认为是越变越多了，而不是变少(isn't threatened by becoming a rarity but rather by obesity)。 Interview Two:",
      "prompt": "According to the man, what will be the future of fiction writing?",
      "part": 1
     },
@@ -2638,7 +2638,7 @@ window.TEM8_MID_LISTENING = {
       "Six feet."
      ],
      "answer": 2,
-     "analysis": "访谈的一开头，女士提到有新研究表明，南极洲按现在的情况，到2100年，海平面会上升6英寸(six inches),故C项正确。\n【干扰排除】B项的数据未在访谈中提到。A项的three feet是南极洲冰川自身融化加上其他来源(other sources)将会导致的海平面上升高度；D项的six feet也在访谈中提到，但并非南极洲自身的融冰导致的，而是算上气候污染排放增加而带来的连锁反应的总和，故排除。",
+     "analysis": "访谈的一开头，女士提到有新研究表明，南极洲按现在的情况，到2100年，海平面会上升6英寸(six inches),故C项正确。【干扰排除】B项的数据未在访谈中提到。A项的three feet是南极洲冰川自身融化加上其他来源(other sources)将会导致的海平面上升高度；D项的six feet也在访谈中提到，但并非南极洲自身的融冰导致的，而是算上气候污染排放增加而带来的连锁反应的总和，故排除。",
      "prompt": "How much does Antarctica contribute to sea level rise?",
      "part": 1
     },
@@ -2651,7 +2651,7 @@ window.TEM8_MID_LISTENING = {
       "Gravity in Antarctica."
      ],
      "answer": 1,
-     "analysis": "题干所问是女士在访谈中问的问题(what is it that...the rates are changing),男士的回答是，有很多直接的测量数据作佐证(a lot of direct measurements),有两类数据，一是冰川高度的变化(how that height changes over time),二是冰盖的引力(即冰盖的重量);B项“冰川表面的高度”是其中一项数据，故为答案。\n【干扰排除】A项“卫星的数量”,男士说这些数据是卫星(satellites)监测，所以卫星只是监测手段，其数量与证明融冰上升速度无关。男士虽然提到了snowfall “降雪量”,但并非是在回答what is it that... changing这一问题，而是在回答后一问题(Doesn’t this all balance itself out?),故排除C项。D项张冠李戴，男士说的是冰盖的引力(the gravitational pull of the ice sheet),而不是整个南极洲的重力。",
+     "analysis": "题干所问是女士在访谈中问的问题(what is it that...the rates are changing),男士的回答是，有很多直接的测量数据作佐证(a lot of direct measurements),有两类数据，一是冰川高度的变化(how that height changes over time),二是冰盖的引力(即冰盖的重量);B项“冰川表面的高度”是其中一项数据，故为答案。【干扰排除】A项“卫星的数量”,男士说这些数据是卫星(satellites)监测，所以卫星只是监测手段，其数量与证明融冰上升速度无关。男士虽然提到了snowfall “降雪量”,但并非是在回答what is it that... changing这一问题，而是在回答后一问题(Doesn’t this all balance itself out?),故排除C项。D项张冠李戴，男士说的是冰盖的引力(the gravitational pull of the ice sheet),而不是整个南极洲的重力。",
      "prompt": "What makes scientists believe that the rising rates are changing?",
      "part": 1
     },
@@ -2664,7 +2664,7 @@ window.TEM8_MID_LISTENING = {
       "Increase in snowfall."
      ],
      "answer": 3,
-     "analysis": "男士提到，他们预测南极洲东面的降雪会增加(We do anticipate.. snowfall will increase in East Antarctica),而他也希望会这样(I hope so),故D项正确。\n【干扰排除】其他三项均与本题所问的expect to see in East Antarctica无关，皆是利用录音原词拼凑的选项。",
+     "analysis": "男士提到，他们预测南极洲东面的降雪会增加(We do anticipate.. snowfall will increase in East Antarctica),而他也希望会这样(I hope so),故D项正确。【干扰排除】其他三项均与本题所问的expect to see in East Antarctica无关，皆是利用录音原词拼凑的选项。",
      "prompt": "What does the man expect to see in East Antarctica in the future?",
      "part": 1
     },
@@ -2677,7 +2677,7 @@ window.TEM8_MID_LISTENING = {
       "Producing more accurate predictions."
      ],
      "answer": 1,
-     "analysis": "男士有两处提到，不想看到冰雪融化加快，就要减少气候污染物的排放(cut back on our climate pollution emissions、control our pollution),故B项正确。\n【干扰排除】男士一直强调的措施是控制污染，其他三项均未在访谈中提到。A项意为“消除大气中的二氧化碳”;C 项意为“继续测量高度”;D项意为“提供更准确的预测”。",
+     "analysis": "男士有两处提到，不想看到冰雪融化加快，就要减少气候污染物的排放(cut back on our climate pollution emissions、control our pollution),故B项正确。【干扰排除】男士一直强调的措施是控制污染，其他三项均未在访谈中提到。A项意为“消除大气中的二氧化碳”;C 项意为“继续测量高度”;D项意为“提供更准确的预测”。",
      "prompt": "What measure should be taken to slow down ice melting?",
      "part": 1
     },
@@ -2690,7 +2690,7 @@ window.TEM8_MID_LISTENING = {
       "Proposals to slow down climate change."
      ],
      "answer": 2,
-     "analysis": "本题问访谈的主题。女士在访谈一开始就提到访谈的背景，即有基于卫星数据的新研究预测，按现在南极洲冰川融化速度，到2100年，海平面会上升6英寸。她的访谈是邀请男士来讲述这项研究的重要性、研究方式、研究结果及数据，以及针对研究结果该采取什么措施，故访谈的主题应该是C项“由卫星数据收获的新发现”。\n【干扰排除】A项“气候变化和后果”过于宽泛，且访谈中没明确提到气候如何变化。B项“气候变化对沿海地区的影响”和D项“减缓气候变化的建议”都只是访谈中的小细节，不是主题。",
+     "analysis": "本题问访谈的主题。女士在访谈一开始就提到访谈的背景，即有基于卫星数据的新研究预测，按现在南极洲冰川融化速度，到2100年，海平面会上升6英寸。她的访谈是邀请男士来讲述这项研究的重要性、研究方式、研究结果及数据，以及针对研究结果该采取什么措施，故访谈的主题应该是C项“由卫星数据收获的新发现”。【干扰排除】A项“气候变化和后果”过于宽泛，且访谈中没明确提到气候如何变化。B项“气候变化对沿海地区的影响”和D项“减缓气候变化的建议”都只是访谈中的小细节，不是主题。",
      "prompt": "What is the main topic of the interview?",
      "part": 1
     }
@@ -2704,50 +2704,110 @@ window.TEM8_MID_EXTRAS = {
  "2021": {
   "year": 2021,
   "languageLines": [
-   [
-    "Most of us have an image of a standard English in pronunciation, and very commonly in Great Britain this is \"Received Pronunciation\", often associated with the public schools and the BBC.",
-    ""
-   ],
-   [
-    "Indeed, a pronunciation within this range has great prestige throughout the world, and for English taught as a foreign language it is usually ideal than any other pronunciation.",
-    "(1) ________"
-   ],
-   [
-    "At the same time, it must be remembered that, so far as the English-speaking countries are concerned, this \"Received Pronunciation\" becomes the status of a \"standard\" almost only in England.",
-    "(2) ________"
-   ],
-   [
-    "Even in England it is difficult to speak about a standard in pronunciation.",
-    "(3) ________"
-   ],
-   [
-    "For one thing, pronunciation is infinitely variable, so that even giving the will to adopt a single pronunciation, it would be difficult to achieve.",
-    "(4) ________"
-   ],
-   [
-    "The word dance will be pronounced in a dozen ways even by people who do not think of themselves as dialect speakers;",
-    "(5) ________"
-   ],
-   [
-    "there is no a sure way of any two people saying the same word with precisely the same sound. In this respect, pronunciation much more closely resembles handwriting than spelling.",
-    "(6) ________"
-   ],
-   [
-    "In spelling, there are absolute distinctions which can be learnt and imitated with completely precision; one can know at once whether a word is spelt in a \"standard\" way or not.",
-    "(7) ________"
-   ],
-   [
-    "But two persons' handwriting and pronunciation may both be perfectly intelligent,",
-    "(8) ________"
-   ],
-   [
-    "yet have obvious differences without being able to say which is \"better\" or more \"standard\".",
-    "(9) ________"
-   ],
-   [
-    "Moreover, with the easy and quick communications of modern times encouraging the spread of a \"neutral\", \"normal\" pronunciation, the accompanied sociological changes have reduced the prestige of Received Pronunciation.",
-    "(10) ________"
-   ]
+    [
+      "Most of us have an image of a standard English in pronunciation,",
+      ""
+    ],
+    [
+      "and very commonly in Great Britain this is \"Received",
+      ""
+    ],
+    [
+      "Pronunciation\", often associated with the public schools and the",
+      ""
+    ],
+    [
+      "BBC. Indeed, a pronunciation within this range has great prestige",
+      ""
+    ],
+    [
+      "throughout the world, and for English taught as a foreign language",
+      ""
+    ],
+    [
+      "it is usually ideal than any other pronunciation. At the same",
+      "(1) ________"
+    ],
+    [
+      "time, it must be remembered that, so far as the English-speaking",
+      ""
+    ],
+    [
+      "countries are concerned, this \"Received Pronunciation\" becomes the",
+      "(2) ________"
+    ],
+    [
+      "status of a \"standard\" almost only in England. Even in England it",
+      ""
+    ],
+    [
+      "is difficult to speak about a standard in pronunciation. For one",
+      "(3) ________"
+    ],
+    [
+      "thing, pronunciation is infinitely variable, so that even giving",
+      "(4) ________"
+    ],
+    [
+      "the will to adopt a single pronunciation, it would be difficult to",
+      ""
+    ],
+    [
+      "achieve. The word dance will be pronounced in a dozen ways even by",
+      "(5) ________"
+    ],
+    [
+      "people who do not think of themselves as dialect speakers; there",
+      ""
+    ],
+    [
+      "is no a sure way of any two people saying the same word with",
+      "(6) ________"
+    ],
+    [
+      "precisely the same sound. In this respect, pronunciation much more",
+      ""
+    ],
+    [
+      "closely resembles handwriting than spelling. In spelling, there",
+      ""
+    ],
+    [
+      "are absolute distinctions which can be learnt and imitated with",
+      ""
+    ],
+    [
+      "completely precision; one can know at once whether a word is spelt",
+      "(7) ________"
+    ],
+    [
+      "in a \"standard\" way or not. But two persons' handwriting and",
+      ""
+    ],
+    [
+      "pronunciation may both be perfectly intelligent, yet have obvious",
+      "(8) ________"
+    ],
+    [
+      "differences without being able to say which is \"better\" or more",
+      "(9) ________"
+    ],
+    [
+      "\"standard\". Moreover, with the easy and quick communications of",
+      ""
+    ],
+    [
+      "modern times encouraging the spread of a \"neutral\", \"normal\"",
+      ""
+    ],
+    [
+      "pronunciation, the accompanied sociological changes have reduced",
+      "(10) ________"
+    ],
+    [
+      "the prestige of Received Pronunciation.",
+      ""
+    ]
   ],
   "translation": [
    "你的青春就是一场远行，一场离自己的童年，离自己的少年，越来越远的远行。你会发现这个世界跟你想象的一点都不一样，你甚至觉得很孤独，你会受到很多的排挤。度假和旅行，其实都解决不了这些问题，我解决问题的办法，就是不停寻找自己所热爱的一切。"
@@ -2831,56 +2891,120 @@ window.TEM8_MID_EXTRAS = {
    }
   ],
   "translationReference": "Youth is a journey into the distance, a journey that gets increasingly away from your childhood and then from your adolescence. In this journey, you will find the world drastically different from what you have imagined. You may even feel very lonely and suffer from a lot of social exclusion. In fact, neither going on a vacation nor taking a trip can solve these problems. To me, the way out is to keep searching for everything I'm passionate about.",
-  "writingGuide": "WRITING 题目给出了两篇有关“课外辅导”的材料：第一篇认为量身定做的课外辅导可以帮助学生更好地学习；第二篇讲述某国教育委员会开展打击私人课外辅导的行动，同时该委员会官网将发布相关辅导内容，并让学校推出特别课程来帮助那些需要辅导的学生。这两篇文章对课外辅导的评价都不够全面，考生可以总结每篇文章的合理之处并点出其局限性，客观地评价课外辅导。\n第一段：总结两篇文章的大意，提出自己的观点——课外辅导应该保留，但同时学校应该开设课程帮助学生。\n第二段：指出第一种观点的合理之处——帮助学生更有效地学习。\n第三段：通过指出第一种观点的不足之处，论证第二种观点的担忧不无道理，之后补充说明第二种观点过于绝对。\n第四段：总结全文，重申观点——不应该一刀切地禁止课外辅导。",
+  "writingGuide": "WRITING 题目给出了两篇有关“课外辅导”的材料：第一篇认为量身定做的课外辅导可以帮助学生更好地学习；第二篇讲述某国教育委员会开展打击私人课外辅导的行动，同时该委员会官网将发布相关辅导内容，并让学校推出特别课程来帮助那些需要辅导的学生。这两篇文章对课外辅导的评价都不够全面，考生可以总结每篇文章的合理之处并点出其局限性，客观地评价课外辅导。第一段：总结两篇文章的大意，提出自己的观点——课外辅导应该保留，但同时学校应该开设课程帮助学生。第二段：指出第一种观点的合理之处——帮助学生更有效地学习。第三段：通过指出第一种观点的不足之处，论证第二种观点的担忧不无道理，之后补充说明第二种观点过于绝对。第四段：总结全文，重申观点——不应该一刀切地禁止课外辅导。",
   "writingReference": "Private tutoring has long been a hotly debated topic on which schools, parents and teachers hold divergent views. In the first excerpt, private tutoring is said to be a magic cure for those students who have trouble learning some of the subjects at school, while in the second reading, it is regarded as an \"unhealthy\" practice that should be banned altogether.\n\nBoth views are one-sided. Personally, private tutoring should be kept as an option; meanwhile, schools can provide special classes for the students who need extra help. There is no denying that private tutoring aids those students who fail to grasp lessons. Not everyone learns in the same way. Some students learn more quickly and effectively than others.\n\nAdditionally, in most public schools, a subject teacher is usually responsible for so many students that he or she cannot cater for every student. That is where private tutoring has a part to play by offering tailor-made coaching. Private tutoring helps students learn in a more effective fashion and motivates them to work harder on the subjects that may frustrate them.\n\nHowever, in some countries, private tutoring has diverged from its primary objective of aiding those who need extra help and aims to make excellent students even more competitive. This explains why it is curbed or even banned in these countries. They turn to school-organized special classes, which are intended to boost the academic performances of some students and to reduce unfair advantages gained by the students who can afford expensive private tuition.\n\nBut it has gone too far to ban private tutoring since there are always some students who, for one reason or another, prefer private tutoring over lessons offered by schools. Overall, prohibiting private tutoring is too narrow and imprudent. It is advisable to offer alternative options, like school-based special classes as a counterbalance or complement to private tutoring."
  },
  "2022": {
   "year": 2022,
   "languageLines": [
-   [
-    "Many people believe that bilinguals have two different personalities, one for each of the languages they speak, and that switching between languages makes bilinguals act differently.",
-    ""
-   ],
-   [
-    "Whether this may seem unbelievable to some, research actually supports this idea.",
-    "(1) ________"
-   ],
-   [
-    "According to various studies, bilinguals, who are also bicultural are actively involved in both of their cultures, interpret situations differently depending on which language they speak.",
-    "(2) ________"
-   ],
-   [
-    "Although everyone, monolinguals and bilinguals alike, are able to change the way they feel and interpret events,",
-    "(3) ________"
-   ],
-   [
-    "biculturals do this without realizing when switched between languages.",
-    "(4) ________"
-   ],
-   [
-    "In this study, bicultural Hispanic women in the United States viewed a series of TV commercials in both of their languages and were asked to judge the main characters. Interesting enough,",
-    "(5) ________"
-   ],
-   [
-    "when viewing the Spanish-speaking version the participants of the study saw the main character as an independent and extroverted female. On the other hand, when viewing the English-speaking version, they looked the same character",
-    "(6) ________"
-   ],
-   [
-    "as hopeless and alone. This study also noted, however, that this change in reasoning only happened with bicultural bilinguals.",
-    "(7) ________"
-   ],
-   [
-    "Depending on the languages spoken, biculturals will act differently. The changes are not only linguistic. As an English-Spanish bicultural, I do find out I act differently depending on which culture I am immersed in at the time.",
-    "(8) ________"
-   ],
-   [
-    "I am often aware of the fact when I speak to other Spanish speakers my voice is slightly louder",
-    "(9) ________"
-   ],
-   [
-    "and I gesticulate more when I talk to English speakers. Could we then say that bilinguals have two different personalities?",
-    "(10) ________"
-   ]
+    [
+      "Many people believe that bilinguals have two different",
+      ""
+    ],
+    [
+      "personalities, one for each of the languages they speak, and that",
+      ""
+    ],
+    [
+      "switching between languages makes bilinguals act differently.",
+      ""
+    ],
+    [
+      "Whether this may seem unbelievable to some, research actually",
+      "(1) ________"
+    ],
+    [
+      "supports this idea. According to various studies, bilinguals, who",
+      ""
+    ],
+    [
+      "are also bicultural are actively involved in both of their",
+      "(2) ________"
+    ],
+    [
+      "cultures, interpret situations differently depending on which",
+      ""
+    ],
+    [
+      "language they speak. Although everyone, monolinguals and",
+      ""
+    ],
+    [
+      "bilinguals alike, are able to change the way they feel and",
+      "(3) ________"
+    ],
+    [
+      "interpret events, biculturals do this without realizing when",
+      ""
+    ],
+    [
+      "switched between languages. In this study, bicultural Hispanic",
+      "(4) ________"
+    ],
+    [
+      "women in the United States viewed a series of TV commercials in",
+      ""
+    ],
+    [
+      "both of their languages and were asked to judge the main",
+      ""
+    ],
+    [
+      "characters. Interesting enough, when viewing the Spanish-speaking",
+      "(5) ________"
+    ],
+    [
+      "version the participants of the study saw the main character as an",
+      ""
+    ],
+    [
+      "independent and extroverted female. On the other hand, when",
+      ""
+    ],
+    [
+      "viewing the English-speaking version, they looked the same",
+      "(6) ________"
+    ],
+    [
+      "character as hopeless and alone. This study also noted, however,",
+      "(7) ________"
+    ],
+    [
+      "that this change in reasoning only happened with bicultural",
+      ""
+    ],
+    [
+      "bilinguals. Depending on the languages spoken, biculturals will",
+      ""
+    ],
+    [
+      "act differently. The changes are not only linguistic. As an",
+      ""
+    ],
+    [
+      "English-Spanish bicultural, I do find out I act differently",
+      "(8) ________"
+    ],
+    [
+      "depending on which culture I am immersed in at the time. I am",
+      ""
+    ],
+    [
+      "often aware of the fact when I speak to other Spanish speakers my",
+      "(9) ________"
+    ],
+    [
+      "voice is slightly louder and I gesticulate more when I talk to",
+      "(10) ________"
+    ],
+    [
+      "English speakers. Could we then say that bilinguals have two",
+      ""
+    ],
+    [
+      "different personalities?",
+      ""
+    ]
   ],
   "translation": [
    "旷野和城市，从根本上讲，是对立的。城市驱散了旷野原有的住民，破坏了旷野古老的风景，越来越多地以井然有序的繁华，取代我行我素的自然风光。今天，旷野日益退缩着。但人们不应忽略旷野，漠视旷野，而要寻觅出与其相守的最佳间隙。善待旷野就是善待人类自身。要知道，人类永远不可能以城市战胜旷野。"
@@ -2962,52 +3086,128 @@ window.TEM8_MID_EXTRAS = {
    }
   ],
   "translationReference": "Urbanization has caused the displacement of original inhabitants in the pristine wilderness, disfigured its age-old scenery, and increasingly substituted its unspoiled natural landscape with the orderly hustle and bustle. Nowadays, the wilderness is shrinking with each passing day. However, it should not be neglected, much less ignored. Instead, we are supposed to seek out the optimum space where we may live in harmony with it. Kind treatment of it is equivalent to the same treatment of humanity. It is noteworthy that humankind will never be able to prevail over it through urbanization.",
-  "writingGuide": "题目提供的两篇文章都探讨“如何获得快乐”。第一篇阐述斯多葛学派的理念，即快乐是培养良好的精神状态；这种理念有两个基本原则：一是痛苦源于人们总想去控制自己无法控制的事情，二是事情本身只是客观存在，是人们对事情的评判引发了情绪反应。第二篇认为快乐源于对自身想法和身体的控制，即通过改变自己对所发生事情的看法以及培养健康的生活习惯来获得快乐。精神状态确实是影响快乐的因素，但身体方面的因素也不可忽视。考生可采取以下文章结构：\n第一段：总结两篇文章的大意，提出自己的观点——保持身心健康是快乐的源泉。\n第二段：阐述很多痛苦源于个人的想法，因此保持健康的心理是提升快乐的重要因素。\n第三段：阐述健康问题(如疾病)会导致生理或精神的痛苦，直接影响个人的幸福感。\n第四段：总结全文，重申观点。",
+  "writingGuide": "题目提供的两篇文章都探讨“如何获得快乐”。第一篇阐述斯多葛学派的理念，即快乐是培养良好的精神状态；这种理念有两个基本原则：一是痛苦源于人们总想去控制自己无法控制的事情，二是事情本身只是客观存在，是人们对事情的评判引发了情绪反应。第二篇认为快乐源于对自身想法和身体的控制，即通过改变自己对所发生事情的看法以及培养健康的生活习惯来获得快乐。精神状态确实是影响快乐的因素，但身体方面的因素也不可忽视。考生可采取以下文章结构：第一段：总结两篇文章的大意，提出自己的观点——保持身心健康是快乐的源泉。第二段：阐述很多痛苦源于个人的想法，因此保持健康的心理是提升快乐的重要因素。第三段：阐述健康问题(如疾病)会导致生理或精神的痛苦，直接影响个人的幸福感。第四段：总结全文，重申观点。",
   "writingReference": "The first reading material mentions Stoic philosophy as a means of achieving happiness. The Stoic wisdom for living a happy life is to avoid attempting to control things that, in fact, cannot be controlled and to refrain from passing negative judgements on value-neutral things. The second reading passage holds that happiness can be achieved by conquering our minds and bodies.\n\nI would take the view that besides cultivating a healthy mind, maintaining a healthy body is also a source of happiness. On the one hand, much of human happiness or unhappiness originates from cognitive patterns, the way we see ourselves and the world around us. One poor cognitive pattern is to aspire for perfectionism. As we know, perfectionists tend to be dissatisfied with what they have done and feel that they could have done better.\n\nStuck in a negative thinking pattern, perfectionists are less likely to be happy. By contrast, people who are easily contented are inclined to be cheerful. As the Chinese saying goes, a contented mind is a perpetual feast. Moreover, our reaction to what happens determines how happy or unhappy we are. An optimist sees an opportunity in every calamity, while a pessimist sees a calamity in every opportunity.\n\nTherefore, it is important to \"manage\" our minds. On the other hand, physical well-being cannot be ignored when it comes to a happy life. There is no denying that people afflicted with health problems tend to be more stressed and less happy. One case in point is that people with incontinence tend to feel distressed and hopeless.\n\nIn addition to causing physical pain, some physical problems can even restrict interpersonal relations. For instance, obese people might find it hard to be integrated into groups because they feel inferior to others and obesity stops them from taking part in some group activities that require a lot of movements. How are they supposed to feel happy without social connection?\n\nObviously, being physically healthy would reduce the chance of unhappiness. Overall, I feel that physical health is the basis for happiness. Meanwhile, learning how to respond positively to what happens is also significant, as much of life's pleasure derives from a positive mentality."
  },
  "2023": {
   "year": 2023,
   "languageLines": [
-   [
-    "I have had the chance to live and work for extended periods of time in at least three countries, the United States, Switzerland, and also France, and as a researcher on bilingualism, has allowed me to learn a lot about my topic of interest.",
-    ""
-   ],
-   [
-    "I have found that people there share many misconceptions about bilingualism and bilinguals. However, they also seem to have very country-specific attitudes towards it.",
-    "(1) ________"
-   ],
-   [
-    "Among shared misunderstandings, one is that bilingualism is a rather uncommon phenomenon. And in fact, it has been estimated that more than 50% world population is bilingual, and uses two or more languages in the everyday life.",
-    "(2) ________"
-   ],
-   [
-    "Bilingualism is found in all parts of the world, at all levels of society, and in all age groups.",
-    "(3) ________"
-   ],
-   [
-    "Another misconception is that bilinguals have equitable knowledge of their languages. In fact, bilinguals know their languages to the level that they need them and many are dominant at just one of them.",
-    "(4) ________"
-   ],
-   [
-    "There are also the myths that real bilinguals do not have an accent in their different languages and that they are excellent all-around translators.",
-    "(5) ________"
-   ],
-   [
-    "This is far from true. Having an accent or not does not make one more or less bilingual, and bilinguals often have difficulties translating specialized language.",
-    "(6) ________"
-   ],
-   [
-    "Then there is the misconception all bilinguals are bicultural and that they have double personalities.",
-    "(7) ________"
-   ],
-   [
-    "As concerning children, many worries and misconceptions are also widespread.",
-    "(8) ________"
-   ],
-   [
-    "The first is that bilingualism will suspend language acquisition in young children. This was a popular myth in the first part of the last century, but there is no research evidence to that effect.",
-    "(9) ________"
-   ]
+    [
+      "I have had the chance to live and work for extended periods",
+      ""
+    ],
+    [
+      "of time in at least three countries, the United States, Switzerland,",
+      ""
+    ],
+    [
+      "and also France, and as a researcher on bilingualism, has allowed",
+      "(1) ________"
+    ],
+    [
+      "me to learn a lot about my topic of interest. I have found that",
+      ""
+    ],
+    [
+      "people there share many misconceptions about bilingualism and",
+      ""
+    ],
+    [
+      "bilinguals. However, they also seem to have very country-specific",
+      ""
+    ],
+    [
+      "attitudes towards it.",
+      "(2) ________"
+    ],
+    [
+      "Among shared misunderstandings, one is that bilingualism is",
+      ""
+    ],
+    [
+      "a rather uncommon phenomenon. And in fact, it has been",
+      "(3) ________"
+    ],
+    [
+      "estimated that more than 50% world population is bilingual, and",
+      ""
+    ],
+    [
+      "uses two or more languages in the everyday life. Bilingualism is",
+      "(4) ________"
+    ],
+    [
+      "found in all parts of the world, at all levels of society, and in all",
+      ""
+    ],
+    [
+      "age groups.",
+      ""
+    ],
+    [
+      "Another misconception is that bilinguals have equitable",
+      "(5) ________"
+    ],
+    [
+      "knowledge of their languages. In fact, bilinguals know their",
+      ""
+    ],
+    [
+      "languages to the level that they need them and many are dominant",
+      ""
+    ],
+    [
+      "at just one of them.",
+      "(6) ________"
+    ],
+    [
+      "There are also the myths that real bilinguals do not have an",
+      ""
+    ],
+    [
+      "accent in their different languages and that they are excellent",
+      ""
+    ],
+    [
+      "all-around translators. This is far from true. Having an accent or",
+      "(7) ________"
+    ],
+    [
+      "not does not make one more or less bilingual, and bilinguals often",
+      ""
+    ],
+    [
+      "have difficulties translating specialized language.",
+      ""
+    ],
+    [
+      "Then there is the misconception all bilinguals are bicultural",
+      "(8) ________"
+    ],
+    [
+      "and that they have double personalities.",
+      ""
+    ],
+    [
+      "As concerning children, many worries and misconceptions",
+      "(9) ________"
+    ],
+    [
+      "are also widespread. The first is that bilingualism will suspend",
+      "(10) ________"
+    ],
+    [
+      "language acquisition in young children. This was a popular myth in",
+      ""
+    ],
+    [
+      "the first part of the last century, but there is no research evidence to",
+      ""
+    ],
+    [
+      "that effect.",
+      ""
+    ]
   ],
   "translation": [
    "中国传统文化是我们先辈传承下来的丰厚遗产。她无时无刻不在影响着今天的中国人，为我们开创新文化提供历史根据和现实基础。传统文化在影响现实的同时，也必然在新时代的氛围中发生蜕变。中国传统文化犹如一条奔腾了五千年的永不干涸的大河，她亦旧亦新，不断吐故纳新，持续创新。"
@@ -3086,104 +3286,108 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 10,
     "fix": "suspend → delay",
-    "analysis": "【详解】此处指“双语能力会耽搁幼儿的语言习得”, suspend侧重于表示“中途暂停”,要等满足某种条件才能重新开始某事，显然不适合用于此处与 language acquisition “语言习得”搭配。表示“耽误，耽搁”应该用delay,故把suspend改为delay。PART IV TRANSLATION"
+    "analysis": "【详解】此处指“双语能力会耽搁幼儿的语言习得”, suspend侧重于表示“中途暂停”,要等满足某种条件才能重新开始某事，显然不适合用于此处与 language acquisition “语言习得”搭配。表示“耽误，耽搁”应该用delay,故把suspend改为delay。"
    }
   ],
   "translationReference": "It exerts an omnipresent influence on Chinese people today, providing a historical and practical basis on which to embrace its new elements. While impacting the reality, traditional culture also inevitably transforms itself amid a new environment. Like a river that has been flowing for five thousand years without drying up, Chinese traditional culture is both ancient and modern, constantly imbibing the new while discarding the outdated, thus innovating itself throughout its course.",
   "writingReference": "In the first excerpt, the head of the Division of Sports Science and Physical Education is cited for his support for swimming. The official advocates swimming as a compulsory course not only because it is an important survival skill and a traditional course at some universities, but also because it is less harmful to joints and muscles than other sports.\n\nBy contrast, the second excerpt holds that swimming is only onee of the many life skills and students should be given the freedom to choose whatever sports options they feel attached to. I believe that swimming can be a valuable option, but it should not be a prerequisite for graduation, and there should also be other sports courses to meet students' diverse needs.\n\nIt is beneficial for universities and colleges to provide swimming training. This is because swimming, as an essential self-rescue skill in the event of an aquatic emergency, can effectively reduce cases of fatal drowning, which is the third leading cause of unintentional injury death. In addition, swimming is an all-round activity that builds endurance, muscle strength, and cardiovascular fitness.\n\nHowever, linking swimming ability with degrees is too narrow an approach that ignores the unique needs of some students. For example, as some are unable to manage aquaphobia, listing swimming as a mandatory course means that these students cannot get their degrees despite their academic achievements. This is obviously unfair. Moreover, not every student would consider swimming as the best athletic activity — some may prefer tennis and others football.\n\nTherefore, it is crucial that universities provide a range of sports options and give students more flexibility in deciding which one to engage in. In conclusion, I feel that universities should nix the ability to swim as the requisite for graduation. But it is advised that swimming should remain one of the athletic options available to students.",
-  "writingGuide": "题目提供的两篇文章都探讨“大学是否应该把游泳技能与学位挂钩”。第一篇阅读材料中的大学认为游泳是一项重要的生存技能，而且游泳作为一项水上运动不仅可以锻炼学生的耐力，对关节和肌肉损伤也更小，因此将游泳列为大学必修课。第二篇阅读材料中，芝加哥大学则取消了对游泳的要求，认为游泳固然是一项宝贵的生活技能，但也要考虑学生需求的多样性，并表示将给学生提供更多的运动选项。考生的文章可采用以下结构：\n第一段：总结两篇文章的大意，提出自己的观点——游泳可以作为选修课，但同时需要提供其他选项。\n第二段：指出第一种观点的合理之处——解释游泳作为一项选修课的好处。\n第三段：通过指出第一种做法的弊端论证第二种观点的合理之处——反对将游泳和学位挂钩。\n第四段：总结全文，重申观点。"
+  "writingGuide": "题目提供的两篇文章都探讨“大学是否应该把游泳技能与学位挂钩”。第一篇阅读材料中的大学认为游泳是一项重要的生存技能，而且游泳作为一项水上运动不仅可以锻炼学生的耐力，对关节和肌肉损伤也更小，因此将游泳列为大学必修课。第二篇阅读材料中，芝加哥大学则取消了对游泳的要求，认为游泳固然是一项宝贵的生活技能，但也要考虑学生需求的多样性，并表示将给学生提供更多的运动选项。考生的文章可采用以下结构：第一段：总结两篇文章的大意，提出自己的观点——游泳可以作为选修课，但同时需要提供其他选项。第二段：指出第一种观点的合理之处——解释游泳作为一项选修课的好处。第三段：通过指出第一种做法的弊端论证第二种观点的合理之处——反对将游泳和学位挂钩。第四段：总结全文，重申观点。"
  },
  "2024": {
   "year": 2024,
   "languageLines": [
-   [
-    "and a set of programs to access those data. The collection of data, usually",
-    ""
-   ],
-   [
-    "referred to as the database, contain information relevant to an enterprise.",
-    "(1) ________"
-   ],
-   [
-    "Its primary goal is to provide a way to store and retrieve database information.",
-    ""
-   ],
-   [
-    "Database systems are designing to manage large bodies of",
-    "(2) ________"
-   ],
-   [
-    "information. Management of data involves both defining structures for",
-    ""
-   ],
-   [
-    "storage of information and provide mechanisms for its manipulation. In",
-    "(3) ________"
-   ],
-   [
-    "addition, the database system must ensure information safety, despite",
-    ""
-   ],
-   [
-    "system crashes or attempts at unauthorized access. If data are to be shared",
-    ""
-   ],
-   [
-    "between several users, the system must avoid possible anomalous results.",
-    "(4) ________"
-   ],
-   [
-    "Computer scientists have developed various concepts and techniques for",
-    ""
-   ],
-   [
-    "managing data, so information is very important in most organizations.",
-    "(5) ________"
-   ],
-   [
-    "The earliest database systems arose in the 1960s in response to the",
-    ""
-   ],
-   [
-    "computerized management of commercial data. Those earlier applications",
-    ""
-   ],
-   [
-    "were relatively simple compared with modern database applications, that",
-    "(6) ________"
-   ],
-   [
-    "include highly sophisticated, worldwide enterprises.",
-    ""
-   ],
-   [
-    "All database applications share important common elements. The",
-    "(7) ________"
-   ],
-   [
-    "central aspect of the application is the data themselves. Today, some of the",
-    ""
-   ],
-   [
-    "most valuable corporations are valuable because of their physical assets,",
-    "(8) ________"
-   ],
-   [
-    "but because of the information they own. Imagine of a bank without its",
-    "(9) ________"
-   ],
-   [
-    "data on accounts and customers or a social-network site that loses",
-    ""
-   ],
-   [
-    "connections with their users. Such companies’ value would be almost",
-    "(10) ________"
-   ],
-   [
-    "totally lost under such circumstances.",
-    ""
-   ]
+    [
+      "A database-management system (DBMS) is a collection of interrelated data",
+      ""
+    ],
+    [
+      "and a set of programs to access those data. The collection of data, usually",
+      ""
+    ],
+    [
+      "referred to as the database, contain information relevant to an enterprise.",
+      "(1) ________"
+    ],
+    [
+      "Its primary goal is to provide a way to store and retrieve database information.",
+      ""
+    ],
+    [
+      "Database systems are designing to manage large bodies of",
+      "(2) ________"
+    ],
+    [
+      "information. Management of data involves both defining structures for",
+      ""
+    ],
+    [
+      "storage of information and provide mechanisms for its manipulation. In",
+      "(3) ________"
+    ],
+    [
+      "addition, the database system must ensure information safety, despite",
+      ""
+    ],
+    [
+      "system crashes or attempts at unauthorized access. If data are to be shared",
+      ""
+    ],
+    [
+      "between several users, the system must avoid possible anomalous results.",
+      "(4) ________"
+    ],
+    [
+      "Computer scientists have developed various concepts and techniques for",
+      ""
+    ],
+    [
+      "managing data, so information is very important in most organizations.",
+      "(5) ________"
+    ],
+    [
+      "The earliest database systems arose in the 1960s in response to the",
+      ""
+    ],
+    [
+      "computerized management of commercial data. Those earlier applications",
+      ""
+    ],
+    [
+      "were relatively simple compared with modern database applications, that",
+      "(6) ________"
+    ],
+    [
+      "include highly sophisticated, worldwide enterprises.",
+      ""
+    ],
+    [
+      "All database applications share important common elements. The",
+      "(7) ________"
+    ],
+    [
+      "central aspect of the application is the data themselves. Today, some of the",
+      ""
+    ],
+    [
+      "most valuable corporations are valuable because of their physical assets,",
+      "(8) ________"
+    ],
+    [
+      "but because of the information they own. Imagine of a bank without its",
+      "(9) ________"
+    ],
+    [
+      "data on accounts and customers or a social-network site that loses",
+      ""
+    ],
+    [
+      "connections with their users. Such companies’ value would be almost",
+      "(10) ________"
+    ],
+    [
+      "totally lost under such circumstances.",
+      ""
+    ]
   ],
   "translation": [
    "中国科幻小说在国际上越来越受欢迎，已成为一种新的国际交流方式。可以预见，中国科幻将创作出更多跨越国界、具有世界影响力的优秀作品。中国科幻要走向未来，必不可少的是文化使命感。如何将中国人对科技、宇宙、未来的想象，深刻地展现给世界，同时融入中华优秀传统文化，呈现对构建人类命运共同体的深入思考，这是摆在中国科幻作家面前的课题。"
@@ -3256,12 +3460,12 @@ window.TEM8_MID_EXTRAS = {
    {
     "number": 10,
     "fix": "their → its",
-    "analysis": "【详解】a social-network site为单数概念，其代词应用单数形式，故把their改为its。PART IV TRANSLATION"
+    "analysis": "【详解】a social-network site为单数概念，其代词应用单数形式，故把their改为its。"
    }
   ],
   "translationReference": "At the same time, a cultural sense of mission is indispensable for Chinese science fiction to chart its path towards the future. So the challenge facing science fiction writers in China now is to present the Chinese imagination of technology, the universe, and the future to the world in a well-crafted manner, while integrating it with the best of traditional Chinese culture so as to share its deep reflections on building a global community of shared future.",
   "writingReference": "The two excerpts provided discuss the virtues and challenges of online education, highlighting both its convenience and the potential pitfalls of relying solely on technology for learning. Professor Smith, as mentioned in the second excerpt, offers a balanced view acknowledging the benefits of technology while emphasizing the irreplaceable value of traditional classroom settings. She suggests that apps and online resources should complement, but not replace, conventional teaching methods.\n\nDrawing from my own experience with online learning, I can attest to the validity of Professor Smith's argument. Online platforms, such as those offering video tutorials, have been tremendously helpful in providing flexibility and self-paced learning opportunities beyond the classroom. For example, during the COVID-19 pandemic, I relied heavily on online resources to continue my studies, which allowed me to progress academically despite the challenging circumstances.\n\nHowever, I also noticed some limitations, especially in courses requiring practical skills and interpersonal interactions, such as laboratory sciences and group discussions. These experiences were not as effective online as they were in-person. In subjects like chemistry or physics, the lack of hands-on experiments made it difficult to grasp complex concepts. Similarly, language courses suffered without real-life conversations and immediate feedback on pronunciation and gesture use.\n\nThese experiences align with the concerns raised in the excerpts about the limitations of online education in providing a holistic learning experience. Thus, I agree with Professor Smith that while online resources are invaluable for extending access and providing flexibility, they are insufficient on their own to replace traditional educational settings. The hybrid model, which combines online resources with in-person classes, seems most effective.\n\nIt leverages technology to enhance learning while retaining crucial aspects of traditional education, such as interpersonal interactions and hands-on experiences, which are necessary for comprehensive education. This balance is essential for catering to the diverse needs and learning styles of all students.",
-  "writingGuide": "两篇材料都与“在线教育”有关。第一篇材料以教育类app为例，主要陈述在线学习的便利性和普及性。第二篇材料则陈述在线教育可能存在的问题，如缺少实操和现实交流等，最后引用Professor Smith的观点，指出教育app与传统教育并不是非此即彼，而是互为补充。考生的文章可采用以下结构：\n第一段：总结两篇文章的主题，重点复述第二篇材料中Professor Smith的观点，以便与下文自己的观点作对照。\n第二、三段：表明自己赞同Professor Smith的观点，先以自身在疫情期间的在线学习为例说明在线教育具有便利性，可用于传统课堂之外，再以需要实操和现实交流的课程为例说明在线教育对比课堂教育的不足，证明在线教育无法替代课堂教育。\n第四段：总结全文，重申在线教育增加学习机会，为学习提供便利，但无法替代课堂教育，两者应相辅相成。"
+  "writingGuide": "两篇材料都与“在线教育”有关。第一篇材料以教育类app为例，主要陈述在线学习的便利性和普及性。第二篇材料则陈述在线教育可能存在的问题，如缺少实操和现实交流等，最后引用Professor Smith的观点，指出教育app与传统教育并不是非此即彼，而是互为补充。考生的文章可采用以下结构：第一段：总结两篇文章的主题，重点复述第二篇材料中Professor Smith的观点，以便与下文自己的观点作对照。第二、三段：表明自己赞同Professor Smith的观点，先以自身在疫情期间的在线学习为例说明在线教育具有便利性，可用于传统课堂之外，再以需要实操和现实交流的课程为例说明在线教育对比课堂教育的不足，证明在线教育无法替代课堂教育。第四段：总结全文，重申在线教育增加学习机会，为学习提供便利，但无法替代课堂教育，两者应相辅相成。"
  }
 };
 

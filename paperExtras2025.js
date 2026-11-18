@@ -146,7 +146,7 @@ window.TEM8_PAPER_EXTRAS_2025 = {
       {
         "number": 10,
         "fix": "create → creates",
-        "analysis": "该句主语Respect for the diversity of cultures为单数概念，句子时态为一般现在时，故将 create改为第三人称单数形式creates。PART IV TRANSLATION"
+        "analysis": "该句主语Respect for the diversity of cultures为单数概念，句子时态为一般现在时，故将 create改为第三人称单数形式creates。"
       }
     ],
     "translationReference": "Embodying the dynamic and rich sentiments of the people, folk literature stands as a compelling reflection of the core values of a nation. In China, it helps shape the nation's ideological, cultural, and ethical fabric by consistently embracing uprightness, kindness, loyalty, and honesty as fundamental virtues, and also by celebrating collectivism, patriotism, and the courage to take responsibility and fight for what is right.",

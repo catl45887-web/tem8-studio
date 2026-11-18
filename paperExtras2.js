@@ -3,24 +3,24 @@ window.TEM8_PAPER_EXTRAS2 = {
     "year": 2014,
     "languageLines": [
       [
-        "There is widespread consensus among scholars that second language acquisition (SLA) emerged as a",
+        "There is widespread consensus among scholars that second language acquisition",
         ""
       ],
       [
-        "distinct field of research from the late 1950s to early 1960s.",
+        "(SLA) emerged as a distinct field of research from the late 1950s to early 1960s.",
         ""
       ],
       [
         "There is a high level of agreement that the following questions",
-        ""
+        "(1) ________"
       ],
       [
         "have possessed the most attention of researchers in this",
-        ""
+        "(2) ________"
       ],
       [
         "area:",
-        "(1) ________"
+        ""
       ],
       [
         "Is it possible to acquire an additional language in the",
@@ -28,11 +28,11 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "same sense one acquires a first language?",
-        "(2) ________"
+        "(3) ________"
       ],
       [
         "What is the explanation for the fact adults",
-        "(3) ________"
+        "(4) ________"
       ],
       [
         "have more difficulty in acquiring additional languages than children",
@@ -48,7 +48,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "What is the role of the language teaching in the",
-        "(4) ________"
+        "(5) ________"
       ],
       [
         "acquisition of an additional language?",
@@ -64,7 +64,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "From a check of the literature of the field it is clear that all",
-        "(5) ________"
+        "(6) ________"
       ],
       [
         "the approaches adopted to study the phenomena of SLA so far have",
@@ -76,7 +76,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "of an additional language is that of an individual attempts to do",
-        "(6) ________"
+        "(7) ________"
       ],
       [
         "so. Whether one labels it \"learning\" or \"acquiring\" an additional",
@@ -84,7 +84,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "language, it is an individual accomplishment or what is under",
-        "(7) ________"
+        "(8) ________"
       ],
       [
         "focus is the cognitive, psychological, and institutional status of an",
@@ -96,7 +96,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "involving, what psychological factors play a role in the learning",
-        "(8) ________"
+        "(9) ________"
       ],
       [
         "or acquisition, and whether the target language is learnt in the",
@@ -104,10 +104,6 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "classroom or acquired through social touch with native speakers.",
-        "(9) ________"
-      ],
-      [
-        "",
         "(10) ________"
       ]
     ],
@@ -158,7 +154,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 6,
         "fix": "check → review",
-        "analysis": "【解析】本句要表达的意思是 “通过审查该领域的文献，可以清楚看出……”。原文 check一词表示 “检查” 时指“检查以确认某事物是否正确、安全、令人满意” (to do something in order to fmd out whether something really is correct, true, or in good condition) , 但此处强调的应该是对文献 “详加考虑、研究并得出结论”，而非要检验文献的正确性，故最妥 PART IV TRANSLATION 当的词应用 examination。但由于 check前是 a, 故改用 review, 该词可表示 a careful examination of a situation or process , 符合文意。"
+        "analysis": "【解析】本句要表达的意思是 “通过审查该领域的文献，可以清楚看出……”。原文 check一词表示 “检查” 时指“检查以确认某事物是否正确、安全、令人满意” (to do something in order to find out whether something really is correct, true, or in good condition) , 但此处强调的应该是对文献 “详加考虑、研究并得出结论”，而非要检验文献的正确性，故最妥。"
       },
       {
         "number": 7,
@@ -178,13 +174,13 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 10,
         "fix": "touch → interaction / contact",
-        "analysis": "【解析】最后一个分句说 “目标语是在教室习得还是通过与目标语母语者的交往而获得”。表示社会接触或交往一般用 interaction或 contact。touch一词指 “接触” 时，指“身体上的接触或触碰 \"' 而非文中所要表达的抽象意义上的交往接触。本文节选自老舍的散文《 我的母亲》。本文的语言朴实直白，生活气息浓郁。因此，翻译时不仅要注意忠实于文字意义，而且要忠实地再现原文的语言风格，要避免用过于晦涩的词汇和复杂的句子结构，应该用平实的语句表达出原文的精神面貌。同时，本文句式简短、零散，翻译时可整合句意，多利用合译和增加适当的逻辑关联词，以避免译文过于松散。"
+        "analysis": "【解析】最后一个分句说 “目标语是在教室习得还是通过与目标语母语者的交往而获得”。表示社会接触或交往一般用 interaction或 contact。touch一词指 “接触” 时，指“身体上的接触或触碰 \"' 而非文中所要表达的抽象意义上的交往接触。"
       }
     ],
     "translationReference": "However, I would also like to further my study, so I secretly took the exam and was admitted to a normal school where, all expenses including uniforms, meals, books and accommodation were provided by the school. It was only under this condition that I dared to break the news to my mother. Yet I had to hand in 10 Yuan as deposit for enrollment, which was a huge sum of money to us then. For about two weeks, Mother suffered much and fmally managed to raise the money, and then she sent me off to school with tears in her eyes. So far as I, the son, could win a bright future, Mother would spare no pains. On the day when I was appointed as the headmaster of a primary school after graduation, Mother and I did  not sleep a wink all night. All I could say? was, \"๘other, you can rest a ' bit now! \" And her reply we๙๚ beads of tears. I Æ-",
-    "writingReference": "My Views on Working from Home With traffic jam deteriorating in urban life, the work-from-home policy has attracted increasing attention of the public. As mentioned in the given material, it seems that both the employers and employees applaud the policy in that it can maximize the number of potential talen岱and save money for employers, and meanwhile it can keep privacy and avoid distractions for employees as well.\nHowever, an employee above warns that not every one is suited to working from home. ๛for me, this policy is a double呻edged sword: if implemented wisely, it can tremendously raise em ployees' work efficiency and promote companies' development; if not, it will do more harm than good to both employees and companies. On the one hand, the benefits of working from home could be easily seen.\nFirstly, remote working policies can help reduce traffic congestion, thus not only saving employees' time and energy to improve work efficiency for the company, but also relieving traffic pressure for the society and diminishing environ mental pollution. Secondly, the new policy provides employees with more flexibility to allocate their time, which will be particularly welcomed by those working parents who need to make a balance between taking care of their kids and fulfilling job responsibilities.\nOn the other hand, the drawbacks of the work-from-home mode should never be underestimated. First, short of face-to-face communication, teamwork · can barely be nurtured under this work mode, while teamwork spirit is one of the most crucial driving forces for the enterprise's sustainable growth. Second, this work pattern makes it quite difficult. for companies to monitor and evaluate their employees' pelformance, which would de血tely inhibit their development in the long run.\nI agree with Alessandra Ceresa that job nature has a say in whether this new work mode is suitable or not. Working from home has both advantages and disadvantages, and the key always lies in how to make the best use of it.",
-    "translationAnalysis": "1. 第一、二句句式简单，且隐含因果关系，故将这两句合译为so 连接的并列句。第二句破折号后的内容处理成where 引导的定语从句，修饰 “师范学校” 。”升学”可以有多种表达，比如to continue one's study, to further one's study 或者是to pursue further study 等。\n2. 第三句中文原文强调了条件” 只有这样” ，故选用强调句型It was only under this condition that…来翻译。”才敢对母亲提升学的话”需结合此处语境来翻译，此处实指 “才敢将考上师范学校的消息告诉母亲” ，故译为dared to break the news to my mother。\n3. 第四、五句均与 “十元的保证金”有关，故合译为一句。后一句是感叹句，为了加强语气，也可单独译出，可以用\"what+ 名词＋主语＋其他成分”或者是\"How+形容词＋主语＋其他成分” 的结构来翻译，如译作what a huge sum of money to us! \" 巨款”可译作a huge sum of money 或enormous figure。\n4. 第六句”作了半个月的难” 中的”作难” 既有 “费了很大劲去做… … \" ' 也暗含 “ 为难”之义，可译成suffer much 或用 struggle to do sth的句型。 “巨款＇是对上句的重复，此处无需再强调 “金额的巨大＂，简单译作the money 作指代即可。\n5. 第八句包含三个小分句，前两个分句句意紧密，均属于when 的范围，故作合译。 “不曾合眼”可简单译作sleepless , 译文用了较为婉转文雅的not sleep a wink , 更符合原文的文体风格。",
-    "writingAnalysis": "， 气 人 fl, 、,. 工、｀ 题目分别介绍了雇主和雇员对”在家办公”的态度和看法。其中介绍了两个公司CEO 的看法／，对“在家办公 ”大致 都持赞成态度。而雇员方面，前两个也主要讲述在家办公的好处，最后一个雇员思辨性较强，提出弃非每个人、每个工 种都适合”在家办公”这个模式。根据题目要求，考生可采用如下布局： 第一、二段：简要概括雇主和雇员对在家办公这一现象的看法，并随之明确给出自己的观点－——在家办公是双刃 剑，必须合理利用。 第三段：从两个方面论述在家办公的优点和好处。 第四段：从两个方面论述在家办公的缺点和弊端。 第五段：进行简单的总结 是否在家办公要结合具体情况，关键要看工作性质。"
+    "writingReference": "My Views on Working from Home With traffic jam deteriorating in urban life, the work-from-home policy has attracted increasing attention of the public. As mentioned in the given material, it seems that both the employers and employees applaud the policy in that it can maximize the number of potential talen岱and save money for employers, and meanwhile it can keep privacy and avoid distractions for employees as well.\nHowever, an employee above warns that not every one is suited to working from home. ๛for me, this policy is a double呻edged sword: if implemented wisely, it can tremendously raise employees' work efficiency and promote companies' development; if not, it will do more harm than good to both employees and companies. On the one hand, the benefits of working from home could be easily seen.\nFirstly, remote working policies can help reduce traffic congestion, thus not only saving employees' time and energy to improve work efficiency for the company, but also relieving traffic pressure for the society and diminishing environmental pollution. Secondly, the new policy provides employees with more flexibility to allocate their time, which will be particularly welcomed by those working parents who need to make a balance between taking care of their kids and fulfilling job responsibilities.\nOn the other hand, the drawbacks of the work-from-home mode should never be underestimated. First, short of face-to-face communication, teamwork · can barely be nurtured under this work mode, while teamwork spirit is one of the most crucial driving forces for the enterprise's sustainable growth. Second, this work pattern makes it quite difficult. for companies to monitor and evaluate their employees' pelformance, which would de血tely inhibit their development in the long run.\nI agree with Alessandra Ceresa that job nature has a say in whether this new work mode is suitable or not. Working from home has both advantages and disadvantages, and the key always lies in how to make the best use of it.",
+    "translationAnalysis": "1. 第一、二句句式简单，且隐含因果关系，故将这两句合译为so 连接的并列句。第二句破折号后的内容处理成where 引导的定语从句，修饰 “师范学校”。”升学”可以有多种表达，比如to continue one's study, to further one's study 或者是to pursue further study 等。\n2. 第三句中文原文强调了条件” 只有这样”，故选用强调句型It was only under this condition that…来翻译。”才敢对母亲提升学的话”需结合此处语境来翻译，此处实指 “才敢将考上师范学校的消息告诉母亲”，故译为dared to break the news to my mother。\n3. 第四、五句均与 “十元的保证金”有关，故合译为一句。后一句是感叹句，为了加强语气，也可单独译出，可以用\"what+ 名词＋主语＋其他成分”或者是\"How+形容词＋主语＋其他成分” 的结构来翻译，如译作what a huge sum of money to us! \" 巨款”可译作a huge sum of money 或enormous figure。\n4. 第六句”作了半个月的难” 中的”作难” 既有 “费了很大劲去做… … \" ' 也暗含 “ 为难”之义，可译成suffer much 或用 struggle to do sth的句型。“巨款＇是对上句的重复，此处无需再强调 “金额的巨大＂，简单译作the money 作指代即可。\n5. 第八句包含三个小分句，前两个分句句意紧密，均属于when 的范围，故作合译。“不曾合眼”可简单译作sleepless , 译文用了较为婉转文雅的not sleep a wink , 更符合原文的文体风格。",
+    "writingAnalysis": "题目分别介绍了雇主和雇员对”在家办公”的态度和看法。其中介绍了两个公司CEO 的看法／，对“在家办公 ”大致都持赞成态度。而雇员方面，前两个也主要讲述在家办公的好处，最后一个雇员思辨性较强，提出并非每个人、每个工种都适合”在家办公”这个模式。根据题目要求，考生可采用如下布局：第一、二段：简要概括雇主和雇员对在家办公这一现象的看法，并随之明确给出自己的观点－——在家办公是双刃剑，必须合理利用。第三段：从两个方面论述在家办公的优点和好处。第四段：从两个方面论述在家办公的缺点和弊端。第五段：进行简单的总结是否在家办公要结合具体情况，关键要看工作性质。"
   },
   "2013": {
     "year": 2013,
@@ -317,7 +313,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 6,
         "fix": "influenced → affected",
-        "analysis": "专八 2013 · -2 2 【解析】本题考查表示 “影响” 的两个词 influence 和 affect 的区别。虽然两者字面意思是 “影响 \",influence 的英语定义是 \"to cause a change\" , 即” 左右，影响，感化，产生作用\" '侧重 “导致发生变化\" a affect 除有 influence的” 影响 “含义外，还表示” 受疾病侵袭 \"。句中表示 “中风” 对语言能力的影响，故用社fect。"
+        "analysis": "【解析】本题考查表示 “影响” 的两个词 influence 和 affect 的区别。虽然两者字面意思是 “影响 \",influence 的英语定义是 \"to cause a change\" , 即” 左右，影响，感化，产生作用\" '侧重 “导致发生变化\" a affect 除有 influence的” 影响 “含义外，还表示” 受疾病侵袭 \"。句中表示 “中风” 对语言能力的影响，故用社fect。"
       },
       {
         "number": 7,
@@ -337,13 +333,13 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 10,
         "fix": "were → are",
-        "analysis": "【解析】本题考查时态。全文论及科学客观现象用的都是现在时态，因此无论是从主句和从句的时态一致方面看，还是从句子本身的意义上看，都应该将从句的时态改成一般现在时。令 ｀ PART IV TRANSLATION 本文选自散文《 热爱生活 》。文章把人生比拟成红酒，把生活的哲理和品酒之道进行了类比，措词清新淡雅，句式简练整齐、节奏舒缓，用隽永的语言将深刻的人生哲学表达得恰到好处，发人深思。语篇中多处出现了比喻，英译时也要特别注意。"
+        "analysis": "【解析】本题考查时态。全文论及科学客观现象用的都是现在时态，因此无论是从主句和从句的时态一致方面看，还是从句子本身的意义上看，都应该将从句的时态改成一般现在时。"
       }
     ],
     "translationReference": "Life is like a glass of w血，never ceasing to offer wonders to those who truly love it. Holding the glass in the hand, you w川observe that the dark red is reminiscent of blood, which justly symbols the trace of life. Taking a sip and recollecting its aftertaste in the mouth, you w出taste the sweetness mixed with a bit of bitterness, a taste as complicated and elusive as life is. Once you swallow the sip, the linger ing aroma w讥refresh the heart and mind, leaving the drinker life-long benefits. How remarkably wine re-  sembles life: the longer the wine ages, the mellower it may taste; the more you experience, the more life may reward you. Life, at its twilight, becomes a good wine waiting to be savored, calm and profound in its color yet full of generosity and wisdom in its flavor.",
     "writingReference": "Regulating Uber Digital Ride Finder Ride-hailing service like Uber has facilitated the transportation of citizens, but meanwhile it has raised many regulation questions. Officials focus on the differences in ,regulating taxi drivers and Uber drivers. For one thing, unlike taxi drivers, Uber drivers do not need any qualifications; they do not need to pay licens ing and insurance fees.\nTherefore, they operate more cheaply than taxi drivers, which may be detrimental to taxi drivers' income and consumers' interests. For another, presently in most countries such as the UK, without a clearly stated law regulating Uber, the police are puzzled whether the Uber drivers have violated the law or not. Citizens treat the matter from different aspects.\nThey say services su_ch as Uber result from teclmologi cal advances and what needs to be done is to ensure the safety of the Uber cars. They are also concerned with distinguishing between rides-for-hire and driving-oneself-around legally. I think the opinions stated in the given material are all reasonable and the regulation of Uber is in ur gent need now.\nTo tackle the issue more comprehensively, I would like to add the following points in the regulation. First, safety is the most critical issue for transportation, so the regulation of Uber service must com bine the background check on the driver with the safety inspection of the car itself. Cases have been re vealed that some Uber users were sexually abused when taking a Uber vehicle.\nLessons must be learned from . such tragedy in mal血g up relevant rules or laws. Second, in regulating ride-hailing services, the interests of all related parties including taxi drivers,. Uber drivers, passengers, and citizens should be taken into consideration. Attention also needs to be paid to the protection of the enviromnent, with efforts made to reduce as much greenhouse gas emission as possible and to meet the need for convenient transportation of all the citizens.\nIn short, it is unadvisable and impossible to ban the Uber service. However, strict and careful regula tions are required if the new service industry is to be developed healthily.",
-    "translationAnalysis": "1. 第一句由两个短句组成，两个短句分别用了不同的主语： “生活”和 “热爱生活的人” 。可将两个短句合译成一个句子，有两种处理方法可以借鉴。其一，用分号来连接两个部分，表示第二个部分是对前面部分的进一步阐述，例如：Life is like a glass of wine; those who love it can always discover endless wonders from it; 其二，都用life 作为主语，将 “热爱生活的人 “处理成宾语，如译文。由于红酒常装玻璃杯中，故” 一杯红酒” 中的 “杯” 可选用glass 或 goblet\"高脚杯” 。\n2. 第二句由三个小短句组成，第一个小短句没有主语，翻译时有多种处理方法。其一，用泛指主语you , 处理成条件从句：If you hold it in the hand, … ；其二，处理成非谓语动词的现在分词形式Holding it in the hand, you will心其三，用祈使句Hold it in the hand and you will… o\n3. 第三句的句式和上一句相似，处理方法也可借鉴。”拫一口”可译成take a sip ; \"甘中有一丝苦涩” 可译成sweet ness m议ed with a bit of bitterness。\n4. 第四句 “ 喝一口下肚” 中 “ 喝” 和”下肚”为同义反复。英译时要避免这种同义反复，译为drink a mouth of wine 即可，至于to your belly 、to your stomach 是不言自明的，没有必要译出。”沁人心脾”是成语，可以选择与 “心脾 “无关的表达方法，比如：refresh \\ one's mind 、gratifying 。也可以选择与 “心”有关的表达方法，比如permeate through one's heart 、penetrate to one's heart。但是不能按照 “心脾”字面翻译。\n5. 第五句是一个类比，前半句讲酒道，后半句讲人理，为了加强衔接，可以酌情增译How remarkably wine resembles life , 并用冒号引出后面的类比，因为汉语的句式比较工整，英语翻译也要尽量简洁对仗。 “ 红酒越陈越美味” 中的 “陈”并非指 “陈旧＂，故不可译作stale , 该词实指 “存放的时间长” ，故译文用了转换译法，用了动词age 来表达。 “美味”在文中特指酒的香醇，故选用mellow 一词，指 “芳醇的＂，非常妥帖。\n6. 最后一句如果按原文结构翻译成四句话，势必很松散罗嗦，不符合英语形合的特点。根据整个段落布局的需要，仍然可以用 “人生”作为主语， “走向晚年”可以灵活地处理为后置定语in its twilight。短句”其色彩是沉静的，味道中充满慷慨与智慧” 可译成形容词短语和介词词组后置加以连接。为了平衡美，译文将 “沉静 “ 翻译成calm and pro found, 这样能更好地和后面的generosity and wisdom 相对称。",
-    "writingAnalysis": "题目给出了两类人对Uber 的合法性的评价，包括政府官员和普通市民。在概括时，考生须注意总结出共性观点。 两名官员的意见侧重点不同，可分开讲述。市民的看法比较统一，总体上都支持立法监管Uber。根据题目的要求，考生 可采取以下的布局： 第一段：从两方面分述政府官员对Uber 的看法。第一，认为Uber 服务损害出租车司机的利益；第二，官员对Uber 是否合法存在质疑。 第二段：概述普通市民的看法—一总体上支持立法监管，同时指出，监管这类进行出租业务的车不应与监管其他车 辆有区别。 第三～五段：提出自己的观点——－同意应立法监管，然后从两方面深入讨论该问题。 第六段：总结全文，指出只有立法监管Uber, 才能使这项新服务得到良好发展。"
+    "translationAnalysis": "1. 第一句由两个短句组成，两个短句分别用了不同的主语：“生活”和 “热爱生活的人”。可将两个短句合译成一个句子，有两种处理方法可以借鉴。其一，用分号来连接两个部分，表示第二个部分是对前面部分的进一步阐述，例如：Life is like a glass of wine; those who love it can always discover endless wonders from it; 其二，都用life 作为主语，将 “热爱生活的人 “处理成宾语，如译文。由于红酒常装玻璃杯中，故” 一杯红酒” 中的 “杯” 可选用glass 或 goblet\"高脚杯”。\n2. 第二句由三个小短句组成，第一个小短句没有主语，翻译时有多种处理方法。其一，用泛指主语you , 处理成条件从句：If you hold it in the hand, …；其二，处理成非谓语动词的现在分词形式Holding it in the hand, you will心其三，用祈使句Hold it in the hand and you will… o\n3. 第三句的句式和上一句相似，处理方法也可借鉴。”拫一口”可译成take a sip ; \"甘中有一丝苦涩” 可译成sweet ness m议ed with a bit of bitterness。\n4. 第四句 “ 喝一口下肚” 中 “ 喝” 和”下肚”为同义反复。英译时要避免这种同义反复，译为drink a mouth of wine 即可，至于to your belly、to your stomach 是不言自明的，没有必要译出。”沁人心脾”是成语，可以选择与 “心脾 “无关的表达方法，比如：refresh \\ one's mind、gratifying。也可以选择与 “心”有关的表达方法，比如permeate through one's heart、penetrate to one's heart。但是不能按照 “心脾”字面翻译。\n5. 第五句是一个类比，前半句讲酒道，后半句讲人理，为了加强衔接，可以酌情增译How remarkably wine resembles life , 并用冒号引出后面的类比，因为汉语的句式比较工整，英语翻译也要尽量简洁对仗。“ 红酒越陈越美味” 中的 “陈”并非指 “陈旧＂，故不可译作stale , 该词实指 “存放的时间长”，故译文用了转换译法，用了动词age 来表达。“美味”在文中特指酒的香醇，故选用mellow 一词，指 “芳醇的＂，非常妥帖。\n6. 最后一句如果按原文结构翻译成四句话，势必很松散罗嗦，不符合英语形合的特点。根据整个段落布局的需要，仍然可以用 “人生”作为主语，“走向晚年”可以灵活地处理为后置定语in its twilight。短句”其色彩是沉静的，味道中充满慷慨与智慧” 可译成形容词短语和介词词组后置加以连接。为了平衡美，译文将 “沉静 “ 翻译成calm and profound, 这样能更好地和后面的generosity and wisdom 相对称。",
+    "writingAnalysis": "题目给出了两类人对Uber 的合法性的评价，包括政府官员和普通市民。在概括时，考生须注意总结出共性观点。两名官员的意见侧重点不同，可分开讲述。市民的看法比较统一，总体上都支持立法监管Uber。根据题目的要求，考生可采取以下的布局：第一段：从两方面分述政府官员对Uber 的看法。第一，认为Uber 服务损害出租车司机的利益；第二，官员对Uber 是否合法存在质疑。第二段：概述普通市民的看法—一总体上支持立法监管，同时指出，监管这类进行出租业务的车不应与监管其他车辆有区别。第三～五段：提出自己的观点——－同意应立法监管，然后从两方面深入讨论该问题。第六段：总结全文，指出只有立法监管Uber, 才能使这项新服务得到良好发展。"
   },
   "2012": {
     "year": 2012,
@@ -474,7 +470,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 7,
         "fix": "view 后加 that",
-        "analysis": "PART IV TRANSLATION 【解析】此处 the view translation was rmpossible gained some currency 里出现两个谓语动词，不符语法规则。按照句意 “做好翻译是不可能的这种观点有些市场” 来看，translation was impossible应为对 the view内容的说明，是它的同位语从句。而同位语从句的引导词 that不能省略，所以应在 view后加 that。"
+        "analysis": "【解析】此处 the view translation was impossible gained some currency 里出现两个谓语动词，不符语法规则。按照句意 “做好翻译是不可能的这种观点有些市场” 来看，translation was impossible应为对 the view内容的说明，是它的同位语从句。而同位语从句的引导词 that不能省略，所以应在 view后加 that。"
       },
       {
         "number": 8,
@@ -494,8 +490,8 @@ window.TEM8_PAPER_EXTRAS2 = {
     ],
     "translationReference": "She was simmering with agony, her brow burning, her breast swelling with pervading gloom, her stom ach getting gas toward her throat. She felt even more lost when the director said that the child had suf-  fered from slow growth. She paced up and down in the room where her child had lived along with other children. The room had only one window, out of which the tree shadows were dancing. Leave the child here, -she thought to herself. There are kindhearted priests and nuns here. The place will be developed into a nursery center with medical care._ This is the best place for the child. The child was her secret, and she would b叩the secret . in the building shaded by trees.",
     "writingReference": "We See Limited Faces on Facebook In the 21st century, people are empowered by new technology. What we do and what we think can easily be shared to anyone anytime anywhere, thanks to the all-powerful social media. That is why scholars from America to Korea ac肋owledge the benefits brought by social media: we enjoy stronger ties and in stantaneous connectivity.\nWith the blessing of social media, we are able to effect individual and social changes, leading to our well-being. However, social media is not without its problem. Some experts argue that pleasures gained from social media make our minds under-developed and that virtual connection re places face-to-face contact, weakening our relationships. As a hesitant social media user, I am inclined to agree with the second school of thoughts: social media spells more disasters than blessings.\nSocial media rushes things through and leads to the impatient mindset of its users. Overwhelmed by the instantaneous supply of information and immediate exchanges of commtmication, people can no longer wait for things to happen. A recent study shows that if a social networking website takes more than 30 seconds to load, users tend to quit this website and switch to another one.\nThis also explains the Prof. Greenfield's comment about the \"short attention spans\" of the mid-21st century minds. With the ubiquitous social media, it is very difficult to read a novel, sit in a 2-hour concert or wait in a line, without being disturbed by social media contact. We are trained by the instant technology to be impatient, agitated, rest less and even super-sensitive.\nIn conclusion, a major disadvantage of social media is programming people to think that everything happens in 140 characters. As a viral saying in the Chinese Internet community goes,\"the world is so big; I wanna check it out! \" Breaking away from the shackles of the 140 characters, · you will find your horizon broadened and your mind developed.",
-    "translationAnalysis": "1. 第一句总共四个小句，句号前一逗到底，且分别有四个不同的主语，充分体现了汉语句子主语多变的特点。英译时必须重新分句与组句，按汉语 “流水句”形式译出并不可取。本句的切分方法有多种，译文可合译成一句，以人称作主语，后面三个小句分译成独立主格结构。”发烫发热”是同义反复，英译时无需译为burning and hot , 只译为burning 即可。 “一股气” 中的 “气”指的是胃里的气，故用gas , 而不用表泛指的air。\n2. 第二句译文没按原语序译出，而将前半句” 院长说… … “处理成状语，是为了突出以女主角作为主语的描述重点。注意此处的间接引语要用过去完成时。 “发育迟缓 “虽为医学术语，但本篇是文学作品，只需按其字面义译作underde velopment 或slow growth 即可。\n3. 第三句出现两次 “房里” ，英译这类重复时可采取替代的原则。如本句将第二个 “房里 “用where 进行替代。\n4. 《现代汉语词典》对 “婆娑” 的解释是 “盘旋舞动的样子＂，故可译为dancing 或whirling 。\n5. 第五句与第一句类似，也属于汉语中的流水句，但与第一句不同的是，本句描写主人公的心理活动，而她正处于极度痛苦郁闷中。如果按照常规方法，将几个分句聚合在一起，反而显得人物思维过分连贯，不合常理。因此此处译文建议只将各个分句单独译出，以再现人物的心理活动状况。本句为泊珍的心里话，故可酌情增译she thought to her self。\n6. 最后一句中的”秘密” 出现了两次，英译时一般可用替代的原则以衔接句子。但此处更多是修辞性的重复，以强调主人公的决心，因此此处译文重复以体现原文重复的修辞效果。",
-    "writingAnalysis": "题目给出了四段关于社交媒体的评价。在概括时，考生须注意总结出共性观点。显然，这四段评价，前两段以褒扬为 主，主要提到社交媒体对个人及社会的积极影响；后两段则以贬斥为主，主要谈及社交媒体的害处。根据题目的要求， 考生可采取以下的布局： 第一段：从两方面概括专家对社交媒体的褒贬看法，并提出个人见解一社交媒体弊大于利。 第二段：社交媒体让人们行事急躁。引用例子及题目提到的专家观点说明社交媒体对我们思维方式的负面影响。 第三段：总结全文，指出我们的世界不应局限于社交媒体的140 个字。"
+    "translationAnalysis": "1. 第一句总共四个小句，句号前一逗到底，且分别有四个不同的主语，充分体现了汉语句子主语多变的特点。英译时必须重新分句与组句，按汉语 “流水句”形式译出并不可取。本句的切分方法有多种，译文可合译成一句，以人称作主语，后面三个小句分译成独立主格结构。”发烫发热”是同义反复，英译时无需译为burning and hot , 只译为burning 即可。“一股气” 中的 “气”指的是胃里的气，故用gas , 而不用表泛指的air。\n2. 第二句译文没按原语序译出，而将前半句” 院长说… … “处理成状语，是为了突出以女主角作为主语的描述重点。注意此处的间接引语要用过去完成时。“发育迟缓 “虽为医学术语，但本篇是文学作品，只需按其字面义译作underde velopment 或slow growth 即可。\n3. 第三句出现两次 “房里”，英译这类重复时可采取替代的原则。如本句将第二个 “房里 “用where 进行替代。\n4. 《现代汉语词典》对 “婆娑” 的解释是 “盘旋舞动的样子＂，故可译为dancing 或whirling。\n5. 第五句与第一句类似，也属于汉语中的流水句，但与第一句不同的是，本句描写主人公的心理活动，而她正处于极度痛苦郁闷中。如果按照常规方法，将几个分句聚合在一起，反而显得人物思维过分连贯，不合常理。因此此处译文建议只将各个分句单独译出，以再现人物的心理活动状况。本句为泊珍的心里话，故可酌情增译she thought to her self。\n6. 最后一句中的”秘密” 出现了两次，英译时一般可用替代的原则以衔接句子。但此处更多是修辞性的重复，以强调主人公的决心，因此此处译文重复以体现原文重复的修辞效果。",
+    "writingAnalysis": "题目给出了四段关于社交媒体的评价。在概括时，考生须注意总结出共性观点。显然，这四段评价，前两段以褒扬为主，主要提到社交媒体对个人及社会的积极影响；后两段则以贬斥为主，主要谈及社交媒体的害处。根据题目的要求，考生可采取以下的布局：第一段：从两方面概括专家对社交媒体的褒贬看法，并提出个人见解一社交媒体弊大于利。第二段：社交媒体让人们行事急躁。引用例子及题目提到的专家观点说明社交媒体对我们思维方式的负面影响。第三段：总结全文，指出我们的世界不应局限于社交媒体的140 个字。"
   },
   "2011": {
     "year": 2011,
@@ -506,22 +502,22 @@ window.TEM8_PAPER_EXTRAS2 = {
       ],
       [
         "grew I should be a writer. Between the ages of about seventeen and twenty-",
-        ""
-      ],
-      [
-        "four I tried to abandon this idea, but I did so with the conscience that I",
         "(1) ________"
       ],
       [
-        "was outraging my true nature and that soon or later I should have to",
+        "four I tried to abandon this idea, but I did so with the conscience that I",
         "(2) ________"
       ],
       [
-        "settle down and write books.",
+        "was outraging my true nature and that soon or later I should have to",
         "(3) ________"
       ],
       [
-        "I was the child of three, but there was a gap of five years on the either side,",
+        "settle down and write books.",
+        ""
+      ],
+      [
+        "I was the middle child of three, but there was a gap of five years on the either side,",
         "(4) ________"
       ],
       [
@@ -621,7 +617,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 6,
         "fix": "imaginative → imaginary",
-        "analysis": "【解析】此处为形容词误用。imaginative指“（人）想象 ＊ 改错原文选自 George Orwell 所著的随笔 Why I Write。PART IV TRANSLATION 力丰富的\" '而此处所表达的意思是 “我和其他孤独的孩子一样，习惯编造故事，与想象中的人物对话”，故应改用 imaginary。"
+        "analysis": "【解析】此处为形容词误用。imaginative指“（人）富有想象力的”，imaginary指“想象中的，虚构的”。原文说孤独的孩子常和想象出来的人物对话，应用 imaginary。改错原文选自 George Orwell 所著的随笔 Why I Write。"
       },
       {
         "number": 7,
@@ -644,10 +640,10 @@ window.TEM8_PAPER_EXTRAS2 = {
         "analysis": "【解析】从上下文中的语义来判断，句间的逻辑关系应为转折关系。前面一句说到 “我具有文学方面的天赋和面对现实的能力……”，本句则说 “我早年正式的文学创作加起来也不过寥寥数页”，前面的天赋与本句的作品少形成对比，故应把表因果的连词 Therefore 改为 Nevertheless(也可用 However )。本文选自王小波的杂文《正面是休闲，背面是匆忙一现代人的生活节奏》，文章沿袭了王小波的一贯风格，直白、生动、重逻辑和哲理性。要求翻译的画线部分其实只有三句，前两句论述 “匆忙” 与 “休闲” 的生活方式和人们生活方式的选择，最后一句举出实例。全篇都可以采用现在时，最后一句采用过去时也可以。"
       }
     ],
-    "translationReference": "Haste and leisure are two completely different lifestyles. But in reality, people shuttle between the two styles too frequently to tell whether they are at leisure or in haste sometimes. ·For instance, we are e司oy ing our holidays at a famous scenic spot, . when our boss's phone call arrives, saying that we have had some troubles with our customers or work The convenient and advanced tool of modern times at this mo ment has revealed its ferocious and gloomy edge, depriving us of all the interest and leaving the leisure in name to the tourists, who have been laden with burning anxiety.",
+    "translationReference": "Haste and leisure are two completely different lifestyles. But in reality, people shuttle between the two styles too frequently to tell whether they are at leisure or in haste sometimes. ·For instance, we are e司oy ing our holidays at a famous scenic spot, . when our boss's phone call arrives, saying that we have had some troubles with our customers or work The convenient and advanced tool of modern times at this moment has revealed its ferocious and gloomy edge, depriving us of all the interest and leaving the leisure in name to the tourists, who have been laden with burning anxiety.",
     "writingReference": "Even Teachers are Humans Needing Material Comfort The dilemma of being a teacher in China is discussed in the given · article. On the one hand, teachers still hold the most respectable job, and the social expectation of teachers' morality and lmowledge remains high. On the other hand, the number of teacher-training universities is decreasing and teachers' salary is less than satisfactory.\nThis mismatch is the very obstacle that prevents many young talents from the teaching profession. As a student, I understand how important it is to have qualified teachers in my life, so I think it is the government's responsibility and priority to ensure that teachers are duly rewarded. Two kinds of rewards are pertinent to teachers: tangible and intangible.\nFrom the news coverage, we learn. that teachers are well-respected and have . gained social recognition, an intangible reward for a professional occupation. However, as for the tangible rewards, the situation is far from being satisfactory. Teachers are under-paid, and in the rural areas many of them are living a dismal life. They have to shelter in thatched cottages and live on ration food every day.\nIt is really disheartening to know that teachers have to suffer from poverty when they are entrusted with the great responsibility to shape studen岱' morality, lmowledge and personality. I believe that Chinese government must subsidize teachers and substantially increase teachers' salary. For instance, teachers should be entitled to housing allowance or low-rent apartments to guarantee that they live · in comfortable houses.\nTeachers' salary should be performance-based, and it needs to be reviewed every year. If a teacher has done a good job, he or she deserves an annual increase and a satisfactory amount of bonus. In conclusion, since we have already recognized teachers' social value, it is high time we awarded them the fmancial value. When intangible and tangible incentives are present, more young talents w出be competing to be teachers.\nThe flowers of the motherland will be in excellent hands.",
-    "translationAnalysis": "1. 第一句作为后文的启首句，主语的选择上应该考虑到和后文的衔接。本句除可按原语序译出外，还可选用 “生活方式”作主语，这样能较好地承接后文。如译为Tl1e hasty and leisurely lifestyles are radically distinct。\n2. 第二句 “在现实生活中 “易误译成in real life 或in actual life , 但实际上， “现实”和 “生活”属于同义反复，故real 和 actual 其实可略去不译，译成in our life 或in reality 即可。”休闲着 “和 “忙碌着＂，结构一致，意思相反，在原文中读起来有对比的特殊效果，翻译成英语时也应采用结构一致、意义相反的短语，可考虑选用介词短语at leisure 和in haste 来保持原文中的韵味。\n3. 最后一句较长，是中文典型的”流散型”句式，翻译时需对信息进行拆分和合并。本句可以第一个破折号为界，将句子分译成两句。\n4. \" 当… … ，却忽然… … ＂，主句用进行时态，表示正在进行的动作，用when 引导的从句表示另一动作发生的突然性。”却忽然接到老板的电话，告诉我们… … \" ' 这两个分句中的后者在翻译成英语时，可处理成现在分词短语informing us ... , 作前一句的伴随状语，再用that 引导的从句译出电话内容。\n5. 第二句可按原语序用 “现代便捷先进工具”作主语， “搞得人一下子兴趣全无” 和 “休闲只能徒有其表”都是其产生的结果，故处理成现在分词短语，作结果状语。\n6. \"面容”此处实指现代工具的特点、性质、方面，可意译为side 、nature 、feature 等。英语中常说modern technology is a two-edged weapon \" 现代科技是把双刃剑” ，译文仿照此用法，别具匠心地用了edge , 使译文语义更加生动贴切。\n7. \"搞得人一下子兴趣全无 “如按字面义，使用make 或let 的句式来翻译会显得生硬。此处可选用短语动词表达方式，如译为take all the interest away from us 或译文用的deprive us of all the interest 等结构。\n8. \"火烧火撩”可以采用简单的意译，如worried 、anxious。也可采用归化的译法，译为like a cat on hot bricks。译文译作了laden with burning anxiety 同时兼顾了字面义和比喻义，更为忠实原文。",
-    "writingAnalysis": "题目给出了一段新闻报道。在概括时，考生须注意不要被报道的支撑信息所困，只需关注核心信息。本报道可从两 个大方面来概括：社会对教师的认可与政府对教师（培养）的支持。根据题目的要求，考生可采取以下的布局： 第一段：从两方面概括报道对教师职业的看法，并提出个人见解 政府有责任确保教师得到应得的回报。 第二段：指出教师的回报可分为两部分 有形与无形。教师的无形回报（社会认可度）已实现，而有形回报（工资 待遇）仍需改善。通过乡村教师的例子来支证明该观点，并提出解决办法 政府应补贴教师待遇以及通过绩效工资来 增加教师收入。 第三段：总结全文，重申要从有形回报和无形回报两方面加强教师职业的竞争力。"
+    "translationAnalysis": "1. 第一句作为后文的启首句，主语的选择上应该考虑到和后文的衔接。本句除可按原语序译出外，还可选用 “生活方式”作主语，这样能较好地承接后文。如译为Tl1e hasty and leisurely lifestyles are radically distinct。\n2. 第二句 “在现实生活中 “易误译成in real life 或in actual life , 但实际上，“现实”和 “生活”属于同义反复，故real 和 actual 其实可略去不译，译成in our life 或in reality 即可。”休闲着 “和 “忙碌着＂，结构一致，意思相反，在原文中读起来有对比的特殊效果，翻译成英语时也应采用结构一致、意义相反的短语，可考虑选用介词短语at leisure 和in haste 来保持原文中的韵味。\n3. 最后一句较长，是中文典型的”流散型”句式，翻译时需对信息进行拆分和合并。本句可以第一个破折号为界，将句子分译成两句。\n4. \" 当… …，却忽然… … ＂，主句用进行时态，表示正在进行的动作，用when 引导的从句表示另一动作发生的突然性。”却忽然接到老板的电话，告诉我们… … \" ' 这两个分句中的后者在翻译成英语时，可处理成现在分词短语informing us ... , 作前一句的伴随状语，再用that 引导的从句译出电话内容。\n5. 第二句可按原语序用 “现代便捷先进工具”作主语，“搞得人一下子兴趣全无” 和 “休闲只能徒有其表”都是其产生的结果，故处理成现在分词短语，作结果状语。\n6. \"面容”此处实指现代工具的特点、性质、方面，可意译为side、nature、feature 等。英语中常说modern technology is a two-edged weapon \" 现代科技是把双刃剑”，译文仿照此用法，别具匠心地用了edge , 使译文语义更加生动贴切。\n7. \"搞得人一下子兴趣全无 “如按字面义，使用make 或let 的句式来翻译会显得生硬。此处可选用短语动词表达方式，如译为take all the interest away from us 或译文用的deprive us of all the interest 等结构。\n8. \"火烧火撩”可以采用简单的意译，如worried、anxious。也可采用归化的译法，译为like a cat on hot bricks。译文译作了laden with burning anxiety 同时兼顾了字面义和比喻义，更为忠实原文。",
+    "writingAnalysis": "题目给出了一段新闻报道。在概括时，考生须注意不要被报道的支撑信息所困，只需关注核心信息。本报道可从两个大方面来概括：社会对教师的认可与政府对教师（培养）的支持。根据题目的要求，考生可采取以下的布局：第一段：从两方面概括报道对教师职业的看法，并提出个人见解政府有责任确保教师得到应得的回报。第二段：指出教师的回报可分为两部分有形与无形。教师的无形回报（社会认可度）已实现，而有形回报（工资待遇）仍需改善。通过乡村教师的例子来支证明该观点，并提出解决办法政府应补贴教师待遇以及通过绩效工资来增加教师收入。第三段：总结全文，重申要从有形回报和无形回报两方面加强教师职业的竞争力。"
   },
   "2010": {
     "year": 2010,
@@ -779,7 +775,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 2,
         "fix": "their → its",
-        "analysis": "专八 201 0 ....: 22 （解析】此处的 speakers 是指上文中 every language的使用者，物主代词应使用单数，故而将 their 改成 its。"
+        "analysis": "【解析】此处的 speakers 是指上文中 every language的使用者，物主代词应使用单数，故而将 their 改成 its。"
       },
       {
         "number": 3,
@@ -799,7 +795,7 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 6,
         "fix": "come → bring",
-        "analysis": "【解析】come to light即be brought to light \"为人所知 \"' 其主语为 “为人所知的对象”，后面不另外带宾 PART IV TRANSLATION 语。而本句意为 “这些事例并没有揭示出英语语言的缺陷”，故应将 come 改成 bring, bring. .. to light意为“揭露，将……曝光”。"
+        "analysis": "【解析】come to light即be brought to light \"为人所知 \"' 其主语为 “为人所知的对象”，后面不另外带宾。"
       },
       {
         "number": 7,
@@ -823,9 +819,9 @@ window.TEM8_PAPER_EXTRAS2 = {
       }
     ],
     "translationReference": "Friends flock together for the similar interests and temperaments, while they break up for the differences. Even friends on very familiar or intimate terms should not be held in great casualness or disrespect. Otherwise, friendship may end up with the breakdown of the tacit agreement and the interpersonal equilibrium. Everyone .wishes to keep his privacy, which is a forbidden zone that may be easily intruded . into by the extreme casualness between friends, thus triggering off conflicts and estrangement. Trivial as it may be to treat your friends disrespectfully, it could have implanted the destructive seeds. To maintain intimacy with your friends, it is advisable to keep moderation in contact and noninterference in each other's privacy.",
-    "writingReference": "The Olympic Games Shouldn't Be Abolished The modern Olympic Games have received both criticism and appreciation, 邸indicated in the recent news articles. On the one hand, the Games are denounced in some news articles, because they are highly commercialized, prohibitively costly, and void of social benefits. On the other hand, the Olympic spirit is re garded 邸\"a beacon of hope\", and contributes to peace among nations, when we are in troubled times.\nAlthough I am not a sport fan, I am inclined to believe that the modern Olympic Games have its place in the international corµmunity. Despite all the criticisms, the modern Olympic Games have two integral benefits that are irreplaceable. First, the Games are an international platform to showcase human talents and potentials. For example, the 10-sencond barrier used to· be considered 郘the thr·eshold for one to be a world-cl邸s sprinter.\nHowever, since 1990s, many sprinters have been able to break this barrier, and the current world record is 9.52 sec onds held by Bolt. Watching world records being broken time and again leads to a positive\"can-do\" atti tude for us, spectators and commoners. Whenever we meet problems, we will draw upon the spirit of “胆ter, higher and stronger\", rising to the challenges.\nSecond, the modern Olympic Games send a strong message about world peace. In this sports event, athletes put 函de conflicts, disagreements and discrimina tion; they compete with each other on an equal footing. This shows that we could all . go together and en joy a big family gathering. There is no boundary in sports and nothing exemplifies this better than the Olympic Games.\nIn conclusion, if we abolish the modern Olympic Games because of some fixable issues, we are throw ing the baby out with the bath water. The Games are a vital platform for us to excel ourselves and forge a bound cross national borders.",
-    "translationAnalysis": "1. 第一句前一分句中的”朋友之间”虽然在语法功能上作状语，但该词组实际上起到了引出话题的作用，是本句的论述主体，故翻译时可作语义关系转换，将 “朋友”作句子的主语。\n2. \"情趣相投、脾气对味”在句中表条件，逻辑关系为 “朋友之间，（假如）情趣相投、脾气对味，则合、则交” ，英译时需将这种条件关系表现出来。\n3. 第一句中有几组同义反复， “情趣”意为 “性情志趣” ，与后文的 “脾气”意思相近；”相投” 和”对味” 同义；＂合”和”交 “近义；＂离 “和 “绝”近义。汉语骈偶结构中 “ 同义反复 “现象非常普遍。在汉译英时，英语译文往往需要避免 “ 同义反复” 。故可将 “情趣相投、脾气对味 “合译为have the same temperament and interests 或have the same disposition and inclination。 “合” “交 “ 只用一个词flock 来表达， “离” “绝”则用break up 来表达，也可转换视角，使用cease to be friends 这一表达。注意，temper 一词特指 “坏脾气” ，故此处不宜使用该词。\n4. 第二句 “再熟悉、再亲密”在句中表示假设兼让步，逻辑关系为 “朋友之间（即使）再熟悉、再亲密，也不能… … ＂，英译时需将这种假设兼让步的关系表现出来。“再熟悉、再亲密” 中的”再”是重复的， “不恭不敬” 中的”不恭”和”不敬”是同义的，英译时要避免 “同义反复” 。 “随便过头、不恭不敬”按正面来译是in great casualness or disrespect。\n5. 第三句与前一句关系紧密，也可与前一句合译，用or 连接。本句的两个分句有两个不同的主语，英译时可按中文语序，译为and 引导的并列句。译文将两句揉合在一起，将后半句处理为主句，用friendship 作主语，能与上下文保持主题的一致（前两句皆用friends 作主语）；前一分句 “默契和平衡将被打破”处理为介词短语。 “默契” 的译法很多，如不知道tacit agreement, 用mutual unde岱tanding 或harmony 也可接受。 “平衡 “实际上是指 “人与人之间，关系的平衡\" ' 故增译interpersonal 一词； “平衡”译作balance 亦可。\n6. 第四句的子句较多，所述内容较分散，英译时要注意观察其中的逻辑关系，尽量避免流水式地将本句译为多个句子。首先可观察到， “私密空间”和”这片禁片”指代同一事物。故可考虑将第一个子句处理为主句，第二、三个子句的内容处理为which 引导的定语从句，与主句的”私密空间 “连接。\n7. \"埋下了破坏性的种子”可以直译，英文中有plant/sow the seeds of sth这一表达，意为 “种下某事的起因或根源\" ' 可据此仿译。\n8. 最后一句可按中文语序译出，译为the best way to… is to ... , 但这样译难免出现 “头重” 的情况。译文将定语 “维持朋友亲密关系”转换为目的状语，置于句首，使句子得以平衡。如果觉得”往来有节 “直译比较困难的话，可使用正话反说这一技巧，将其理解为 “朋友往来不要超出一定限度” ，译为never go beyond a certain funit。 ---, I •• I -\" -I",
-    "writingAnalysis": "题目给出了四家媒体对是否取消奥运会的意见，在概括时，考生须注意归类。前三则报道以取消奥运会为观点，最 后一则报道则认可奥运会的存在价值。根据题目的要求，考生可采取以下的布局： 第一段：总结新闻报道中取消奥运会的主要观点（商业化、成本高、社会效益低）和支持奥运会的主要观点（带来希 望，有助世界和平）；提出个人见解——奥运会不应被取消。 第二段：指出奥运会两个重要贡献。其一，奥运会是重要平台，展示人类无尽的才能与潜力；其二，奥运会对世界和 平有促进作用。 第三段：总结全文，我们不能 “ 因喳废食 ” ，奥运会的重要作用不容磨灭。"
+    "writingReference": "The Olympic Games Shouldn't Be Abolished The modern Olympic Games have received both criticism and appreciation, 邸indicated in the recent news articles. On the one hand, the Games are denounced in some news articles, because they are highly commercialized, prohibitively costly, and void of social benefits. On the other hand, the Olympic spirit is re garded 邸\"a beacon of hope\", and contributes to peace among nations, when we are in troubled times.\nAlthough I am not a sport fan, I am inclined to believe that the modern Olympic Games have its place in the international corµmunity. Despite all the criticisms, the modern Olympic Games have two integral benefits that are irreplaceable. First, the Games are an international platform to showcase human talents and potentials. For example, the 10-sencond barrier used to· be considered 郘the thr·eshold for one to be a world-cl邸s sprinter.\nHowever, since 1990s, many sprinters have been able to break this barrier, and the current world record is 9.52 seconds held by Bolt. Watching world records being broken time and again leads to a positive\"can-do\" attitude for us, spectators and commoners. Whenever we meet problems, we will draw upon the spirit of “胆ter, higher and stronger\", rising to the challenges.\nSecond, the modern Olympic Games send a strong message about world peace. In this sports event, athletes put 函de conflicts, disagreements and discrimina tion; they compete with each other on an equal footing. This shows that we could all . go together and en joy a big family gathering. There is no boundary in sports and nothing exemplifies this better than the Olympic Games.\nIn conclusion, if we abolish the modern Olympic Games because of some fixable issues, we are throw ing the baby out with the bath water. The Games are a vital platform for us to excel ourselves and forge a bound cross national borders.",
+    "translationAnalysis": "1. 第一句前一分句中的”朋友之间”虽然在语法功能上作状语，但该词组实际上起到了引出话题的作用，是本句的论述主体，故翻译时可作语义关系转换，将 “朋友”作句子的主语。\n2. \"情趣相投、脾气对味”在句中表条件，逻辑关系为 “朋友之间，（假如）情趣相投、脾气对味，则合、则交”，英译时需将这种条件关系表现出来。\n3. 第一句中有几组同义反复，“情趣”意为 “性情志趣”，与后文的 “脾气”意思相近；”相投” 和”对味” 同义；＂合”和”交 “近义；＂离 “和 “绝”近义。汉语骈偶结构中 “ 同义反复 “现象非常普遍。在汉译英时，英语译文往往需要避免 “ 同义反复”。故可将 “情趣相投、脾气对味 “合译为have the same temperament and interests 或have the same disposition and inclination。“合” “交 “ 只用一个词flock 来表达，“离” “绝”则用break up 来表达，也可转换视角，使用cease to be friends 这一表达。注意，temper 一词特指 “坏脾气”，故此处不宜使用该词。\n4. 第二句 “再熟悉、再亲密”在句中表示假设兼让步，逻辑关系为 “朋友之间（即使）再熟悉、再亲密，也不能… … ＂，英译时需将这种假设兼让步的关系表现出来。“再熟悉、再亲密” 中的”再”是重复的，“不恭不敬” 中的”不恭”和”不敬”是同义的，英译时要避免 “同义反复”。“随便过头、不恭不敬”按正面来译是in great casualness or disrespect。\n5. 第三句与前一句关系紧密，也可与前一句合译，用or 连接。本句的两个分句有两个不同的主语，英译时可按中文语序，译为and 引导的并列句。译文将两句揉合在一起，将后半句处理为主句，用friendship 作主语，能与上下文保持主题的一致（前两句皆用friends 作主语）；前一分句 “默契和平衡将被打破”处理为介词短语。“默契” 的译法很多，如不知道tacit agreement, 用mutual unde岱tanding 或harmony 也可接受。“平衡 “实际上是指 “人与人之间，关系的平衡\" ' 故增译interpersonal 一词；“平衡”译作balance 亦可。\n6. 第四句的子句较多，所述内容较分散，英译时要注意观察其中的逻辑关系，尽量避免流水式地将本句译为多个句子。首先可观察到，“私密空间”和”这片禁片”指代同一事物。故可考虑将第一个子句处理为主句，第二、三个子句的内容处理为which 引导的定语从句，与主句的”私密空间 “连接。\n7. \"埋下了破坏性的种子”可以直译，英文中有plant/sow the seeds of sth这一表达，意为 “种下某事的起因或根源\" ' 可据此仿译。\n8. 最后一句可按中文语序译出，译为the best way to… is to ... , 但这样译难免出现 “头重” 的情况。译文将定语 “维持朋友亲密关系”转换为目的状语，置于句首，使句子得以平衡。如果觉得”往来有节 “直译比较困难的话，可使用正话反说这一技巧，将其理解为 “朋友往来不要超出一定限度”，译为never go beyond a certain funit。 ---, I •• I -\" -I",
+    "writingAnalysis": "题目给出了四家媒体对是否取消奥运会的意见，在概括时，考生须注意归类。前三则报道以取消奥运会为观点，最后一则报道则认可奥运会的存在价值。根据题目的要求，考生可采取以下的布局：第一段：总结新闻报道中取消奥运会的主要观点（商业化、成本高、社会效益低）和支持奥运会的主要观点（带来希望，有助世界和平）；提出个人见解——奥运会不应被取消。第二段：指出奥运会两个重要贡献。其一，奥运会是重要平台，展示人类无尽的才能与潜力；其二，奥运会对世界和平有促进作用。第三段：总结全文，我们不能 “ 因喳废食 ”，奥运会的重要作用不容磨灭。"
   },
   "2009": {
     "year": 2009,
@@ -973,7 +969,7 @@ window.TEM8_PAPER_EXTRAS2 = {
     ],
     "translationReference": "Mobile phones have renewed the interpersonal relationships. There is usually a notice on the door of the meeting room, which reads,\"Please turn off your mobile phones during the meeting! \" Still, the meet ing room invariably echoes with the mobile rings. Although we are all ordinary people with few matters of great urgency, we will not turn off our mobile phones unless absolutely necessary. Turning on the mobile phones is a symbol of our contact with the world. Mobile phones reflect our hunger for social communica tion, as can always be seen in a phone user who comes to a sudden halt on his way, staring at the screen of his mobile phone for texting regardless of whether he is in the middle of a road or by a public toilet.",
     "writingReference": "Should Museums Charge for Admission? According to the article, British museums are confronted with spending cuts. The author is worried that such a cut in government support to the museums w山lead to their decay. In order to keep the museums alive, the author suggests that museums charge for entry. A charging scheme is suggested: Free entry for evecyone under 20 and all students, and membership schemes for the rest of the citizens.\nHowever, in my opinion, charging for entry can hardly serve its purpose of reviving museums. First, as is said in the article, the museums which suffered the most cut in government support are those \"less fashionable venu๐s \". For these places, owing to their small number of visitors, charging for entry would not help much in improving their financial situation; on the contrary, it could further reject potential visitors.\nSecond, museums serve as a public welfare and if they charge for admission, it is possible that they may concentrate on how to make money, thus failing their role for public welfare. In China, those most popular museums and parks have become tourist attractions, and they normally raise their admission fees evecy three years, which has caused much criticism from the public.\nIn order to make a balance between \"protection of the museum\" and \"function as public welfare\", I think better ways can be found rather than charging for entry. First, it is the responsibility of the government to maintain the museums, and funds must be appropriated to keep their operation. Second, as to the more attractive museums, they can introduce the \"daily visiting limit\" scheme to ensure their smooth management.\nThat is, when in peak periods, guests must book beforehand so that the museums can have a control of the total visit for each day. In short, I think it a bad idea for museums to charge for admission. Better management and financial measures may be the right solution to this issue.",
-    "translationAnalysis": "1. 第一句 “刷新”可译作renew 或refresh , 但注意句中与 “关系”搭配，不可选用refurbish 或是renovate , 因为它们不能修饰relationship。此处也可译为alter 或是change , 但语义更泛指一些。\n2. 第二句考生较易按字面义译出 “ 门口通常贴着一条通告\" ' 如A notice is often posted outside the conference room , 其实在一般情况下，这类动词可以不译出，使用There be 句型，把汉语动态转换为英语静态，这样更符合英语的表达习惯。\n3. 第四、五句句意紧密，为显性的让步转折关系，故合译为一句。前一句两个小分句可译为并列关系，用and 连接，如 We are all common people and rarely have things of great urgency to do , 也可译成从属关系，相比之下，译成从属关系更符合英语表达习惯，可以用介词with ,without , as 等连接。”重要的事情” 此处选用things of great urgency 来译，表达更为地道。 “轻易”不可简单地译成easily。 “轻易”应理解为 “在一般情况下不愿意”或 “除非在必要情况下，否则不会” ，可用we are reluctant to tum off the phone 或译文处的not... unless (it is) absolutely necessary 结构。\n4. 遇到像第七句 “社交饥渴症”这样的词时不能按字面意思硬译。”饥渴症” 即”渴望” ，因此译为thirst for 或desire for 即可。其实，＂饥渴症” 中的“症”是一个范畴词，是汉语常用的特指手段。汉语有使用范畴词的倾向，英语却有省略范畴词的倾向。",
-    "writingAnalysis": "题目给出一篇文章，内容是建议博物馆采用收取门票的方法来应对财政困难。本文可从两个大方面来概括：由千政 府的资助减少，英国的博物馆陷入经济困境；作者认为收取门票是解决该问题的最佳方法，并给出理由和具体的门票收 取方案。根据题目的要求，考生可采取以下的布局； 第一段：从上述的两方面来概括文章的大意。 第二、三段；亮出自己的观点－๏收取门票的方法并不能解决博物馆的财政问题，并给出两个理由。 第四段：给出自己的建议，提出有更好的解决方法 一是倡议政府伸出援手；二是博物馆应完善管理制度。 第五段；总结全文，重申博物馆不应向游客收取门票。"
+    "translationAnalysis": "1. 第一句 “刷新”可译作renew 或refresh , 但注意句中与 “关系”搭配，不可选用refurbish 或是renovate , 因为它们不能修饰relationship。此处也可译为alter 或是change , 但语义更泛指一些。\n2. 第二句考生较易按字面义译出 “ 门口通常贴着一条通告\" ' 如A notice is often posted outside the conference room , 其实在一般情况下，这类动词可以不译出，使用There be 句型，把汉语动态转换为英语静态，这样更符合英语的表达习惯。\n3. 第四、五句句意紧密，为显性的让步转折关系，故合译为一句。前一句两个小分句可译为并列关系，用and 连接，如 We are all common people and rarely have things of great urgency to do , 也可译成从属关系，相比之下，译成从属关系更符合英语表达习惯，可以用介词with ,without , as 等连接。”重要的事情” 此处选用things of great urgency 来译，表达更为地道。“轻易”不可简单地译成easily。“轻易”应理解为 “在一般情况下不愿意”或 “除非在必要情况下，否则不会”，可用we are reluctant to tum off the phone 或译文处的not... unless (it is) absolutely necessary 结构。\n4. 遇到像第七句 “社交饥渴症”这样的词时不能按字面意思硬译。”饥渴症” 即”渴望”，因此译为thirst for 或desire for 即可。其实，＂饥渴症” 中的“症”是一个范畴词，是汉语常用的特指手段。汉语有使用范畴词的倾向，英语却有省略范畴词的倾向。",
+    "writingAnalysis": "题目给出一篇文章，内容是建议博物馆采用收取门票的方法来应对财政困难。本文可从两个大方面来概括：由千政府的资助减少，英国的博物馆陷入经济困境；作者认为收取门票是解决该问题的最佳方法，并给出理由和具体的门票收取方案。根据题目的要求，考生可采取以下的布局；第一段：从上述的两方面来概括文章的大意。第二、三段；亮出自己的观点－๏收取门票的方法并不能解决博物馆的财政问题，并给出两个理由。第四段：给出自己的建议，提出有更好的解决方法一是倡议政府伸出援手；二是博物馆应完善管理制度。第五段；总结全文，重申博物馆不应向游客收取门票。"
   }
 };
