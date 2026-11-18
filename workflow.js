@@ -290,6 +290,7 @@
           ${cfg.mode==='exam'?`<div class="pq-stepper"><span>倒计时</span><button type="button" data-pq-min="-5" aria-label="减少 5 分钟">−</button><output>${cfg.minutes} 分钟</output><button type="button" data-pq-min="5" aria-label="增加 5 分钟">＋</button>${cfg.minutesTouched?'<button type="button" class="pq-link" data-pq-min="reset">按题量重算</button>':''}</div>`:''}
           ${switches?`<div class="pq-switches">${switches}</div>`:''}
         </section>
+        ${type==='language'?(window.TEM8_PROOFPTS?.configHTML()||''):''}
       </div>
       <div class="pq-startbar"><div class="pq-startinfo"><b>${cfg.years.length?`已选 ${cfg.years.length} 年 · 共 ${count} 题 · 约 ${cfg.mode==='exam'?cfg.minutes:minutes} 分钟`:'请至少选一个年份'}</b><small>${escape(title(type))} · ${cfg.mode==='exam'?'计时':'练习'}模式${cfg.instant&&cfg.mode==='practice'&&objective?' · 即时反馈':''}</small></div><button class="primary-btn" data-workflow-start ${cfg.years.length&&count?'':'disabled'}>开始 <span>→</span></button></div>`
   }
@@ -865,7 +866,8 @@
       return `<details class="wf-answer-row pq-row r-${r}" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的答案 ${escape(String(v||'').trim()||'—')}</span><span class="wf-right">${escape(shown||'暂无')}</span>${mark?`<span class="wf-mark ${r==='ok'?'ok':r==='bad'?'bad':'self'}">${mark}</span>`:''}</summary>${it.analysis?`<div class="pq-analysis">${analysisHTML(it)}</div>`:''}${qbox(it,run)}</details>`
     }
     if(it.kind==='short')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">Q${it.no}</span><span class="wf-mine">你的作答 ${escape(String(v||'').trim()||'未作答')}</span><span class="wf-mark">简答 · 自查</span></summary><p class="wf-prompt">${lk(it.prompt)}</p><div class="pq-analysis">${myEvid(it,run)}${it.ref?`<div class="pq-an-sec"><h5>参考答案</h5><p>${escape(it.ref)}</p></div>`:''}${analysisHTML(it)}</div>${qbox(it,run)}</details>`
-    if(it.kind==='line')return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span></summary><p class="wf-prompt">${escape(it.row)}</p>${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}${qbox(it,run)}</details>`
+    if(it.kind==='line'){const pp=window.TEM8_PROOFPTS?.rowExtra(it,v)||{chip:'',body:''}
+      return `<details class="wf-answer-row pq-row r-self" id="rp-${it.key}"><summary><span class="wf-qno">${it.no}</span><span class="wf-mine">你的修改 ${escape(String(v?.text||'').trim()||'未作答')}</span><span class="wf-right">${escape(it.fix||'暂无')}</span>${pp.chip}</summary>${pp.hasLine?'':`<p class="wf-prompt">${escape(it.row)}</p>`}${pp.body}${it.analysis?`<p class="wf-analysis">${escape(it.analysis)}</p>`:''}${qbox(it,run)}</details>`}
     return ''
   }
   /* 翻译、写作：参考对照 + 自评 */
@@ -922,11 +924,15 @@
     const sub=(label,list,open)=>list.length?`<details class="rp-sub"${open?' open':''}><summary>${label} · ${list.length} 题</summary><div class="wf-answer-list">${list.map(it=>reportRow(it,run)).join('')}</div></details>`:''
     const detail=secs.map(x=>{
       if(x.long)return selfEval(x.g,run)
+      const PP=x.g.kind==='language'&&window.TEM8_PROOFPTS
+      if(PP)PP.recordItems(x.its,run.answers,run.finishedAt)
       const head=[x.c.bad?`<em class="bad">错 ${x.c.bad}</em>`:'',x.c.ok?`对 ${x.c.ok}`:'',x.c.none?`未答 ${x.c.none}`:'',x.c.self?`自查 ${x.c.self}`:''].filter(Boolean).join(' · ')
       return `<details class="rp-sec" ${x.c.bad||x.c.self?'open':''}><summary><b>${lbl(x)}</b><span>${head}</span></summary>
+        ${PP?PP.sectionHTML(x.g.year,x.its,'sum'):''}
         ${x.by.bad.length?`<div class="wf-answer-list rp-wrong">${x.by.bad.map(it=>reportRow(it,run)).join('')}</div>`:''}
         ${x.c.self?`<div class="rp-selfh">需要自查</div><div class="wf-answer-list">${x.by.self.map(it=>reportRow(it,run)).join('')}</div>`:''}
         ${sub('答对',x.by.ok,false)}${sub('未作答（点开看答案）',[...x.by.none,...x.by.na],false)}
+        ${PP?PP.sectionHTML(x.g.year,x.its,'trans'):''}
       </details>`}).join('')
     $('#workflow-report-content').innerHTML=`<div class="rp">
       <header class="rp-head"><h1>${escape(name)} · 已交卷</h1><p>${escape([...new Set(run.groups.map(g=>g.year))].join('、'))} · ${day(run.finishedAt)} ${clock(run.finishedAt)}</p></header>
