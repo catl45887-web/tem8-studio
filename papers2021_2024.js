@@ -83,7 +83,7 @@ window.TEM8_MID_ARTICLES = [
   "segments": [
    {
     "number": 1,
-    "en": "My father was, I am sure, intended by nature to be a cheerful, kindly man. Until he was thirty- four years old he worked as a farmhand for a man named Thomas Butterworth whose place lay near the town of Bidwell. He had then a horse of his own and on Saturday evenings drove into town to spend a few hours in social intercourse with other farmhands. In town he drank several glasses of beer and stood about in Ben Head's saloon — crowded on Saturday evenings with visiting farmhands. Songs were sung and glasses thumped on the bar. At ten o'clock father drove home along a lonely country road, made his horse comfortable for the night and himself went to bed, quite happy in his position in life. He had at that time no notion of trying to rise in the world."
+    "en": "My father was, I am sure, intended by nature to be a cheerful, kindly man. Until he was thirty-four years old he worked as a farmhand for a man named Thomas Butterworth whose place lay near the town of Bidwell. He had then a horse of his own and on Saturday evenings drove into town to spend a few hours in social intercourse with other farmhands. In town he drank several glasses of beer and stood about in Ben Head's saloon — crowded on Saturday evenings with visiting farmhands. Songs were sung and glasses thumped on the bar. At ten o'clock father drove home along a lonely country road, made his horse comfortable for the night and himself went to bed, quite happy in his position in life. He had at that time no notion of trying to rise in the world."
    },
    {
     "number": 2,
@@ -201,7 +201,7 @@ window.TEM8_MID_ARTICLES = [
    },
    {
     "number": 3,
-    "en": "Breakdown Services, Ltd. was the brainchild of a young man named Gary Marsh. Gary was twenty- eight when I met him, but he'd founded Breakdown when he was eighteen and was considered something of an entrepreneurial prodigy. His mother was an agent and he'd observed the piles of scripts she and her agent pals had to plow through in order to match a given role with the talent they represented. He'd also observed how much they hated the reading part of their jobs and had cleverly devised breakdowns as a way of extracting the material they needed."
+    "en": "Breakdown Services, Ltd. was the brainchild of a young man named Gary Marsh. Gary was twenty-eight when I met him, but he'd founded Breakdown when he was eighteen and was considered something of an entrepreneurial prodigy. His mother was an agent and he'd observed the piles of scripts she and her agent pals had to plow through in order to match a given role with the talent they represented. He'd also observed how much they hated the reading part of their jobs and had cleverly devised breakdowns as a way of extracting the material they needed."
    },
    {
     "number": 4,

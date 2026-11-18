@@ -475,7 +475,7 @@ window.TEM8_ANSWERS_2015_2019 = {
       {
         "number": 8,
         "fix": "删除 some",
-        "analysis": "原文 but前后对比了skills和ability to communicate well的重要性，此处skills“技巧”有别于ability“能力”,是对两类不同事物的比较，而不是some skills与other skills的比较(不是“某些技能”与“其他技能”的比较),故应把 some删掉。考生易误在a- bility前加 the,表特指，但ability可作不可数名词，前面不加定冠词也符合语法规则。"
+        "analysis": "原文 but前后对比了skills和ability to communicate well的重要性，此处skills“技巧”有别于ability“能力”,是对两类不同事物的比较，而不是some skills与other skills的比较(不是“某些技能”与“其他技能”的比较),故应把 some删掉。考生易误在ability前加 the,表特指，但ability可作不可数名词，前面不加定冠词也符合语法规则。"
       },
       {
         "number": 9,

@@ -323,7 +323,7 @@ window.TEM8_PAPER_EXTRAS = {
         ""
       ],
       [
-        "most interviewers judge them on the basis of the skills they communicate with",
+        "most interviewers judge them on the basis of the skills they communicate with.",
         ""
       ],
       [
@@ -499,7 +499,7 @@ window.TEM8_PAPER_EXTRAS = {
         ""
       ],
       [
-        "analysis and description of language structure, s not easy. One reason",
+        "analysis and description of language structure, is not easy. One reason",
         ""
       ],
       [
@@ -567,7 +567,7 @@ window.TEM8_PAPER_EXTRAS = {
         ""
       ],
       [
-        "extensive discussions of their application to diverse facets of language structure",
+        "extensive discussions of their application to diverse facets of language structure.",
         "(10) ________"
       ]
     ],
