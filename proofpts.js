@@ -36,7 +36,7 @@
   // 把答案里的“错词”在行里标出来
   function errWord(fix){
     const f=String(fix).replace(/（.*?）/g,'')
-    let m=/删除\s+(\S+)/.exec(f);if(m)return {w:m[1],how:'del'}
+    let m=/删[除去]\s+(\S+)/.exec(f);if(m)return {w:m[1],how:'del'}
     m=/^(\S+)\s+(前|后)加/.exec(f);if(m)return {w:m[1],how:m[2]==='前'?'before':'after'}
     m=/^(.+?)\s*→/.exec(f);if(m)return {w:m[1].trim(),how:'rep'}
     return null
@@ -52,10 +52,17 @@
   }
   // 自动比对：答案里的目标词出现在作答里
   function wants(fix){
-    const f=String(fix).replace(/（.*?）/g,'')
-    if(/删除|删去/.test(f)){const e=errWord(f);return e?[[e.w.toLowerCase()]]:[]}
-    let tail=/加\s+(.+)$/.exec(f)?.[1]||(f.includes('→')?f.split('→').pop():'')
-    return tail.split('/').map(s=>s.trim().toLowerCase().split(/\s+/).filter(Boolean)).filter(a=>a.length)
+    const raw=String(fix),alts=[]
+    raw.replace(/（或\s*(.+?)）/g,(_,x)=>{alts.push(x);return ''})
+    const base=raw.replace(/（.*?）/g,'').trim(),segs=base.split(/\s+\/\s+/)
+    if(segs.length>1&&segs.every(x=>/→|加|删/.test(x)))alts.push(...segs);else alts.push(base)
+    const out=[]
+    for(const f of alts){
+      if(/删除|删去/.test(f)){const m=/删[除去]\s+(\S+)/.exec(f);if(m)out.push([m[1].toLowerCase()]);continue}
+      const tail=/加\s+(.+)$/.exec(f)?.[1]||(f.includes('→')?f.split('→').pop():'')
+      tail.split('/').map(x=>x.trim().toLowerCase().split(/\s+/).filter(Boolean)).filter(a=>a.length).forEach(a=>out.push(a))
+    }
+    return out
   }
   function autoJudge(fix,text){
     const v=String(text||'').toLowerCase();if(!v.trim())return 'none'
