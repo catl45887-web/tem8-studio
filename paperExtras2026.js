@@ -78,7 +78,7 @@ window.TEM8_PAPER_EXTRAS_2026 = {
       },
       {
         "number": 3,
-        "fix": "删 been",
+        "fix": "删除 been",
         "analysis": "see an increase“出现增长”为固定搭配，主语 methods 是“见证/经历”增长的主体，与动词 see 之间为主动关系，谓语应用主动语态（即 have seen），故删去 been。"
       },
       {
@@ -88,7 +88,7 @@ window.TEM8_PAPER_EXTRAS_2026 = {
       },
       {
         "number": 5,
-        "fix": "∧ advanced → more",
+        "fix": "advanced 前加 more",
         "analysis": "本句末的比较结构 than ever before 提示形容词 advanced“先进的”应用比较级形式，故在 advanced 前加 more。"
       },
       {
@@ -108,7 +108,7 @@ window.TEM8_PAPER_EXTRAS_2026 = {
       },
       {
         "number": 9,
-        "fix": "depend ∧ → on",
+        "fix": "depend 后加 on",
         "analysis": "depend 为不及物动词，其后要带介词 on 才能接宾语，故在 depend 后加 on。"
       },
       {

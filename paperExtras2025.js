@@ -100,13 +100,13 @@ window.TEM8_PAPER_EXTRAS_2025 = {
     "languageAnswers": [
       {
         "number": 1,
-        "fix": "adhered A→ to",
+        "fix": "adhered 后加 to",
         "analysis": "adhere为不及物动词，表示“坚持，遵守，遵循(法规、规章、指示、理念等)”时其后须接介词to, 文中的定语从句that must be strictly adhered修饰a rigid set of forms,故adhere和其逻辑宾语 forms之间要加to。"
       },
       {
         "number": 2,
-        "fix": "or→ nor",
-        "analysis": "neither... nor..为固定搭配，表示“既不…… 也不……“”,故将or改为nor。"
+        "fix": "or → nor",
+        "analysis": "neither... nor..为固定搭配，表示“既不……也不……“”,故将or改为nor。"
       },
       {
         "number": 3,
@@ -116,7 +116,7 @@ window.TEM8_PAPER_EXTRAS_2025 = {
       {
         "number": 4,
         "fix": "taking → having/exerting/exercising",
-        "analysis": "观察本句语义搭配，应理解为目前的全球化时代(The current era of globalization)对当地文化(local culture)“施加了”……影响。而“施加影响” 或“对……产生影响”不能用take,需要用have、 exert、exercise等词。"
+        "analysis": "观察本句语义搭配，应理解为目前的全球化时代(The current era of globalization)对当地文化(local culture)“施加了”……影响。而“施加影响” 或“对……产生影响”不能用take,需要用have、exert、exercise等词。"
       },
       {
         "number": 5,
@@ -140,13 +140,13 @@ window.TEM8_PAPER_EXTRAS_2025 = {
       },
       {
         "number": 9,
-        "fix": "in→ on",
+        "fix": "in → on",
         "analysis": "on the contrary为固定搭配，表示“与此相反”,故将in改为on。"
       },
       {
         "number": 10,
         "fix": "create → creates",
-        "analysis": "该句主语Respect for the diversity of cultures为单数概念，句子时态为一般现在时，故将 create改为第三人称单数形式creates。 PART IV TRANSLATION"
+        "analysis": "该句主语Respect for the diversity of cultures为单数概念，句子时态为一般现在时，故将 create改为第三人称单数形式creates。PART IV TRANSLATION"
       }
     ],
     "translationReference": "Embodying the dynamic and rich sentiments of the people, folk literature stands as a compelling reflection of the core values of a nation. In China, it helps shape the nation's ideological, cultural, and ethical fabric by consistently embracing uprightness, kindness, loyalty, and honesty as fundamental virtues, and also by celebrating collectivism, patriotism, and the courage to take responsibility and fight for what is right.",

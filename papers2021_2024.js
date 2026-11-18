@@ -3040,7 +3040,7 @@ window.TEM8_MID_EXTRAS = {
   "languageAnswers": [
    {
     "number": 1,
-    "fix": "has→ it/that",
+    "fix": "has 前加 it / that",
     "analysis": "【详解】and后的并列分句缺has allowed的主语。根据上文可知，让“我”能够对双语能力有更多了解的是“我”曾在多个国家生活和工作的经历，可以用 it或者that指代，故在has前加上it或者that。"
    },
    {
@@ -3050,12 +3050,12 @@ window.TEM8_MID_EXTRAS = {
    },
    {
     "number": 3,
-    "fix": "And→ But",
+    "fix": "And → But",
     "analysis": "【详解】前一句说的是对双语能力的误解，后一句则澄清该误解，两句之间为转折关系，而非并列或顺承关系，故把连词And改为But。"
    },
    {
     "number": 4,
-    "fix": "the",
+    "fix": "删除 the（the everyday life → everyday life）",
     "analysis": "【详解】everyday life “日常生活”为泛指，其前不需要加冠词，故删去the。"
    },
    {
@@ -3070,23 +3070,23 @@ window.TEM8_MID_EXTRAS = {
    },
    {
     "number": 7,
-    "fix": "true→ being",
+    "fix": "true 前加 being",
     "analysis": "【详解】far from表示“完全不”,后接名词或动名词，故应在形容词true前加上-ing形式的系动词being。注意，true的名词形式truth前面需要加上定冠词 the才表示“真相，事实”,所以不可以单纯把true改为truth。"
    },
    {
     "number": 8,
-    "fix": "misconception A→ that",
+    "fix": "misconception 后加 that",
     "analysis": "【详解】misconception后为其同位语从句，且意义完整，故从句开头需要加上引导词that。"
    },
    {
     "number": 9,
-    "fix": "concerning→ concerns",
+    "fix": "concerning → concerns",
     "analysis": "【详解】as concerms..为固定搭配，表示“关于，涉及……“”,故把concerning改为concerns。"
    },
    {
     "number": 10,
-    "fix": "suspend→ delay",
-    "analysis": "【详解】此处指“双语能力会耽搁幼儿的语言习得”, suspend侧重于表示“中途暂停”,要等满足某种条件才能重新开始某事，显然不适合用于此处与 language acquisition “语言习得”搭配。表示“耽误，耽搁”应该用delay,故把suspend改为delay。 PART IV TRANSLATION"
+    "fix": "suspend → delay",
+    "analysis": "【详解】此处指“双语能力会耽搁幼儿的语言习得”, suspend侧重于表示“中途暂停”,要等满足某种条件才能重新开始某事，显然不适合用于此处与 language acquisition “语言习得”搭配。表示“耽误，耽搁”应该用delay,故把suspend改为delay。PART IV TRANSLATION"
    }
   ],
   "translationReference": "It exerts an omnipresent influence on Chinese people today, providing a historical and practical basis on which to embrace its new elements. While impacting the reality, traditional culture also inevitably transforms itself amid a new environment. Like a river that has been flowing for five thousand years without drying up, Chinese traditional culture is both ancient and modern, constantly imbibing the new while discarding the outdated, thus innovating itself throughout its course.",
@@ -3210,12 +3210,12 @@ window.TEM8_MID_EXTRAS = {
   "languageAnswers": [
    {
     "number": 1,
-    "fix": "contain→ contains",
+    "fix": "contain → contains",
     "analysis": "【详解】该句主语为The collection of data,为第三人称单数。句子时态为一般现在时，谓语动词应用第三人称单数形式contains。"
    },
    {
     "number": 2,
-    "fix": "designing → designe",
+    "fix": "designing → designed",
     "analysis": "【详解】主语Database systems是动作design的承受者，两者之间为被动关系，谓语动词应用被动语态，故把现在分词designing改为过去分词 designed。"
    },
    {
@@ -3230,7 +3230,7 @@ window.TEM8_MID_EXTRAS = {
    },
    {
     "number": 5,
-    "fix": "so→because",
+    "fix": "so → because",
     "analysis": "【详解】计算机科学家为数据管理提出众多概念和技术的原因，是下文提到的“信息对大多组织而言很重要”,即前句为果，后句为因，故把so改为because。"
    },
    {
@@ -3240,23 +3240,23 @@ window.TEM8_MID_EXTRAS = {
    },
    {
     "number": 7,
-    "fix": "common",
+    "fix": "删除 common",
     "analysis": "【详解】common有“共有”之义，与share语义重复，故把common删去。"
    },
    {
     "number": 8,
-    "fix": "because →not",
+    "fix": "because 前加 not",
     "analysis": "【详解】此处为not...but..结构，意为“不是……而是……“”,故在第一个because of前补充not。"
    },
    {
     "number": 9,
-    "fix": "of",
+    "fix": "删除 of",
     "analysis": "【详解】Imagine “想象”为及物动词，其后可直接带宾语，故删除介词of。"
    },
    {
     "number": 10,
-    "fix": "their→ its",
-    "analysis": "【详解】a social-network site为单数概念，其代词应用单数形式，故把their改为its。 PART IV TRANSLATION"
+    "fix": "their → its",
+    "analysis": "【详解】a social-network site为单数概念，其代词应用单数形式，故把their改为its。PART IV TRANSLATION"
    }
   ],
   "translationReference": "At the same time, a cultural sense of mission is indispensable for Chinese science fiction to chart its path towards the future. So the challenge facing science fiction writers in China now is to present the Chinese imagination of technology, the universe, and the future to the world in a well-crafted manner, while integrating it with the best of traditional Chinese culture so as to share its deep reflections on building a global community of shared future.",

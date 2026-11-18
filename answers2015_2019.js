@@ -307,7 +307,7 @@ window.TEM8_ANSWERS_2015_2019 = {
       {
         "number": 7,
         "fix": "it → which",
-        "analysis": "本题所在句包含两个并列分句，由分号隔开。第一个分句指出文化在交流中产生，第二个分句对此说法进行补充说明，指出交流是人类交往的方式，借助 it(means)文化特性得以产生和分享。据此分析， through至句末是means的修饰性成分，是修饰该中心词的非限制性定语从句，应将it 改为which。"
+        "analysis": "本题所在句包含两个并列分句，由分号隔开。第一个分句指出文化在交流中产生，第二个分句对此说法进行补充说明，指出交流是人类交往的方式，借助 it(means)文化特性得以产生和分享。据此分析，through至句末是means的修饰性成分，是修饰该中心词的非限制性定语从句，应将it 改为which。"
       },
       {
         "number": 8,
@@ -440,52 +440,52 @@ window.TEM8_ANSWERS_2015_2019 = {
       {
         "number": 1,
         "fix": "which → that",
-        "analysis": "本句为it is... that..的强调句型。强调句型只 能用that或 who(当指代人时)来引导，不能用 which。"
+        "analysis": "本句为it is... that..的强调句型。强调句型只能用that或 who(当指代人时)来引导，不能用 which。"
       },
       {
         "number": 2,
         "fix": "thus → as",
-        "analysis": "逗号前的分句说“我们必须具有良好的沟通技 能”,逗号后的分句说“这样可以让人在社交圈中幸福 和成功”。分析两者逻辑关系，前一分句应该为结果， 后一分句是原因，故应把表结果的 thus 改成表原因 的连词，如 as、because等。"
+        "analysis": "逗号前的分句说“我们必须具有良好的沟通技能”,逗号后的分句说“这样可以让人在社交圈中幸福和成功”。分析两者逻辑关系，前一分句应该为结果，后一分句是原因，故应把表结果的 thus 改成表原因的连词，如 as、because等。"
       },
       {
         "number": 3,
         "fix": "how → that",
-        "analysis": "定语从句中，当先行词为way时，引导词可用 that、in which或省去引导词，但不能用how来引导。 故可将how删去，或改成 that。"
+        "analysis": "定语从句中，当先行词为way时，引导词可用 that、in which或省去引导词，但不能用how来引导。故可将how删去，或改成 that。"
       },
       {
         "number": 4,
         "fix": "the more 前加 and",
-        "analysis": "本行逗号前的 The only constant in life is change是一个完整的句子，而逗号后为“the+比较级， the+比较级”的句子。逗号前后都是完整的句子，故需 加入连词作连接。前后两句语义顺承，故可加 and。"
+        "analysis": "本行逗号前的 The only constant in life is change是一个完整的句子，而逗号后为“the+比较级，the+比较级”的句子。逗号前后都是完整的句子，故需加入连词作连接。前后两句语义顺承，故可加 and。"
       },
       {
         "number": 5,
         "fix": "specially → especially",
-        "analysis": "原文 specially 后的in the area of com- munication skills 起补充强调的作用，偏重程度上的“格 外”“尤其是”,要表达这个意思应该用especially,也可用 particularly。specially则指“特意地，专门地”,如I came here specially to see you“我是专程来看你的”。"
+        "analysis": "原文 specially 后的in the area of com- munication skills 起补充强调的作用，偏重程度上的“格外”“尤其是”,要表达这个意思应该用especially,也可用 particularly。specially则指“特意地，专门地”,如I came here specially to see you“我是专程来看你的”。"
       },
       {
         "number": 6,
         "fix": "dominated → dominant",
-        "analysis": "原文要表达的意思是“主要的问题”,要用 dominating来修饰question,表示“主要的”,或改为 dominant。而 dominated指“受控制的，受统治的”,语 义不合此处语境。"
+        "analysis": "原文要表达的意思是“主要的问题”,要用 dominating来修饰question,表示“主要的”,或改为 dominant。而 dominated指“受控制的，受统治的”,语义不合此处语境。"
       },
       {
         "number": 7,
         "fix": "make → conduct",
-        "analysis": "原文的sessions指“讲座，课程”与前文的 workshops和seminars同义，而“开讲座、上课”常用 的动词搭配是 conduct或hold,不用make。"
+        "analysis": "原文的sessions指“讲座，课程”与前文的 workshops和seminars同义，而“开讲座、上课”常用的动词搭配是 conduct或hold,不用make。"
       },
       {
         "number": 8,
         "fix": "删除 some",
-        "analysis": "原文 but前后对比了skills和ability to commu- nicate well的重要性，此处skills“技巧”有别于abili- ty“能力”,是对两类不同事物的比较，而不是some skills与other skills的比较(不是“某些技能”与“其 他技能”的比较),故应把 some删掉。考生易误在a- bility前加 the,表特指，但ability可作不可数名词，前 面不加定冠词也符合语法规则。"
+        "analysis": "原文 but前后对比了skills和ability to commu- nicate well的重要性，此处skills“技巧”有别于abili- ty“能力”,是对两类不同事物的比较，而不是some skills与other skills的比较(不是“某些技能”与“其他技能”的比较),故应把 some删掉。考生易误在a- bility前加 the,表特指，但ability可作不可数名词，前面不加定冠词也符合语法规则。"
       },
       {
         "number": 9,
         "fix": "specialized → specialize",
-        "analysis": "“以……为专长”可用短语specialize in sth. 来表达，原文定语从句who...是对 trainers的客观描 述，应用一般现在时，故可将specialized 改成现在时 态 specialize。此外，也可添加 are,构成短语be specialized in sth.,也能表达相同意思。"
+        "analysis": "“以……为专长”可用短语specialize in sth. 来表达，原文定语从句who...是对 trainers的客观描述，应用一般现在时，故可将specialized 改成现在时态 specialize。此外，也可添加 are,构成短语be specialized in sth.,也能表达相同意思。"
       },
       {
         "number": 10,
         "fix": "manner → way",
-        "analysis": "原文中in the manner of being able to...是 修饰problems的后置定语，其中in the manner of sth./sb.指“以……的方式呈现”,故在逻辑上 in the manner of后的内容应为负面内容，才能说得上是 “问题”。本题可将manner 改成近义词way,词组 (get) in the way of sth.指“阻止某事发生”,改正 后意为“阻碍有效传递信息的问题”,符合语义逻辑。 若要保留in the manner of,则可将able 改成否定 义的unable,或在being前加not。"
+        "analysis": "原文中in the manner of being able to...是修饰problems的后置定语，其中in the manner of sth./sb.指“以……的方式呈现”,故在逻辑上 in the manner of后的内容应为负面内容，才能说得上是 “问题”。本题可将manner 改成近义词way,词组 (get) in the way of sth.指“阻止某事发生”,改正后意为“阻碍有效传递信息的问题”,符合语义逻辑。若要保留in the manner of,则可将able 改成否定义的unable,或在being前加not。"
       }
     ],
     "translationReference": "To my understanding, the elders’mixed feelings about the New Year are the result of both the considerable consumption associated with it and the overwhelming pressure exerted by the flight of time. Kids are excited to say“The New Year comes; I've grown up another year!”signifying that they are taking a step forward towards their prime of life. The elders, on the contrary, would sigh for any year that has gone by, which serves as a reminder that they are sliding down to their declining years.",
@@ -603,52 +603,52 @@ window.TEM8_ANSWERS_2015_2019 = {
       {
         "number": 1,
         "fix": "case 前加 the",
-        "analysis": "第一个逗号后的介词短语是对broadcast media“广播媒体”的举例说明。in case of...为固定短 语，表示“以防……”,在此处无法引出与语境相适应 的例证。应在in和 case 之间加上定冠词 the,说明 television and radio 属于broadcast media的范畴， 此处 case 表示“案例”。"
+        "analysis": "第一个逗号后的介词短语是对broadcast media“广播媒体”的举例说明。in case of...为固定短语，表示“以防……”,在此处无法引出与语境相适应的例证。应在in和 case 之间加上定冠词 the,说明 television and radio 属于broadcast media的范畴，此处 case 表示“案例”。"
       },
       {
         "number": 2,
         "fix": "as → like",
-        "analysis": "本题所在行的中心词是print media“平面媒 体”,逗号后的短语newspapers and magazines是 对print media的举例说明。as没有后面直接跟名词 性成分表示举例说明的用法。此处可将as 改为like, like 后面可直接跟名词性成分表示举例说明。此外， 也可在as前加such,such as也可以引出例证。"
+        "analysis": "本题所在行的中心词是print media“平面媒体”,逗号后的短语newspapers and magazines是对print media的举例说明。as没有后面直接跟名词性成分表示举例说明的用法。此处可将as 改为like, like 后面可直接跟名词性成分表示举例说明。此外，也可在as前加such,such as也可以引出例证。"
       },
       {
         "number": 3,
         "fix": "small → smaller",
-        "analysis": "句首的By contrast“相比之下”提示前后两句 存在对比关系，应将small 改为smaller,以体现两种 媒体覆盖面之间的对比：大众媒体覆盖面广，相比之 下，地方媒体覆盖面要小得多。此外，本行末尾的 focusing on regional news..也提示我们，与旨在覆 盖全国市场的mass media相比，关注地区新闻的 local media覆盖面自然是更小的。"
+        "analysis": "句首的By contrast“相比之下”提示前后两句存在对比关系，应将small 改为smaller,以体现两种媒体覆盖面之间的对比：大众媒体覆盖面广，相比之下，地方媒体覆盖面要小得多。此外，本行末尾的 focusing on regional news..也提示我们，与旨在覆盖全国市场的mass media相比，关注地区新闻的 local media覆盖面自然是更小的。"
       },
       {
         "number": 4,
         "fix": "specialty 前加 while",
-        "analysis": "从语法上看，逗号后为包含完整主谓结构的分 句，与前一行的主谓宾结构local media covers...之 间缺乏连接词。从前后句的语义上看，前者提到 local media关注地区新闻(focusing on regional news),本行的specialty media 则以“特定人群”为 受众，两者间存在对比关系。可在specialty media前 加while进行衔接，while 在此处表示“而，然而”。"
+        "analysis": "从语法上看，逗号后为包含完整主谓结构的分句，与前一行的主谓宾结构local media covers...之间缺乏连接词。从前后句的语义上看，前者提到 local media关注地区新闻(focusing on regional news),本行的specialty media 则以“特定人群”为受众，两者间存在对比关系。可在specialty media前加while进行衔接，while 在此处表示“而，然而”。"
       },
       {
         "number": 5,
         "fix": "raise → rise",
-        "analysis": "此题考查固定搭配用法。“崭露头角”的正确表 达 可 以是 rise to prominence 或 come to prominence,两者均为固定搭配。故应将raise 改为 rise或come。"
+        "analysis": "此题考查固定搭配用法。“崭露头角”的正确表达可以是 rise to prominence 或 come to prominence,两者均为固定搭配。故应将raise 改为 rise或come。"
       },
       {
         "number": 6,
         "fix": "it 前加 but",
-        "analysis": "本题所在句包含两组完整的主谓宾结构，其中 前者介绍人们对大众传媒的普遍认识(think of mass media as the news“大众传媒主要涉及新闻”),后者 却指出大众传媒也包含 entertainment“娱乐项目”, 并给出了例证。句间存在转折关系。故应在it前加上 but,以体现前后分句间的转折关系。"
+        "analysis": "本题所在句包含两组完整的主谓宾结构，其中前者介绍人们对大众传媒的普遍认识(think of mass media as the news“大众传媒主要涉及新闻”),后者却指出大众传媒也包含 entertainment“娱乐项目”, 并给出了例证。句间存在转折关系。故应在it前加上 but,以体现前后分句间的转折关系。"
       },
       {
         "number": 7,
         "fix": "删除 the",
-        "analysis": "本题所在句承接前一句补充说明mass media 的特点，指出mass media本质上也可以兼具教育性 质(be educational)。in the nature意为“户外，在自 然界中”,在此处与语境明显不符。应将 the删去，构 成短语 in nature,表示“本质上，实际上”。"
+        "analysis": "本题所在句承接前一句补充说明mass media 的特点，指出mass media本质上也可以兼具教育性质(be educational)。in the nature意为“户外，在自然界中”,在此处与语境明显不符。应将 the删去，构成短语 in nature,表示“本质上，实际上”。"
       },
       {
         "number": 8,
         "fix": "were → are",
-        "analysis": "本行的前半句提到“政治信息也经常通过媒体 传播”,后半句提到“公共服务通告和紧急警报”。逗号 后的as相当于so,表示“也，也是”,用于补充引出与 主句所述内容类似的信息，通常使用部分倒装，将助 动词或be动词提前，表示“公共服务通告和紧急警报 也经常通过媒体传播”。此句介绍经常性存在的情况， 主句使用了一般现在时，as 结构中的were 应改为 are,以保持时态一致。"
+        "analysis": "本行的前半句提到“政治信息也经常通过媒体传播”,后半句提到“公共服务通告和紧急警报”。逗号后的as相当于so,表示“也，也是”,用于补充引出与主句所述内容类似的信息，通常使用部分倒装，将助动词或be动词提前，表示“公共服务通告和紧急警报也经常通过媒体传播”。此句介绍经常性存在的情况，主句使用了一般现在时，as 结构中的were 应改为 are,以保持时态一致。"
       },
       {
         "number": 9,
         "fix": "When → While",
-        "analysis": "本题所在句主句为it is a critical part of.…, it 指代从句中的mass media。从句部分大意是“精英 主义者可能会忍不住嘲笑大众传媒”,主句部分大意 是“大众传媒是人类社会的重要组成部分”。两者间存 在转折关系。When引导从句时没有这样的用法，应将 其改为While。While可用在句子开头引导从句，引出 和主句所陈述内容矛盾的信息，在此处表示“虽然， 尽管”。"
+        "analysis": "本题所在句主句为it is a critical part of.…, it 指代从句中的mass media。从句部分大意是“精英主义者可能会忍不住嘲笑大众传媒”,主句部分大意是“大众传媒是人类社会的重要组成部分”。两者间存在转折关系。When引导从句时没有这样的用法，应将其改为While。While可用在句子开头引导从句，引出和主句所陈述内容矛盾的信息，在此处表示“虽然，尽管”。"
       },
       {
         "number": 10,
         "fix": "understand → understanding",
-        "analysis": "本题所在句的主句部分指出了理解大众传媒 的重要性。the key to中的to为介词，其后接行为 动词时，需使用动名词形式。"
+        "analysis": "本题所在句的主句部分指出了理解大众传媒的重要性。the key to中的to为介词，其后接行为动词时，需使用动名词形式。"
       }
     ],
     "translationReference": "When life is not moving as we wish, literary reading could bring us into a world where everything looks better than they are in the real world. The water described in books could be clearer than it is in real life, and the sky bluer. Perfect and eternal love, which we failed to find in actual life, happens in Butterfly Lovers and Romeo and Juliet. In a word, reading can rescue us from earthly harshness and misfortune.",
@@ -803,52 +803,52 @@ window.TEM8_ANSWERS_2015_2019 = {
       {
         "number": 1,
         "fix": "vast 前加 the",
-        "analysis": "题目所在句的主干One reason is vast litera- ture是主系表结构，vast literature后面跟着的定语 从句 that... more generally 对其起修饰限定的作用， 因此 vast literature前面要补上定冠词 the表特指。 另外，本句也可把 vast literature that now... more generally 这一成分看作是省略了引导词 that的表语 从句，把句子的成分补充完整则为One reason is (that) vast literature that now exists...more gener- ally,由此可看出原句的that是多余的，因为如果保留 that,那么表语从句没有谓语，因此也可以删除that。"
+        "analysis": "题目所在句的主干One reason is vast litera- ture是主系表结构，vast literature后面跟着的定语从句 that... more generally 对其起修饰限定的作用，因此 vast literature前面要补上定冠词 the表特指。另外，本句也可把 vast literature that now... more generally 这一成分看作是省略了引导词 that的表语从句，把句子的成分补充完整则为One reason is (that) vast literature that now exists...more gener- ally,由此可看出原句的that是多余的，因为如果保留 that,那么表语从句没有谓语，因此也可以删除that。"
       },
       {
         "number": 2,
         "fix": "thanks to → owing to",
-        "analysis": "thanks to有“由于”之意，但 thanks to一般表 示积极的原因产生积极的结果，可译为“多亏”。文中 thanks to后面接的是limited accessibility,属于负 面因素，所以 thanks to用在这里语义色彩不合适，应 改为语义色彩更为中性的owing to或due to。"
+        "analysis": "thanks to有“由于”之意，但 thanks to一般表示积极的原因产生积极的结果，可译为“多亏”。文中 thanks to后面接的是limited accessibility,属于负面因素，所以 thanks to用在这里语义色彩不合适，应改为语义色彩更为中性的owing to或due to。"
       },
       {
         "number": 3,
         "fix": "删除 is",
-        "analysis": "题目所在句为复合句，主句主干为Another factor is that..。在表语从句 that CG... technical detail中，主干是CG,though is not implemented.. involves…,可见这里CG有两个谓语，需将其中一个 改为非谓语，可将题目所在句的第二个 is去掉。"
+        "analysis": "题目所在句为复合句，主句主干为Another factor is that..。在表语从句 that CG... technical detail中，主干是CG,though is not implemented.. involves…,可见这里CG有两个谓语，需将其中一个改为非谓语，可将题目所在句的第二个 is去掉。"
       },
       {
         "number": 4,
         "fix": "at → in",
-        "analysis": "此处 Understanding it at depth是想表达“全 面透彻地理解它”,不过depth通常与in而不是at 构成固定搭配(in depth),故将at 改为in。"
+        "analysis": "此处 Understanding it at depth是想表达“全面透彻地理解它”,不过depth通常与in而不是at 构成固定搭配(in depth),故将at 改为in。"
       },
       {
         "number": 5,
         "fix": "required → requires",
-        "analysis": "题目所在句的主干为 Understanding... re- quired... as well as..。此处是对说明学习认知语法不 容易的第二个原因(Another factor is that...)的展开 说明。在整篇文章均采用一般现在时，且与之关系紧 密的前一句用一般现在时的情况下，required用过去 式显得很突兀，且该句“深入、正确地理解它，需要精 准的思维和分析……”也与过去的状态关系不大。故应"
+        "analysis": "题目所在句的主干为 Understanding... re- quired... as well as..。此处是对说明学习认知语法不容易的第二个原因(Another factor is that...)的展开说明。在整篇文章均采用一般现在时，且与之关系紧密的前一句用一般现在时的情况下，required用过去式显得很突兀，且该句“深入、正确地理解它，需要精准的思维和分析……”也与过去的状态关系不大。故应"
       },
       {
         "number": 6,
         "fix": "The → A",
-        "analysis": "文中陈述了认识语法不容易学的原因。其中前 两个原因分别用One reason和another factor引出， 但由于前文并没有一句总述说“一共有三个原因”,故 此处第三个原因用表示泛指的不定冠词a表示更为 合适。定冠词 the表示特指，通常是交际双方都知道 或能预期的人和事物或事件。"
+        "analysis": "文中陈述了认识语法不容易学的原因。其中前两个原因分别用One reason和another factor引出，但由于前文并没有一句总述说“一共有三个原因”,故此处第三个原因用表示泛指的不定冠词a表示更为合适。定冠词 the表示特指，通常是交际双方都知道或能预期的人和事物或事件。"
       },
       {
         "number": 7,
         "fix": "thinking 后加 about",
-        "analysis": "题目所在处论述CG难以学习的最后一个原 因，CG results from non-standard ways of thinking language的字面义是“CG源于思维语言和语言调查 的非标准方式”。thinking language并不是一个特有 的术语，此处应改。think通常会与about 搭配表示 “思考、思索”,thinking about language就是“思考语 言(的方法)”,故此处可在thinking 后补上 about。"
+        "analysis": "题目所在处论述CG难以学习的最后一个原因，CG results from non-standard ways of thinking language的字面义是“CG源于思维语言和语言调查的非标准方式”。thinking language并不是一个特有的术语，此处应改。think通常会与about 搭配表示 “思考、思索”,thinking about language就是“思考语言(的方法)”,故此处可在thinking 后补上 about。"
       },
       {
         "number": 8,
         "fix": "删除 away",
-        "analysis": "depart from是固定搭配，意为“远离……”,且 away本身包含“远离某物”的意思，这里与depart语 义重复，故应该去掉away。"
+        "analysis": "depart from是固定搭配，意为“远离……”,且 away本身包含“远离某物”的意思，这里与depart语义重复，故应该去掉away。"
       },
       {
         "number": 9,
         "fix": "As → While",
-        "analysis": "题目所在句As前面的内容没有语法或语义错 误，因此我们可继续看As后的内容。As所在句首先 说这本书的不足之处：只是介绍基本的概念而已(on- ly introduces the basic notions),接着又说这本书的 主要目的是展示 the framework 的描述性和解释性 的潜力(descriptive and explanatory potential),可 见前后内容存在转折关系，As表达的是因果关系，故 应将As改为While或Although或 Though。"
+        "analysis": "题目所在句As前面的内容没有语法或语义错误，因此我们可继续看As后的内容。As所在句首先说这本书的不足之处：只是介绍基本的概念而已(on- ly introduces the basic notions),接着又说这本书的主要目的是展示 the framework 的描述性和解释性的潜力(descriptive and explanatory potential),可见前后内容存在转折关系，As表达的是因果关系，故应将As改为While或Although或 Though。"
       },
       {
         "number": 10,
         "fix": "their → its",
-        "analysis": "题目所在句中的 their指代上文的 the framework (of CG),该内容为单数形式，因此不能 用 their作指代，应该改用its。"
+        "analysis": "题目所在句中的 their指代上文的 the framework (of CG),该内容为单数形式，因此不能用 their作指代，应该改用its。"
       }
     ],
     "translationReference": "Baiyangdian, once called “the Yangtze River Delta in the North”,actually has a cottage shape of its own, which is quite different from the Delta.In the rainy South, people build sloping roofs to ease water flow. Here in the North, the flat roof of the cottage is often the place where the grains are aired in the sun. In history,whenever the cottages were flooded, villagers had to move things to their roofs. In that regard, their houses are built so closely that some of their roofs almost touch each other.",

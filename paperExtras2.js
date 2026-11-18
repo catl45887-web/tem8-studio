@@ -133,52 +133,52 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 1,
         "fix": "is 后加 also",
-        "analysis": "【解析】 首先 ， 本句无任何语法错误或多余的词 。这时可以结合上文来把握。 上文第一句话指出学者达成了广泛的共识 (c onsensus ) , 本句接着讲另一个共识 (agreement) , 前后的 consensus 及 agreement属同 －范畴 ， 从逻辑上讲需要一个副词 ” 也” ，故应在 there is 后加上 also 一词。"
+        "analysis": "【解析】 首先，本句无任何语法错误或多余的词。这时可以结合上文来把握。上文第一句话指出学者达成了广泛的共识 (consensus ) , 本句接着讲另一个共识 (agreement) , 前后的 consensus 及 agreement属同 －范畴，从逻辑上讲需要一个副词 “也”，故应在 there is 后加上 also 一词。"
       },
       {
         "number": 2,
         "fix": "possessed → attracted / captured / drawn",
-        "analysis": "【解析 】本题考查动词和名词的搭配。 that从句的主干是 questions have possessed attention , 而英语中跟 attention搭配的动词有 attract, capture, . draw 等， possess (占有 ，拥有） 不与 attention搭配。 故应把 possessed 改成 attracted, captured, drawn 等。"
+        "analysis": "【解析】本题考查动词和名词的搭配。that从句的主干是 questions have possessed attention , 而英语中跟 attention搭配的动词有 attract, capture, . draw 等，possess (占有，拥有） 不与 attention搭配。故应把 possessed 改成 attracted, captured, drawn 等。"
       },
       {
         "number": 3,
         "fix": "sense 后加 as",
-        "analysis": "【解析 】本句句意为” 是否可能像学习母语一样去学习一门外语？ ” 这句话里有一个非常明显的比较结构 in the same sense , 但文中缺少一个关系代词 as , 它往往用在 same, such之后引导限制性定语从句 。"
+        "analysis": "【解析】本句句意为“是否可能像学习母语一样去学习一门外语？” 这句话里有一个非常明显的比较结构 in the same sense , 但文中缺少一个关系代词 as , 它往往用在 same, such之后引导限制性定语从句。"
       },
       {
         "number": 4,
         "fix": "fact 后加 that",
-        "analysis": "【解析 】本旬意思是 “ 如何解释成人学习第二语言比儿童困难这个事实？ ” 文中 fact后面是一个同位语从句 ， 引导同位语从句的 that不能省略。"
+        "analysis": "【解析】本句意思是 “如何解释成人学习第二语言比儿童困难这个事实？” 文中 fact后面是一个同位语从句，引导同位语从句的 that不能省略。"
       },
       {
         "number": 5,
         "fix": "删除 the（the language → language）",
-        "analysis": "［解析 】本句意为 “ 在学习第二语言的过程中语言教学的作用是什么？ “ 其中的 the role ·of和 the acquisition of 中的 the 都是表示特指 ， 而 language teaching是泛指， 没必要用定冠词 the。"
+        "analysis": "【解析】本句意为 “在学习第二语言的过程中语言教学的作用是什么？” 其中的 the role ·of和 the acquisition of 中的 the 都是表示特指，而 language teaching是泛指，没必要用定冠词 the。"
       },
       {
         "number": 6,
         "fix": "check → review",
-        "analysis": "【解析 】本旬要表达的意思是 “ 通过审查该领域的文献，可以清楚看出…… ” 。原文 check一词表示 ” 检查 ” 时指“ 检查以确认某事物是否正确 、安全 、令人满意 ” (to do something in order to fmd out whether something really is corr ect, true, or in good condition) , 但此处强调的应该是对文献 “ 详加考虑 、 研究并得出结论 ” ，而非要检验文献的正确性 ， 故最妥 PART IV TRANSLATION 当的词应用 examination。但由于 check前是 a, 故改用 review, 该词可表示 a careful examination of a situation or process , 符合文意。"
+        "analysis": "【解析】本句要表达的意思是 “通过审查该领域的文献，可以清楚看出……”。原文 check一词表示 “检查” 时指“检查以确认某事物是否正确、安全、令人满意” (to do something in order to fmd out whether something really is correct, true, or in good condition) , 但此处强调的应该是对文献 “详加考虑、研究并得出结论”，而非要检验文献的正确性，故最妥 PART IV TRANSLATION 当的词应用 examination。但由于 check前是 a, 故改用 review, 该词可表示 a careful examination of a situation or process , 符合文意。"
       },
       {
         "number": 7,
         "fix": "attempts → attempting",
-        "analysis": "【解析 】本旬的主干是 The perspective is that of, 相当于 the perspective is a perspective of…， 介词 of 后需要动名词作宾语 ， an individual则充当动名词的逻辑主语，因此 attempts应改为 attempting。"
+        "analysis": "【解析】本句的主干是 The perspective is that of, 相当于 the perspective is a perspective of…，介词 of 后需要动名词作宾语，an individual则充当动名词的逻辑主语，因此 attempts应改为 attempting。"
       },
       {
         "number": 8,
         "fix": "or → and",
-        "analysis": "【解析 】本旬想表达的是 ：不论是 “ 学习 ” 还是 “ 习得 “ 第二语言 ，强调的都是个人取得的成果 ，关注的都是个人的认知 、心理等。 后面两个分旬之间是并列关系而非选择关系 ，因此应把 or 改为 and。"
+        "analysis": "【解析】本句想表达的是：不论是 “学习” 还是 “习得” 第二语言，强调的都是个人取得的成果，关注的都是个人的认知、心理等。后面两个分句之间是并列关系而非选择关系，因此应把 or 改为 and。"
       },
       {
         "number": 9,
         "fix": "involving → involved",
-        "analysis": "【解析 】本旬是说“ 焦点在于涉及到什么样的思维能力\"' “ 涉及到 ＂ 往往用 involve的被动语态 ， something/ somebody is/gets involved in something, 因此要把 involving改成过去分词 involved。"
+        "analysis": "【解析】本句是说“焦点在于涉及到什么样的思维能力\"' “涉及到” 往往用 involve的被动语态，something/ somebody is/gets involved in something, 因此要把 involving改成过去分词 involved。"
       },
       {
         "number": 10,
         "fix": "touch → interaction / contact",
-        "analysis": "【解析 】最后一个分旬说 “ 目标语是在教室习得还是通过与目标语母语者的交往而获得 ” 。表示社会接触或交往一般用 interaction或 contact。 touch一词指 “ 接触 ” 时， 指“ 身体上的接触或触碰 \"' 而非文中所要表达的抽象意义上的交往接触。 本文节选自老舍的散文《 我的母亲》。 本文的语言朴实直白， 生活气息浓郁。 因此 ， 翻译时不仅要注意忠实于文字意义， 而且要忠实地再现原文的语言风格 ，要避免用过于晦涩的词汇和复杂的旬子结构 ，应该用平实的语旬表达出原文的精神面貌。同时，本文旬式简短 、零散 ， 翻译时可整合旬意 ， 多利用合译和增加适当的逻辑关联词 ，以避免译文过于松散 。"
+        "analysis": "【解析】最后一个分句说 “目标语是在教室习得还是通过与目标语母语者的交往而获得”。表示社会接触或交往一般用 interaction或 contact。touch一词指 “接触” 时，指“身体上的接触或触碰 \"' 而非文中所要表达的抽象意义上的交往接触。本文节选自老舍的散文《 我的母亲》。本文的语言朴实直白，生活气息浓郁。因此，翻译时不仅要注意忠实于文字意义，而且要忠实地再现原文的语言风格，要避免用过于晦涩的词汇和复杂的句子结构，应该用平实的语句表达出原文的精神面貌。同时，本文句式简短、零散，翻译时可整合句意，多利用合译和增加适当的逻辑关联词，以避免译文过于松散。"
       }
     ],
     "translationReference": "However, I would also like to further my study, so I secretly took the exam and was admitted to a normal school where, all expenses including uniforms, meals, books and accommodation were provided by the school. It was only under this condition that I dared to break the news to my mother. Yet I had to hand in 10 Yuan as deposit for enrollment, which was a huge sum of money to us then. For about two weeks, Mother suffered much and fmally managed to raise the money, and then she sent me off to school with tears in her eyes. So far as I, the son, could win a bright future, Mother would spare no pains. On the day when I was appointed as the headmaster of a primary school after graduation, Mother and I did  not sleep a wink all night. All I could say? was, \"๘other, you can rest a ' bit now! \" And her reply we๙๚ beads of tears. I Æ-",
@@ -292,52 +292,52 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 1,
         "fix": "production → producing",
-        "analysis": "【解析 ］本题考查平行结构的掌握 。 understanding和 remembering都带有共同的逻辑宾语 language, 与其并列的 production是名词 ， 不能后接宾语 language , 故把 production改成动名词形式的 producing。"
+        "analysis": "【解析】本题考查平行结构的掌握。understanding和 remembering都带有共同的逻辑宾语 language, 与其并列的 production是名词，不能后接宾语 language , 故把 production改成动名词形式的 producing。"
       },
       {
         "number": 2,
         "fix": "删除 the（the language → language）",
-        "analysis": "【解析 】language这个词用来泛指 “ 语言 ” 时， 前面不需要冠词 ；而特指某一门或几门语言时 ，可以有冠词修饰， 且有单复数形式， 例如 Dr. Smith, as young as twenty, has mastered a few languages。 如果考生足够细心 ，就会发现在第 1段出现 language时， 前面就是没有冠词的， 用来泛指“ 语言 ” 这个抽象概念。"
+        "analysis": "【解析】language这个词用来泛指 “语言” 时，前面不需要冠词；而特指某一门或几门语言时，可以有冠词修饰，且有单复数形式，例如 Dr. Smith, as young as twenty, has mastered a few languages。如果考生足够细心，就会发现在第 1段出现 language时，前面就是没有冠词的，用来泛指“语言” 这个抽象概念。"
       },
       {
         "number": 3,
         "fix": "most of 后加 the",
-        "analysis": "【解析 】本题考查固定搭配 most of the time。 \"most of+名词词组 ” 结构中， 后面的名词词组即是特指的 ， 试比较 most of the people 与 most people。"
+        "analysis": "【解析】本题考查固定搭配 most of the time。\"most of+名词词组” 结构中，后面的名词词组即是特指的，试比较 most of the people 与 most people。"
       },
       {
         "number": 4,
         "fix": "looking → look",
-        "analysis": "（解析 】本题也是考查平行结构。 在 when 引导的时间状语从旬中， listento 和 look at 是由 or 连接的并列结构 ， 故两者的形式应该是一致的。 这行出现了动词分词 speaking, 许多考生可能会误认为 speaking和 looking是并列的 ；而实际上 ， 通过语义可以判断出 ， look at 应和 listento 并列 ，故将 looking改成 look。"
+        "analysis": "（解析】本题也是考查平行结构。在 when 引导的时间状语从句中，listento 和 look at 是由 or 连接的并列结构，故两者的形式应该是一致的。这行出现了动词分词 speaking, 许多考生可能会误认为 speaking和 looking是并列的；而实际上，通过语义可以判断出，look at 应和 listento 并列，故将 looking改成 look。"
       },
       {
         "number": 5,
         "fix": "circumstances 后加 that",
-        "analysis": "【解析】本题考查强调旬型 。原文强调 ， 只有在特殊情况下， 人们才会意识到语言的复杂性 ，而在一般情况下 ，因为使用语言是不费劲的事 ， 而人们认为语言是理所当然的事 。 本旬强调的是状语 only in exceptional circumstances, 因此要在 circumstances后面加上 that。"
+        "analysis": "【解析】本题考查强调句型。原文强调，只有在特殊情况下，人们才会意识到语言的复杂性，而在一般情况下，因为使用语言是不费劲的事，而人们认为语言是理所当然的事。本句强调的是状语 only in exceptional circumstances, 因此要在 circumstances后面加上 that。"
       },
       {
         "number": 6,
         "fix": "influenced → affected",
-        "analysis": "专八 2013 · -2 2 【解析 】本题考查表示 “ 影响 ” 的两个词 influence 和 affect 的区别。 虽然两者字面意思是 “ 影响 \",influence 的英语定义是 \"to cause a change\" , 即“ 左右 ， 影响 ，感化，产生作用\" '侧重 ” 导致发生变化\" a affect 除有 influence的 “ 影响 ” 含义外 ， 还表示 “ 受疾病侵袭 \"。 句中表示 ” 中风 ” 对语言能力的影响 ，故用社fect。"
+        "analysis": "专八 2013 · -2 2 【解析】本题考查表示 “影响” 的两个词 influence 和 affect 的区别。虽然两者字面意思是 “影响 \",influence 的英语定义是 \"to cause a change\" , 即” 左右，影响，感化，产生作用\" '侧重 “导致发生变化\" a affect 除有 influence的” 影响 “含义外，还表示” 受疾病侵袭 \"。句中表示 “中风” 对语言能力的影响，故用社fect。"
       },
       {
         "number": 7,
         "fix": "acquire → acquiring",
-        "analysis": "【解析】 observe的用法与 see 一样， 可以接动词原形也可以接动词的 ing 形式作宾语补足语， 前者强调 “ 观察 ” 到的结果 ，后者强调 “ 观察 ” 到的过程 ；根据上下文 ，旬中表示 “ 观察孩子习得语言的过程 ” ，因此应用分词 acquiring作 a child 的补语。"
+        "analysis": "【解析】 observe的用法与 see 一样，可以接动词原形也可以接动词的 ing 形式作宾语补足语，前者强调 “观察” 到的结果，后者强调 “观察” 到的过程；根据上下文，句中表示 “观察孩子习得语言的过程”，因此应用分词 acquiring作 a child 的补语。"
       },
       {
         "number": 8,
         "fix": "anyone → someone",
-        "analysis": "（解析］因为该旬是肯定句 ，要表达 “ 某人 “ 应用 someone, 而不是 anyone。"
+        "analysis": "（解析］因为该句是肯定句，要表达 “某人” 应用 someone, 而不是 anyone。"
       },
       {
         "number": 9,
         "fix": "evolved → involved",
-        "analysis": "（解析 】 本行考点是容易混淆的词 evolve 和 involve, 两者在拼写上相近 ，但前者是 ” 演变 ” 的意思 ；后者是 ” 与 … …相关的 ” 。 注意本句与上文的It is only… become aware of the complexity involved 为前后呼应 ， 据此也提示 ， 这里应用 involve, 表示 ” 涉及 “ 。"
+        "analysis": "（解析】 本行考点是容易混淆的词 evolve 和 involve, 两者在拼写上相近，但前者是 “演变” 的意思；后者是 “与……相关的”。注意本句与上文的It is only… become aware of the complexity involved 为前后呼应，据此也提示，这里应用 involve, 表示 “涉及”。"
       },
       {
         "number": 10,
         "fix": "were → are",
-        "analysis": "【解析 】本题考查时态。 全文论及科学客观现象用的都是现在时态 ， 因此无论是从主句和从句的时态一致方面看 ， 还是从句子本身的意义上看 ，都应该将从句的时态改成一般现在时。 令 ｀ PART IV TRANSLATION 本文选自散文《 热爱生活 》。 文章把人生比拟成红酒 ，把生活的哲理和品酒之道进行了类比，措词清新淡雅 ，句式简练整齐 、节奏舒缓 ，用隽永的语言将深刻的人生哲学表达得恰到好处 ，发人深思 。语篇中多处出现了比喻 ，英译时也要特别注意 。"
+        "analysis": "【解析】本题考查时态。全文论及科学客观现象用的都是现在时态，因此无论是从主句和从句的时态一致方面看，还是从句子本身的意义上看，都应该将从句的时态改成一般现在时。令 ｀ PART IV TRANSLATION 本文选自散文《 热爱生活 》。文章把人生比拟成红酒，把生活的哲理和品酒之道进行了类比，措词清新淡雅，句式简练整齐、节奏舒缓，用隽永的语言将深刻的人生哲学表达得恰到好处，发人深思。语篇中多处出现了比喻，英译时也要特别注意。"
       }
     ],
     "translationReference": "Life is like a glass of w血，never ceasing to offer wonders to those who truly love it. Holding the glass in the hand, you w川observe that the dark red is reminiscent of blood, which justly symbols the trace of life. Taking a sip and recollecting its aftertaste in the mouth, you w出taste the sweetness mixed with a bit of bitterness, a taste as complicated and elusive as life is. Once you swallow the sip, the linger ing aroma w讥refresh the heart and mind, leaving the drinker life-long benefits. How remarkably wine re-  sembles life: the longer the wine ages, the mellower it may taste; the more you experience, the more life may reward you. Life, at its twilight, becomes a good wine waiting to be savored, calm and profound in its color yet full of generosity and wisdom in its flavor.",
@@ -444,52 +444,52 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 1,
         "fix": "going 后加 on",
-        "analysis": "【解析】由首句中的 always可知 ， 这种争论应该至少从公元前一世纪以来就一直 ” 持续着 ＂ ，而此旬谓语动词 go 作不及物动词时 ，意为 “ 去\"'没有“ 继续 ” 的意思； 而动词词组 go on 才有 “ 继续 ” 的意思 ， 因此此处应加上副词 on。"
+        "analysis": "【解析】由首句中的 always可知，这种争论应该至少从公元前一世纪以来就一直” 持续着”，而此句谓语动词 go 作不及物动词时，意为 “去\"'没有“继续” 的意思；而动词词组 go on 才有 “继续” 的意思，因此此处应加上副词 on。"
       },
       {
         "number": 2,
         "fix": "certain → some / certain 前加 a / kind → kinds",
-        "analysis": "【解析 】此处限定词 certain后面跟可数名词单数(kind) ' 应以 a certain表达 ，只有后面跟可数名词复数时，才能直接用 certain, 故可改为 a certain kind或 certain kinds。而 some 在做限定词时有” 某一 ” 的意思 ， 后面可直接跟可数名词单数 ， kind是可数名词单数形式， 所以此处也可以把 certain改为 some。"
+        "analysis": "【解析】此处限定词 certain后面跟可数名词单数(kind) ' 应以 a certain表达，只有后面跟可数名词复数时，才能直接用 certain, 故可改为 a certain kind或 certain kinds。而 some 在做限定词时有“某一” 的意思，后面可直接跟可数名词单数，kind是可数名词单数形式，所以此处也可以把 certain改为 some。"
       },
       {
         "number": 3,
         "fix": "rather 后加 than / rather → not",
-        "analysis": "【解析 】考点所在旬子中含有四个并列短语， 其他三个都以 not来连接两个名词短语，表示” 是… …而非… … ＂ ， 依此推断 the message (信息 ）和 the form(形式 ）之间也应用否定词来连接 。原文已提供的 rather 本身没有这个含义 ，但词组 rather than的意思是 ” 是…… ， 而非… …\"' 所以此处既可以在 rather 后面加 than, 也可以把 rather 改为 not。"
+        "analysis": "【解析】考点所在句子中含有四个并列短语，其他三个都以 not来连接两个名词短语，表示” 是……而非……”，依此推断 the message (信息）和 the form(形式）之间也应用否定词来连接。原文已提供的 rather 本身没有这个含义，但词组 rather than的意思是” 是……，而非……\"' 所以此处既可以在 rather 后面加 than, 也可以把 rather 改为 not。"
       },
       {
         "number": 4,
         "fix": "is → was",
-        "analysis": "【解析 ］考点所在句子中的定语从句用的是一般过去时， 而主句谓语动词用的是一般现在时 ， 不符合一个旬子中时态应保持一致的语法规则 。再者， 从上下文来看 ， 这个旬子讲述的是 19 世纪之前作家们的清况 ， 上下旬中使用的都是过去时 ，所以此处应把谓语动词 is改为它的一般过去时形式 was。"
+        "analysis": "【解析】考点所在句子中的定语从句用的是一般过去时，而主句谓语动词用的是一般现在时，不符合一个句子中时态应保持一致的语法规则。再者，从上下文来看，这个句子讲述的是 19 世纪之前作家们的清况，上下句中使用的都是过去时，所以此处应把谓语动词 is改为它的一般过去时形式 was。"
       },
       {
         "number": 5,
         "fix": "in → at",
-        "analysis": "【解析 ］此处考的是习语 “ 在… …世纪之交 ” ，应为 at the turn of… o 此外 ，从语法上看 ，介词 at 应后接一确定的时间点 ，而 in应后接某段时间 。名词 turn 在此的意思是 ” 时间上的转折点 ，交替时期 ” ，所以应把 in改为 at。"
+        "analysis": "【解析】此处考的是习语 “在……世纪之交”，应为 at the turn of… o 此外，从语法上看，介词 at 应后接一确定的时间点，而 in应后接某段时间。名词 turn 在此的意思是 “时间上的转折点，交替时期”，所以应把 in改为 at。"
       },
       {
         "number": 6,
         "fix": "删除 the（the language → language）",
-        "analysis": "【解析］按句意 “ 语言完全是文化的产物 ” ，此处语言显然是泛指所有语言 ，为不可数名词 ， 而不是特指某一特定语言 ，因此 the language中需去掉定冠词 the。"
+        "analysis": "【解析】按句意 “语言完全是文化的产物”，此处语言显然是泛指所有语言，为不可数名词，而不是特指某一特定语言，因此 the language中需去掉定冠词 the。"
       },
       {
         "number": 7,
         "fix": "view 后加 that",
-        "analysis": "PART IV TRANSLATION 【解析 】此处 the view translation was rmpossible gained some currency 里出现两个谓语动词 ，不符语法规则 。 按照旬意 “ 做好翻译是不可能的这种观点有些市场 ” 来看 ， translation was impossible应为对 the view内容的说明 ，是它的同位语从句 。而同位语从旬的引导词 that不能省略，所以应在 view后加 that。"
+        "analysis": "PART IV TRANSLATION 【解析】此处 the view translation was rmpossible gained some currency 里出现两个谓语动词，不符语法规则。按照句意 “做好翻译是不可能的这种观点有些市场” 来看，translation was impossible应为对 the view内容的说明，是它的同位语从句。而同位语从句的引导词 that不能省略，所以应在 view后加 that。"
       },
       {
         "number": 8,
         "fix": "删除 was（if was attempted → if attempted）",
-        "analysis": "【解析 】此处 ifwas attempted at all 中 if引导的条件状语从旬中没有主语 ，显然不符语法规则 。此外，根据上下文， 此分旬的主语应与主旬的主语 it一致，即 translation, 意为 “ 如果要尝试翻译的话 ， 就必须尽可能直译“ 。又因为如果状语从旬中的主语与主旬主语一致， 且从旬的谓语动词是 be 动词时 ，主语和 be 动词应同时省略，故此处应把 was 去掉。"
+        "analysis": "【解析】此处 ifwas attempted at all 中 if引导的条件状语从句中没有主语，显然不符语法规则。此外，根据上下文，此分句的主语应与主句的主语 it一致，即 translation, 意为 “如果要尝试翻译的话，就必须尽可能直译”。又因为如果状语从句中的主语与主句主语一致，且从句的谓语动词是 be 动词时，主语和 be 动词应同时省略，故此处应把 was 去掉。"
       },
       {
         "number": 9,
         "fix": "culminated 后加 in",
-        "analysis": "【解析 ）此处考查 culminate一词的用法。 它是不及物动词 ， 后面总是带有介词 in, 意思是 “ 以· … . . 达到高峰／顶点 ；终于 “ 。此旬意思是 “ 这种观点最充分地体现在两位极端 ＇ 直译家 ＇ 的话中 ” 。另举一例 ： Their years of work culminated in the discovery of a cure. (他们经过多年工作 ，终于发现了治疗的方法。 ）"
+        "analysis": "【解析）此处考查 culminate一词的用法。它是不及物动词，后面总是带有介词 in, 意思是 “以· … . . 达到高峰／顶点；终于”。此句意思是 “这种观点最充分地体现在两位极端 ＇ 直译家 ＇ 的话中”。另举一例：Their years of work culminated in the discovery of a cure. (他们经过多年工作，终于发现了治疗的方法。）"
       },
       {
         "number": 10,
         "fix": "and → but",
-        "analysis": "【解析 】从此旬上下文中的语义来判断，分旬间的逻辑关系应为转折关系 。上半旬说到 “ 现在语境已发生了改变 ” ，后半旬则说 “ 基本问题仍保持不变 ” ，前后分句的 changed和 remains形成了对比，故应把表顺接的连词 and改为表转折的连词 but。 本文选自台湾著名女作家蔡素芬的长篇小说《烛光盛宴》。 小说以独特的书写方式 、完美的架构 、如诗般的语言和文字， 真实再现乱世中女性的强韧与强大的求生意志 ，被誉为华人文坛的又一部 “ 女性史诗 ” 。选段的内容为人物情感活动描写 ， 文学色彩浓厚 ，用词文雅 ， 翻译难度较大。 选段为文学性叙事 ，总体应用一般过去时。"
+        "analysis": "【解析】从此句上下文中的语义来判断，分句间的逻辑关系应为转折关系。上半句说到 “现在语境已发生了改变”，后半句则说 “基本问题仍保持不变”，前后分句的 changed和 remains形成了对比，故应把表顺接的连词 and改为表转折的连词 but。本文选自台湾著名女作家蔡素芬的长篇小说《烛光盛宴》。小说以独特的书写方式、完美的架构、如诗般的语言和文字，真实再现乱世中女性的强韧与强大的求生意志，被誉为华人文坛的又一部 “女性史诗”。选段的内容为人物情感活动描写，文学色彩浓厚，用词文雅，翻译难度较大。选段为文学性叙事，总体应用一般过去时。"
       }
     ],
     "translationReference": "She was simmering with agony, her brow burning, her breast swelling with pervading gloom, her stom ach getting gas toward her throat. She felt even more lost when the director said that the child had suf-  fered from slow growth. She paced up and down in the room where her child had lived along with other children. The room had only one window, out of which the tree shadows were dancing. Leave the child here, -she thought to herself. There are kindhearted priests and nuns here. The place will be developed into a nursery center with medical care._ This is the best place for the child. The child was her secret, and she would b叩the secret . in the building shaded by trees.",
@@ -596,52 +596,52 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 1,
         "fix": "grew 后加 up",
-        "analysis": "【解析 ）动词 grow 意为 ” 成长 ，长大” ，强调从小到大的成长过程 ；而动词短语 grow up 则表示 “ 长大成人\"' 强调从儿童到成人的成长结果 。根据上下文的意思 ，此处应为 grow up。"
+        "analysis": "【解析）动词 grow 意为” 成长，长大”，强调从小到大的成长过程；而动词短语 grow up 则表示 “长大成人\"' 强调从儿童到成人的成长结果。根据上下文的意思，此处应为 grow up。"
       },
       {
         "number": 2,
         "fix": "conscience → consciousness",
-        "analysis": "【解析 ）conscience 意为 “ 良心 ， 良知 \"'而 consciousness 意为 ” 意识 ，知觉 ” 。句中的 that 引导同位语从句具体说明前面的名词的内容 ，而该内容为 “ 我 ” 的一种想法（或意识），因而此处应为 consciousness。"
+        "analysis": "【解析）conscience 意为 “良心，良知 \"'而 consciousness 意为” 意识，知觉”。句中的 that 引导同位语从句具体说明前面的名词的内容，而该内容为 “我” 的一种想法（或意识），因而此处应为 consciousness。"
       },
       {
         "number": 3,
         "fix": "soon → sooner",
-        "analysis": "【解析 ）sooner or later 是一个固定的表达形式 ，意思是” 迟早 ，总有一天 ” 。"
+        "analysis": "【解析）sooner or later 是一个固定的表达形式，意思是“迟早，总有一天”。"
       },
       {
         "number": 4,
         "fix": "删除 the（the either side → either side）",
-        "analysis": "（解析 】either 在此处为限定词 ，表示 “ 任一的 ” ，限定名词s ide 时无须加定冠词 the。"
+        "analysis": "（解析】either 在此处为限定词，表示 “任一的”，限定名词side 时无须加定冠词 the。"
       },
       {
         "number": 5,
         "fix": "disagreeing → disagreeable",
-        "analysis": "（解析 ）欲表达言行举止粗鲁无礼时应用 disagreeable。 disagreeing意思是 “ 有分歧 ，不赞成\"' 不能作为前置定语修饰名词 mannerism(言行举止 ）。"
+        "analysis": "（解析）欲表达言行举止粗鲁无礼时应用 disagreeable。disagreeing意思是 “有分歧，不赞成\"' 不能作为前置定语修饰名词 mannerism(言行举止）。"
       },
       {
         "number": 6,
         "fix": "imaginative → imaginary",
-        "analysis": "【解析 】此处为形容词误用 。 imaginative指“ （人）想象 ＊ 改错原文选自 George Orwell 所著的随笔 Why I Write。 PART IV TRANSLATION 力丰富的\" '而此处所表达的意思是 “ 我和其他孤独的孩子一样，习惯编造故事 ，与想象中的人物对话 ＂ ，故应改用 imaginary。"
+        "analysis": "【解析】此处为形容词误用。imaginative指“（人）想象 ＊ 改错原文选自 George Orwell 所著的随笔 Why I Write。PART IV TRANSLATION 力丰富的\" '而此处所表达的意思是 “我和其他孤独的孩子一样，习惯编造故事，与想象中的人物对话”，故应改用 imaginary。"
       },
       {
         "number": 7,
         "fix": "literal → literary",
-        "analysis": "【解析】 literal 意思是 “ 本义的 ，原义的\" '而 literary 的意思是 “ 文学的 ” 。上下文中所表达的意思是 “ 我在文学上的志向和抱负 ” ，应为 literacy (ambition)。"
+        "analysis": "【解析】 literal 意思是 “本义的，原义的\" '而 literary 的意思是 “文学的”。上下文中所表达的意思是 “我在文学上的志向和抱负”，应为 literacy (ambition)。"
       },
       {
         "number": 8,
         "fix": "删除 in（facing in → facing）",
-        "analysis": "【解析 ]facing 是动词 face的-ing 分词形式 ，表示 “ 面对，正视 ” 时是及物动词 ，后接宾语 ，无须加介词 in。"
+        "analysis": "【解析】facing 是动词 face的-ing 分词形式，表示 “面对，正视” 时是及物动词，后接宾语，无须加介词 in。"
       },
       {
         "number": 9,
         "fix": "world 后加 in / which → where",
-        "analysis": "【解析 】关系代词 which所修饰的先行词 world 在定语从句中作地点状语，而 which 非关系副词， 因此须在 which前加介词 in 组成介词短语来表示地点 ，或将 which改成关系副词 where 。"
+        "analysis": "【解析】关系代词 which所修饰的先行词 world 在定语从句中作地点状语，而 which 非关系副词，因此须在 which前加介词 in 组成介词短语来表示地点，或将 which改成关系副词 where。"
       },
       {
         "number": 10,
         "fix": "Therefore → Nevertheless / However",
-        "analysis": "【解析 ］从上下文中的语义来判断， 旬间的逻辑关系应为转折关系。 前面一句说到 “ 我具有文学方面的天赋和面对现实的能力 ……＂，本句则说 “ 我早年正式的文学创作加起来也不过寥寥数页 ＂ ，前面的天赋与本句的作品少形成对比， 故应把表因果的连词 Therefore 改为 Nevertheless(也可用 However )。 本文选自王小波的杂文《正面是休闲 ，背面是匆忙一现代人的生活节奏》， 文章沿袭了王小波的一贯风格 ，直白、 生动 、重逻辑和哲理性。 要求翻译的画线部分其实只有三旬 ，前两句论述 “ 匆忙 ” 与 “ 休闲 ” 的生活方式和人们生活方式的选择 ，最后一句举出实例。 全篇都可以采用现在时 ，最后一句采用过去时也可以。"
+        "analysis": "【解析】从上下文中的语义来判断，句间的逻辑关系应为转折关系。前面一句说到 “我具有文学方面的天赋和面对现实的能力……”，本句则说 “我早年正式的文学创作加起来也不过寥寥数页”，前面的天赋与本句的作品少形成对比，故应把表因果的连词 Therefore 改为 Nevertheless(也可用 However )。本文选自王小波的杂文《正面是休闲，背面是匆忙一现代人的生活节奏》，文章沿袭了王小波的一贯风格，直白、生动、重逻辑和哲理性。要求翻译的画线部分其实只有三句，前两句论述 “匆忙” 与 “休闲” 的生活方式和人们生活方式的选择，最后一句举出实例。全篇都可以采用现在时，最后一句采用过去时也可以。"
       }
     ],
     "translationReference": "Haste and leisure are two completely different lifestyles. But in reality, people shuttle between the two styles too frequently to tell whether they are at leisure or in haste sometimes. ·For instance, we are e司oy ing our holidays at a famous scenic spot, . when our boss's phone call arrives, saying that we have had some troubles with our customers or work The convenient and advanced tool of modern times at this mo ment has revealed its ferocious and gloomy edge, depriving us of all the interest and leaving the leisure in name to the tourists, who have been laden with burning anxiety.",
@@ -774,52 +774,52 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 1,
         "fix": "well 前加 as",
-        "analysis": "【解析 】本句的意思是 “ 每种语言都可以让操使者说出他们想要表达的内容 ” ，即任何一种语言都与其他语言一样具备这种功能， 故应采用 be as well equipped as 的形式 。 本题考查同级比较结构 as… as… o"
+        "analysis": "【解析】本句的意思是 “每种语言都可以让操使者说出他们想要表达的内容”，即任何一种语言都与其他语言一样具备这种功能，故应采用 be as well equipped as 的形式。本题考查同级比较结构 as… as… o"
       },
       {
         "number": 2,
         "fix": "their → its",
-        "analysis": "专八 201 0 ....: 22 （解析】此处的 speakers 是指上文中 every language的使用者 ，物主代词应使用单数 ，故而将 their 改成 its。"
+        "analysis": "专八 201 0 ....: 22 （解析】此处的 speakers 是指上文中 every language的使用者，物主代词应使用单数，故而将 their 改成 its。"
       },
       {
         "number": 3,
         "fix": "There → It",
-        "analysis": "【解析 】本旬真正的主语是 to talk about prirnitive peoples or cultures (谈论原始人类或原始文化），而 there 不能用作形式主语 ，应改成 it。 另， 看到句首的 There 以及谓语动词 be可以先把本句当作 there be 句型考察； 然而 be后面是形容词 appropriate 而不是名词结构 ， 故应考虑是旬型上的错误。"
+        "analysis": "【解析】本句真正的主语是 to talk about prirnitive peoples or cultures (谈论原始人类或原始文化），而 there 不能用作形式主语，应改成 it。另，看到句首的 There 以及谓语动词 be可以先把本句当作 there be 句型考察；然而 be后面是形容词 appropriate 而不是名词结构，故应考虑是句型上的错误。"
       },
       {
         "number": 4,
         "fix": "Whereas → But",
-        "analysis": "［解析 ]whereas 与b ut 都可表示转折， 但是 whereas 一般出现在句中 ， 即不单独成句 ，它表示后一分句对前一分句的转折 。所以此处应将 Whereas 改为But。注意， 虽然 however 也可用来表示转折 ，但它多用作插入语 ，后面往往接逗号 ， 故此处不宜改成 However。"
+        "analysis": "【解析】whereas 与but 都可表示转折，但是 whereas 一般出现在句中，即不单独成句，它表示后一分句对前一分句的转折。所以此处应将 Whereas 改为But。注意，虽然 however 也可用来表示转折，但它多用作插入语，后面往往接逗号，故此处不宜改成 However。"
       },
       {
         "number": 5,
         "fix": "further → much / far",
-        "analysis": "［解析］ 本旬是指爱斯基摩语对于雪的描述比英语更精确 、更细致 ，此处的 further本身也是比较级 ，不能用来修饰比较级 ，应改作 much或far用来加强比较的程度 ，或删除 further。"
+        "analysis": "【解析】 本句是指爱斯基摩语对于雪的描述比英语更精确、更细致，此处的 further本身也是比较级，不能用来修饰比较级，应改作 much或far用来加强比较的程度，或删除 further。"
       },
       {
         "number": 6,
         "fix": "come → bring",
-        "analysis": "［解析 ]come to light即be brought to light \"为人所知 \"' 其主语为 “ 为人所知的对象 ” ，后面不另外带宾 PART IV TRANSLATION 语。 而本句意为 “ 这些事例并没有揭示出英语语言的缺陷 ＂ ， 故应将 come 改成 bring, bring. .. to light意为“ 揭露 ，将… …曝光 ” 。"
+        "analysis": "【解析】come to light即be brought to light \"为人所知 \"' 其主语为 “为人所知的对象”，后面不另外带宾 PART IV TRANSLATION 语。而本句意为 “这些事例并没有揭示出英语语言的缺陷”，故应将 come 改成 bring, bring. .. to light意为“揭露，将……曝光”。"
       },
       {
         "number": 7,
         "fix": "similar → different",
-        "analysis": "【解析 】爱斯基摩人和英国人的生活环境明显不同，且 environments也是复数形式，故应将sinillar改成 different。"
+        "analysis": "【解析】爱斯基摩人和英国人的生活环境明显不同，且 environments也是复数形式，故应将sinillar改成 different。"
       },
       {
         "number": 8,
         "fix": "will → would",
-        "analysis": "［解析 】 本句是说如果英语惯常的使用环境也把区分雪的种类变得很重要的话， 英语中有关 “ 雪 ” 的词语也会变得同样丰富。 这是一个非现实条件句 ，应将 will 改为 would。"
+        "analysis": "【解析】 本句是说如果英语惯常的使用环境也把区分雪的种类变得很重要的话，英语中有关 “雪” 的词语也会变得同样丰富。这是一个非现实条件句，应将 will 改为 would。"
       },
       {
         "number": 9,
         "fix": "删除 as（as important → important）",
-        "analysis": "［解析 】本句采用 \"make+宾语 ＋宾语补足语 ” 的形式 ， 其中宾语补足语 important不存在比较含义，用原级即可， 故删 as。"
+        "analysis": "【解析】本句采用 \"make+宾语 ＋宾语补足语” 的形式，其中宾语补足语 important不存在比较含义，用原级即可，故删 as。"
       },
       {
         "number": 10,
         "fix": "删除 the（the part → part）",
-        "analysis": "【解析 ］本句的意思是说如果汽车制造与板球运动成为爱斯基摩人生活的一部分 ，那么爱斯基摩语在讨论这些语题时也会有可能变得一样精确 、细微。 part of才是指某物的一部分 ， 强调的是部分 ； the part虽指某个部分 ，但强涸的是那个部分作为的整体 ， 因此需要删除 the。"
+        "analysis": "【解析】本句的意思是说如果汽车制造与板球运动成为爱斯基摩人生活的一部分，那么爱斯基摩语在讨论这些语题时也会有可能变得一样精确、细微。part of才是指某物的一部分，强调的是部分；the part虽指某个部分，但强涸的是那个部分作为的整体，因此需要删除 the。"
       }
     ],
     "translationReference": "Friends flock together for the similar interests and temperaments, while they break up for the differences. Even friends on very familiar or intimate terms should not be held in great casualness or disrespect. Otherwise, friendship may end up with the breakdown of the tacit agreement and the interpersonal equilibrium. Everyone .wishes to keep his privacy, which is a forbidden zone that may be easily intruded . into by the extreme casualness between friends, thus triggering off conflicts and estrangement. Trivial as it may be to treat your friends disrespectfully, it could have implanted the destructive seeds. To maintain intimacy with your friends, it is advisable to keep moderation in contact and noninterference in each other's privacy.",
@@ -923,52 +923,52 @@ window.TEM8_PAPER_EXTRAS2 = {
       {
         "number": 1,
         "fix": "the further → a further",
-        "analysis": "【解析】句中意思是说两种 lore 之间的 ” 另一种更进一步的差异 ” ，这种差异就是下文提到的二者在传播方式上的差异。 前文没有提到过这种差异 ，此处是第一次提及 ，故要用不定冠词 a而不用定冠词 the 。此题易错之处是 ，把 illustrates改为 illustrated , 变成现在完成时。 实际上 ，i llustrate 用一般现在时没问题 。"
+        "analysis": "【解析】句中意思是说两种 lore 之间的 “另一种更进一步的差异”，这种差异就是下文提到的二者在传播方式上的差异。前文没有提到过这种差异，此处是第一次提及，故要用不定冠词 a而不用定冠词 the。此题易错之处是，把 illustrates改为 illustrated , 变成现在完成时。实际上，illustrate 用一般现在时没问题。"
       },
       {
         "number": 2,
         "fix": "when → until",
-        "analysis": "【解析 】这句话是说 ，n ursery lore 学会后一般要等到自己有了小孩或孙儿时才会传给别人听 ，句中应用 not… until结构表示 “ 直到 ……才 … … ” 之意 。"
+        "analysis": "【解析】这句话是说，nursery lore 学会后一般要等到自己有了小孩或孙儿时才会传给别人听，句中应用 not… until结构表示 “直到……才……” 之意。"
       },
       {
         "number": 3,
         "fix": "their → his",
-        "analysis": "［解析 ］本题所在的分句主语是 the little listener, 谓语动词也用了单数形式 ，故行中 their own 在指代的单复数上有问题。 要把 their 改作 his(现代英语中也可改作 her) 。"
+        "analysis": "【解析】本题所在的分句主语是 the little listener, 谓语动词也用了单数形式，故行中 their own 在指代的单复数上有问题。要把 their 改作 his(现代英语中也可改作 her)。"
       },
       {
         "number": 4,
         "fix": "something → anything",
-        "analysis": "【解析 】此处表示 ” 在限定范围内的任何一点上 ＂ ，故用 anything。a nything是副词 ，后面可以接 from... to…这样的范围。 something表示 “ 大约 ，非常 ” ，用在句中不合适 。 另一种改法是把 something改作 somewhere, 表示 “ 在限定范围内的某一点上 ” ，更侧重 ” 大约 、大概” 之义。 例如 ： It happened somewhere between 3 and 4 o'clock. 仔细分析本旬含义 ，应该表示 ” 时间间隔可以是从 20 年到 70 年之间的任何某个时间段\" , 用a nything比 somewhere好 。"
+        "analysis": "【解析】此处表示” 在限定范围内的任何一点上”，故用 anything。anything是副词，后面可以接 from... to…这样的范围。something表示 “大约，非常”，用在句中不合适。另一种改法是把 something改作 somewhere, 表示 “在限定范围内的某一点上”，更侧重” 大约、大概” 之义。例如：It happened somewhere between 3 and 4 o'clock. 仔细分析本句含义，应该表示” 时间间隔可以是从 20 年到 70 年之间的任何某个时间段\" , 用anything比 somewhere好。"
       },
       {
         "number": 5,
         "fix": "therefore → however",
-        "analysis": "【解析 ］此旬与前旬在意义上应是转折关系 ，前句说，nurs- PART IV TRANSLATION ery rhyme是先学后传 ， 学会与传播之间的时间差距少则 20年 ， 多则 70年 ； 本旬说 school lore 或 playground rhyme , 孩子们一边学一边传。 二者形成对照。 故用转折意义的 however 替换 therefore。"
+        "analysis": "【解析】此句与前句在意义上应是转折关系，前句说，nursery rhyme是先学后传，学会与传播之间的时间差距少则 20年，多则 70年；本句说 school lore 或 playground rhyme , 孩子们一边学一边传。二者形成对照。故用转折意义的 however 替换 therefore。"
       },
       {
         "number": 6,
         "fix": "the general → general",
-        "analysis": "【解析 】表达 “ 通常、 一般而言 “ 应为 in general , 中间不用定冠词 the。"
+        "analysis": "【解析】表达 “通常、一般而言” 应为 in general , 中间不用定冠词 the。"
       },
       {
         "number": 7,
         "fix": "currently → current",
-        "analysis": "［解析 】此句意为 “ 若某个游戏童谣一直流行上百年\"' 表示 “ 流行 “ 应用形容词 current。 此处用形容词 current 作t o have been 的表语 。"
+        "analysis": "【解析】此句意为 “若某个游戏童谣一直流行上百年\"' 表示 “流行 “应用形容词 current。此处用形容词 current 作t o have been 的表语。"
       },
       {
         "number": 8,
         "fix": "over 后加 again",
-        "analysis": "【解析］ 注意旬中的分号 ，表明它前后是两个独立的分旬。 首先引起怀疑的是 passed along ... 它是否该用被动语态? along是否多余？ 注意本文前两行有 pass from ... to…的结构 ，可以看出 pass 可以用作不及物动词，句中 pass along的用法没有问题。 然后再寻找其他可能的“ 错误 “ 实际上 ，本行中没有错误 ！最后只好在 and over 后加 again; 而o ver and over = over and over again, 只不过后者稍微有强调的含义 。"
+        "analysis": "【解析】 注意句中的分号，表明它前后是两个独立的分句。首先引起怀疑的是 passed along ... 它是否该用被动语态? along是否多余？注意本文前两行有 pass from ... to…的结构，可以看出 pass 可以用作不及物动词，句中 pass along的用法没有问题。然后再寻找其他可能的“错误” 实际上，本行中没有错误！最后只好在 and over 后加 again; 而over and over = over and over again, 只不过后者稍微有强调的含义。"
       },
       {
         "number": 9,
         "fix": "live → alive",
-        "analysis": "【解析 】remain 为系动词 ，要表达 “ 保持鲜活、 生动\"' 其后应接形容词性的 alive。 live 也可用作形容词 ，意思是 “ 现场直播的 ” ，用在此处不符合上下文语境 。"
+        "analysis": "【解析】remain 为系动词，要表达 “保持鲜活、生动\"' 其后应接形容词性的 alive。live 也可用作形容词，意思是 “现场直播的”，用在此处不符合上下文语境。"
       },
       {
         "number": 10,
         "fix": "to let alone → let alone",
-        "analysis": "【解析】 let alone 为固定用法 ，表示 ” 更别提…… ＂ ，前面不用 to。"
+        "analysis": "【解析】 let alone 为固定用法，表示 “更别提……”，前面不用 to。"
       }
     ],
     "translationReference": "Mobile phones have renewed the interpersonal relationships. There is usually a notice on the door of the meeting room, which reads,\"Please turn off your mobile phones during the meeting! \" Still, the meet ing room invariably echoes with the mobile rings. Although we are all ordinary people with few matters of great urgency, we will not turn off our mobile phones unless absolutely necessary. Turning on the mobile phones is a symbol of our contact with the world. Mobile phones reflect our hunger for social communica tion, as can always be seen in a phone user who comes to a sudden halt on his way, staring at the screen of his mobile phone for texting regardless of whether he is in the middle of a road or by a public toilet.",
